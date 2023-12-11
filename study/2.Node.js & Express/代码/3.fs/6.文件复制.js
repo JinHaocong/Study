@@ -1,4 +1,5 @@
 const fs = require('fs');
+const process = require('process');
 
 // sign 方式一 readFile
 fs.readFile('./test.ppt',(err, data) => {
@@ -8,6 +9,7 @@ fs.readFile('./test.ppt',(err, data) => {
             console.log(err);
             return;
         }
+        console.log(process.memoryUsage()) // rss
         console.log('写入成功')
     })
 })
@@ -20,5 +22,9 @@ rs.on('data', chunk => {
 })
 
 rs.on('end', () => {
+    console.log(process.memoryUsage())
     console.log('写入成功')
 })
+
+// 快捷方式
+rs.pipe(ws)
