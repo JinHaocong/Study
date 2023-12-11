@@ -1,16 +1,16 @@
 const fs = require('fs');
 const path = require('path');
 
-// 写入文件
+// sign 写入文件
 // fs.writeFileSync(__dirname + '/index.html','love')
 // console.log(__dirname + '/index.html')
 
 
 
 
-// resolve
-// const newPath = path.resolve(__dirname, 'index.html')
-// console.log(newPath)
+// sign resolve
+const newPath = path.resolve(__dirname, 'index.html')
+console.log(newPath)
 
 //获取路径分隔符
 console.log(path.sep);
