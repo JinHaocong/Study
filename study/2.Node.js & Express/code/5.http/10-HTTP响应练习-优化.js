@@ -1,11 +1,13 @@
 // 导入 http 模块
 const http = require('http')
 const fs = require('fs')
+const path = require('path')
 
 // 创建服务对象
 const server = http.createServer((request, response) => {
+  const fullPath = path.join(__dirname, '10-table.html')
   // 读取文件内容
-  const html = fs.readFileSync(__dirname + '/10-table.html')
+  const html = fs.readFileSync(fullPath)
 
   response.end(html) // 设置响应体
 })
