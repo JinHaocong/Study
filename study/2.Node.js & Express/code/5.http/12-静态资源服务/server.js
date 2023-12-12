@@ -61,8 +61,10 @@ function processFileContent(filePath, response, data) {
 const server = http.createServer((request, response) => {
   if (!validateRequest(request, response)) return
 
-  const { pathname } = new URL(request.url, 'http://127.0.0.1')
-  console.log(__dirname)
+  let { pathname } = new URL(request.url, 'http://127.0.0.1')
+  if (pathname === '/') {
+    pathname = '/index.html'
+  }
   const root = path.resolve(__dirname, 'page')
   const filePath = path.join(root, pathname)
 
