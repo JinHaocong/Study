@@ -49,9 +49,9 @@ function processFileContent(filePath, response, data) {
   const ext = path.extname(filePath).slice(1)
   const type = mimeTypes[ext]
   if (type) {
-    if (ext === 'html') response.setHeader('content-type', `${type};charset=utf-8`)
-    else response.setHeader('content-type', type)
+    response.setHeader('content-type', `${type};charset=utf-8`)
   } else {
+    // 下载效果
     response.setHeader('content-type', 'application/octet-stream')
   }
   response.end(data)
