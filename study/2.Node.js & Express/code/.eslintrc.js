@@ -12,7 +12,7 @@ module.exports = {
   extends: ['eslint:recommended'],
 
   // add your custom rules here
-  // it is base on https://github.com/vuejs/eslint-config-vue
+  // it is base on
   rules: {
     'accessor-pairs': 2,
     'arrow-spacing': [2, {
