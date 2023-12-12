@@ -5,7 +5,7 @@ const path = require('path')
 
 // 创建服务对象
 const server = http.createServer((request, response) => {
-  const fullPath = path.join(__dirname, '10-table.html')
+  const fullPath = path.resolve(__dirname, '10-table.html')
   // 读取文件内容
   const html = fs.readFileSync(fullPath)
 
