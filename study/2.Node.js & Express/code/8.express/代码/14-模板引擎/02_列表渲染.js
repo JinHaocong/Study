@@ -1,11 +1,11 @@
-const ejs = require('ejs');
-//西游记
-const xiyou = ['唐僧','孙悟空','猪八戒','沙僧'];
+const ejs = require('ejs')
+// 西游记
+const xiYou = ['唐僧', '孙悟空', '猪八戒', '沙僧']
 
-//原生 JS
+// 原生 JS
 // let str = '<ul>';
 
-// xiyou.forEach(item => {
+// xiYou.forEach(item => {
 //   str += `<li>${item}</li>`;
 // })
 
@@ -15,8 +15,8 @@ const xiyou = ['唐僧','孙悟空','猪八戒','沙僧'];
 // console.log(str);
 
 // EJS 实现
-const fs = require('fs');
-let html = fs.readFileSync('./02_西游.html').toString();
-let result = ejs.render(html, {xiyou:xiyou});
+const fs = require('fs')
+const html = fs.readFileSync('./02_西游.ejs').toString()
+const result = ejs.render(html, { xiYou })
 
-console.log(result);
+console.log(result)

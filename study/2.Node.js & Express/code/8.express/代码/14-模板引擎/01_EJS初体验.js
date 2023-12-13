@@ -1,17 +1,20 @@
-//1. 安装 EJS
-//2. 导入 EJS
-const ejs = require('ejs');
-const fs = require('fs');
+// 1. 安装 EJS
+// 2. 导入 EJS
+const ejs = require('ejs')
+const fs = require('fs')
 
-//字符串
-let china = '中国';
-// let str = `我爱你 ${china}`;
-let weather = '今天天气不错~';
+// 字符串
+const china = '中国'
 
-//声明变量
-let str = fs.readFileSync('./01_html.html').toString();
+const weather = '今天天气不错~'
 
-//使用 ejs 渲染
-let result = ejs.render(str, {china: china, weather});
+// 声明变量
+const str = fs.readFileSync('./01_html.html').toString()
 
-console.log(result);
+// 使用 ejs 渲染
+const result = ejs.render(str, {
+  china: china,
+  weather
+})
+
+console.log(result)

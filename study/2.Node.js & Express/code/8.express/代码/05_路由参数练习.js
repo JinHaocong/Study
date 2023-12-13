@@ -1,45 +1,56 @@
-//导入 express
-const express = require('express');
-//导入 json 文件
-const {singers} = require('./singers.json');
-//创建应用对象
-const app = express();
+const express = require('express')
+const { singers } = require('./singers.json')
 
-//创建路由
-app.get('/singer/:id.html', (req, res) => {
-  //获取路由参数
-  let {id} = req.params;
-  //在数组中寻找对应 id 的数据
-  let result = singers.find(item => {
-    if(item.id === Number(id)){
-      return true;
-    }
-  });
+const app = express()
 
-  //判断
-  if(!result){
-    res.statusCode = 404;
-    res.end(`<h1>404 Not Found</h1>`)
-    return;
+// 路由处理函数
+const getSingerById = (req, res, next) => {
+  const { id } = req.params
+  const result = singers.find(item => item.id === Number(id))
+
+  if (!result) {
+    const err = new Error('Not Found')
+    err.status = 404
+    next(err)
+    return
   }
 
-  res.end(`
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-  </head>
-  <body>
-    <h2>${result.singer_name}</h2>
-    <img src='${result.singer_pic}' />
-  </body>
-  </html>`);
-});
+  res.locals.singer = result
+  next()
+}
 
-//监听端口, 启动服务
-app.listen(3000, () => {
-  console.log('服务已经启动, 端口 3000 正在监听中....')
+// 错误处理中间件
+const errorHandler = (err, req, res, next) => {
+  res.status(err.status || 500)
+  res.end(`<h1>${err.message}</h1>`)
+}
+
+// 路由
+app.get('/singer/:id.html', getSingerById, (req, res) => {
+  const { singer } = res.locals
+
+  res.end(`
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${singer.singer_name}</title>
+      </head>
+      <body>
+        <h2>${singer.singer_name}</h2>
+        <img src='${singer.singer_pic}' />
+      </body>
+    </html>
+  `)
+})
+
+// 注册错误处理中间件
+app.use(errorHandler)
+
+// 启动服务
+const PORT = 3000
+app.listen(PORT, () => {
+  console.log(`服务已经启动，端口 ${PORT} 正在监听中....`, 'http://localhost:3000')
 })

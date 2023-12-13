@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Document</title>
+    <title>西游四人组</title>
 </head>
 <body>
-<h2>我爱你 <%= china %></h2>
-<p><%= weather %></p>
+<h2>西游四人组</h2>
+<ul>
+    <% xiYou.forEach(item => { %>
+        <li><%= item %></li>
+    <% }) %>
+</ul>
 </body>
 </html>
