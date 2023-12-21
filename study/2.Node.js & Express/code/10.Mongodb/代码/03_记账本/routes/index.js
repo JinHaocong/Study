@@ -4,22 +4,28 @@ const router = express.Router();
 // 导入 lowdb
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
+const moment = require('moment');
+const AccountModel = require('../models/AccountModel');
+// 导入moment
 
 const adapter = new FileSync(`${__dirname}/../data/db.json`);
 // 获取 db 对象
 const db = low(adapter);
-// 导入 shortid
-const shortid = require('shortid');
 
 router.get('/', (req, res) => {
   res.redirect('/account');
 });
 
 // 记账本的列表
-router.get('/account', (req, res, next) => {
-  // 获取所有的账单信息
-  const accounts = db.get('accounts').value();
-  res.render('list', { accounts });
+router.get('/account', async (req, res, next) => {
+  try {
+    // 获取所有的账单信息
+    const accounts = await AccountModel.find({}).sort({ time: -1 }).exec(undefined);
+    res.render('list', { accounts, moment });
+  } catch (e) {
+    console.log(e, '查找失败');
+    res.status(500).send('查找失败');
+  }
 });
 
 // 添加记录
@@ -28,13 +34,15 @@ router.get('/account/create', (req, res, next) => {
 });
 
 // 新增记录
-router.post('/account', (req, res) => {
-  // 生成 id
-  const id = shortid.generate();
-  // 写入文件
-  db.get('accounts').unshift({ id, ...req.body }).write();
-  // 成功提醒
-  res.render('success', { msg: '添加成功哦~~~', url: '/account' });
+router.post('/account', async (req, res) => {
+  try {
+    await AccountModel.create({ ...req.body, time: moment(req.body.time).toDate() });
+    // 成功提醒
+    res.render('success', { msg: '添加成功哦~~~', url: '/account' });
+  } catch (e) {
+    console.log(e, '添加失败');
+    res.status(500).send('添加失败');
+  }
 });
 
 // 删除记录
