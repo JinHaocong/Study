@@ -1,28 +1,41 @@
-// 导入 db 文件
 const mongoose = require('mongoose');
 const db = require('./db/db');
-// 导入 mongoose
-// 导入 BookModel
 const BookModel = require('./models/BookModel');
+const MovieModel = require('./models/MovieModel');
 
-// 调用函数
-db(() => {
-  // 7. 新增
-  BookModel.create({
-    name: '西游记',
-    author: '吴承恩',
-    price: 19.9,
-  }, (err, data) => {
-    // 判断是否有错误
-    if (err) {
-      console.log(err);
-      return;
-    }
-    // 如果没有出错, 则输出插入后的文档对象
-    console.log(data);
-    // 8. 关闭数据库连接 (项目运行过程中, 不会添加该代码)
-    mongoose.disconnect();
-  });
-}, () => {
-  console.log('连接失败...');
-});
+const successFun = () => {
+  console.log('连接成功!');
+};
+
+const errorFun = (err) => {
+  console.log('连接失败!', err);
+};
+
+// 异步函数用于连接数据库和进行新增操作
+const insertBook = async () => {
+  try {
+    // 连接数据库
+    await db(successFun, errorFun);
+
+    // 新增文档
+    const [newBook, newMovie] = await Promise.all([BookModel.create({
+      name: '西游记',
+      author: '吴承恩',
+      price: 19.9,
+    }), MovieModel.create({ title: '让子弹飞', director: '姜文' })]);
+    console.log(newBook);
+    console.log(newMovie);
+  } catch (error) {
+    // 处理错误
+    console.error('操作失败:', error);
+  } finally {
+    // 关闭数据库连接 (项目运行过程中, 不会添加该代码)
+    await mongoose.disconnect();
+    console.log('关闭成功!');
+  }
+};
+
+// 调用异步函数
+(async () => {
+  await insertBook();
+})();

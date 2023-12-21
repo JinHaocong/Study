@@ -1,40 +1,28 @@
+// 导入 配置文件
+const mongoose = require('mongoose');
+const {
+  dbHost, dbPort, dbName, userName, password,
+} = require('../config/config');
+
 /**
- *
- * @param {*} success 数据库连接成功的回调
- * @param {*} error 数据库连接失败的回调
+ * 连接数据库
+ * @param {Function} success 数据库连接成功的回调
+ * @param {Function} error 数据库连接失败的回调
  */
-module.exports = function (success, error) {
-  // 判断 error 为其设置默认值
-  if (typeof error !== 'function') {
-    error = () => {
-      console.log('连接失败~~~');
-    };
-  }
-  // 1. 安装 mongoose
-  // 2. 导入 mongoose
-  const mongoose = require('mongoose');
-  // 导入 配置文件
-  const { DBHOST, DBPORT, DBNAME } = require('../config/config.js');
+module.exports = async (success, error) => {
+  try {
+    mongoose.set('strictQuery', true);
 
-  // 设置 strictQuery 为 true
-  mongoose.set('strictQuery', true);
-
-  // 3. 连接 mongodb 服务                        数据库的名称
-  mongoose.connect(`mongodb://${DBHOST}:${DBPORT}/${DBNAME}`);
-
-  // 4. 设置回调
-  // 设置连接成功的回调  once 一次   事件回调函数只执行一次
-  mongoose.connection.once('open', () => {
+    // 1. 连接 MongoDB 服务
+    await mongoose.connect(`mongodb://${userName}:${password}@${dbHost}:${dbPort}/${dbName}`);
     success();
-  });
 
-  // 设置连接错误的回调
-  mongoose.connection.on('error', () => {
-    error();
-  });
-
-  // 设置连接关闭的回调
-  mongoose.connection.on('close', () => {
-    console.log('连接关闭');
-  });
+    // 2. 设置连接关闭的回调
+    mongoose.connection.on('close', () => {
+      console.log('连接关闭中...');
+    });
+  } catch (err) {
+    // 连接失败时调用错误回调
+    error(err);
+  }
 };

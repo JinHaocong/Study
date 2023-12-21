@@ -11,5 +11,6 @@ module.exports = {
   },
   rules: {
     'no-console': 'off',
+    'node/no-extraneous-require': ['error', { allowModules: ['mongoose'] }],
   },
 };
