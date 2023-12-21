@@ -25,7 +25,7 @@ const bookSchema = new mongoose.Schema({
   is_hot: Boolean,
   tags: [String],
   pub_time: Date,
-  test: mongoose.Schema.Types.Mixed,
+  test: mongoose.Schema.Types.Mixed, // 任意类型
 });
 
 // 创建 Book Model

@@ -2,11 +2,16 @@
 // 2. 导入 mongoose
 const mongoose = require('mongoose');
 
+const username = 'admin';
+const password = '123456';
+const dbUrl = '127.0.0.1:27017';
+const dbName = 'bookSystem';
+
 // 设置 strictQuery 为 true
 mongoose.set('strictQuery', true);
 
 // 3. 连接 mongodb 服务                        数据库的名称
-mongoose.connect('mongodb://127.0.0.1:27017/bilibili');
+mongoose.connect(`mongodb://${username}:${password}@${dbUrl}/${dbName}`);
 
 // 4. 设置回调
 // 设置连接成功的回调  once 一次   事件回调函数只执行一次
