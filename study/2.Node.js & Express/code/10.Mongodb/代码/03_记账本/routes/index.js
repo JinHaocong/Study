@@ -1,16 +1,9 @@
 const express = require('express');
 
 const router = express.Router();
-// 导入 lowdb
-const low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
+// 导入moment
 const moment = require('moment');
 const AccountModel = require('../models/AccountModel');
-// 导入moment
-
-const adapter = new FileSync(`${__dirname}/../data/db.json`);
-// 获取 db 对象
-const db = low(adapter);
 
 router.get('/', (req, res) => {
   res.redirect('/account');
@@ -46,13 +39,18 @@ router.post('/account', async (req, res) => {
 });
 
 // 删除记录
-router.get('/account/:id', (req, res) => {
-  // 获取 params 的 id 参数
-  const { id } = req.params;
-  // 删除
-  db.get('accounts').remove({ id }).write();
-  // 提醒
-  res.render('success', { msg: '删除成功~~~', url: '/account' });
+router.get('/account/:id', async (req, res) => {
+  try {
+    // 获取 params 的 id 参数
+    const { id } = req.params;
+    // 删除
+    await AccountModel.deleteOne({ _id: id });
+    // 提醒
+    res.render('success', { msg: '删除成功~~~', url: '/account' });
+  } catch (e) {
+    console.log(e, '删除失败');
+    res.status(500).send('删除失败');
+  }
 });
 
 module.exports = router;
