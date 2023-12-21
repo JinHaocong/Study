@@ -4,10 +4,10 @@
  * false  输出『<button>登录</button>  <button>注册</button>』
  */
 // 导入 ejs
-const ejs = require('ejs')
-const fs = require('fs')
+const ejs = require('ejs');
+const fs = require('fs');
 // 变量
-const isLogin = true
+const isLogin = true;
 
 // 原生 JS
 // if(isLogin){
@@ -18,8 +18,7 @@ const isLogin = true
 
 // EJS 实现
 // 读取 HTML 内容
-const html = fs.readFileSync('./03_home.html').toString()
-const result = ejs.render(html, { isLogin: isLogin })
+const html = fs.readFileSync('./03_home.html').toString();
+const result = ejs.render(html, { isLogin });
 
-console.log(result)
-
+console.log(result);

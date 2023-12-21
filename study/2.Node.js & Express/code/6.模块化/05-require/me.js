@@ -1,10 +1,9 @@
 const test = {
-  name: '尚硅谷'
-}
+  name: '尚硅谷',
+};
 
-module.exports = test
+module.exports = test;
 
 // 输出
 // console.log(arguments.callee.toString());
-console.log(test)
-
+console.log(test);

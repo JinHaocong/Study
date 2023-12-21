@@ -1,33 +1,33 @@
-const express = require('express')
-const { singers } = require('./singers.json')
+const express = require('express');
+const { singers } = require('./singers.json');
 
-const app = express()
+const app = express();
 
 // 路由处理函数
 const getSingerById = (req, res, next) => {
-  const { id } = req.params
-  const result = singers.find(item => item.id === Number(id))
+  const { id } = req.params;
+  const result = singers.find((item) => item.id === Number(id));
 
   if (!result) {
-    const err = new Error('Not Found')
-    err.status = 404
-    next(err)
-    return
+    const err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+    return;
   }
 
-  res.locals.singer = result
-  next()
-}
+  res.locals.singer = result;
+  next();
+};
 
 // 错误处理中间件
 const errorHandler = (err, req, res, next) => {
-  res.status(err.status || 500)
-  res.end(`<h1>${err.message}</h1>`)
-}
+  res.status(err.status || 500);
+  res.end(`<h1>${err.message}</h1>`);
+};
 
 // 路由
 app.get('/singer/:id.html', getSingerById, (req, res) => {
-  const { singer } = res.locals
+  const { singer } = res.locals;
 
   res.end(`
     <!DOCTYPE html>
@@ -43,14 +43,14 @@ app.get('/singer/:id.html', getSingerById, (req, res) => {
         <img src='${singer.singer_pic}' />
       </body>
     </html>
-  `)
-})
+  `);
+});
 
 // 注册错误处理中间件
-app.use(errorHandler)
+app.use(errorHandler);
 
 // 启动服务
-const PORT = 3000
+const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`服务已经启动，端口 ${PORT} 正在监听中....`, 'http://localhost:3000')
-})
+  console.log(`服务已经启动，端口 ${PORT} 正在监听中....`, 'http://localhost:3000');
+});

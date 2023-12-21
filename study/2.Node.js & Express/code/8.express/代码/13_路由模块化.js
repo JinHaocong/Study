@@ -3,26 +3,26 @@
  */
 
 // 导入 express
-const express = require('express')
-const homeRouter = require('./routes/homeRouter')
-const adminRouter = require('./routes/adminRouter')
+const express = require('express');
+const homeRouter = require('./routes/homeRouter');
+const adminRouter = require('./routes/adminRouter');
 
 // 创建应用对象
-const app = express()
+const app = express();
 
 // 设置
-app.use(homeRouter)
-app.use(adminRouter)
+app.use(homeRouter);
+app.use(adminRouter);
 
 app.get('/', (req, res) => {
-  res.redirect('/home')
-})
+  res.redirect('/home');
+});
 
 app.all('*', (req, res) => {
-  res.send('<h1>404 Not Found</h1>')
-})
+  res.send('<h1>404 Not Found</h1>');
+});
 
 // 监听端口, 启动服务
 app.listen(3000, () => {
-  console.log('服务已经启动, 端口 3000 正在监听中....', 'http://localhost:3000')
-})
+  console.log('服务已经启动, 端口 3000 正在监听中....', 'http://localhost:3000');
+});

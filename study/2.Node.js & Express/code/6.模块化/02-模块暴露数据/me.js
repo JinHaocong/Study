@@ -1,18 +1,18 @@
 // 声明一个函数
 function tiemo() {
-  console.log('贴膜...')
+  console.log('贴膜...');
 }
 
 // 捏脚
 function niejiao() {
-  console.log('捏脚....')
+  console.log('捏脚....');
 }
 
 // sign 暴露数据
 module.exports = {
   tiemo,
-  niejiao
-}
+  niejiao,
+};
 
 // sign exports 暴露数据
 // exports.niejiao = niejiao
