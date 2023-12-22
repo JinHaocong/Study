@@ -5,27 +5,7 @@ const router = express.Router();
 const moment = require('moment');
 const jwt = require('jsonwebtoken');
 const AccountModel = require('../../models/AccountModel');
-
-const checkTokenMiddleWare = (req, res, next) => {
-  const token = req.get('token');
-  if (!token) {
-    return res.json({
-      code: 401,
-      msg: 'Invalid token',
-      data: null,
-    });
-  }
-  jwt.verify(token, 'jhc', (err, data) => {
-    if (err) {
-      return res.json({
-        code: 403,
-        msg: 'token过期',
-        data: null,
-      });
-    }
-    return next();
-  });
-};
+const checkTokenMiddleWare = require('../../middleWares/checkTokenMiddleWare');
 
 router.get('/', (req, res) => {
   res.redirect('/account');
