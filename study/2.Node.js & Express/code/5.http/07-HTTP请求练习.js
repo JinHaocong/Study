@@ -7,7 +7,8 @@ function routeRequest(request) {
 
   if (method === 'GET' && pathname === '/login') {
     return renderLoginPage();
-  } if (method === 'GET' && pathname === '/reg') {
+  }
+  if (method === 'GET' && pathname === '/reg') {
     return renderRegisterPage();
   }
   return renderNotFoundPage();
@@ -34,5 +35,8 @@ const server = http.createServer((request, response) => {
 
 const PORT = 3300;
 server.listen(PORT, () => {
-  console.log(`服务已经启动.. 端口 ${PORT} 监听中....`, `http://localhost:${PORT}/`);
+  console.log(
+    `服务已经启动.. 端口 ${PORT} 监听中....`,
+    `http://localhost:${PORT}/`
+  );
 });

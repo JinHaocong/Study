@@ -13,7 +13,9 @@ router.get('/', (req, res) => {
 router.get('/account', async (req, res) => {
   try {
     // 获取所有的账单信息
-    const accounts = await AccountModel.find({}).sort({ time: -1 }).exec(undefined);
+    const accounts = await AccountModel.find({})
+      .sort({ time: -1 })
+      .exec(undefined);
     res.json({
       code: 200,
       msg: '操作成功！',
@@ -38,7 +40,8 @@ router.get('/account/create', (req, res) => {
 router.post('/account', async (req, res) => {
   try {
     const newData = await AccountModel.create({
-      ...req.body, time: moment(req.body.time).toDate(),
+      ...req.body,
+      time: moment(req.body.time).toDate(),
     });
     // 成功提醒
     res.json({

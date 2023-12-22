@@ -1,7 +1,11 @@
 // 导入 配置文件
 const mongoose = require('mongoose');
 const {
-  dbHost, dbPort, dbName, userName, password,
+  dbHost,
+  dbPort,
+  dbName,
+  userName,
+  password,
 } = require('../config/config');
 
 /**
@@ -14,7 +18,9 @@ module.exports = async (success, error) => {
     mongoose.set('strictQuery', true);
 
     // 1. 连接 MongoDB 服务
-    await mongoose.connect(`mongodb://${userName}:${password}@${dbHost}:${dbPort}/${dbName}`);
+    await mongoose.connect(
+      `mongodb://${userName}:${password}@${dbHost}:${dbPort}/${dbName}`
+    );
     success();
 
     // 2. 设置连接关闭的回调

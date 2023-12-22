@@ -10,5 +10,8 @@ app.use(express.static(path.resolve(__dirname, 'static')));
 
 // 监听端口, 启动服务
 app.listen(3000, () => {
-  console.log('服务已经启动, 端口 3000 正在监听中....', 'http://localhost:3000');
+  console.log(
+    '服务已经启动, 端口 3000 正在监听中....',
+    'http://localhost:3000'
+  );
 });

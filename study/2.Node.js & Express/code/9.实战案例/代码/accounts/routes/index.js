@@ -32,7 +32,9 @@ router.post('/account', (req, res) => {
   // 生成 id
   const id = shortid.generate();
   // 写入文件
-  db.get('accounts').unshift({ id, ...req.body }).write();
+  db.get('accounts')
+    .unshift({ id, ...req.body })
+    .write();
   // 成功提醒
   res.render('success', { msg: '添加成功哦~~~', url: '/account' });
 });

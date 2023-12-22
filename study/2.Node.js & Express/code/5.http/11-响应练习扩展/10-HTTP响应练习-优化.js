@@ -4,7 +4,11 @@ const fs = require('fs');
 const path = require('path');
 
 // Function to serve file
-function serveFile(response, filePath, defaultContent = '<h1>404 Not Found</h1>') {
+function serveFile(
+  response,
+  filePath,
+  defaultContent = '<h1>404 Not Found</h1>'
+) {
   try {
     const content = fs.readFileSync(filePath);
     response.end(content);

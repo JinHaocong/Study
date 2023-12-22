@@ -7,7 +7,7 @@ const tiemo = require('./me.js');
 // 导入 JSON 文件
 const duanzi = require('./duanzi.json');
 
-console.log(duanzi);// 对象
+console.log(duanzi); // 对象
 
 // 导入其他类型的文件
 const test = require('./test');

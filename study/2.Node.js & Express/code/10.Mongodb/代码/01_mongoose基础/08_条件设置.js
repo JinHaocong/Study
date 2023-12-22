@@ -29,11 +29,15 @@ mongoose.connection.once('open', async () => {
     console.log('价格小于 20 的图书:', booksBelow20);
 
     // 查询作者是曹雪芹或者余华的书
-    const booksByAuthors = await BookModel.find({ $or: [{ author: '曹雪芹' }, { author: '余华' }] });
+    const booksByAuthors = await BookModel.find({
+      $or: [{ author: '曹雪芹' }, { author: '余华' }],
+    });
     console.log('曹雪芹或者余华的书:', booksByAuthors);
 
     // 查询价格大于 30 且小于 70 的图书
-    const booksBetween30And70 = await BookModel.find({ price: { $gt: 30, $lt: 70 } });
+    const booksBetween30And70 = await BookModel.find({
+      price: { $gt: 30, $lt: 70 },
+    });
     console.log('价格大于 30 且小于 70 的图书:', booksBetween30And70);
 
     // 使用正则表达式搜索书籍名称中带有 `三` 的图书
@@ -41,8 +45,13 @@ mongoose.connection.once('open', async () => {
     console.log('名称中带有 `三` 的图书:', booksWithCharacterSan);
 
     // 或者使用 new RegExp
-    const booksWithCharacterSanRegExp = await BookModel.find({ name: new RegExp('三') });
-    console.log('名称中带有 `三` 的图书 (使用 new RegExp):', booksWithCharacterSanRegExp);
+    const booksWithCharacterSanRegExp = await BookModel.find({
+      name: new RegExp('三'),
+    });
+    console.log(
+      '名称中带有 `三` 的图书 (使用 new RegExp):',
+      booksWithCharacterSanRegExp
+    );
   } catch (error) {
     console.error('查询失败:', error);
   } finally {

@@ -25,11 +25,17 @@ mongoose.connection.once('open', async () => {
     const BookModel = mongoose.model('novels', BookSchema); // 使用 "novels" 作为集合名称
 
     // 更新文档 - 更新一条
-    const updateOneResult = await BookModel.updateOne({ name: '红楼梦' }, { price: 9.9 });
+    const updateOneResult = await BookModel.updateOne(
+      { name: '红楼梦' },
+      { price: 9.9 }
+    );
     console.log('更新一条记录:', updateOneResult);
 
     // 批量更新文档
-    const updateManyResult = await BookModel.updateMany({ author: '余华' }, { is_hot: true });
+    const updateManyResult = await BookModel.updateMany(
+      { author: '余华' },
+      { is_hot: true }
+    );
     console.log('批量更新记录:', updateManyResult);
   } catch (error) {
     console.error('操作失败:', error);

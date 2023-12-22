@@ -10,7 +10,9 @@ mongoose.set('strictQuery', true);
 
 async function connectToDatabase() {
   try {
-    await mongoose.connect(`mongodb://${username}:${password}@${dbUrl}/${dbName}`);
+    await mongoose.connect(
+      `mongodb://${username}:${password}@${dbUrl}/${dbName}`
+    );
     console.log('Connected to the database');
   } catch (error) {
     console.error('Failed to connect to the database:', error);

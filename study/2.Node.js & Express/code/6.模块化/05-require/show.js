@@ -15,7 +15,7 @@ function require(file) {
   const code = fs.readFileSync(absolutePath).toString();
   // 4. 包裹为一个函数 然后执行
   const module = {};
-  const exports = module.exports = {};
+  const exports = (module.exports = {});
   (function (exports, require, module, __filename, __dirname) {
     const test = {
       name: '尚硅谷',
@@ -25,7 +25,7 @@ function require(file) {
 
     // 输出
     console.log(arguments.callee.toString());
-  }(exports, require, module, __filename, __dirname));
+  })(exports, require, module, __filename, __dirname);
   // 5. 缓存结果
   caches[absolutePath] = module.exports;
   // 6. 返回 module.exports 的值

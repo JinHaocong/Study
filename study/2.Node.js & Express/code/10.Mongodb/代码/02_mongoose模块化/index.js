@@ -18,11 +18,14 @@ const insertBook = async () => {
     await db(successFun, errorFun);
 
     // 新增文档
-    const [newBook, newMovie] = await Promise.all([BookModel.create({
-      name: '西游记',
-      author: '吴承恩',
-      price: 19.9,
-    }), MovieModel.create({ title: '让子弹飞', director: '姜文' })]);
+    const [newBook, newMovie] = await Promise.all([
+      BookModel.create({
+        name: '西游记',
+        author: '吴承恩',
+        price: 19.9,
+      }),
+      MovieModel.create({ title: '让子弹飞', director: '姜文' }),
+    ]);
     console.log(newBook);
     console.log(newMovie);
   } catch (error) {

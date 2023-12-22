@@ -10,7 +10,7 @@ console.log(jsFiles);
 jsFiles.forEach((file, index) => {
   const data = file.split('-');
   let [num, name] = data;
-  num = (`${index + 1}`).padStart(2, '0');
+  num = `${index + 1}`.padStart(2, '0');
   const newName = `${num}-${name}`;
   console.log(newName);
 

@@ -52,5 +52,8 @@ app.use(errorHandler);
 // 启动服务
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`服务已经启动，端口 ${PORT} 正在监听中....`, 'http://localhost:3000');
+  console.log(
+    `服务已经启动，端口 ${PORT} 正在监听中....`,
+    'http://localhost:3000'
+  );
 });

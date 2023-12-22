@@ -13,7 +13,9 @@ router.get('/', (req, res) => {
 router.get('/account', async (req, res, next) => {
   try {
     // 获取所有的账单信息
-    const accounts = await AccountModel.find({}).sort({ time: -1 }).exec(undefined);
+    const accounts = await AccountModel.find({})
+      .sort({ time: -1 })
+      .exec(undefined);
     res.render('list', { accounts, moment });
   } catch (e) {
     console.log(e, '查找失败');
@@ -29,7 +31,10 @@ router.get('/account/create', (req, res, next) => {
 // 新增记录
 router.post('/account', async (req, res) => {
   try {
-    await AccountModel.create({ ...req.body, time: moment(req.body.time).toDate() });
+    await AccountModel.create({
+      ...req.body,
+      time: moment(req.body.time).toDate(),
+    });
     // 成功提醒
     res.render('success', { msg: '添加成功哦~~~', url: '/account' });
   } catch (e) {

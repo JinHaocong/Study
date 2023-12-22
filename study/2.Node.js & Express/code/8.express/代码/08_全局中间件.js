@@ -14,7 +14,10 @@ const recordMiddleware = (req, res, next) => {
   // 获取 url 和 ip
   const { url, ip } = req;
   // 将信息保存在文件中 access.log
-  fs.appendFileSync(path.resolve(__dirname, './access.log'), `${url}  ${ip}\r\n`);
+  fs.appendFileSync(
+    path.resolve(__dirname, './access.log'),
+    `${url}  ${ip}\r\n`
+  );
   // 调用 next
   next();
 };
@@ -37,5 +40,8 @@ app.all('*', (req, res) => {
 
 // 监听端口, 启动服务
 app.listen(3000, () => {
-  console.log('服务已经启动, 端口 3000 正在监听中....', 'http://127.0.0.1:3000');
+  console.log(
+    '服务已经启动, 端口 3000 正在监听中....',
+    'http://127.0.0.1:3000'
+  );
 });
