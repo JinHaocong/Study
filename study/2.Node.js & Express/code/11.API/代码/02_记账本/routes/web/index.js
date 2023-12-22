@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 // 导入moment
 const moment = require('moment');
-const AccountModel = require('../models/AccountModel');
+const AccountModel = require('../../models/AccountModel');
 
 router.get('/', (req, res) => {
   res.redirect('/account');
