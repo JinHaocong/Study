@@ -1,11 +1,11 @@
 // 导入 express
-const express = require('express')
+const express = require('express');
 // 2. 引入 express-session  connect-mongo
-const session = require('express-session')
-const MongoStore = require('connect-mongo')
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 // 创建应用对象
-const app = express()
+const app = express();
 // 3. 设置 session 的中间件
 app.use(
   session({
@@ -21,43 +21,43 @@ app.use(
       maxAge: 1000 * 60 * 5, // 这一条 是控制 sessionID 的过期时间的！！！
     },
   })
-)
+);
 
 // 首页路由
 app.get('/', (req, res) => {
-  res.send('home')
-})
+  res.send('home');
+});
 
 // 登录  session 的设置
 app.get('/login', (req, res) => {
   // username=admin&password=admin
   if (req.query.username === 'admin' && req.query.password === 'admin') {
     // 设置 session 信息
-    req.session.username = 'admin'
-    req.session.uid = '258aefccc'
+    req.session.username = 'admin';
+    req.session.uid = '258aefccc';
     // 成功响应
-    res.send('登录成功')
+    res.send('登录成功');
   } else {
-    res.send('登录失败~~')
+    res.send('登录失败~~');
   }
-})
+});
 
 // session 的读取
 app.get('/cart', (req, res) => {
   // 检测 session 是否存在用户数据
   if (req.session.username) {
-    res.send(`购物车页面, 欢迎您 ${req.session.username}`)
+    res.send(`购物车页面, 欢迎您 ${req.session.username}`);
   } else {
-    res.send('您还没有登录~~')
+    res.send('您还没有登录~~');
   }
-})
+});
 
 // session 的销毁
 app.get('/logout', (req, res) => {
   req.session.destroy(() => {
-    res.send('退出成功~~')
-  })
-})
+    res.send('退出成功~~');
+  });
+});
 
 // 启动服务
-app.listen(3000)
+app.listen(3000);

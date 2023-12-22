@@ -35,4 +35,4 @@ module.exports = {
   htmlWhitespaceSensitivity: 'css',
   // 换行符使用 lf 结尾是 \n \r \n\r auto
   endOfLine: 'lf',
-};
+}
