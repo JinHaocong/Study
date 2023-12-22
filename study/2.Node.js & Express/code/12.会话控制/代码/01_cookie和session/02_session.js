@@ -10,7 +10,7 @@ const app = express();
 app.use(
   session({
     name: 'sid', // 设置cookie的name，默认值是：connect.sid
-    secret: 'xxx', // 参与加密的字符串（又称签名）  加盐
+    secret: 'jhc', // 参与加密的字符串（又称签名）  加盐
     saveUninitialized: false, // 是否为每次请求都设置一个cookie用来存储session的id
     resave: true, // 是否在每次请求时重新保存session  20 分钟    4:00  4:20
     store: MongoStore.create({
@@ -44,6 +44,7 @@ app.get('/login', (req, res) => {
 
 // session 的读取
 app.get('/cart', (req, res) => {
+  console.log(req.session);
   // 检测 session 是否存在用户数据
   if (req.session.username) {
     res.send(`购物车页面, 欢迎您 ${req.session.username}`);
