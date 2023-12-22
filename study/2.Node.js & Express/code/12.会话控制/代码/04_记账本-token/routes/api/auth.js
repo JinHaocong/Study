@@ -4,6 +4,7 @@ const router = express.Router();
 const md5 = require('md5');
 const jwt = require('jsonwebtoken');
 const UserModel = require('../../models/UserModel');
+const { secret } = require('../../config/config');
 
 router.post('/login', async (req, res) => {
   try {
@@ -13,7 +14,7 @@ router.post('/login', async (req, res) => {
       password: md5(password),
     });
     if (userInfo) {
-      const token = jwt.sign({ ...userInfo }, 'jhc', {
+      const token = jwt.sign({ ...userInfo }, secret, {
         expiresIn: 60,
       });
       res.json({

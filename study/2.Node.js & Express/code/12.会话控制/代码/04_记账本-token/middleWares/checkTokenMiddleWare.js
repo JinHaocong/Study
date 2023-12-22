@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { secret } = require('../config/config');
 
 module.exports = async (req, res, next) => {
   try {
@@ -10,7 +11,7 @@ module.exports = async (req, res, next) => {
         data: null,
       });
     }
-    await jwt.verify(token, 'jhc');
+    await jwt.verify(token, secret);
     next();
   } catch (err) {
     return res.json({

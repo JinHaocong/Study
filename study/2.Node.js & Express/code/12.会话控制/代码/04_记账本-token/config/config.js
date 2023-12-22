@@ -5,4 +5,5 @@ module.exports = {
   dbName: 'bookSystem',
   userName: 'admin',
   password: '123456',
+  secret: 'jhc',
 };
