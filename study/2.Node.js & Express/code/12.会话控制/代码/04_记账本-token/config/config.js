@@ -1,7 +1,8 @@
-//配置文件
+// 配置文件
 module.exports = {
-  DBHOST: '127.0.0.1',
-  DBPORT: 27017,
-  DBNAME: 'bilibili',
-  secret: 'atguigu',
+  dbHost: '127.0.0.1',
+  dbPort: 27017,
+  dbName: 'bookSystem',
+  userName: 'admin',
+  password: '123456',
 };
