@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 // 导入moment
 const moment = require('moment');
-const jwt = require('jsonwebtoken');
 const AccountModel = require('../../models/AccountModel');
 const checkTokenMiddleWare = require('../../middleWares/checkTokenMiddleWare');
 
