@@ -4,13 +4,16 @@ const router = express.Router();
 // 导入moment
 const moment = require('moment');
 const AccountModel = require('../../models/AccountModel');
+// 导入中间件
+const checkLoginMiddleware = require('../../middleWares/checkLoginMiddleware');
 
-router.get('/', (req, res) => {
+// 首页
+router.get('/', checkLoginMiddleware, (req, res) => {
   res.redirect('/account');
 });
 
 // 记账本的列表
-router.get('/account', async (req, res, next) => {
+router.get('/account', checkLoginMiddleware, async (req, res) => {
   try {
     // 获取所有的账单信息
     const accounts = await AccountModel.find({})
@@ -24,12 +27,12 @@ router.get('/account', async (req, res, next) => {
 });
 
 // 添加记录
-router.get('/account/create', (req, res, next) => {
+router.get('/account/create', checkLoginMiddleware, (req, res) => {
   res.render('create');
 });
 
 // 新增记录
-router.post('/account', async (req, res) => {
+router.post('/account', checkLoginMiddleware, async (req, res) => {
   try {
     await AccountModel.create({
       ...req.body,
@@ -44,7 +47,7 @@ router.post('/account', async (req, res) => {
 });
 
 // 删除记录
-router.get('/account/:id', async (req, res) => {
+router.get('/account/:id', checkLoginMiddleware, async (req, res) => {
   try {
     // 获取 params 的 id 参数
     const { id } = req.params;

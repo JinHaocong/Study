@@ -18,5 +18,6 @@ module.exports = {
     'node/no-extraneous-require': ['error', { allowModules: ['mongoose'] }],
     'node/no-unsupported-features/es-syntax': 'off',
     semi: ['error', 'always'],
+    'no-underscore-dangle': 'off',
   },
 };
