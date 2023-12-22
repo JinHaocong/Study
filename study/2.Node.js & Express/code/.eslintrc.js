@@ -19,5 +19,7 @@ module.exports = {
     'node/no-unsupported-features/es-syntax': 'off',
     semi: ['error', 'always'],
     'no-underscore-dangle': 'off',
+    'consistent-return': 'off',
+    'no-unused-vars': 'off',
   },
 };

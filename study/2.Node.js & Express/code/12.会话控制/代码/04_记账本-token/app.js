@@ -19,6 +19,7 @@ const indexRouter = require('./routes/web/index');
 const authRouter = require('./routes/web/auth');
 // 导入account
 const accountRouter = require('./routes/api/account');
+const authApiRouter = require('./routes/api/auth');
 
 const app = express();
 
@@ -53,6 +54,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', authRouter);
 app.use('/', indexRouter);
 app.use('/api', accountRouter);
+app.use('/api', authApiRouter);
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
