@@ -15,7 +15,7 @@ router.post('/login', async (req, res) => {
     });
     if (userInfo) {
       const token = jwt.sign({ ...userInfo }, secret, {
-        expiresIn: 60,
+        expiresIn: 60 * 60,
       });
       res.json({
         code: 200,

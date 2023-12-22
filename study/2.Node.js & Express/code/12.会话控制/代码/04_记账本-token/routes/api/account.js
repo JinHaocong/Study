@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
 
 // 记账本的列表
 router.get('/account', checkTokenMiddleWare, async (req, res) => {
+  console.log(req.user);
   try {
     // 获取所有的账单信息
     const accounts = await AccountModel.find({})

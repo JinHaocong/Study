@@ -11,7 +11,8 @@ module.exports = async (req, res, next) => {
         data: null,
       });
     }
-    await jwt.verify(token, secret);
+    // 保存信息
+    req.user = await jwt.verify(token, secret)._doc;
     next();
   } catch (err) {
     return res.json({
