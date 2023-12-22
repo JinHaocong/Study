@@ -14,7 +14,7 @@ app.use(
     saveUninitialized: false, // 是否为每次请求都设置一个cookie用来存储session的id
     resave: true, // 是否在每次请求时重新保存session  20 分钟    4:00  4:20
     store: MongoStore.create({
-      mongoUrl: 'mongodb://127.0.0.1:27017/test', // 数据库的连接配置
+      mongoUrl: 'mongodb://admin:123456@127.0.0.1:27017/bookSystem', // 数据库的连接配置
     }),
     cookie: {
       httpOnly: true, // 开启后前端无法通过 JS 操作
@@ -60,4 +60,6 @@ app.get('/logout', (req, res) => {
 });
 
 // 启动服务
-app.listen(3000);
+app.listen(3000, () => {
+  console.log('http://localhost:3000');
+});
