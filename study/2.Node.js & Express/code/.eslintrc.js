@@ -3,8 +3,12 @@ module.exports = {
     node: true,
     es6: true,
   },
-  plugins: ['node'],
-  extends: ['airbnb-base', 'plugin:node/recommended'],
+  plugins: ['node', 'prettier'],
+  extends: [
+    'airbnb-base',
+    'plugin:node/recommended',
+    'plugin:prettier/recommended',
+  ],
   parserOptions: {
     ecmaVersion: 2021,
     sourceType: 'module',
