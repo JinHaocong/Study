@@ -5,479 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1afd41b6-e942-463f-ae08-7388e36b196f" name="更改" comment="webpack5">
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/@vue_devtools-api.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/@vue_devtools-api.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/@vuepress_shared.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/@vuepress_shared.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/@vueuse_core.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/@vueuse_core.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/_metadata.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/chunk-7EWVPKSC.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/chunk-7EWVPKSC.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/chunk-CCMLXPK7.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/chunk-CCMLXPK7.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/chunk-FFTC5UN2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/chunk-FFTC5UN2.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/chunk-MZSLHFZ6.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/chunk-MZSLHFZ6.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/nprogress.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/nprogress.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/vue-router.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/vue-router.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/vue.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.cache/deps/vue.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/internal/clientAppEnhances.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/internal/clientAppRootComponents.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/internal/clientAppSetups.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/internal/layoutComponents.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/internal/pagesComponents.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/internal/pagesData.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/internal/pagesRoutes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/internal/searchIndex.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/internal/siteData.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/internal/themeData.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/404.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/404.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/0.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/0.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/1.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/1.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/10.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/10.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/11.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/11.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/12.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/12.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/13.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/13.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/14.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/14.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/15.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/15.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/16.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/16.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/17.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/17.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/18.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/18.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/19.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/19.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/2.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/2.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/20.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/20.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/21.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/21.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/22.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/22.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/23.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/23.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/3.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/3.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/4.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/4.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/5.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/5.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/6.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/6.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/7.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/7.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/8.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/8.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/9.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/9.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/base.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/base.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/clean.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/clean.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/config.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/config.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/css.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/css.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/development.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/development.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/font.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/font.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/html.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/html.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/image.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/image.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/index.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/index.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/intro.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/intro.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/javascript.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/javascript.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/minifyHtml.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/minifyHtml.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/optimizeCss.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/optimizeCss.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/other.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/other.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/output.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/output.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/postcss.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/postcss.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/production.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/production.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/server.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/server.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/summary.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/base/summary.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/hospital/hospitalSet.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/hospital/hospitalSet.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/index.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/index.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/1.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/1.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/2.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/2.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/3.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/3.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/4.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/4.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/api.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/api.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/asset.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/asset.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/code.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/code.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/group.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/group.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/index.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/index.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/learn.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/learn.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/pre.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/pre.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/proto.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/proto.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/settings.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/settings.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/technology.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/intro/technology.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/origin/index.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/origin/index.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/origin/loader.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/origin/loader.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/origin/plugin.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/origin/plugin.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/origin/summary.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/origin/summary.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/other/index.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/other/index.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/1.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/1.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/dict.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/dict.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/hospitalList.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/hospitalList.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/hospitalSet.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/hospitalSet.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/index.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/index.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/react-cli.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/react-cli.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/statistics.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/statistics.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/summary.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/summary.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/vue-cli.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/project/vue-cli.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/senior/enhanceExperience.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/senior/enhanceExperience.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/senior/index.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/senior/index.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/senior/liftingSpeed.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/senior/liftingSpeed.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/senior/optimizePerformance.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/senior/optimizePerformance.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/senior/reduceVolume.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/senior/reduceVolume.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/senior/summary.html.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/pages/senior/summary.html.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/sass-palette/hope-config.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/sass-palette/hope-inject.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/sass-palette/hope-palette.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/sass-palette/load-hope.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/styles/index.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/styles/palette.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/.temp/vite-root/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/intro/proxy.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/logo.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/project/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/project/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/project/AddOrUpdateHospitalSet.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/project/hospitalList.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/project/hospitalListApi.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/project/hospitalListApi2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/project/hospitalSchedule.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/project/hospitalScheduleApi1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/project/hospitalScheduleApi2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/project/hospitalScheduleApi3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/project/hospitalSet.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/project/hospitalSetApi.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/project/hospitalSetSearch.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/project/hospitalShow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/source/debug.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/source/loader1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/source/loader2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/public/imgs/source/plugin.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/.vuepress/styles/index.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/base/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/base/base.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/base/clean.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/base/config.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/base/css.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/base/development.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/base/font.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/base/html.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/base/image.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/base/javascript.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/base/minifyHtml.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/base/optimizeCss.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/base/other.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/base/output.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/base/production.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/base/server.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/base/summary.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/intro/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/intro/asset.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/intro/group.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/intro/learn.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/intro/pre.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/origin/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/origin/loader.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/origin/plugin.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/origin/summary.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/project/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/project/react-cli.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/project/summary.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/project/vue-cli.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/senior/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/senior/enhanceExperience.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/senior/liftingSpeed.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/senior/optimizePerformance.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/senior/reduceVolume.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/docs/senior/summary.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../webpack_docs/yarn.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/代码.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/.eslintignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/.eslintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/babel.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/config/webpack.dev.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/config/webpack.prod.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/public/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/src/css/iconfont.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/src/css/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/src/fonts/iconfont.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/src/fonts/iconfont.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/src/fonts/iconfont.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/src/images/1.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/src/images/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/src/images/3.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/src/js/count.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/src/js/math.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/src/js/sum.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/src/less/index.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/src/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/src/sass/index.sass" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/src/sass/index.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/src/stylus/index.styl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo1/dist/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo1/dist/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo1/dist/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo1/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo1/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo1/public/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo1/src/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo1/src/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo1/webpack.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo2/dist/52.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo2/dist/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo2/dist/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo2/dist/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo2/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo2/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo2/public/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo2/src/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo2/src/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo2/src/math.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo2/webpack.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo3/dist/293.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo3/dist/52.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo3/dist/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo3/dist/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo3/dist/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo3/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo3/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo3/public/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo3/src/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo3/src/count.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo3/src/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo3/src/math.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo3/webpack.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/.eslintignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/.eslintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/babel.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/config/webpack.dev.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/config/webpack.prod.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/service-worker.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/service-worker.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/css/main.37dbe415e6.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/css/main.37dbe415e6.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/js/483.72c4eeebaf.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/js/483.72c4eeebaf.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/js/main.891b71e4f2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/js/main.891b71e4f2.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/js/math.chunk.cea9e3db71.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/js/math.chunk.cea9e3db71.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/js/runtime~main.js.4ef1c6da48.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/js/runtime~main.js.4ef1c6da48.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/media/3f4bdd4bb5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/media/57ce970445.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/media/7e4c9746ac.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/media/822a5c27c9.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/media/c39e78e122.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/workbox-6716fad7.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/workbox-6716fad7.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/public/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/css/iconfont.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/css/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/fonts/iconfont.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/fonts/iconfont.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/fonts/iconfont.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/images/1.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/images/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/images/3.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/js/count.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/js/math.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/js/sum.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/less/index.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/sass/index.sass" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/sass/index.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/stylus/index.styl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/.eslintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/babel.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/config/webpack.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/config/webpack.dev.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/config/webpack.prod.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/css/chunk-antd.7548b803d2.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/css/chunk-antd.7548b803d2.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/css/home.82eabf39b1.chunk.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/css/home.82eabf39b1.chunk.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/js/about.01f1826af0.chunk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/js/about.01f1826af0.chunk.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/js/chunk-antd.2d3f16a76b.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/js/chunk-antd.2d3f16a76b.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/js/chunk-libs.cdf8f19907.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/js/chunk-libs.cdf8f19907.js.LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/js/chunk-libs.cdf8f19907.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/js/chunk-react.39b2d75d94.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/js/chunk-react.39b2d75d94.js.LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/js/chunk-react.39b2d75d94.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/js/home.24ed0883f3.chunk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/js/home.24ed0883f3.chunk.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/js/main.882355b739.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/js/main.882355b739.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/js/runtime~main.js.e7bd2c9e31.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/dist/static/js/runtime~main.js.e7bd2c9e31.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/public/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/public/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/src/App.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/src/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/src/pages/About/index.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/src/pages/Home/index.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/react-cli/src/pages/Home/index.less" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/.eslintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/babel.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/config/webpack.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/config/webpack.dev.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/config/webpack.prod.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/dist/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/dist/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/dist/static/css/841.03b7f0eaee.chunk.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/dist/static/css/841.03b7f0eaee.chunk.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/dist/static/css/main.339c483bac.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/dist/static/css/main.339c483bac.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/dist/static/js/213.5f0e2bb963.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/dist/static/js/213.5f0e2bb963.js.LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/dist/static/js/213.5f0e2bb963.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/dist/static/js/367.04ce11f299.chunk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/dist/static/js/367.04ce11f299.chunk.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/dist/static/js/841.3d3cdc2539.chunk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/dist/static/js/841.3d3cdc2539.chunk.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/dist/static/js/main.c1eed8daad.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/dist/static/js/main.c1eed8daad.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/dist/static/js/runtime~main.js.07ba3e9ea2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/dist/static/js/runtime~main.js.07ba3e9ea2.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/public/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/public/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/src/App.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/src/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/src/router/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/src/styles/element/index.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/src/views/About/index.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/vue-cli/src/views/Home/index.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/loaders/babel-loader/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/loaders/babel-loader/schema.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/loaders/banner-loader/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/loaders/banner-loader/schema.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/loaders/clean-log-loader.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/loaders/demo/test1.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/loaders/demo/test2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/loaders/demo/test3.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/loaders/demo/test4.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/loaders/demo/test5.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/loaders/demo/test6.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/loaders/file-loader/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/loaders/style-loader/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/loaders/test-loader.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/plugins/analyze-webpack-plugin.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/plugins/banner-webpack-plugin.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/plugins/clean-webpack-plugin.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/plugins/inline-chunk-webpack-plugin.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/plugins/test-plugin.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/public/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/src/css/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/src/images/1.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/src/images/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/src/images/3.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/src/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4.进阶原理/source/webpack.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../笔记.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../课件/程序包/jpegtran.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../课件/程序包/optipng.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/dist/static/imgs/074d0a39.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/dist/static/imgs/98c95f8a.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/dist/static/js/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/dist/static/media/7e4c9746.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/dist/static/media/822a5c27.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/dist/static/media/c39e78e1.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1.基础配置/webpack_code/dist/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/1.基础配置/webpack_code/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../笔记.md" beforeDir="false" afterPath="$PROJECT_DIR$/../笔记.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
@@ -488,32 +34,46 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2a102gfGwWayD5dLfgkaXWw6slN" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "JavaScript 调试.index.html.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "code.cleanup.on.save": "true",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "E:/Study/study/3.Webpack5/代码",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "MTConfigurable",
+    "rearrange.code.on.save": "true",
+    "settings.editor.selected.configurable": "actions.on.save",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\jinha\AppData\Roaming\Subversion</configuration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="默认任务">
       <changelist id="1afd41b6-e942-463f-ae08-7388e36b196f" name="更改" comment="" />
@@ -522,7 +82,27 @@
       <option name="presentableId" value="Default" />
       <updated>1703470572269</updated>
       <workItem from="1703470574060" duration="589000" />
+      <workItem from="1703471173655" duration="1490000" />
+      <workItem from="1703475880489" duration="883000" />
+      <workItem from="1703494237934" duration="3910000" />
     </task>
+    <task id="LOCAL-00001" summary="webpack5">
+      <option name="closed" value="true" />
+      <created>1703471180558</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1703471180558</updated>
+    </task>
+    <task id="LOCAL-00002" summary="webpack5">
+      <option name="closed" value="true" />
+      <created>1703471196082</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1703471196082</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -531,7 +111,11 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="webpack5" />
     <option name="LAST_COMMIT_MESSAGE" value="webpack5" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/$index_html.dat" NAME="index.html 覆盖结果" MODIFIED="1703496215493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="WipCoverageRunner" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
