@@ -35,13 +35,12 @@ new Promise((resolve) => {
     setTimeout(() => {
         resolve();
     }, 1000);
-}).then(r => {
-    console.log(r)
-});
+})
 
 const arr = [1, 2, 3, 4];
 console.log(arr.includes(1));
 
+// 注册生产server worker
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
         navigator.serviceWorker

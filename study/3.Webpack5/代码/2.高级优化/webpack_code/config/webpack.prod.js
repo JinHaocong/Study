@@ -154,6 +154,7 @@ module.exports = {
             // prefetch 没有as用法
             rel: "prefetch",
         }),
+        // 渐进式网络应用程序
         new WorkboxPlugin.GenerateSW({
             // 这些选项帮助快速启用 ServiceWorkers
             // 不允许遗留任何“旧的” ServiceWorkers
@@ -161,6 +162,7 @@ module.exports = {
             skipWaiting: true,
         }),
     ],
+    // 优化项
     optimization: {
         // 压缩的操作
         minimizer: [
