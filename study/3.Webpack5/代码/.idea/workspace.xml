@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1afd41b6-e942-463f-ae08-7388e36b196f" name="更改" comment="webpack5 Tree Shaking">
+    <list default="true" id="1afd41b6-e942-463f-ae08-7388e36b196f" name="更改" comment="webpack5 babel减少代码体积">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/1.基础配置/webpack_code/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/babel.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/1.基础配置/webpack_code/config/webpack.dev.js" beforeDir="false" afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/config/webpack.dev.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/1.基础配置/webpack_code/config/webpack.prod.js" beforeDir="false" afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/config/webpack.prod.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1.基础配置/webpack_code/dist/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/dist/static/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1.基础配置/webpack_code/dist/static/css/main.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/1.基础配置/webpack_code/dist/static/css/main.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1.基础配置/webpack_code/dist/static/images/074d0a3966.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/1.基础配置/webpack_code/dist/static/images/98c95f8a28.gif" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +112,7 @@
       <workItem from="1703475880489" duration="883000" />
       <workItem from="1703494237934" duration="4168000" />
       <workItem from="1703552268985" duration="6994000" />
-      <workItem from="1703639279138" duration="7760000" />
+      <workItem from="1703639279138" duration="8337000" />
     </task>
     <task id="LOCAL-00001" summary="webpack5">
       <option name="closed" value="true" />
@@ -176,7 +178,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703647750702</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="webpack5 babel减少代码体积">
+      <option name="closed" value="true" />
+      <created>1703648306642</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1703648306642</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,7 +204,8 @@
     <MESSAGE value="webpack5高级" />
     <MESSAGE value="webpack5多进程打包" />
     <MESSAGE value="webpack5 Tree Shaking" />
-    <option name="LAST_COMMIT_MESSAGE" value="webpack5 Tree Shaking" />
+    <MESSAGE value="webpack5 babel减少代码体积" />
+    <option name="LAST_COMMIT_MESSAGE" value="webpack5 babel减少代码体积" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/$index_html.dat" NAME="index.html 覆盖结果" MODIFIED="1703496215493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="WipCoverageRunner" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
