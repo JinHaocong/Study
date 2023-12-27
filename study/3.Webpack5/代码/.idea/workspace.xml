@@ -4,12 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1afd41b6-e942-463f-ae08-7388e36b196f" name="更改" comment="webpack5 多入口提取重复代码">
+    <list default="true" id="1afd41b6-e942-463f-ae08-7388e36b196f" name="更改" comment="webpack5 多入口按需加载 动态导入">
+      <change afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/css/main.c46fd3866e.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2.高级优化/code-split/demo3/dist/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo3/dist/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2.高级优化/code-split/demo3/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo3/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2.高级优化/code-split/demo3/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo3/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2.高级优化/code-split/demo3/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/code-split/demo3/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/.eslintrc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/config/webpack.prod.js" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/config/webpack.prod.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/service-worker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/service-worker.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/service-worker.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/css/main.37dbe415e6.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/css/main.37dbe415e6.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/css/main.c46fd3866e.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/js/main.891b71e4f2.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/js/main.891b71e4f2.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/js/math.chunk.cea9e3db71.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/js/math.chunk.cea9e3db71.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/js/runtime~main.js.4ef1c6da48.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/js/runtime~main.js.4ef1c6da48.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +83,7 @@
 }]]></component>
   <component name="RunManager">
     <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/2.高级优化/code-split/demo3/package.json" />
+      <package-json value="$PROJECT_DIR$/2.高级优化/webpack_code/package.json" />
       <command value="run" />
       <scripts>
         <script value="build" />
@@ -102,7 +114,7 @@
       <workItem from="1703475880489" duration="883000" />
       <workItem from="1703494237934" duration="4168000" />
       <workItem from="1703552268985" duration="6994000" />
-      <workItem from="1703639279138" duration="11207000" />
+      <workItem from="1703639279138" duration="13239000" />
     </task>
     <task id="LOCAL-00001" summary="webpack5">
       <option name="closed" value="true" />
@@ -208,7 +220,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703656447514</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="webpack5 多入口按需加载 动态导入">
+      <option name="closed" value="true" />
+      <created>1703656892859</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1703656892859</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,7 +250,8 @@
     <MESSAGE value="webpack5 Image Minimizer图片压缩" />
     <MESSAGE value="webpack5 多入口优化代码运行性能" />
     <MESSAGE value="webpack5 多入口提取重复代码" />
-    <option name="LAST_COMMIT_MESSAGE" value="webpack5 多入口提取重复代码" />
+    <MESSAGE value="webpack5 多入口按需加载 动态导入" />
+    <option name="LAST_COMMIT_MESSAGE" value="webpack5 多入口按需加载 动态导入" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/$index_html.dat" NAME="index.html 覆盖结果" MODIFIED="1703496215493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="WipCoverageRunner" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

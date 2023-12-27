@@ -19,37 +19,37 @@ console.log(result);
 console.log(sum(1, 2, 3, 4));
 
 document.getElementById("btn").onclick = function () {
-  // eslint不能识别动态导入需要，需要额外追加配置
-  // webpack魔法命名
-  import(/* webpackChunkName: "math", webpackPrefetch: true */ "./js/math").then(({ mul }) => {
-    console.log(mul(3, 3));
-  });
+    // eslint不能识别动态导入需要，需要额外追加配置
+    // webpack魔法命名
+    import(/* webpackChunkName: "math", webpackPrefetch: true */ "./js/math").then(({mul}) => {
+        console.log(mul(3, 3));
+    });
 };
 
 if (module.hot) {
-  // 判断是否支持热模块替换功能
-  module.hot.accept("./js/count");
-  module.hot.accept("./js/sum");
+    // 判断是否支持热模块替换功能
+    module.hot.accept("./js/count");
+    module.hot.accept("./js/sum");
 }
 
 new Promise((resolve) => {
-  setTimeout(() => {
-    resolve();
-  }, 1000);
+    setTimeout(() => {
+        resolve();
+    }, 1000);
 });
 
 const arr = [1, 2, 3, 4];
 console.log(arr.includes(1));
 
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("/service-worker.js")
-      .then((registration) => {
-        console.log("SW registered: ", registration);
-      })
-      .catch((registrationError) => {
-        console.log("SW registration failed: ", registrationError);
-      });
-  });
+    window.addEventListener("load", () => {
+        navigator.serviceWorker
+            .register("/service-worker.js")
+            .then((registration) => {
+                console.log("SW registered: ", registration);
+            })
+            .catch((registrationError) => {
+                console.log("SW registration failed: ", registrationError);
+            });
+    });
 }
