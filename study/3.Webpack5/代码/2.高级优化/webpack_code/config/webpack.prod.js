@@ -204,6 +204,7 @@ module.exports = {
             chunks: "all",
             // 其他都用默认值
         },
+        // 生成 hash值与文件关系储存 的js 避免牵一发而动全身
         runtimeChunk: {
             name: (entrypoint) => `runtime~${entrypoint.name}.js`,
         },
