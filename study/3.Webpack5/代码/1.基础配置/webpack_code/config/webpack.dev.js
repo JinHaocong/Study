@@ -1,6 +1,11 @@
+const os = require('os');
 const path = require("path"); // nodejs核心模块，专门用来处理路径问题
 const ESLintPlugin = require("eslint-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+
+// cpu核数
+const threads = os.cpus().length;
 
 module.exports = {
     // 入口
@@ -80,8 +85,24 @@ module.exports = {
                     },
                     {
                         test: /\.js$/,
+                        // include exclude 二选一
+                        // include:path.resolve(__dirname, "src"),
                         exclude: /node_modules/, // 排除node_modules下的文件，其他文件都处理
-                        loader: "babel-loader",
+                        use: [
+                            {
+                                loader: "thread-loader", // 开启多进程
+                                options: {
+                                    workers: threads, // 数量
+                                },
+                            },
+                            {
+                                loader: "babel-loader",
+                                options: {
+                                    cacheDirectory: true, // 开启babel编译缓存
+                                    cacheCompression: false, // 缓存文件不要压缩
+                                },
+                            }
+                        ]
                     },
                 ],
             },
@@ -93,6 +114,14 @@ module.exports = {
         new ESLintPlugin({
             // 检测哪些文件
             context: path.resolve(__dirname, "../src"),
+            exclude: "node_modules", // 默认值
+            cache: true, // 开启缓存
+            // 缓存目录
+            cacheLocation: path.resolve(
+                __dirname,
+                "../node_modules/.cache/.eslintcache"
+            ),
+            threads
         }),
         new HtmlWebpackPlugin({
             // 模板：以public/index.html文件创建新的html文件
@@ -105,6 +134,7 @@ module.exports = {
         host: "localhost", // 启动服务器域名
         port: "3000", // 启动服务器端口号
         open: true, // 是否自动打开浏览器
+        hot: true, // 热更新 开启HMR功能（只能用于开发环境，生产环境不需要了）
     },
     // 模式
     mode: "development",
