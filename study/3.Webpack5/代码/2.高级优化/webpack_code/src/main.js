@@ -2,7 +2,6 @@
 // import 'core-js'
 // 按需加载
 // import "core-js/es/promise";
-
 import count from "./js/count";
 import sum from "./js/sum";
 
@@ -36,6 +35,8 @@ new Promise((resolve) => {
     setTimeout(() => {
         resolve();
     }, 1000);
+}).then(r => {
+    console.log(r)
 });
 
 const arr = [1, 2, 3, 4];
