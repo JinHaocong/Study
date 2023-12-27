@@ -4,15 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1afd41b6-e942-463f-ae08-7388e36b196f" name="更改" comment="webpack5 Core-js 解决兼容性问题">
+    <list default="true" id="1afd41b6-e942-463f-ae08-7388e36b196f" name="更改" comment="webpack5 PWA 渐进式网络应用程序">
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/.eslintrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/babel.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/config/webpack.dev.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/src/App.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/src/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/src/pages/Home/index.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/src/pages/Home/index.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/config/webpack.prod.js" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/config/webpack.prod.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/service-worker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/service-worker.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/service-worker.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/js/main.ed2239e240.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/dist/static/js/main.ed2239e240.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/2.高级优化/webpack_code/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/2.高级优化/webpack_code/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.项目配置/react-cli/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/3.项目配置/react-cli/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../高级优化.md" beforeDir="false" afterPath="$PROJECT_DIR$/../高级优化.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +61,9 @@
     "code.cleanup.on.save": "true",
     "deletionFromPopupRequiresConfirmation": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "E:/Study/study/3.Webpack5/代码",
+    "javascript.nodejs.core.library.configured.version": "14.21.3",
+    "javascript.nodejs.core.library.typings.version": "14.18.63",
+    "last_opened_file_path": "E:/Study/study/3.Webpack5/代码/3.项目配置/test-react/public",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -66,28 +73,27 @@
     "nodejs_package_manager_path": "npm",
     "npm.build.executor": "Run",
     "npm.dev.executor": "Run",
+    "npm.start.executor": "Run",
     "rearrange.code.on.save": "true",
     "settings.editor.selected.configurable": "settings.sync",
     "ts.external.directory.path": "E:\\Devtools\\WebStorm 233.11799.11\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="npm.dev">
-    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/2.高级优化/webpack_code/package.json" />
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-react\public" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-react\src\pages\Home" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/3.项目配置/test-react/package.json" />
       <command value="run" />
       <scripts>
-        <script value="build" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/2.高级优化/webpack_code/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="dev" />
+        <script value="start" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -95,8 +101,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.dev" />
-        <item itemvalue="npm.build" />
+        <item itemvalue="npm.start" />
       </list>
     </recent_temporary>
   </component>
@@ -116,7 +121,7 @@
       <workItem from="1703475880489" duration="883000" />
       <workItem from="1703494237934" duration="4168000" />
       <workItem from="1703552268985" duration="6994000" />
-      <workItem from="1703639279138" duration="15805000" />
+      <workItem from="1703639279138" duration="22864000" />
     </task>
     <task id="LOCAL-00001" summary="webpack5">
       <option name="closed" value="true" />
@@ -262,7 +267,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703660748430</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="webpack5 PWA 渐进式网络应用程序">
+      <option name="closed" value="true" />
+      <created>1703661450846</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1703661450846</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -288,7 +301,8 @@
     <MESSAGE value="webpack5 Preload / Prefetch" />
     <MESSAGE value="webpack5 Network Cache 缓存配置优化 避免牵一发而动全身" />
     <MESSAGE value="webpack5 Core-js 解决兼容性问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="webpack5 Core-js 解决兼容性问题" />
+    <MESSAGE value="webpack5 PWA 渐进式网络应用程序" />
+    <option name="LAST_COMMIT_MESSAGE" value="webpack5 PWA 渐进式网络应用程序" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/$index_html.dat" NAME="index.html 覆盖结果" MODIFIED="1703496215493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="WipCoverageRunner" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
