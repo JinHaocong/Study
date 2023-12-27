@@ -114,5 +114,5 @@ module.exports = {
     // 模式
     mode: "production",
     // 启用源映射
-    // devtool: "source-map",
+    devtool: "source-map",
 };
