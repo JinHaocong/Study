@@ -1,12 +1,13 @@
 const path = require('path')
 const EslintWebpackPlugin = require("eslint-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerWebpackPlugin = require("css-minimizer-webpack-plugin");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const {VueLoaderPlugin} = require('vue-loader')
+const {DefinePlugin} = require("webpack");
 
 // 返回处理样式loader函数
 const getStyleLoaders = (pre) => {
@@ -72,7 +73,7 @@ module.exports = {
             },
             // 处理js
             {
-                test: /\.jsx?$/,
+                test: /\.js?$/,
                 include: path.resolve(__dirname, "../src"),
                 loader: "babel-loader",
                 options: {
@@ -82,6 +83,11 @@ module.exports = {
                     cacheCompression: false,
                 },
             },
+            // 处理vue
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
+            }
         ]
     },
     plugins: [
@@ -96,8 +102,13 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "../public/index.html"),
         }),
-        // 激活js的HMR
-        new ReactRefreshWebpackPlugin(),
+        // vue
+        new VueLoaderPlugin(),
+        // DefinePlugin定义环境变量给源代码使用，从而解决vue3页面警告的问题
+        new DefinePlugin({
+            __VUE_OPTIONS_API__: true,
+            __VUE_PROD_DEVTOOLS__: false,
+        }),
         // 提取css为单独文件
         new MiniCssExtractPlugin({
             filename: "static/css/[name].[contenthash:10].css",
@@ -167,6 +178,6 @@ module.exports = {
     // webpack解析模块加载选项
     resolve: {
         // 自动补全文件扩展名
-        extensions: [".jsx", ".js", ".json"],
+        extensions: [".vue", ".js", ".json"],
     },
 }
