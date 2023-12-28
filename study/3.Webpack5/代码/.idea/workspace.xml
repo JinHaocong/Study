@@ -4,24 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1afd41b6-e942-463f-ae08-7388e36b196f" name="更改" comment="webpack5 react-cli开发环境配置">
-      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/config/webpack.prod.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/css/home.b6cb0ef176.chunk.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/css/home.b6cb0ef176.chunk.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/343.acaec82bc3.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/343.acaec82bc3.js.LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/343.acaec82bc3.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/about.563473a732.chunk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/about.563473a732.chunk.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/home.47f98ae144.chunk.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/home.47f98ae144.chunk.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/main.28b295e252.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/main.28b295e252.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/runtime~main.js.caa02a8d86.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/runtime~main.js.caa02a8d86.js.map" afterDir="false" />
+    <list default="true" id="1afd41b6-e942-463f-ae08-7388e36b196f" name="更改" comment="webpack5 react-cli生产模式配置">
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/config/webpack.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.项目配置/test-react/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/3.项目配置/test-react/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/3.项目配置/test-react/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/3.项目配置/test-react/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -140,7 +125,7 @@
       <workItem from="1703494237934" duration="4168000" />
       <workItem from="1703552268985" duration="6994000" />
       <workItem from="1703639279138" duration="23216000" />
-      <workItem from="1703726026743" duration="3210000" />
+      <workItem from="1703726026743" duration="3656000" />
     </task>
     <task id="LOCAL-00001" summary="webpack5">
       <option name="closed" value="true" />
@@ -326,7 +311,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703730167065</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="webpack5 react-cli生产模式配置">
+      <option name="closed" value="true" />
+      <created>1703731192724</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1703731192724</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -354,7 +347,8 @@
     <MESSAGE value="webpack5 Core-js 解决兼容性问题" />
     <MESSAGE value="webpack5 PWA 渐进式网络应用程序" />
     <MESSAGE value="webpack5 react-cli开发环境配置" />
-    <option name="LAST_COMMIT_MESSAGE" value="webpack5 react-cli开发环境配置" />
+    <MESSAGE value="webpack5 react-cli生产模式配置" />
+    <option name="LAST_COMMIT_MESSAGE" value="webpack5 react-cli生产模式配置" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/$index_html.dat" NAME="index.html 覆盖结果" MODIFIED="1703496215493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="WipCoverageRunner" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
