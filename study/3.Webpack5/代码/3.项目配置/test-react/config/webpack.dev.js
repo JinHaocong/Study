@@ -74,7 +74,7 @@ module.exports = {
                     // 缓存内容不压缩
                     cacheCompression: false,
                     plugins: [
-                        "react-refresh/babel", // 激活js的HMR
+                        "react-refresh/babel", // 激活js的HMR 热更新
                     ],
                 },
             },
