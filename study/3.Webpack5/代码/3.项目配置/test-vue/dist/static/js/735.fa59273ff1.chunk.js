@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunktest_vue=self.webpackChunktest_vue||[]).push([[735],{8735:(e,t,s)=>{s.r(t),s.d(t,{default:()=>r});var n=s(6252),u={class:"home-title"};const c={name:"HomeView"};const r=(0,s(3744).Z)(c,[["render",function(e,t,s,c,r,a){return(0,n.wg)(),(0,n.iD)("h1",u,"Home~~~~~")}]])}}]);
+//# sourceMappingURL=735.fa59273ff1.chunk.js.map
