@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunktest_react=self.webpackChunktest_react||[]).push([[443],{8248:function(t,e,n){n.r(e),n.d(e,{default:function(){return r}});var u=n(7294);function r(){return u.createElement("h1",null,"About~~~")}}}]);
+//# sourceMappingURL=about.2fa45f498f.chunk.js.map

@@ -1,1 +1,1 @@
-{"version":3,"file":"static/css/home.b6cb0ef176.chunk.css","mappings":"AAAA,YACE,UACF","sources":["webpack://test-react/./src/pages/Home/index.less"],"sourcesContent":[".home-title {\n  color: pink;\n}\n"],"names":[],"sourceRoot":""}
+{"version":3,"file":"static/css/home.b6cb0ef176.chunk.css","mappings":"AAAA,YACE,UACF","sources":["webpack://test-react/./src/pages/Home/index.less"],"sourcesContent":[".home-title {\n  color: pink;\n}\n\n@primary-color: #1DA57A;"],"names":[],"sourceRoot":""}
