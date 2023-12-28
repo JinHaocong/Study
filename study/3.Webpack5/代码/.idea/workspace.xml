@@ -5,7 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1afd41b6-e942-463f-ae08-7388e36b196f" name="更改" comment="webpack5 react-cli优化配置">
-      <change beforePath="$PROJECT_DIR$/3.项目配置/test-react/config/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/3.项目配置/test-react/config/webpack.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-vue/.eslintrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-vue/babel.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-vue/config/webpack.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-vue/config/webpack.dev.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-vue/config/webpack.prod.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-vue/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-vue/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-vue/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-vue/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-vue/src/App.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-vue/src/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-vue/src/router/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-vue/src/views/About/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-vue/src/views/Home/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +65,7 @@
     "git-widget-placeholder": "master",
     "javascript.nodejs.core.library.configured.version": "14.21.3",
     "javascript.nodejs.core.library.typings.version": "14.18.63",
-    "last_opened_file_path": "E:/Study/study/3.Webpack5/代码/3.项目配置/test-react/config",
+    "last_opened_file_path": "E:/Study/study/3.Webpack5/代码/3.项目配置/test-vue/src/router",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -70,30 +84,23 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-vue\src\router" />
+      <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-vue\src\views" />
+      <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-vue\public" />
+      <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-vue" />
       <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-react\config" />
-      <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-react\public" />
-      <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-react\src\pages\about" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-vue\src" />
       <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-react\src\pages\Home" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.build">
-    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/3.项目配置/test-react/package.json" />
+  <component name="RunManager">
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/3.项目配置/test-vue/package.json" />
       <command value="run" />
       <scripts>
-        <script value="build" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/3.项目配置/test-react/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="start" />
+        <script value="dev" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -101,8 +108,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.build" />
-        <item itemvalue="npm.start" />
+        <item itemvalue="npm.dev" />
       </list>
     </recent_temporary>
   </component>
@@ -123,7 +129,8 @@
       <workItem from="1703494237934" duration="4168000" />
       <workItem from="1703552268985" duration="6994000" />
       <workItem from="1703639279138" duration="23216000" />
-      <workItem from="1703726026743" duration="5500000" />
+      <workItem from="1703726026743" duration="5937000" />
+      <workItem from="1703733880262" duration="3297000" />
     </task>
     <task id="LOCAL-00001" summary="webpack5">
       <option name="closed" value="true" />
@@ -333,7 +340,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703733413270</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="webpack5 react-cli优化配置">
+      <option name="closed" value="true" />
+      <created>1703733496056</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1703733496056</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
