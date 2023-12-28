@@ -8,6 +8,10 @@ const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const {VueLoaderPlugin} = require('vue-loader')
 const {DefinePlugin} = require("webpack");
+const AutoImport = require('unplugin-auto-import/webpack')
+const Components = require('unplugin-vue-components/webpack')
+const {ElementPlusResolver} = require('unplugin-vue-components/resolvers')
+
 
 const isProduction = process.env.NODE_ENV === "production"
 
@@ -26,7 +30,15 @@ const getStyleLoaders = (pre) => {
                 },
             },
         },
-        pre,
+        pre && {
+            loader: pre,
+            options:
+                pre === "sass-loader"
+                    ? {
+                        additionalData: `@use "@/styles/element/index.scss" as *;`,
+                    }
+                    : {},
+        },
     ].filter(Boolean);
 };
 
@@ -133,6 +145,19 @@ module.exports = {
                 },
             ],
         }),
+
+        // element plus 按需引入
+        AutoImport({
+            resolvers: [ElementPlusResolver()],
+        }),
+        Components({
+            resolvers: [
+                // 自定义主题
+                ElementPlusResolver({
+                    importStyle: "sass",
+                }),
+            ],
+        }),
     ].filter(Boolean),
     mode: isProduction ? "production" : "development",
     devtool: isProduction ? "source-map" : "cheap-module-source-map",
@@ -203,6 +228,10 @@ module.exports = {
     resolve: {
         // 自动补全文件扩展名
         extensions: [".vue", ".js", ".json"],
+        // 路径别名
+        alias: {
+            "@": path.resolve(__dirname, "../src"),
+        },
     },
     devServer: {
         host: "localhost",

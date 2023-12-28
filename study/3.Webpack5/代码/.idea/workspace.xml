@@ -4,10 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1afd41b6-e942-463f-ae08-7388e36b196f" name="更改" comment="webpack5 vue开发模式配置">
+    <list default="true" id="1afd41b6-e942-463f-ae08-7388e36b196f" name="更改" comment="webpack5 vue-cli配置合并">
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-vue/src/styles/element/index.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/config/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/3.项目配置/test-vue/config/webpack.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/config/webpack.prod.js" beforeDir="false" afterPath="$PROJECT_DIR$/3.项目配置/test-vue/config/webpack.prod.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/3.项目配置/test-vue/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/dist/static/css/28.f50aa05fe7.chunk.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/dist/static/css/28.f50aa05fe7.chunk.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/dist/static/css/main.339c483bac.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/dist/static/css/main.339c483bac.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/dist/static/js/27.c11da6da76.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/dist/static/js/27.c11da6da76.chunk.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/dist/static/js/28.0282c1b122.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/dist/static/js/28.0282c1b122.chunk.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/dist/static/js/libs-chunk.91a8e9d2df.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/dist/static/js/libs-chunk.91a8e9d2df.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/dist/static/js/libs-chunk.91a8e9d2df.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/dist/static/js/main.b8ae1c3b39.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/dist/static/js/main.b8ae1c3b39.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/dist/static/js/runtime~main.js.eee63526ed.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/dist/static/js/runtime~main.js.eee63526ed.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/3.项目配置/test-vue/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/3.项目配置/test-vue/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/3.项目配置/test-vue/package.json" afterDir="false" />
     </list>
@@ -55,7 +72,7 @@
     "git-widget-placeholder": "master",
     "javascript.nodejs.core.library.configured.version": "14.21.3",
     "javascript.nodejs.core.library.typings.version": "14.18.63",
-    "last_opened_file_path": "E:/Study/study/3.Webpack5/代码/3.项目配置/test-vue/src/router",
+    "last_opened_file_path": "E:/Study/study/3.Webpack5/代码/3.项目配置/test-vue/src",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -74,18 +91,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-vue\src" />
       <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-vue\src\router" />
       <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-vue\src\views" />
       <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-vue\public" />
       <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-vue" />
-      <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-react\config" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-vue\src" />
       <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-react\src\pages\Home" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.dev">
+  <component name="RunManager" selected="npm.build">
     <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/3.项目配置/test-vue/package.json" />
       <command value="run" />
@@ -108,8 +125,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.dev" />
         <item itemvalue="npm.build" />
+        <item itemvalue="npm.dev" />
       </list>
     </recent_temporary>
   </component>
@@ -131,7 +148,7 @@
       <workItem from="1703552268985" duration="6994000" />
       <workItem from="1703639279138" duration="23216000" />
       <workItem from="1703726026743" duration="5937000" />
-      <workItem from="1703733880262" duration="4171000" />
+      <workItem from="1703733880262" duration="5975000" />
     </task>
     <task id="LOCAL-00001" summary="webpack5">
       <option name="closed" value="true" />
@@ -357,7 +374,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703744136691</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="webpack5 vue-cli配置合并">
+      <option name="closed" value="true" />
+      <created>1703744987926</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1703744987926</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -389,7 +414,8 @@
     <MESSAGE value="webpack5 react-cli配置合并" />
     <MESSAGE value="webpack5 react-cli优化配置" />
     <MESSAGE value="webpack5 vue开发模式配置" />
-    <option name="LAST_COMMIT_MESSAGE" value="webpack5 vue开发模式配置" />
+    <MESSAGE value="webpack5 vue-cli配置合并" />
+    <option name="LAST_COMMIT_MESSAGE" value="webpack5 vue-cli配置合并" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/$index_html.dat" NAME="index.html 覆盖结果" MODIFIED="1703496215493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="WipCoverageRunner" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
