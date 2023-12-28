@@ -5,13 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1afd41b6-e942-463f-ae08-7388e36b196f" name="更改" comment="webpack5 react-cli开发环境配置">
-      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/src/pages/about/index.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/config/webpack.prod.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/css/home.b6cb0ef176.chunk.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/css/home.b6cb0ef176.chunk.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/343.acaec82bc3.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/343.acaec82bc3.js.LICENSE.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/343.acaec82bc3.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/about.563473a732.chunk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/about.563473a732.chunk.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/home.47f98ae144.chunk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/home.47f98ae144.chunk.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/main.28b295e252.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/main.28b295e252.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/runtime~main.js.caa02a8d86.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.项目配置/test-react/dist/static/js/runtime~main.js.caa02a8d86.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.项目配置/test-react/config/webpack.dev.js" beforeDir="false" afterPath="$PROJECT_DIR$/3.项目配置/test-react/config/webpack.dev.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/3.项目配置/test-react/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/3.项目配置/test-react/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/3.项目配置/test-react/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/3.项目配置/test-react/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.项目配置/test-react/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/3.项目配置/test-react/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.项目配置/test-react/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/3.项目配置/test-react/src/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +68,7 @@
     "git-widget-placeholder": "master",
     "javascript.nodejs.core.library.configured.version": "14.21.3",
     "javascript.nodejs.core.library.typings.version": "14.18.63",
-    "last_opened_file_path": "E:/Study/study/3.Webpack5/代码/3.项目配置/test-react/src/pages/about",
+    "last_opened_file_path": "E:/Study/study/3.Webpack5/代码/3.项目配置/test-react/config",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -76,14 +87,25 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-react\src\pages\about" />
+      <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-react\config" />
       <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-react\public" />
+      <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-react\src\pages\about" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Study\study\3.Webpack5\代码\3.项目配置\test-react\src\pages\Home" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.start">
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/3.项目配置/test-react/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/3.项目配置/test-react/package.json" />
       <command value="run" />
@@ -97,6 +119,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.start" />
+        <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
   </component>
@@ -117,7 +140,7 @@
       <workItem from="1703494237934" duration="4168000" />
       <workItem from="1703552268985" duration="6994000" />
       <workItem from="1703639279138" duration="23216000" />
-      <workItem from="1703726026743" duration="2091000" />
+      <workItem from="1703726026743" duration="3210000" />
     </task>
     <task id="LOCAL-00001" summary="webpack5">
       <option name="closed" value="true" />
@@ -287,7 +310,23 @@
       <option name="project" value="LOCAL" />
       <updated>1703670801768</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="webpack5 react-cli开发环境配置">
+      <option name="closed" value="true" />
+      <created>1703730125452</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1703730125452</updated>
+    </task>
+    <task id="LOCAL-00023" summary="webpack5 react-cli开发环境配置">
+      <option name="closed" value="true" />
+      <created>1703730167065</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1703730167065</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
