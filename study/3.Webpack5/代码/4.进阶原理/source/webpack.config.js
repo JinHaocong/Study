@@ -28,14 +28,14 @@ module.exports = {
             //     // use: ["./loaders/demo/test4", "./loaders/demo/test5", "./loaders/demo/test6"],
             //     // loader: "./loaders/clean-log-loader",
             // },
-            {
-                test: /\.js$/,
-                loader: "./loaders/banner-loader",
-                options: {
-                    author: "jhc",
-                    // age: 18, // 不能新增字段，不然会报错
-                },
-            },
+            // {
+            //     test: /\.js$/,
+            //     loader: "./loaders/banner-loader",
+            //     options: {
+            //         author: "jhc",
+            //         // age: 18, // 不能新增字段，不然会报错
+            //     },
+            // },
             {
                 test: /\.js$/,
                 loader: "./loaders/babel-loader",
@@ -64,12 +64,12 @@ module.exports = {
         ],
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, "public/index.html"),
-        }),
         // new TestPlugin(),
         new BannerWebpackPlugin({
-            author: "老王",
+            author: "jhc",
+        }),
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, "public/index.html"),
         }),
         new CleanWebpackPlugin(),
         new AnalyzeWebpackPlugin(),
