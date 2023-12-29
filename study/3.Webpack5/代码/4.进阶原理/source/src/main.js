@@ -6,5 +6,5 @@ console.log("hello 111");
 console.log("hello 222");
 
 const sum = (...args) => {
-  return args.reduce((p, c) => p, c, 0);
+    return args.reduce((p, c) => p, c, 0);
 };

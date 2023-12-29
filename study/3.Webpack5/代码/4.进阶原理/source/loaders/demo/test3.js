@@ -7,7 +7,8 @@
 // module.exports.raw = true;
 
 function test3Loader(content) {
-  return content;
+    console.log(content);
+    return content;
 }
 
 test3Loader.raw = true;
