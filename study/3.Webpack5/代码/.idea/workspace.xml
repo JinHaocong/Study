@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1afd41b6-e942-463f-ae08-7388e36b196f" name="更改" comment="webpack5 loader原理">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="1afd41b6-e942-463f-ae08-7388e36b196f" name="更改" comment="webpack5 plugin原理">
       <change beforePath="$PROJECT_DIR$/4.进阶原理/source/dist/analyze.md" beforeDir="false" afterPath="$PROJECT_DIR$/4.进阶原理/source/dist/analyze.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/4.进阶原理/source/dist/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/4.进阶原理/source/dist/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/4.进阶原理/source/plugins/analyze-webpack-plugin.js" beforeDir="false" afterPath="$PROJECT_DIR$/4.进阶原理/source/plugins/analyze-webpack-plugin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/4.进阶原理/source/plugins/banner-webpack-plugin.js" beforeDir="false" afterPath="$PROJECT_DIR$/4.进阶原理/source/plugins/banner-webpack-plugin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/4.进阶原理/source/plugins/clean-webpack-plugin.js" beforeDir="false" afterPath="$PROJECT_DIR$/4.进阶原理/source/plugins/clean-webpack-plugin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/4.进阶原理/source/plugins/inline-chunk-webpack-plugin.js" beforeDir="false" afterPath="$PROJECT_DIR$/4.进阶原理/source/plugins/inline-chunk-webpack-plugin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/4.进阶原理/source/plugins/test-plugin.js" beforeDir="false" afterPath="$PROJECT_DIR$/4.进阶原理/source/plugins/test-plugin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/4.进阶原理/source/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/4.进阶原理/source/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../学习计划.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../学习计划.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +103,7 @@
       <workItem from="1703639279138" duration="23216000" />
       <workItem from="1703726026743" duration="5937000" />
       <workItem from="1703733880262" duration="8841000" />
-      <workItem from="1703812387852" duration="16582000" />
+      <workItem from="1703812387852" duration="21359000" />
     </task>
     <task id="LOCAL-00001" summary="webpack5">
       <option name="closed" value="true" />
@@ -368,7 +361,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703822248990</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="webpack5 plugin原理">
+      <option name="closed" value="true" />
+      <created>1703837095632</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1703837095632</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -403,7 +404,8 @@
     <MESSAGE value="webpack5 vue-cli配置合并" />
     <MESSAGE value="webpack5 vue-cli配置优化" />
     <MESSAGE value="webpack5 loader原理" />
-    <option name="LAST_COMMIT_MESSAGE" value="webpack5 loader原理" />
+    <MESSAGE value="webpack5 plugin原理" />
+    <option name="LAST_COMMIT_MESSAGE" value="webpack5 plugin原理" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/$index_html.dat" NAME="index.html 覆盖结果" MODIFIED="1703496215493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="WipCoverageRunner" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
