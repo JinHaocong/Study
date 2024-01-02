@@ -16,13 +16,13 @@
       默认值 [“node_modules”,”bower_components”,”jspm_packages”]
   */
   "include": [
-    "../../typescript/ts02/*"
+    "../../typescript/ts02/"
     // 表示编译typescript目录下的所有目录里面的文件
     // /** 表示任意目录  /* 表示任意文件
   ],
   "exclude": [
     // 不包含
-    "./exclude/**/*"
+    "./exclude/"
     // 这个目录下的文件不会被编译
   ],
   //  compilerOptions  编译器的选项，决定了编译器如何对ts进行编译
@@ -62,11 +62,11 @@ t.bigint', 'esnext.string', 'esnext.promise', 'esnext.weakref'.
       // 一般情况下不用动
     ],
     //    outDir 编译以后的js文件在哪个目录
-    "outDir": "./dict",
+    "outDir": "./dict"
     // 当前文件夹下的dict目录作为编译以后的目录
     //    outFile 输出的文件,可以将代码合成一个文件,设置这个以后，所有的全局作用域中的代码全都合并在一起了
     // Only 'amd' and 'system' modules are supported al
     //ongside --outFile.  想要合并成一个文件，需要把module设置为amd或者system
-    "outFile": "./dict/app.js"
+    //    "outFile": "./dict/app.js"
   }
 }

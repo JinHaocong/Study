@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="13d074a7-0362-4359-a58c-b04ed51e4c0c" name="更改" comment="TypeScript">
-      <change beforePath="$PROJECT_DIR$/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
+    <list default="true" id="13d074a7-0362-4359-a58c-b04ed51e4c0c" name="更改" comment="TypeScript 类型">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/typescript/ts01/02-basis.ts" beforeDir="false" afterPath="$PROJECT_DIR$/typescript/ts01/02-basis.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/typescript/ts01/03-types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/typescript/ts01/03-types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/typescript/ts01/04-types-object.ts" beforeDir="false" afterPath="$PROJECT_DIR$/typescript/ts01/04-types-object.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/typescript/ts01/05-types-array.ts" beforeDir="false" afterPath="$PROJECT_DIR$/typescript/ts01/05-types-array.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts02/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/typescript/ts02/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts02/dict/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts02/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/typescript/ts02/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +95,7 @@
       <workItem from="1704168313966" duration="3364000" />
       <workItem from="1704175561504" duration="82000" />
       <workItem from="1704175651975" duration="18000" />
-      <workItem from="1704175678881" duration="3562000" />
+      <workItem from="1704175678881" duration="8781000" />
     </task>
     <task id="LOCAL-00001" summary="TypeScript">
       <option name="closed" value="true" />
@@ -116,7 +113,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704168054879</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="TypeScript 类型">
+      <option name="closed" value="true" />
+      <created>1704179281257</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1704179281257</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -126,6 +131,7 @@
         <option value="$PROJECT_DIR$/typescript/ts04/src/index.js" />
         <option value="$PROJECT_DIR$/typescript/ts04/src/m.js" />
         <option value="$PROJECT_DIR$/typescript/ts01/02-basis.js" />
+        <option value="$PROJECT_DIR$/typescript/ts02/app.js" />
       </list>
     </option>
   </component>
@@ -133,6 +139,7 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="TypeScript" />
-    <option name="LAST_COMMIT_MESSAGE" value="TypeScript" />
+    <MESSAGE value="TypeScript 类型" />
+    <option name="LAST_COMMIT_MESSAGE" value="TypeScript 类型" />
   </component>
 </project>
