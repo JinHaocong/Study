@@ -1,0 +1,62 @@
+{
+  // ts的配置
+  /*
+    tsconfig.json 是ts编译器的配置文件，ts可以根据这个里面的信息来进行编译
+  */
+  // 包含，编译那些文件，那些ts文件被编译
+  "include": [
+    "src/**/*"
+    // ** 任意目录 * 任意文件
+  ],
+  // 不包含，排除那些ts 文件，不被编译器编译
+  "exclude": [
+    "src/app2.ts"
+    // 发现这个文件不会被编译
+  ],
+  // 编译器选项 compilerOptions 决定了编译器如何编译ts文件
+  "compilerOptions": {
+    // target  指定编译后js的版本
+    "target": "ESNext",
+    // 编译后的js要使用那种模块化的规范 可选值由如下：
+    /*
+    option must be: 'none',
+    'commonjs', 'amd', 'system', 'umd',
+    'es6', 'es2015', 'es2020', 'esnext'.
+    */
+    "module": "system",
+    // lib  指定项目中要使用的库
+    //    "lib": ["dom"]
+
+    // 编译后生成的js文件所在的目录
+    "outDir": "./dist",
+    // 将代码合并为一个文件,所有的全局作用域中的代码会合并到一个文件中
+    // 了解即可，以后打包我们会使用打包工具webpack
+    //    "outFile": "./dist/app.js",
+
+
+    // 是否允许js参与编译，默认是false，js不会做任何处理
+    "allowJs": true,
+    // 是否检查js代码的语法，实际上也是按照ts的标准进行检查
+    "checkJs": true,
+    // 是否移除注释,编译后生成的js文件中不会含有注释
+    "removeComments": true,
+    // 不生成编译后的文件，可以用于ts检查语法
+    //    "noEmit": true
+
+    // 有错误的时候，不会生成编译后的js 文件
+    "noEmitOnError": true,
+    // 语法检查
+
+    // 开启严格模式，开启这个选项，生成的js文件就会开启严格模式
+    "alwaysStrict": true,
+    // 类型检查any，不允许使用隐式的any类型，也就是变量，
+    // 函数这些我们没有赋予类型的时候，会报错。 显示的使用any不会报错
+    "noImplicitAny": true,
+    // 不允许不明确类型的this
+    "noImplicitThis": true,
+    // 严格的检查空值
+    "strictNullChecks": true,
+    // 所有严格检查的总开关 这个打开，则所有的严格检查全都打开，我们一般把这个写在最前面
+    "strict": true
+  }
+}

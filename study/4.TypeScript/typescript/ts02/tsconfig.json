@@ -1,0 +1,72 @@
+{
+  /*"compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+
+  tsconfig.json 是TS编译器的配置文件 TS编译器可以根据它的信息来对代码进行编译
+
+  配置选项：
+    include  指定那些Ts文件需要被编译
+    exclude 不需要被编译的文件目录
+      默认值 [“node_modules”,”bower_components”,”jspm_packages”]
+  */
+  "include": [
+    "../../typescript/ts02/*"
+    // 表示编译typescript目录下的所有目录里面的文件
+    // /** 表示任意目录  /* 表示任意文件
+  ],
+  "exclude": [
+    // 不包含
+    "./exclude/**/*"
+    // 这个目录下的文件不会被编译
+  ],
+  //  compilerOptions  编译器的选项，决定了编译器如何对ts进行编译
+  "compilerOptions": {
+    "target": "ESNext",
+    // 目标 target 指定ts被便编译为js的版本
+
+    "module": "ES6",
+    // 模块化 指定要使用的模块化的规范
+
+    /*
+    module 可选值
+    'none',
+    'commonjs', 'amd', 'system', 'umd', 'es6', 'es2015', 'es2020', 'esnext'.
+*/
+
+    //    lib 库 要使用的库
+    /*
+    可选值：
+
+     'es5', 'es
+6', 'es2015', 'es7', 'es2016', 'es2017', 'es2018', 'es2019', 'es2020', 'esnext', 'd
+om', 'dom.iterable', 'webworker', 'webworker.importscripts', 'webworker.iterable',
+'scripthost', 'es2015.core', 'es2015.collection', 'es2015.generator', 'es2015.itera
+ble', 'es2015.promise', 'es2015.proxy', 'es2015.reflect', 'es2015.symbol', 'es2015.
+symbol.wellknown', 'es2016.array.include', 'es2017.object', 'es2017.sharedmemory',
+'es2017.string', 'es2017.intl', 'es2017.typedarrays', 'es2018.asyncgenerator', 'es2
+018.asynciterable', 'es2018.intl', 'es2018.promise', 'es2018.regexp', 'es2019.array
+', 'es2019.object', 'es2019.string', 'es2019.symbol', 'es2020.bigint', 'es2020.prom
+ise', 'es2020.sharedmemory', 'es2020.string', 'es2020.symbol.wellknown', 'es2020.in
+tl', 'esnext.array', 'esnext.symbol', 'esnext.asynciterable', 'esnext.intl', 'esnex
+t.bigint', 'esnext.string', 'esnext.promise', 'esnext.weakref'.
+*/
+    "lib": [
+      "dom",
+      "es6"
+      // 一般情况下不用动
+    ],
+    //    outDir 编译以后的js文件在哪个目录
+    "outDir": "./dict",
+    // 当前文件夹下的dict目录作为编译以后的目录
+    //    outFile 输出的文件,可以将代码合成一个文件,设置这个以后，所有的全局作用域中的代码全都合并在一起了
+    // Only 'amd' and 'system' modules are supported al
+    //ongside --outFile.  想要合并成一个文件，需要把module设置为amd或者system
+    "outFile": "./dict/app.js"
+  }
+}

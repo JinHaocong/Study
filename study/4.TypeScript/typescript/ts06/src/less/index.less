@@ -1,0 +1,89 @@
+// 清除默认样式
+* {
+  margin: 0;
+  padding: 0;
+  // 盒子模型计算方式,改为盒子大小包含内容以及边框
+  box-sizing: border-box;
+}
+
+body {
+  font: bold 20px "Courier New";
+}
+
+@bg-color: #b7d4a8;
+
+// 设置主窗口的样式
+#main {
+  width: 360px;
+  height: 420px;
+  background-color: @bg-color;
+  margin: 100px auto;
+  border: 10px solid black;
+  // 圆角
+  border-radius: 40px;
+
+  // 开启弹性盒
+  display: flex;
+  // 设置主轴方向
+  flex-flow: column;
+  // 侧轴对齐方式
+  align-items: center;
+  // 主轴对齐方式
+  justify-content: space-around;
+
+  // 游戏界面区域
+  #stage {
+    width: 304px;
+    height: 304px;
+    border: 2px solid black;
+    // 相对定位
+    position: relative;
+
+    //  蛇的样式
+    #snake {
+      & > div {
+        width: 10px;
+        height: 10px;
+        background-color: #000;
+        border: 1px solid @bg-color;
+        // 开启绝对定位
+        position: absolute;
+      }
+    }
+  }
+
+  // 食物
+  #food {
+    width: 10px;
+    height: 10px;
+    // 开启绝对定位
+    position: absolute;
+    left: 40px;
+    top: 100px;
+    // 开启弹性盒模型
+    display: flex;
+    // 支持换行，设置横纵为主轴，wrap表示可以换行，排列不下的时候
+    flex-flow: row wrap;
+    // 设置主轴和侧轴的空白空间分配到元素之间
+    justify-content: space-between;
+    align-content: space-between;
+
+    // 设计食物的样式
+    & > div {
+      width: 4px;
+      height: 4px;
+      background-color: black;
+      // 旋转
+      transform: rotate(45deg);
+    }
+  }
+
+  // 记分牌
+  #score-panel {
+    width: 300px;
+    display: flex;
+    // 主轴对齐方式
+    justify-content: space-between;
+  }
+}
+
