@@ -2,7 +2,7 @@ function sum(a: number, b: number) {
     return a + b;
 }
 
-console.log(sum(1,2));
+console.log(sum(1, 2));
 // alert("1")
 
 
@@ -12,9 +12,9 @@ import {name} from "./m";
 console.log(name)
 
 const obj = {
-    name:'毛',
-    age : 20,
-    gender:''
+    name: '毛',
+    age: 20,
+    gender: ''
 }
 obj.gender = '男'
 console.log(obj)

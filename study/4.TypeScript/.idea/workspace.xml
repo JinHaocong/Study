@@ -1,29 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="13d074a7-0362-4359-a58c-b04ed51e4c0c" name="更改" comment="TypeScript 类型">
+    <list default="true" id="e1784cdd-6b80-4e38-9fb0-e370502feb9a" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.eslintrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/4.TypeScript.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/git_toolbox_prj.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLinters/eslint.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/typescript/ts02/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/typescript/ts02/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript-learn-greedy-snake/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript-learn-greedy-snake/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript-learn-greedy-snake/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript-learn-greedy-snake/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript-learn-greedy-snake/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript-learn-greedy-snake/src/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript-learn-greedy-snake/src/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript-learn-greedy-snake/src/modules/Food.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript-learn-greedy-snake/src/modules/GameControl.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript-learn-greedy-snake/src/modules/ScorePanel.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript-learn-greedy-snake/src/modules/Snake.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript-learn-greedy-snake/src/style/index.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript-learn-greedy-snake/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript-learn-greedy-snake/webpack.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript-learn-greedy-snake/贪食蛇.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts01/01-hello.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts01/02-basis.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts01/03-types.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts01/04-types-object.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts01/05-types-array.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts02/app.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/typescript/ts02/dict/app.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/typescript/ts02/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/typescript/ts02/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts02/dict/ex.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts02/ex.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts02/exclude/exclude.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts02/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts03/dist/a.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts03/dist/app1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts03/dist/b.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts03/src/a.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts03/src/app1.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts03/src/app2.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts03/src/b.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts03/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts04/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts04/dict/bundle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts04/dict/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts04/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts04/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts04/src/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts04/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts04/src/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts04/src/m.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts04/src/m.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts04/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts04/webpack.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/dict/class1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/dict/class2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/dict/class3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/dict/class4.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/dict/class5.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/dict/class6.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/dict/class7.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/dict/class8.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/src/class1.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/src/class2.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/src/class3.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/src/class4.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/src/class5.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/src/class6.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/src/class7.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/src/class8.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts06/dict/bundle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts06/dict/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts06/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts06/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts06/src/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts06/src/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts06/src/less/index.less" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts06/src/module/Food.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts06/src/module/GameControl.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts06/src/module/ScopePanel.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts06/src/module/Snake.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts06/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts06/webpack.config.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="TypeScript File" />
-      </list>
-    </option>
-  </component>
-  <component name="FormatOnSaveOptions">
-    <option name="myRunOnSave" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -31,97 +102,41 @@
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="5" />
   </component>
-  <component name="JsBowerSettings">
-    <bower-package value="" />
-    <bower.json value="" />
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="OptimizeOnSaveOptions">
-    <option name="myRunOnSave" value="true" />
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 4
-}</component>
-  <component name="ProjectId" id="2aNYKgV8UcC0uArC6eYJvQjys4p" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="2aOPo75s36YBzNGlEMrIz9JHJUh" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Node.js.TS.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;code.cleanup.on.save&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;14.21.3&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;14.18.63&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Study/study/4.TypeScript/typescript/ts01/02-basis.ts&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;E:\\Study\\study\\4.TypeScript\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "E:/Study/study/4.TypeScript/code",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "MTConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager">
-    <configuration name="TS" type="NodeJSConfigurationType" node-parameters="--require ts-node/register" path-to-js-file="$FilePathRelativeToProjectRoot$" working-dir="$PROJECT_DIR$">
-      <method v="2" />
-    </configuration>
-  </component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="默认任务">
-      <changelist id="13d074a7-0362-4359-a58c-b04ed51e4c0c" name="更改" comment="" />
-      <created>1704160441913</created>
+      <changelist id="e1784cdd-6b80-4e38-9fb0-e370502feb9a" name="更改" comment="" />
+      <created>1704186824852</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1704160441913</updated>
-      <workItem from="1704160443240" duration="3570000" />
-      <workItem from="1704164043041" duration="2989000" />
-      <workItem from="1704167908092" duration="392000" />
-      <workItem from="1704168313966" duration="3364000" />
-      <workItem from="1704175561504" duration="82000" />
-      <workItem from="1704175651975" duration="18000" />
-      <workItem from="1704175678881" duration="8781000" />
+      <updated>1704186824852</updated>
+      <workItem from="1704186827255" duration="31000" />
     </task>
-    <task id="LOCAL-00001" summary="TypeScript">
-      <option name="closed" value="true" />
-      <created>1704168041969</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1704168041969</updated>
-    </task>
-    <task id="LOCAL-00002" summary="TypeScript">
-      <option name="closed" value="true" />
-      <created>1704168054879</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1704168054879</updated>
-    </task>
-    <task id="LOCAL-00003" summary="TypeScript 类型">
-      <option name="closed" value="true" />
-      <created>1704179281257</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1704179281257</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,16 +145,7 @@
       <list>
         <option value="$PROJECT_DIR$/typescript/ts04/src/index.js" />
         <option value="$PROJECT_DIR$/typescript/ts04/src/m.js" />
-        <option value="$PROJECT_DIR$/typescript/ts01/02-basis.js" />
-        <option value="$PROJECT_DIR$/typescript/ts02/app.js" />
       </list>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="TypeScript" />
-    <MESSAGE value="TypeScript 类型" />
-    <option name="LAST_COMMIT_MESSAGE" value="TypeScript 类型" />
   </component>
 </project>
