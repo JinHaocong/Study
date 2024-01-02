@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e1784cdd-6b80-4e38-9fb0-e370502feb9a" name="更改" comment="webpack">
+    <list default="true" id="e1784cdd-6b80-4e38-9fb0-e370502feb9a" name="更改" comment="typescript &amp; webpack">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/typescript/ts04/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/code/typescript/ts04/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +48,17 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.build">
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/code/typescript/ts04/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/code/typescript/ts04/package.json" />
       <command value="run" />
@@ -60,6 +71,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.build" />
         <item itemvalue="npm.start" />
       </list>
     </recent_temporary>
@@ -73,7 +85,7 @@
       <option name="presentableId" value="Default" />
       <updated>1704186824852</updated>
       <workItem from="1704186827255" duration="31000" />
-      <workItem from="1704187531775" duration="508000" />
+      <workItem from="1704187531775" duration="607000" />
     </task>
     <task id="LOCAL-00001" summary="webpack">
       <option name="closed" value="true" />
@@ -83,7 +95,23 @@
       <option name="project" value="LOCAL" />
       <updated>1704187582879</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="typescript &amp; webpack">
+      <option name="closed" value="true" />
+      <created>1704188056323</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1704188056323</updated>
+    </task>
+    <task id="LOCAL-00003" summary="typescript &amp; webpack">
+      <option name="closed" value="true" />
+      <created>1704188064028</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1704188064028</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -93,6 +121,7 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="webpack" />
-    <option name="LAST_COMMIT_MESSAGE" value="webpack" />
+    <MESSAGE value="typescript &amp; webpack" />
+    <option name="LAST_COMMIT_MESSAGE" value="typescript &amp; webpack" />
   </component>
 </project>
