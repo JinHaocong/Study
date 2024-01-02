@@ -19,6 +19,7 @@ module.exports = {
         "no-unused-vars": 0,
         "prefer-const": 0,
         "no-inner-declarations": 0,
-        "@typescript-eslint/no-unused-vars": 0
+        "@typescript-eslint/no-unused-vars": 0,
+        "@typescript-eslint/no-explicit-any": 0
     },
 };

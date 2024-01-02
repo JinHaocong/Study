@@ -17,8 +17,14 @@
     // d = 222;
 
     // 返回值类型也是必须为number
+    /**
+     * This function adds two numbers and returns their sum.
+     * @param {number} x - the first number
+     * @param {number} y - the second number
+     * @returns {number} the sum of x and y
+     */
     function sum(x: number, y: number): number {
-        console.log(x + y)
+        console.log(x + y);
         return x + y;
     }
 
