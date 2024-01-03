@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="30630555-47cf-4e6c-b4fc-56cf8071e808" name="更改" comment="webpack 面向对象 继承 接口">
+    <list default="true" id="30630555-47cf-4e6c-b4fc-56cf8071e808" name="更改" comment="webpack 面向对象 属性的封装 private public get set">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/typescript/ts05/src/class7.ts" beforeDir="false" afterPath="$PROJECT_DIR$/typescript/ts05/src/class7.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/src/class8.ts" beforeDir="false" afterPath="$PROJECT_DIR$/typescript/ts05/src/class8.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +80,7 @@
       <updated>1704250132103</updated>
       <workItem from="1704250133796" duration="5034000" />
       <workItem from="1704263454412" duration="50000" />
-      <workItem from="1704268152902" duration="5363000" />
+      <workItem from="1704268152902" duration="7164000" />
     </task>
     <task id="LOCAL-00001" summary="webpack 面向对象 类">
       <option name="closed" value="true" />
@@ -146,7 +146,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704270781796</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="webpack 面向对象 属性的封装 private public get set">
+      <option name="closed" value="true" />
+      <created>1704273676680</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1704273676680</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,6 +176,7 @@
     <MESSAGE value="webpack 面向对象 继承 super关键字" />
     <MESSAGE value="webpack 面向对象 继承 abstract抽象类" />
     <MESSAGE value="webpack 面向对象 继承 接口" />
-    <option name="LAST_COMMIT_MESSAGE" value="webpack 面向对象 继承 接口" />
+    <MESSAGE value="webpack 面向对象 属性的封装 private public get set" />
+    <option name="LAST_COMMIT_MESSAGE" value="webpack 面向对象 属性的封装 private public get set" />
   </component>
 </project>
