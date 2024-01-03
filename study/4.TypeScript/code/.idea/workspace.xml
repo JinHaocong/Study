@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="30630555-47cf-4e6c-b4fc-56cf8071e808" name="更改" comment="webpack 面向对象 继承 abstract抽象类">
+    <list default="true" id="30630555-47cf-4e6c-b4fc-56cf8071e808" name="更改" comment="webpack 面向对象 继承 接口">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/typescript/ts05/src/class6.ts" beforeDir="false" afterPath="$PROJECT_DIR$/typescript/ts05/src/class6.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/typescript/ts05/src/class7.ts" beforeDir="false" afterPath="$PROJECT_DIR$/typescript/ts05/src/class7.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,16 +28,23 @@
   <component name="OptimizeOnSaveOptions">
     <option name="myRunOnSave" value="true" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2aQU7rrzBP2rLhhsuPQOVT9BhRp" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "Node.js.TS.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -73,7 +80,7 @@
       <updated>1704250132103</updated>
       <workItem from="1704250133796" duration="5034000" />
       <workItem from="1704263454412" duration="50000" />
-      <workItem from="1704268152902" duration="2502000" />
+      <workItem from="1704268152902" duration="5363000" />
     </task>
     <task id="LOCAL-00001" summary="webpack 面向对象 类">
       <option name="closed" value="true" />
@@ -131,7 +138,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704269432408</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="webpack 面向对象 继承 接口">
+      <option name="closed" value="true" />
+      <created>1704270781796</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1704270781796</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,11 +161,13 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="webpack 面向对象 类" />
     <MESSAGE value="webpack 面向对象 类 this" />
     <MESSAGE value="webpack 面向对象 继承" />
     <MESSAGE value="webpack 面向对象 继承 super关键字" />
     <MESSAGE value="webpack 面向对象 继承 abstract抽象类" />
-    <option name="LAST_COMMIT_MESSAGE" value="webpack 面向对象 继承 abstract抽象类" />
+    <MESSAGE value="webpack 面向对象 继承 接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="webpack 面向对象 继承 接口" />
   </component>
 </project>
