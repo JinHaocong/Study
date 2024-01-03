@@ -60,8 +60,8 @@
     "deletionFromPopupRequiresConfirmation": "false",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "javascript.nodejs.core.library.configured.version": "14.21.3",
-    "javascript.nodejs.core.library.typings.version": "14.18.63",
+    "javascript.nodejs.core.library.configured.version": "16.20.2",
+    "javascript.nodejs.core.library.typings.version": "16.18.69",
     "last_opened_file_path": "E:/Study/study/4.TypeScript/code",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
@@ -133,6 +133,7 @@
       <workItem from="1704186938188" duration="132000" />
       <workItem from="1704187079171" duration="87000" />
       <workItem from="1704187175964" duration="322000" />
+      <workItem from="1704249202672" duration="740000" />
     </task>
     <task id="LOCAL-00001" summary="TypeScript">
       <option name="closed" value="true" />
