@@ -3,83 +3,173 @@ import Snake from "./Snake";
 import Food from "./Food";
 import ScorePanel from "./ScorePanel";
 
-// 游戏控制器，控制其他的所有类
+/**
+ * GameControl 类
+ *
+ * 控制其他类
+ * @class GameControl
+ */
 class GameControl {
-    // 蛇
+    /**
+     * 蛇对象
+     *
+     * @type {Snake}
+     */
     snake: Snake;
-    // 食物
-    food: Food;
-    // 记分牌
-    scorePanel: ScorePanel;
-    // 创建一个属性来存储蛇的移动方向（也就是按键的方向）
-    direction: string = '';
-    // 创建一个属性用来记录游戏是否结束
-    isLive = true;
 
+    /**
+     * 食物对象
+     *
+     * @type {Food}
+     */
+    food: Food;
+
+    /**
+     * 计分面板对象
+     *
+     * @type {ScorePanel}
+     */
+    scorePanel: ScorePanel;
+
+    /**
+     * 蛇移动方向
+     *
+     * @type {string}
+     */
+    direction: string = '';
+
+    /**
+     * 游戏是否存活
+     *
+     * @type {boolean}
+     */
+    isLive: boolean = true;
+    private gameInterval: NodeJS.Timeout | undefined
+
+    /**
+     * GameControl 类的实例构造函数
+     *
+     * 创建蛇，食物，计分板实例
+     *
+     * 初始化
+     * @constructor
+     */
     constructor() {
         this.snake = new Snake();
         this.food = new Food();
         this.scorePanel = new ScorePanel(10, 1);
-
         this.init();
     }
 
-    // 游戏的初始化方法，调用后游戏即开始
+    /**
+     * 初始化游戏
+     *
+     * 更新食物位置
+     *
+     * 绑定键盘按键事件
+     *
+     * 启动游戏
+     */
     init() {
-        // 绑定键盘按键按下的事件
+        this.food.change();
         document.addEventListener('keydown', this.keydownHandler.bind(this));
-        // 调用run方法，使蛇移动
         this.run();
+        if (this.isLive) {
+            this.gameInterval = setInterval(() => {
+                this.run();
+                this.updateGameSpeed(); // 在每次循环中更新速度
+            }, 300);
+        }
     }
 
-    /*
-        Chrome       IE
-        ArrowUp      Up
-        ArrowDown    Down
-        ArrowLeft    Left
-        ArrowRight   Right
-    */
+    /**
+     * 更新游戏速度
+     */
+    updateGameSpeed() {
+        const baseSpeed = 300; // 初始速度
+        const speed = baseSpeed - (this.scorePanel.level - 1) * 30;
 
-    // 创建一个键盘按下的响应函数
-    keydownHandler(event: KeyboardEvent) {
-        // 需要检查event.key的值是否合法（用户是否按了正确的按键）
-        // 修改direction属性
+        // 清除现有的定时器，以防止重叠调用
+        if (this.gameInterval) {
+            clearInterval(this.gameInterval);
+        }
+
+        // 设置新的定时器
+        this.gameInterval = setInterval(() => {
+            this.run();
+            this.updateGameSpeed(); // 在每次循环中更新速度
+        }, speed);
+
+        // 注意: 这里使用了箭头函数，确保在回调中的 this 指向正确
+    }
+
+    /**
+     * 键盘按键事件处理函数
+     *
+     * 检查按下的按键是否有效
+     *
+     * 更新方向属性
+     *
+     * @param {KeyboardEvent} event
+     */
+    keydownHandler(event: { key: string; }) {
         this.direction = event.key;
     }
 
-    // 创建一个控制蛇移动的方法
+    /**
+     * 重置游戏状态，开始新游戏
+     */
+    resetGame() {
+        // 清除现有的定时器，以防止重叠调用
+        if (this.gameInterval) {
+            clearInterval(this.gameInterval)
+        }
+
+        // 清除事件监听
+        document.removeEventListener('keydown', this.keydownHandler.bind(this))
+
+        // 重置蛇、食物和计分板
+        this.snake.reset();
+        this.scorePanel.reset()
+        this.direction = ''
+
+        // 将 isLive 设置为 true，确保游戏处于活动状态
+        this.isLive = true;
+
+        this.init()
+    }
+
+
+    /**
+     * 运行游戏
+     */
     run() {
         /*
-        *   根据方向（this.direction）来使蛇的位置改变
-        *       向上 top  减少
-        *       向下 top  增加
-        *       向左 left 减少
-        *       向右 left 增加
+            *   根据方向移动蛇
+            *       上: top 减小
+            *       下: top 增大
+            *       左: left 减小
+            *       右: left 增大
         */
-        // 获取蛇现在坐标
-        let X = this.snake.X;
-        let Y = this.snake.Y;
+        // 获取当前蛇的位置
+        let {X, Y} = this.snake
 
-        // 根据按键方向来计算X值和Y值（未更新）
+        // 根据方向计算新的 X 和 Y 坐标
         switch (this.direction) {
-            case "ArrowUp":
-            case "Up":
-                // 向上移动 top 减少
+            case 'ArrowUp':
+            case 'Up':
                 Y -= 10;
                 break;
-            case "ArrowDown":
-            case "Down":
-                // 向下移动 top 增加
+            case 'ArrowDown':
+            case 'Down':
                 Y += 10;
                 break;
-            case "ArrowLeft":
-            case "Left":
-                // 向左移动 left 减少
+            case 'ArrowLeft':
+            case 'Left':
                 X -= 10;
                 break;
-            case "ArrowRight":
-            case "Right":
-                // 向右移动 left 增加
+            case 'ArrowRight':
+            case 'Right':
                 X += 10;
                 break;
         }
@@ -87,30 +177,34 @@ class GameControl {
         // 检查蛇是否吃到了食物
         this.checkEat(X, Y);
 
-        //修改蛇的X和Y值
+        // 更新蛇的位置
         try {
             this.snake.X = X;
             this.snake.Y = Y;
-        } catch (e) {
-            // 进入到catch，说明出现了异常，游戏结束，弹出一个提示信息
-            alert(e.message + ' GAME OVER!');
-            // 将isLive设置为false
+        } catch (e: any) {
+            // 进入 catch 块如果发生错误
+            // 游戏结束，显示警告
+            alert(e.message + ' 游戏结束！')
+            // 将 isLive 设置为 false
             this.isLive = false;
+            // 游戏结束后，调用 resetGame 开始新游戏
+            this.resetGame();
         }
-
-        // 开启一个定时调用（定时器调用自身）
-        // 会再次创建一个定时器
-        this.isLive && setTimeout(this.run.bind(this), 300 - (this.scorePanel.level - 1) * 30);
     }
 
-    // 定义一个方法，用来检查蛇是否吃到食物
+    /**
+     * 检查蛇是否吃到了食物
+     *
+     * @param {number} X
+     * @param {number} Y
+     */
     checkEat(X: number, Y: number) {
         if (X === this.food.X && Y === this.food.Y) {
-            // 食物的位置要进行重置
+            // 重置食物位置
             this.food.change();
-            // 分数增加
+            // 增加分数
             this.scorePanel.addScore();
-            // 蛇要增加一节
+            // 给蛇添加一个新的身体部分
             this.snake.addBody();
         }
     }

@@ -4,6 +4,12 @@ const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 // 引入clean插件
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+// 提取css为单独文件
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// css压缩
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+// 进度条
+const WebpackBar = require('webpackbar')
 
 // webpack中的所有的配置信息都应该写在module.exports中
 module.exports = {
@@ -71,7 +77,7 @@ module.exports = {
             {
                 test: /\.less$/,
                 use: [
-                    "style-loader",
+                    MiniCssExtractPlugin.loader,
                     "css-loader",
 
                     // 引入postcss
@@ -104,13 +110,30 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HTMLWebpackPlugin({
             // title: "这是一个自定义的title"
-            template: "./src/index.html"
+            template: "./src/public/index.html"
         }),
+        // 提取css成单独文件
+        new MiniCssExtractPlugin({
+            // 定义输出文件名和目录
+            filename: "main.css",
+        }),
+        // css压缩
+        new CssMinimizerPlugin(),
+        //进度条
+        new WebpackBar()
     ],
 
     // 用来设置引用模块
     resolve: {
         extensions: ['.ts', '.js']
-    }
+    },
+
+    devServer: {
+        host: "localhost", // 启动服务器域名
+        port: "8080", // 启动服务器端口号
+        open: true, // 是否自动打开浏览器
+        hot: true, // 开启HMR功能（只能用于开发环境，生产环境不需要了）
+    },
+
 
 };
