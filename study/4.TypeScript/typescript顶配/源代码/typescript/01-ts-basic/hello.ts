@@ -12,6 +12,8 @@ msg = 'hello world'
 console.log(msg, 'msg')
 // msg = 100  报错
 
+
+// "strict":"strictNullChecks" 下不报错
 // let surname: string = undefined
 // let age: number = null
 //
