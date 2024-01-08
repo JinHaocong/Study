@@ -1,10 +1,13 @@
 "use strict";
-/* let obj: any = {
-  x: 0
-}
-
-obj.foo()
-obj()
-obj.bar = 100
-obj = 'hello'
-const n: number = obj */ 
+let obj = {
+    x: 0
+};
+// 报错
+// obj.foo()
+// 运行报错
+// obj()
+obj.bar = 100;
+obj = 'hello';
+const n = obj;
+// hello string
+console.log(n, typeof obj);

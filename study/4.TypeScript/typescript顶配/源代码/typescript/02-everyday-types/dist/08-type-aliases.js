@@ -1,26 +1,19 @@
 "use strict";
-/* type Point = {
-  x: number
-  y: number
+function printXY1(pt) {
+    console.log(pt);
 }
-function printCoord(pt: Point) {
-
+printXY1({
+    x: 100,
+    y: 200
+});
+function printId(id) {
+    console.log(id);
 }
-printCoord({
-  x: 100,
-  y: 200
-})
-
-type ID = number | string
-function printId(id: ID) {
-
+printId(100);
+printId('hello');
+function sanitizedInput(str) {
+    return str.slice(0, 2);
 }
-printId(100)
-printId('hello')
-
-type UserInputSanitizedString = string
-function sanitizedInput(str: string): UserInputSanitizedString {
-  return str.slice(0, 2)
-}
-let userInput = sanitizedInput('hello')
-userInput = 'new Input' */ 
+sanitizedInput('HELLO');
+let userInput;
+userInput = 'new Input';

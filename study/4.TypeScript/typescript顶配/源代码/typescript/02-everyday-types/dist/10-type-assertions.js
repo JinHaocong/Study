@@ -1,6 +1,7 @@
 "use strict";
-/* const myCanvas = document.getElementById('main_canvas') as HTMLCanvasElement
-
-const myCanvas2 = <HTMLCanvasElement>document.getElementById('main_canvas')
-
-const x = ('hello' as unknown) as number */ 
+const myCanvas = document.getElementById('main_canvas');
+console.log(myCanvas);
+const myCanvas2 = document.getElementById('main_canvas');
+console.log(myCanvas2);
+const x = 'hello';
+console.log(x);

@@ -1,17 +1,23 @@
-// function greet(name: string) {
-//   console.log("Hello, " + name.toUpperCase() + '!!')
-// }
+function greet(name: string): void {
+    console.log("Hello, " + name.toUpperCase() + '!!')
+}
 
-// greet('Felixlu')
+greet('jhc')
+// 报错
+// greet(555)
 
-// function getFavoriteNumber() {
-//   return 26
-// }
+//
+function getFavoriteNumber(val: number): number {
+    return val
+}
 
-// const names = ['小千', '小锋', '小猿']
-// names.forEach(function(s) {
-//   console.log(s.toUpperCase())
-// })
-// names.forEach((s) => {
-//   console.log(s.toUpperCase())
-// })
+console.log(getFavoriteNumber(555))
+
+// 匿名函数   函数上下文类型
+const names: Array<string> = ['小千', '小锋', '小猿']
+names.forEach(function (s: string): void {
+    console.log(s.toUpperCase())
+})
+names.forEach((s) => {
+    console.log(s.toUpperCase())
+})
