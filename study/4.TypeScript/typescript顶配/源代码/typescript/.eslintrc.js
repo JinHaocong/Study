@@ -22,6 +22,6 @@ module.exports = {
         "@typescript-eslint/no-unused-vars": 0,
         "@typescript-eslint/no-explicit-any": 0,
         "@typescript-eslint/no-var-requires": 0,
-        "@typescript-eslint/prefer-as-const": 0
+        "@typescript-eslint/prefer-as-const": 0,
     },
 };

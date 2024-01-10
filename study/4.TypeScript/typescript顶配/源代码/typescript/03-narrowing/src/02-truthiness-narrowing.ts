@@ -1,28 +1,29 @@
-/* function printAll(strs: string | string[] | null) {
-  if (strs) {
-    if (typeof strs === 'object') {
-      for (const s of strs) {
-        console.log(s)
-      }
-    } else if (typeof strs === 'string') {
-      console.log(strs)
-    } else {
-      // ...
+// 真值检查 真值缩小
+
+function printAll1(str: string | string[] | null) {
+    if (str) {
+        if (typeof str === 'object') {
+            for (const s of str) {
+                console.log(s)
+            }
+        } else {
+            console.log(str)
+        }
     }
-  }
 }
 
-function multiplyAll(
-  values: number[] | undefined,
-  factor: number
-) {
-  if (!values) {
-    return values
-  } else {
-    return values.map((x) => {
-      return x * factor
-    })
-  }
+printAll1('jhc')
+printAll1(['j', 'h', 'c'])
+
+function multiplyAll(values: number[] | undefined, factor: number) {
+    if (!values) {
+        return values
+    } else {
+        return values.map((x) => {
+            return x * factor
+        })
+    }
 }
 
-console.log(multiplyAll(undefined, 2)) */
+console.log(multiplyAll(undefined, 2))
+console.log(multiplyAll([2, 1, 3], 2))

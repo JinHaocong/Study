@@ -1,51 +1,73 @@
-/* type Fish = {
-  name: string
-  swim: () => void
+// 类型谓词
+
+type Fish1 = {
+    name: string
+    swim: () => void
 }
 
-type Bird = {
-  name: string
-  fly: () => void
-}
-
-function isFish(pet: Fish | Bird): pet is Fish {
-  return (pet as Fish).swim !== undefined
+type Bird1 = {
+    name: string
+    fly: () => void
 }
 
 
-function getSmallPet(): Fish | Bird {
-  let fish: Fish = {
-    name: 'sharkey',
-    swim: () => {
+// 类型谓词  必须有布尔类型返回值
+function isFish(pet: Fish1 | Bird1): pet is Fish1 {
 
+    // 返回值是true fet 就是 Fish1类型 否则是 Bird1类型
+    return (pet as Fish1).swim !== undefined
+
+}
+
+
+function getSmallPet(type: boolean): Fish1 | Bird1 {
+    let fish: Fish1 = {
+        name: 'sharKey',
+        swim: () => {
+            console.log('swim')
+        }
     }
-  }
 
-  let bird: Bird = {
-    name: 'sparrow',
-    fly: () => {
-
+    let bird: Bird1 = {
+        name: 'sparrow',
+        fly: () => {
+            console.log('fly')
+        }
     }
-  }
 
-  return true ? bird : fish
+    return type ? fish : bird
 }
 
-let pet = getSmallPet()
+let pet = getSmallPet(true)
+let pet2 = getSmallPet(false)
 
 if (isFish(pet)) {
-  pet.swim()
+    pet.swim()
 } else {
-  pet.fly()
+    pet.fly()
 }
 
-const zoo: (Fish | Bird)[] = [getSmallPet(), getSmallPet(), getSmallPet()]
-const underWater1: Fish[] = zoo.filter(isFish)
-const underWater2: Fish[] = zoo.filter(isFish) as Fish[]
+if (isFish(pet2)) {
+    pet2.swim()
+} else {
+    pet2.fly()
+}
 
-const underWater3: Fish[] = zoo.filter((pet): pet is Fish => {
-  if (pet.name === 'frog') {
-    return false
-  }
-  return isFish(pet)
-}) */
+const zoo: (Fish1 | Bird1)[] = [getSmallPet(true), getSmallPet(false), getSmallPet(true)]
+const zoo2: Array<Fish1 | Bird1> = [getSmallPet(false), getSmallPet(true), getSmallPet(false)]
+const underWater1: Fish1[] = zoo.filter(isFish)
+const underWater2: Fish1[] = zoo.filter(isFish) as Fish1[]
+
+const underWater3: Fish1[] = zoo.filter((pet): pet is Fish1 => {
+    if (pet.name === 'frog') {
+        return false
+    }
+    return isFish(pet)
+})
+
+console.log(underWater1, '111')
+console.log(underWater2, '222')
+console.log(underWater3, '333')
+
+console.log(zoo, 'zoo')
+console.log(zoo2, 'zoo2')

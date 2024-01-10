@@ -1,40 +1,40 @@
 "use strict";
-/* function example(x: string | number, y: string | boolean) {
-  if (x === y) {
-    x.toUpperCase()
-    y.toLowerCase()
-  } else {
-    console.log(x)
-    console.log(y)
-  }
-}
-
-function printAll(strs: string | string[] | null) {
-  if (strs !== null) {
-    if (typeof strs === 'object') {
-      for (const s of strs) {
-        console.log(s)
-      }
-    } else if (typeof strs === 'string') {
-      console.log(strs)
-    } else {
-      // ...
+// 等值缩小
+function example1(x, y) {
+    if (x === y) {
+        // 此条件 x y 必然都是string
+        console.log(x.toUpperCase(), y.toLowerCase());
     }
-  }
+    else {
+        console.log(x);
+        console.log(y);
+    }
 }
-
-interface Container {
-  value: number | null | undefined
+example1('jhc', 'jhc');
+example1('jhc', true);
+example1(1, false);
+function printAll2(str) {
+    if (str !== null) {
+        if (typeof str === 'object') {
+            for (const s of str) {
+                console.log(s);
+            }
+        }
+        else {
+            console.log(str);
+        }
+    }
 }
-
-function multiplyValue(container: Container, factor: number) {
-  if (container.value != null) {
-    console.log(container.value)
-    container.value *= factor
-  }
+printAll2(null);
+printAll2('jhc');
+printAll2(['j', 'h', 'c']);
+function multiplyValue(container, factor) {
+    if (container.value != null) {
+        container.value *= factor;
+        console.log(container.value);
+    }
 }
-
-multiplyValue({ value: 5 }, 6)
-multiplyValue({ value: undefined }, 6)
-multiplyValue({ value: null }, 6)
-multiplyValue({ value: '5' }, 6) */ 
+multiplyValue({ value: 5 }, 6);
+multiplyValue({ value: undefined }, 6);
+multiplyValue({ value: null }, 6);
+// multiplyValue({value: '5'}, 6)

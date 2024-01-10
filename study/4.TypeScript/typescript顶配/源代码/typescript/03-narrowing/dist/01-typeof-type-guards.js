@@ -1,12 +1,23 @@
 "use strict";
-/* function printAll(strs: string | string[] | null) {
-  if (typeof strs === 'object') {
-    for (const s of strs) {
-      console.log(s)
+function printAll(str) {
+    // 类型缩小了
+    if (typeof str === 'object' && str !== null) {
+        for (const s of str) {
+            console.log(s);
+        }
     }
-  } else if (typeof strs === 'string') {
-    console.log(strs)
-  } else {
-    // ...
-  }
-} */ 
+    else {
+        console.log(str);
+    }
+}
+printAll('a');
+printAll(['1', '2', '3', '4', '5']);
+function padLeft(padding, input) {
+    // 类型缩小了
+    if (typeof padding === "number") {
+        return new Array(padding + 1).join(" ") + input;
+    }
+    return padding + input;
+}
+console.log(padLeft(5, 'jhc'));
+console.log(padLeft('xxx', 'jhc'));
