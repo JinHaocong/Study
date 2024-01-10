@@ -1,27 +1,41 @@
-/* class Ctor {
-  s: string
-  constructor(s: string) {
-    this.s = s
-  }
+// 构造签名
+
+class Ctor {
+    s: string
+
+    constructor(s: string) {
+        this.s = s
+    }
 }
 
-type SomeConstructor = {
-  new (s: string): Ctor
+interface SomeConstructor {
+    new(s: string): Ctor
 }
 
 function fn(ctor: SomeConstructor) {
-  return new ctor('hello')
+    return new ctor('hello')
 }
 
 const f = fn(Ctor)
-console.log(f.s) */
+console.log(f.s)
 
-/* interface CallOrConstructor {
-  new (s: string): Date
-  (n?: number): number
+interface CallOrConstructor {
+    // 构造签名
+    new(s: string): Date
+
+    // 调用签名
+    (n?: number): number
 }
 
-function fn(date: CallOrConstructor) {
-  let d = new date('2021-12-20')
-  let n = date(100)
-} */
+function fn2(dateType: CallOrConstructor) {
+    let d = new dateType('2021-12-20')
+    let n = dateType(100)
+    console.log(d, n)
+}
+
+
+
+
+
+
+
