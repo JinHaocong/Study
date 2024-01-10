@@ -1,19 +1,25 @@
-/* function firstElement(arr: any[]) {
-  return 100
+function firstElement1(arr: any[]) {
+    return 100
 }
 
-firstElement(['a', 'b', 'c']) */
+firstElement1(['a', 'b', 'c'])
 
-/* function firstElement<Type>(arr: Type[]): Type | undefined {
-  return arr[0]
+// 泛型函数
+function firstElement2<T>(arr: T[]): T | undefined {
+    console.log(arr[0])
+    return arr[0]
 }
 
-firstElement(['a', 'b', 'c'])
-firstElement([1, 2, 3])
-firstElement([]) */
+firstElement2(['a', 'b', 'c'])
+firstElement2<string>(['a', 'b', 'c'])
+firstElement2([1, 2, 3])
+firstElement2<number>([1, 2, 3])
+firstElement2([])
+firstElement2<undefined>([])
 
-/* function map<Input, Output>(arr: Input[], func: (arg: Input) => Output): Output[] {
-  return arr.map(func)
+function map<Input, Output>(arr: Input[], func: (arg: Input) => Output): Output[] {
+    return arr.map(func)
 }
 
-const parsed = map(['1', '2', '3'], (n) => parseInt(n)) */
+const parsed = map(['1', '2', '3'], (n) => Number(n))
+console.log(parsed)
