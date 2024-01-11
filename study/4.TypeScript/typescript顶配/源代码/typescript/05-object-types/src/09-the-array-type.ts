@@ -1,15 +1,20 @@
-/* // function doSomething(value: Array<string>) {
-//   // ...
-// }
+// sign 泛型
 
-// let myArray: string[] = ['hello', 'world']
 
-// doSomething(myArray)
-// doSomething(new Array('hello', 'world'))
+function doSomething(value: Array<string>) {
+    // ...
+}
+
+let myArray1: string[] = ['hello', 'world']
+
+doSomething(myArray1)
+doSomething(['hello', 'world'])
 
 
 interface Array2<Type> {
-  lenght: number,
-  pop(): Type | undefined
-  push(...item: Type[]): number 
-} */
+    length: number,
+
+    pop(): Type | undefined
+
+    push(...item: Type[]): number
+}

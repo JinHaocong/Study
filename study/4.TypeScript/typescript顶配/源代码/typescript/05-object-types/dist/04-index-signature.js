@@ -1,47 +1,18 @@
 "use strict";
-/* interface StringArray {
-  [index: number]: string
-}
-
-const myArray: StringArray = ['a', 'b']
-const secondItem = myArray[0]
-
-
-interface TestString {
-  [props: string]: number
-}
-
-let testString: TestString = {
-  x: 100,
-  y: 200,
-  // aaa: 'aaa'
-}
-
-
-interface Animal {
-  name: string
-}
-
-interface Dog extends Animal {
-  breed: string
-}
-
-interface NotOkay {
-  [index: string]: number | string
-  length: number
-  name: string
-}
-
-let notOkay: NotOkay = {
-  x: 100,
-  length: 100,
-  name: 'felix'
-}
-
-
-interface ReadonlyStringArray {
-  readonly [index: number]: string
-}
-
-let myArray2: ReadonlyStringArray = ['a', 'b']
-myArray2[0] = 'felix' */ 
+// sign 索引签名
+const myArray = ['a', 'b'];
+const secondItem = myArray[0];
+let testString = {
+    x: 100,
+    y: 200,
+    // error Type string is not assignable to type number
+    // aaa: 'aaa'
+};
+let notOkay = {
+    x: 100,
+    length: 100,
+    name: 'jhc'
+};
+let myArray2 = ['a', 'b'];
+// error index signature in type ReadonlyStringArray only permits reading.
+// myArray2[0] = 'felix'

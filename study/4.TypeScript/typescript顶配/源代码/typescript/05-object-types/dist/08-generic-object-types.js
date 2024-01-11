@@ -1,85 +1,37 @@
 "use strict";
-/* // interface Box {
-//   contents: any
-// }
-
-// let box: Box = {
-//   contents: 'hello'
-// }
-
-
-// interface Box {
-//   contents: unknown
-// }
-
-// let x: Box = {
-//   contents: 'hello world'
-// }
-
-// if (typeof x.contents === 'string') {
-//   console.log(x.contents.toLowerCase())
-// }
-
-// console.log((x.contents as string).toLowerCase())
-
-
-// interface NumberBox {
-//   contents: number
-// }
-// interface StringBox {
-//   contents: string
-// }
-// interface BooleanBox {
-//   contents: boolean
-// }
-
-// function setContents(box: StringBox, newContents: string): void
-// function setContents(box: NumberBox, newContents: number): void
-// function setContents(box: BooleanBox, newContents: boolean): void
-// function setContents(box: { contents: any }, newContents: any) {
-//   box.contents = newContents
-// }
-
-
-// interface Box<Type> {
-//   contents: Type
-// }
-
-// interface StringBox {
-//   contents: string
-// }
-
-// let boxA: Box<number> = {
-//   contents: 100
-// }
-
-// let boxB: StringBox = {
-//   contents: 100
-// }
-
-
-// interface Box<Type> {
-//   contents: Type
-// }
-
-// interface Apple {
-//   // ...
-// }
-
-// let a: Apple = {}
-
-// type AppleBox = Box<Apple>
-// let ab: AppleBox = {
-//   contents: a
-// }
-
-
-type Box<Type> = {
-  contents: Type
+// sign 泛型对象类型
+let box = {
+    contents: 'hello'
+};
+let x = {
+    contents: 'hello world'
+};
+// error  x.contents is of type unknown
+// console.log(x.contents.toLowerCase())
+if (typeof x.contents === 'string') {
+    console.log(x.contents.toLowerCase());
 }
-
-
-type OrNull<Type> = Type | null
-type OneOrMany<Type> = Type | Type[]
-type OneOrManyOrNull<Type> = OrNull<OneOrMany<Type>>
-type OneOrManyOrNullString = OneOrManyOrNull<string> */ 
+console.log(x.contents.toLowerCase());
+function setContents(box, newContents) {
+    box.contents = newContents;
+}
+function setContents2(box, newContents) {
+    box.contents = newContents;
+}
+let boxA = {
+    contents: 100
+};
+setContents2(boxA, 50);
+let boxB = {
+    contents: '100',
+    // error Type number is not assignable to type string
+    // contents: 100,
+};
+// step 创建 Apple 类型的对象 a：
+let a = {
+    test: 'jhc'
+};
+// step 创建 AppleBox 类型的对象 ab：
+let ab = {
+    contents: a,
+};
