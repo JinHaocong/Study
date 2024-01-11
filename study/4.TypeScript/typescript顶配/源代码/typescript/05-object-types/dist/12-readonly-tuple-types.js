@@ -1,6 +1,6 @@
 "use strict";
 // sign 元组只读属性
-function doSomething(pair) {
+function doSomething12345(pair) {
     // error  Cannot assign to 0 because it is a read-only property.
     // pair[0] = 100
 }

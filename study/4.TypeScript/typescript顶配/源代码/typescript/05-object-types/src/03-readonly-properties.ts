@@ -6,7 +6,7 @@ interface SomeType {
     readonly prop: string
 }
 
-function doSomething(obj: SomeType) {
+function doSomething123(obj: SomeType) {
     console.log(obj.prop)
     // error Cannot assign to prop because it is a read-only property.
     // obj.prop = 'hello'

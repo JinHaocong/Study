@@ -1,6 +1,6 @@
 // sign 元组只读属性
 
-function doSomething(pair: readonly [number, string]) {
+function doSomething12345(pair: readonly [number, string]) {
     // error  Cannot assign to 0 because it is a read-only property.
     // pair[0] = 100
 }

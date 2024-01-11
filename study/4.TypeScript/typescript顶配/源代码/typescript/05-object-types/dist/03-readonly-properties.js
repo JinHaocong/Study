@@ -1,6 +1,6 @@
 "use strict";
 // sign 属性修改器
-function doSomething(obj) {
+function doSomething123(obj) {
     console.log(obj.prop);
     // error Cannot assign to prop because it is a read-only property.
     // obj.prop = 'hello'
