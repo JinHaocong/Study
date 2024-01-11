@@ -1,12 +1,9 @@
 "use strict";
-/* type GreetFunction = (a: string) => void
-
-function greeter(fn: GreetFunction) {
-  fn('Hello, World')
+// sign 函数类型表达式
+function greeter(fn) {
+    fn('Hello, World');
 }
-
-function printToConsole(s: string) {
-  console.log(s)
+function printToConsole(s) {
+    console.log(s);
 }
-
-greeter(printToConsole) */ 
+greeter(printToConsole);

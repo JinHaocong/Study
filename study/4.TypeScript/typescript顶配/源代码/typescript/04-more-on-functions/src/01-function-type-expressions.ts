@@ -1,4 +1,4 @@
-// 函数类型表达式
+// sign 函数类型表达式
 
 type GreetFunction = (a: string) => void
 

@@ -1,11 +1,11 @@
-// 调用签名
+// sign 调用签名
 
 type DescribableFunction = {
     description: string
     (someArg: number): boolean
 }
 
-function doSomething(fn: DescribableFunction) {
+function doSomething1(fn: DescribableFunction) {
     console.log(fn.description + ' returned ' + fn(6))
 }
 
@@ -17,4 +17,4 @@ function fn1(n: number) {
 fn1.description = 'hello'
 
 
-doSomething(fn1)
+doSomething1(fn1)

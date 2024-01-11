@@ -1,4 +1,4 @@
-// 构造签名
+// sign 构造签名
 
 class Ctor {
     s: string
@@ -12,11 +12,11 @@ interface SomeConstructor {
     new(s: string): Ctor
 }
 
-function fn(ctor: SomeConstructor) {
+function fn4(ctor: SomeConstructor) {
     return new ctor('hello')
 }
 
-const f = fn(Ctor)
+const f = fn4(Ctor)
 console.log(f.s)
 
 interface CallOrConstructor {
