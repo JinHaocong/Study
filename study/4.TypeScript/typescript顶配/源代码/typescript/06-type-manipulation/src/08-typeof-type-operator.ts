@@ -1,24 +1,41 @@
-/* // console.log(typeof 'Hello World')
+// sign typeof 类型操作符
 
-// let s = 'hello'
-// let n: typeof s
-// n = 'hello'
+console.log(typeof 'Hello World')
+
+let s = 'hello'
+let n: typeof s
+n = 'hello'
+
+// error Type number is not assignable to type string
 // n = 100
 
-// RetrunType<T>
+// sign 预定义类型 ReturnType<T>
+// ReturnType 是一个内置的工具类型，用于获取函数类型的返回值类型。它接受一个函数类型作为参数，并返回该函数的返回值类型。
 
-// type Predicate = (x: unknown) => boolean
-// type K = ReturnType<Predicate>
+type Predicate = (x: unknown) => boolean
+type K = ReturnType<Predicate>
 
-// function f() {
-//   return {
-//     x: 10,
-//     y: 3
-//   }
-// }
-// type P = ReturnType<typeof f>
-// const p: P = 100
+function f() {
+    return {
+        x: 10,
+        y: 3
+    }
+}
 
-function msgbox() {}
-let shouldContinue: typeof msgbox
-shouldContinue = 100 */
+type P08 = ReturnType<typeof f>
+
+const p081 = {
+    x: 22,
+    y: 66
+}
+
+// error  Type number is not assignable to type { x: number; y: number; }
+// const p: P08 = 100
+
+function msgBox() {
+}
+
+let shouldContinue: typeof msgBox
+
+// error Type number is not assignable to type () => void
+// shouldContinue = 100

@@ -1,45 +1,16 @@
 "use strict";
-/* // interface Animal {
-//   live(): void
-// }
-
-// interface Dog extends Animal {
-//   woof(): void
-// }
-
-// // type Example1 = number
-// type Example1 = Dog extends Animal ? number : string
-
-// // type Example2 = string
-// type Example2 = RegExp extends Animal ? number : string
-
-
-interface IdLabel {
-  id: number
+// sign 条件类型
+const exp1 = 555;
+const exp2 = '555';
+function createLabel101(nameOrId) {
+    throw '';
 }
-interface NameLabel {
-  name: string
+function createLabel(idOrName) {
+    throw '';
 }
-
-// function createLabel(id: number): IdLabel
-// function createLabel(name: string): NameLabel
-// function createLabel(nameOrId: string | number): IdLabel | NameLabel
-// function createLabel(nameOrId: string | number): IdLabel | NameLabel {
-//   throw ''
-// }
-
-
-type NameOrId<T extends number | string> = T extends number ? IdLabel : NameLabel
-
-function createLabel<T extends number | string>(idOrName: T): NameOrId<T> {
-  throw ''
-}
-
-// type a = NameLabel
-let a = createLabel('typescript')
-
-// type b = IdLabel
-let b = createLabel(2.8)
-
-// type c = NameLabel | IdLabel
-let c = createLabel(Math.random() > 0.5 ? 'hello' : 42) */ 
+// type a101 = NameLabel
+let a101 = createLabel('typescript');
+// type b101 = IdLabel
+let b101 = createLabel(2.8);
+// type c101 = NameLabel | IdLabel
+let c101 = createLabel(Math.random() > 0.5 ? 'hello' : 42);

@@ -1,18 +1,12 @@
 "use strict";
-/* function identity<Type>(arg: Type): Type {
-  return arg
+// sign 泛型类型
+function identity(arg) {
+    return arg;
 }
-
-// let myIdentity: <Type>(arg: Type) => Type = identity
-// let myIdentity: <Input>(arg: Input) => Input = identity
-// let myIdentity: { <Type>(arg: Type): Type } = identity
-
-// interface GenericIdentityFn {
-//   <Type>(arg: Type): Type
-// }
-// let myIdentity: GenericIdentityFn = identity
-
-interface GenericIdentityFn<Type> {
-  (arg: Type): Type
-}
-let myIdentity: GenericIdentityFn<string> = identity */ 
+// 泛型名字不一定就是T，位置和个数相同就行
+let myIdentity021 = identity;
+let myIdentity022 = identity;
+// 字面量定义类型
+let myIdentity023 = identity;
+let myIdentity024 = identity;
+let myIdentity025 = identity;

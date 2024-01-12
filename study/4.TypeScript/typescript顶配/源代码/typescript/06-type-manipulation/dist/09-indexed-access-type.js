@@ -1,63 +1,32 @@
 "use strict";
-/* // type Person = {
-//   age: number,
-//   name: string,
-//   alive: boolean
-// }
-
-// type Age = Person['age']
-// let age: Age = '90'
-
-
-interface Person {
-  name: string
-  age: number
-  alive: boolean
-}
-
-// type I1 = string | number
-type I1 = Person['age' | 'name']
-const i11: I1 = 100
-const i12: I1 = ''
-// const i13: I1 = true
-
-// type I2 = string | number | boolean
-type I2 = Person[keyof Person]
-const I21: I2 = ''
-const I22: I2 = 100
-const I23: I2 = true
-// const I24: I2 = {}
-
-type AliveOrName = 'alive' | 'name'
-type I3 = Person[AliveOrName]
-const I31: I3 = true
-const I32: I3 = 'hello'
+// sign 索引访问类型
+let age091 = 90;
+const i11 = 100;
+const i12 = '';
+const I091 = '';
+const I092 = 100;
+const I093 = true;
+const I31 = true;
+const I32 = 'hello';
+// error Type 100 is not assignable to type I3
 // const I33: I3 = 100
-
+// error Property alve does not exist on type { name: string; age: number; }
 // type I4 = Person['alve']
-
-
+// sign
 const MyArray = [
-  { name: 'Alice', age: 15 },
-  { name: 'Bob', age: 23 },
-  { name: 'Eve', age: 38 }
-]
-
-// type Person = { name: string, age: number }
-type Person = typeof MyArray[number]
-const p:Person = {
-  name: 'xiaoqian',
-  age: 11,
-  // alive: true
-}
-
-type Age = typeof MyArray[number]['age']
-const age: Age = 11
-
-type Age2 = Person['age']
-const age2: Age2 = 300
-
-
-// const key = 'age'
-type key = 'age'
-type Age3 = Person[key] */ 
+    { name: 'Alice', age: 15 },
+    { name: 'Bob', age: 23 },
+    { name: 'Eve', age: 38 }
+];
+const p = {
+    name: 'jhc',
+    age: 11,
+    // error Object literal may only specify known properties, and alive does not exist in type { name: string; age: number; }
+    // alive: true
+};
+const age = 11;
+const age2 = 300;
+const key2 = 'age';
+// error Type key2 cannot be used as an index type.
+// error key2 refers to a value, but is being used as a type here. Did you mean typeof key2?
+// type Age4 = Person[key2]

@@ -1,15 +1,8 @@
 "use strict";
-/* type ToArray<Type> = Type extends any ? Type[] : never
-
-// type StrArrOrNumArr = string[] | number[]
-// type StrArrOrNumArr = (string | number)[]
-// type StrArrOrNumArr = ToArray<string | number>
-
-// let saon: StrArrOrNumArr = []
-
-
-type ToArrayNonDist<Type> = [Type] extends [any] ? Type[] : never
-
-type StrArrOrNumArr = ToArrayNonDist<string | number>
-
-let saon: StrArrOrNumArr = [true] */ 
+// sign 分布式条件类型
+// string[] | number[]
+let sean131 = [1, 2, 3];
+let sean132 = ['a', 'b', 'c'];
+let sean134 = [1, 2, 3];
+let sean135 = ['a', 'b', 'c'];
+let sean136 = [1, 'b', 'c'];

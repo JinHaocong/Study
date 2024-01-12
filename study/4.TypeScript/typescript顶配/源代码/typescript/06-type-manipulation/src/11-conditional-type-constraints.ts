@@ -1,29 +1,39 @@
-/* // type MessageOf<T> = T['message']
+// sign 条件类型约束
 
-// type MessageOf<T extends { message: unknown }> = T['message']
+interface Unknown {
+    message: unknown
+}
 
-// type MessageOf<T> = T extends { message: unknown } ? T['message'] : never
+// error Type "message" cannot be used to index type T
+// type MessageOf111<T> = T['message']
 
-// interface Email {
-//   message: string
-// }
+type MessageOf112<T extends Unknown> = T['message']
 
-// interface Dog {
-//   bark(): void
-// }
+type MessageOf113<T> = T extends Unknown ? T['message'] : never
 
-// // type EmailMessageContents = string
-// type EmailMessageContents = MessageOf<Email>
-// const emc: EmailMessageContents = 'balabala...'
+interface Email {
+    message: string
+}
 
-// type DogMessageContents = MessageOf<Dog>
-// const dmc: DogMessageContents = 'error' as never
+interface Dog {
+    bark(): void
+}
+
+// type EmailMessageContents = string
+type EmailMessageContents = MessageOf113<Email>
+const emc: EmailMessageContents = 'jhc...'
 
 
+// type EmailMessageContents = never
+type DogMessageContents = MessageOf113<Dog>
+const dmc: DogMessageContents = 'error' as never
+
+
+// sign
 type Flatten<T> = T extends any[] ? T[number] : T
 
 // type Str = string
 type Str = Flatten<string[]>
 
 // type Num = number
-type Num = Flatten<number> */
+type Num = Flatten<number>

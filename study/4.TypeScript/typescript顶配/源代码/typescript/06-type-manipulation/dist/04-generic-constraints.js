@@ -1,11 +1,9 @@
 "use strict";
-/* interface Lengthwise {
-  length: number
+// sign 泛型约束
+function loggingIdentity04(arg) {
+    console.log(arg.length);
+    return arg;
 }
-
-function loggingIdentity<Type extends Lengthwise>(arg: Type): Type {
-  arg.length
-  return arg
-}
-
-loggingIdentity(['hello', 'world']) */ 
+loggingIdentity04(['hello', 'world']);
+// error Argument of type number is not assignable to parameter of type HasLength
+// loggingIdentity04(111)
