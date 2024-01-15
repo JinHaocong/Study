@@ -1,31 +1,39 @@
-/* // class MsgError extends Error {
-//   constructor(m: string) {
-//     super(m)
+// sign 继承内置类型 'Array' 'Error' 'Map'
 
-//     // 明确的设置原型
-//     Object.setPrototypeOf(this, MsgError.prototype)
-//   }
-//   sayHello() {
-//     return 'hello ' + this.message
-//   }
-// }
+class MsgError11 extends Error {
+    constructor(m: string) {
+        super(m)
 
-// const msgError = new MsgError('hello')
-// console.log(msgError.sayHello())
+        // 明确的设置原型
+        Object.setPrototypeOf(this, MsgError11.prototype)
+    }
+
+    sayHello() {
+        return 'Hello ' + this.message
+    }
+}
+
+const msgError11 = new MsgError11('hello')
+console.log(msgError11.sayHello())
+// error MsgError11: hello
+// console.log(msgError11)
 
 
+// sign
 class MsgError extends Error {
-  constructor(m: string) {
-    super(m)
+    constructor(m: string) {
+        super(m)
 
-    // 明确的设置原型
-    Object.setPrototypeOf(this, MsgError.prototype)
-  }
-  sayHello() {
-    return 'hello ' + this.message
-  }
+        // 明确的设置原型
+        Object.setPrototypeOf(this, MsgError.prototype)
+    }
+
+    sayHello() {
+        return 'hello ' + this.message
+    }
 }
 
 const msgError = new MsgError('hello')
 
-console.log(msgError instanceof MsgError) */
+// 恒为true 'instanceof' 检查冗余: 'msgError' 具有类型 'MsgError' 或 'MsgError' 的继承者
+console.log(msgError instanceof MsgError)

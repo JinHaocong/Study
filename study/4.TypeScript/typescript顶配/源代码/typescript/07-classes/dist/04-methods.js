@@ -1,24 +1,27 @@
 "use strict";
-/* // class Point {
-//   x: number = 10
-//   y: number = 10
-
-//   scale(n: number): void {
-//     this.x *= n
-//     this.y *= n
-//   }
-// }
-
-// const p = new Point()
-// p.scale(10)
-// console.log(p.x)
-// console.log(p.y)
-
-let x: number = 0
+// sign 类方法
+class Point04 {
+    constructor() {
+        this.x = 10;
+        this.y = 10;
+    }
+    scale(n) {
+        this.x *= n;
+        this.y *= n;
+    }
+}
+const p04 = new Point04();
+p04.scale(10);
+console.log(p04.x);
+console.log(p04.y);
+// sign
+let x = 0;
 class C {
-  x: string = 'hello'
-
-  m() {
-    x = 100
-  }
-} */ 
+    constructor() {
+        this.x = 'hello';
+    }
+    m() {
+        // 为上面的x
+        x = 100;
+    }
+}

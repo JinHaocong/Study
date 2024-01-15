@@ -1,54 +1,42 @@
 "use strict";
-/* // interface Pingable {
-//   ping(): void
-// }
-
-// class Sonar implements Pingable {
-//   ping() {
-//     console.log('Ping!')
-//   }
-// }
-
-// class Ball implements Pingable {
-//   ping() {
-
-//   }
-
-//   pong() {
-
-//   }
-// }
-
-
-// interface A {}
-// interface B {}
-
-// class C implements A, B {
-
-// }
-
-
-// interface Checkable {
-//   check(name: string) : boolean
-// }
-
-// class NameChecker implements Checkable {
-//   check(s: string) {
-//     return s.toLowerCase() === 'ok'
-//   }
-// }
-
-
-interface A {
-  x: number
-  y?: number
+// sign 类继承-implements
+class Sonar {
+    constructor() {
+        this.name = 'jhc';
+    }
+    ping() {
+        console.log('Ping!');
+    }
 }
-
-class C implements A {
-  x = 0
-  y = 1
+const sonar = new Sonar();
+console.log(sonar);
+class Ball {
+    constructor() {
+        this.name = 'jhc';
+    }
+    ping() {
+    }
+    pong() {
+    }
 }
-
-const c = new C()
-console.log(c.x)
-console.log(c.y) */ 
+const ball = new Sonar();
+console.log(ball);
+class C07 {
+}
+class NameChecker {
+    check(s) {
+        return s.toLowerCase() === 'ok';
+    }
+}
+const check = new NameChecker();
+console.log(check.check('Ok'));
+class C072 {
+    constructor() {
+        this.x = 0;
+        // y = 1
+    }
+}
+const c07 = new C072();
+console.log(c07.x);
+// error Property y does not exist on type C072
+// console.log(c07.y)

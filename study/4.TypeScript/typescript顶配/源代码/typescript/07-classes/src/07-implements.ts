@@ -1,53 +1,79 @@
-/* // interface Pingable {
-//   ping(): void
-// }
-
-// class Sonar implements Pingable {
-//   ping() {
-//     console.log('Ping!')
-//   }
-// }
-
-// class Ball implements Pingable {
-//   ping() {
-
-//   }
-
-//   pong() {
-
-//   }
-// }
+// sign 类继承-implements
 
 
-// interface A {}
-// interface B {}
+// sign 在类中 实现接口
+interface Pingable {
+    name: string;
 
-// class C implements A, B {
+    ping(): void
+}
 
-// }
+class Sonar implements Pingable {
+    name: string = 'jhc'
+
+    ping() {
+        console.log('Ping!')
+    }
+}
+
+const sonar = new Sonar()
+console.log(sonar)
+
+class Ball implements Pingable {
+    name: string = 'jhc'
+
+    ping() {
+
+    }
+
+    pong() {
+
+    }
+}
+
+const ball = new Sonar()
+console.log(ball)
+
+// sign
+interface A07 {
+}
+
+interface B07 {
+}
+
+class C07 implements A07, B07 {
+
+}
 
 
-// interface Checkable {
-//   check(name: string) : boolean
-// }
+// sign
+interface Check {
+    check(name: string): boolean
+}
 
-// class NameChecker implements Checkable {
-//   check(s: string) {
-//     return s.toLowerCase() === 'ok'
-//   }
-// }
+class NameChecker implements Check {
+    check(s: string) {
+        return s.toLowerCase() === 'ok'
+    }
+}
+
+const check = new NameChecker()
+console.log(check.check('Ok'))
 
 
+// sign
 interface A {
-  x: number
-  y?: number
+    x: number
+    y?: number
 }
 
-class C implements A {
-  x = 0
-  y = 1
+class C072 implements A {
+    x = 0
+    // y = 1
 }
 
-const c = new C()
-console.log(c.x)
-console.log(c.y) */
+const c07 = new C072()
+console.log(c07.x)
+
+// error Property y does not exist on type C072
+// console.log(c07.y)
