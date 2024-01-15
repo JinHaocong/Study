@@ -15,7 +15,6 @@ module.exports = {
     parser: "@typescript-eslint/parser",
     plugins: ["@typescript-eslint"],
     rules: {
-        "no-var": 2,
         "no-unused-vars": 0,
         "prefer-const": 0,
         "no-inner-declarations": 0,
@@ -23,6 +22,7 @@ module.exports = {
         "@typescript-eslint/no-explicit-any": 0,
         "@typescript-eslint/no-var-requires": 0,
         "@typescript-eslint/prefer-as-const": 0,
-        "@typescript-eslint/ban-types": 0
+        "@typescript-eslint/ban-types": 0,
+        "no-var": 0
     },
 };

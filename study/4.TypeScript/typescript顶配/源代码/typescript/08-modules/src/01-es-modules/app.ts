@@ -1,7 +1,7 @@
-// import hello from './hello'
-// import { pi, phi, absolute } from './maths'
+import hello from './hello'
+import {absolute, phi, pi} from './maths'
 
-// hello()
+hello()
 
-// console.log(pi)
-// console.log(absolute(phi))
+console.log(pi)
+console.log(absolute(phi))
