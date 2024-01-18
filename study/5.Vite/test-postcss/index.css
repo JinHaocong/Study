@@ -1,0 +1,8 @@
+:root {
+/*css的新提案：css变量*/
+--globalColor:red;
+}
+
+div {
+    background-color:var(--globalColor)
+}
