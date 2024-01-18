@@ -1,10 +1,10 @@
 import {defineConfig} from "vite";
 import path from "path";
-import {ViteAliases} from 'vite-aliases'
 import postcssPresetEnv from 'postcss-preset-env'
+import {ViteAliases} from 'vite-aliases'
 import {createHtmlPlugin} from 'vite-plugin-html'
-
 import {viteMockServe} from 'vite-plugin-mock'
+
 import MockPlugin from "./plugins/MockPlugin.js";
 import HtmlPlugin from "./plugins/HtmlPlugin.js";
 import AliasPlugin from "./plugins/AliasesPlugin.js";
