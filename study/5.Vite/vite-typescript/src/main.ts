@@ -1,3 +1,6 @@
+import _ from "lodash";
+import './product'
+
 let str: string = 'jhc'
 console.log(str)
 
@@ -17,3 +20,10 @@ const demo = (params: PersonField) => {
 demo({name: 'John', age: 18})
 
 console.log(import.meta.env.VITE_NAME)
+
+
+const mainArr = [1, 2, 3, 4]
+
+_.forEach(mainArr, (item) => {
+    console.log(item)
+})

@@ -10,6 +10,10 @@ import '@components/baseComponent/Button/index.js'
 
 import jsonFile from './src/assets/json/test.json'
 
+import('@/imageLoader.js').then((data) => {
+    console.log(data, 'jpgData')
+})
+
 
 console.log(count)
 getUserPosition()

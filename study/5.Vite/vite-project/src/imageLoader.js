@@ -7,5 +7,5 @@ const img2 = document.createElement('img')
 
 img1.src = picUrl
 img2.src = picUrl2
-document.body.appendChild(img1)
 document.body.appendChild(img2)
+document.body.appendChild(img1)
