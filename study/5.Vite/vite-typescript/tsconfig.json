@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    // 跳过 node_modules目录的检查
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "types": [
+      "vite/client"
+    ]
+  }
+}
