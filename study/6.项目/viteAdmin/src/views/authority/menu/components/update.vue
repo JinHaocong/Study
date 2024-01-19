@@ -1,32 +1,32 @@
 <template>
   <el-drawer
-    :title="currentFrom.id ? '修改' : '添加'"
-    v-model="dialog"
-    direction="rtl"
-    ref="drawer"
-    @close="close"
+      ref="drawer"
+      :model-value="dialog"
+      :title="currentFrom.id ? '修改' : '添加'"
+      direction="rtl"
+      @close="close"
   >
     <el-form
-      :model="currentFrom"
-      :rules="rules"
-      ref="menuFrom"
-      label-width="100px"
-      style="padding: 0 20px"
+        ref="menuFrom"
+        :model="currentFrom"
+        :rules="rules"
+        label-width="100px"
+        style="padding: 0 20px"
     >
       <el-form-item label="菜单名称：" prop="title">
         <el-input v-model="currentFrom.title"></el-input>
       </el-form-item>
       <el-form-item label="上级菜单：">
         <el-select
-          v-model="currentFrom.parentId"
-          style="width: 100%"
-          placeholder="请选择菜单"
+            v-model="currentFrom.parentId"
+            placeholder="请选择菜单"
+            style="width: 100%"
         >
           <el-option
-            v-for="item in selectMenuList"
-            :key="item.id"
-            :label="item.title"
-            :value="item.id"
+              v-for="item in selectMenuList"
+              :key="item.id"
+              :label="item.title"
+              :value="item.id"
           >
           </el-option>
         </el-select>
@@ -38,7 +38,7 @@
         <icon-select v-model:icon="currentFrom.icon"></icon-select>
       </el-form-item>
       <el-form-item label="是否显示：">
-        <el-radio-group v-model="currentFrom.hidden" v-if="dialog">
+        <el-radio-group v-if="dialog" v-model="currentFrom.hidden">
           <el-radio :label="0">是</el-radio>
           <el-radio :label="1">否</el-radio>
         </el-radio-group>
@@ -49,7 +49,8 @@
       <el-form-item>
         <el-button type="primary" @click="onSubmit('menuFrom')">提交</el-button>
         <el-button v-if="!currentFrom.id" @click="resetForm('menuFrom')"
-          >重置</el-button
+        >重置
+        </el-button
         >
       </el-form-item>
     </el-form>
@@ -57,7 +58,7 @@
 </template>
 
 <script>
-import { updateMenu } from '@/api/ums/menu'
+import {updateMenu} from '@/api/ums/menu'
 import iconSelect from "@/components/icon-select/index.vue";
 
 const defaultMenu = {
@@ -80,38 +81,39 @@ export default {
     },
     currentFrom: {
       type: Object,
-      default: () => { }
+      default: () => {
+      }
     },
     selectMenuList: {
       type: Array,
       default: () => []
     },
   },
-  data () {
+  data() {
     return {
       rules: {
         title: [
-          { required: true, message: '请输入菜单名称', trigger: 'blur' },
-          { min: 2, max: 140, message: '长度在 2 到 140 个字符', trigger: 'blur' }
+          {required: true, message: '请输入菜单名称', trigger: 'blur'},
+          {min: 2, max: 140, message: '长度在 2 到 140 个字符', trigger: 'blur'}
         ],
         name: [
-          { required: true, message: '请输入前端名称', trigger: 'blur' },
-          { min: 2, max: 140, message: '长度在 2 到 140 个字符', trigger: 'blur' }
+          {required: true, message: '请输入前端名称', trigger: 'blur'},
+          {min: 2, max: 140, message: '长度在 2 到 140 个字符', trigger: 'blur'}
         ],
         icon: [
-          { required: true, message: '请输入前端图标', trigger: 'blur' },
-          { min: 2, max: 140, message: '长度在 2 到 140 个字符', trigger: 'blur' }
+          {required: true, message: '请输入前端图标', trigger: 'blur'},
+          {min: 2, max: 140, message: '长度在 2 到 140 个字符', trigger: 'blur'}
         ]
       }
     }
   },
   emits: ['update:currentFrom', 'update:dialog', 'refresh'],
   methods: {
-    close () {
+    close() {
       this.$emit('update:dialog', false)
-      this.$emit('update:currentFrom', { parentId: 0, hidden: 0, sort: 0 })
+      this.$emit('update:currentFrom', {parentId: 0, hidden: 0, sort: 0})
     },
-    onSubmit (formName) {
+    onSubmit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$confirm('是否提交数据', '提示', {
@@ -144,9 +146,9 @@ export default {
         }
       })
     },
-    resetForm (formName) {
+    resetForm(formName) {
       this.$refs[formName].resetFields()
-      this.$emit('update:currentFrom', { parentId: 0, hidden: 0, sort: 0 })
+      this.$emit('update:currentFrom', {parentId: 0, hidden: 0, sort: 0})
     },
   }
 }

@@ -17,16 +17,25 @@ export default defineConfig(() => {
                 },
                 output: {
                     // 分包 两种写法都行
-                    // manualChunks: (id) => {
-                    //     if (id.includes('node_modules')) {
-                    //         return 'vendor';
-                    //     }
-                    // },
+                    manualChunks: (id) => {
+                        try {
+                            if (id.includes("node_modules")) {
+                                let name = id.split("node_modules/")[1].split("/");
+                                if (name[0] == ".pnpm") {
+                                    return name[1];
+                                } else {
+                                    return name[0]
+                                }
+                            }
+                        } catch (error) {
+                            console.error(error);
+                        }
+                    },
 
                     // 分包写法2
-                    manualChunks: {
-                        lodash: ['lodash']
-                    }
+                    // manualChunks: {
+                    //     lodash: ['lodash']
+                    // }
                 }
             },
         },
