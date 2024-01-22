@@ -129,6 +129,9 @@ export default defineConfig(
             // MockPlugin({
             //     enabled: true,
             // })
-        ]
+        ],
+        server: {
+            host: '0.0.0.0'
+        }
     }
 )
