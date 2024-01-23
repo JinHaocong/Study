@@ -9,6 +9,7 @@
     "src/**/__tests__/*"
   ],
   "compilerOptions": {
+    "module": "ESNext",
     "strict": true,
     "composite": true,
     "baseUrl": ".",

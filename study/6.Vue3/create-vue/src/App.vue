@@ -1,47 +1,18 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <h2 ref="title2">你好</h2>
+  <button @click="showLog">测试</button>
+  <Person ref="person" />
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<script lang="ts" name="App" setup>
+import Person from './components/Person.vue'
+import { ref } from 'vue'
+
+let title2 = ref()
+let person = ref()
+
+function showLog() {
+  // console.log(title2.value)
+  console.log(person.value, 'person')
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+</script>
