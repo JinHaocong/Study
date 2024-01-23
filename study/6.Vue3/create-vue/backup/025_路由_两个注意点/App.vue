@@ -3,9 +3,9 @@
     <Header />
     <!-- 导航区 -->
     <div class="navigate">
-      <RouterLink active-class="active" to="/home">首页</RouterLink>
-      <RouterLink :to="{ name: 'News' }" active-class="active">新闻</RouterLink>
-      <RouterLink :to="{ path: '/about' }" active-class="active">关于</RouterLink>
+      <RouterLink active-class="xiaozhupeiqi" to="/home">首页</RouterLink>
+      <RouterLink active-class="xiaozhupeiqi" to="/news">新闻</RouterLink>
+      <RouterLink active-class="xiaozhupeiqi" to="/about">关于</RouterLink>
     </div>
     <!-- 展示区 -->
     <div class="main-content">
@@ -16,7 +16,7 @@
 
 <script lang="ts" name="App" setup>
 import { RouterView, RouterLink } from 'vue-router'
-import Header from './components/Header.vue'
+import Header from '@components/Header.vue'
 </script>
 
 <style>
@@ -41,7 +41,7 @@ import Header from './components/Header.vue'
   letter-spacing: 5px;
 }
 
-.navigate a.active {
+.navigate a.xiaozhupeiqi {
   background-color: #64967e;
   color: #ffc268;
   font-weight: 900;

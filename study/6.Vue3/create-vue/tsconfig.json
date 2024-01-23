@@ -1,5 +1,24 @@
 {
-  "files": [],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "paths": {
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@router/*": [
+        "src/router/*"
+      ],
+      "@/*": [
+        "src/*"
+      ]
+    }
+  },
   "references": [
     {
       "path": "./tsconfig.node.json"
