@@ -1,43 +1,52 @@
-// 创建一个路由器，并暴露出去
+import { createRouter, createWebHistory } from 'vue-router'
+import Props from '@/pages/01_props/Father.vue'
+import Event from '@/pages/02_custom-event/Father.vue'
+import Bus from '@/pages/03_mitt/Father.vue'
+import Model from '@/pages/04_v-model/Father.vue'
+import AttrsListeners from '@/pages/05_$attrs/Father.vue'
+import RefChildrenParent from '@/pages/06_$refs-$parent/Father.vue'
+import ProvideInject from '@/pages/07_provide-inject/Father.vue'
+import Pinia from '@/pages/08_pinia/Father.vue'
+import Slot from '@/pages/09_slot/Father.vue'
 
-// 第一步：引入createRouter
-import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
-// 引入一个一个可能要呈现组件
-import Home from '@/pages/Home.vue'
-import News from '@/pages/News.vue'
-import About from '@/pages/About.vue'
-import Detail from '@/pages/Detail.vue'
-
-// 第二步：创建路由器
-const router = createRouter({
-  history: createWebHistory(), //路由器的工作模式（稍后讲解）
+export default createRouter({
+  history: createWebHistory(),
   routes: [
-    //一个一个的路由规则
     {
-      name: 'Home',
-      path: '/home',
-      component: Home
+      path: '/props',
+      component: Props
     },
     {
-      name: 'News',
-      path: '/news',
-      component: News,
-      children: [
-        {
-          name: 'Detail',
-          // params传参占位 ?代表可选参数
-          path: 'detail/:id/:title/:content?',
-          component: Detail
-        }
-      ]
+      path: '/event',
+      component: Event
     },
     {
-      name: 'About',
-      path: '/about',
-      component: About
+      path: '/mitt',
+      component: Bus
+    },
+    {
+      path: '/model',
+      component: Model
+    },
+    {
+      path: '/attrs',
+      component: AttrsListeners
+    },
+    {
+      path: '/ref-parent',
+      component: RefChildrenParent
+    },
+    {
+      path: '/provide-inject',
+      component: ProvideInject
+    },
+    {
+      path: '/pinia',
+      component: Pinia
+    },
+    {
+      path: '/slot',
+      component: Slot
     }
   ]
 })
-
-// 暴露出去router
-export default router

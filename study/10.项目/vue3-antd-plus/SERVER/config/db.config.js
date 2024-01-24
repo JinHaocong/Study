@@ -6,5 +6,5 @@
 
 module.exports = {
     port: process.env.DB_PORT,
-    url: `mongodb://${process.env.DB_URL}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
+    url: `mongodb://${process.env.USER_NAME}:${process.env.USER_PWD}@${process.env.DB_URL}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
 }

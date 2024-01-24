@@ -210,3 +210,9 @@
         【URL】: POST /v1/sys/users_opt_logs/list
         【参数】: {}
         【错误】: UnauthorizedError: No authorization token was found
+[2024-01-24T12:04:30.766] [ERROR] error - *** test 登录失败 ** 错误信息 : {"ok":0,"code":13,"codeName":"Unauthorized"}
+[2024-01-24T12:12:12.114] [ERROR] error - *** admin 登录失败 ** 错误信息 : {"ok":0,"code":13,"codeName":"Unauthorized"}
+[2024-01-24T12:13:05.727] [ERROR] error - *** admin 登录失败 ** 错误信息 : {"ok":0,"code":13,"codeName":"Unauthorized"}
+[2024-01-24T12:13:08.455] [ERROR] error - *** admin 登录失败 ** 错误信息 : {"ok":0,"code":13,"codeName":"Unauthorized"}
+[2024-01-24T12:13:15.121] [ERROR] error - *** admin 登录失败 ** 错误信息 : {"ok":0,"code":13,"codeName":"Unauthorized"}
+[2024-01-24T12:14:10.267] [ERROR] error - *** admin 登录失败 ** 错误信息 : {"ok":0,"code":13,"codeName":"Unauthorized"}
