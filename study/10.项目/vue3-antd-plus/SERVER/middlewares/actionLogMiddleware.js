@@ -11,7 +11,7 @@ function parseIP(clientIp) {
             {method: 'GET'},
             function (error, response, body) {
                 if (error !== null) {
-                    resolve('百度API:地址获取失败')
+                    resolve('API:地址获取失败')
                     return
                 }
                 if (body && !body.status) {
