@@ -59,8 +59,8 @@
 
 <script setup>
 import {watchEffect, reactive, ref} from 'vue'
-import {users_opt_logsList} from "../../api/modules/api.users_opt_logs";
-import {ZyMessage} from "../../libs/util.toast";
+import {users_opt_logsList} from "api/modules/api.users_opt_logs";
+import {ZyMessage} from "libs/util.toast";
 import ZyLogo from "../../components/common/ZyLogo.vue";
 import ZyWorksSection from "../../components/common/ZyWorksSection.vue";
 import ZySectionHeader from "../../components/common/ZySectionHeader.vue";
