@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : MD_localhost
+ Source Server         : MongoDB
  Source Server Type    : MongoDB
- Source Server Version : 60005
+ Source Server Version : 70005
  Source Host           : localhost:27017
- Source Schema         : my_db
+ Source Schema         : vue3_antd_plus
 
  Target Server Type    : MongoDB
- Target Server Version : 60005
+ Target Server Version : 70005
  File Encoding         : 65001
 
- Date: 09/07/2023 22:35:16
+ Date: 26/01/2024 00:22:16
 */
 
 
@@ -2847,4 +2847,76 @@ db.getCollection("users_opt_logs").insert([ {
     content: "/v1/sys/roles/list",
     createdAt: ISODate("2023-07-09T14:32:05.913Z"),
     updatedAt: ISODate("2023-07-09T14:32:05.913Z")
+} ]);
+db.getCollection("users_opt_logs").insert([ {
+    _id: ObjectId("65b288dc8829aa10ec2b9150"),
+    operator: "admin",
+    operatorId: "-",
+    module: "登录",
+    platform: "Chrome.v121",
+    operatorIP: "0.0.0.0",
+    address: "保留地址",
+    content: "/v1/sys/auth/login",
+    createdAt: ISODate("2024-01-25T16:14:20.998Z"),
+    updatedAt: ISODate("2024-01-25T16:14:20.998Z")
+} ]);
+db.getCollection("users_opt_logs").insert([ {
+    _id: ObjectId("65b289248829aa10ec2b9157"),
+    operator: "ZY·Admin",
+    operatorId: "64aabf3d28f413f08d51cc00",
+    module: "系统管理/用户管理/查询",
+    platform: "Chrome.v121",
+    operatorIP: "0.0.0.0",
+    address: "保留地址",
+    content: "/v1/sys/users/list",
+    createdAt: ISODate("2024-01-25T16:15:32.106Z"),
+    updatedAt: ISODate("2024-01-25T16:15:32.106Z")
+} ]);
+db.getCollection("users_opt_logs").insert([ {
+    _id: ObjectId("65b289258829aa10ec2b915d"),
+    operator: "ZY·Admin",
+    operatorId: "64aabf3d28f413f08d51cc00",
+    module: "系统管理/权限管理/查询",
+    platform: "Chrome.v121",
+    operatorIP: "0.0.0.0",
+    address: "保留地址",
+    content: "/v1/sys/permissions/list",
+    createdAt: ISODate("2024-01-25T16:15:33.043Z"),
+    updatedAt: ISODate("2024-01-25T16:15:33.043Z")
+} ]);
+db.getCollection("users_opt_logs").insert([ {
+    _id: ObjectId("65b2899d8829aa10ec2b9163"),
+    operator: "ZY·Admin",
+    operatorId: "64aabf3d28f413f08d51cc00",
+    module: "系统管理/权限管理/查询",
+    platform: "Chrome.v121",
+    operatorIP: "0.0.0.0",
+    address: "保留地址",
+    content: "/v1/sys/permissions/list",
+    createdAt: ISODate("2024-01-25T16:17:33.019Z"),
+    updatedAt: ISODate("2024-01-25T16:17:33.019Z")
+} ]);
+db.getCollection("users_opt_logs").insert([ {
+    _id: ObjectId("65b2899e8829aa10ec2b9169"),
+    operator: "ZY·Admin",
+    operatorId: "64aabf3d28f413f08d51cc00",
+    module: "系统管理/用户管理/查询",
+    platform: "Chrome.v121",
+    operatorIP: "0.0.0.0",
+    address: "保留地址",
+    content: "/v1/sys/users/list",
+    createdAt: ISODate("2024-01-25T16:17:34.739Z"),
+    updatedAt: ISODate("2024-01-25T16:17:34.739Z")
+} ]);
+db.getCollection("users_opt_logs").insert([ {
+    _id: ObjectId("65b28a7f8829aa10ec2b9170"),
+    operator: "ZY·Admin",
+    operatorId: "64aabf3d28f413f08d51cc00",
+    module: "系统管理/用户管理/查询",
+    platform: "Chrome.v121",
+    operatorIP: "0.0.0.0",
+    address: "保留地址",
+    content: "/v1/sys/users/list",
+    createdAt: ISODate("2024-01-25T16:21:19.955Z"),
+    updatedAt: ISODate("2024-01-25T16:21:19.955Z")
 } ]);
