@@ -1,61 +1,28 @@
 {
-    "compilerOptions": {
-        "baseUrl": ".",
-        "paths": {
-            "@components/*": [
-                "src/components/*"
-            ],
-            "@pages/*": [
-                "src/pages/*"
-            ],
-            "@router/*": [
-                "src/router/*"
-            ],
-            "@/*": [
-                "src/*"
-            ],
-            "@store/*": [
-                "src/store/*"
-            ],
-            "@03_mitt/*": [
-                "src/pages/03_mitt/*"
-            ],
-            "@09_slot/*": [
-                "src/pages/09_slot/*"
-            ],
-            "@01_props/*": [
-                "src/pages/01_props/*"
-            ],
-            "@08_pinia/*": [
-                "src/pages/08_pinia/*"
-            ],
-            "@05_$attrs/*": [
-                "src/pages/05_$attrs/*"
-            ],
-            "@04_v-model/*": [
-                "src/pages/04_v-model/*"
-            ],
-            "@09_slot_具名插槽/*": [
-                "src/pages/09_slot_具名插槽/*"
-            ],
-            "@09_slot_默认插槽/*": [
-                "src/pages/09_slot_默认插槽/*"
-            ],
-            "@09_slot_作用域插槽/*": [
-                "src/pages/09_slot_作用域插槽/*"
-            ],
-            "@02_custom-event/*": [
-                "src/pages/02_custom-event/*"
-            ],
-            "@06_$refs-$parent/*": [
-                "src/pages/06_$refs-$parent/*"
-            ],
-            "@07_provide-inject/*": [
-                "src/pages/07_provide-inject/*"
-            ],
-            "@utils/*": [
-                "src/utils/*"
-            ]
-        }
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@router/*": [
+        "src/router/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "esModuleInterop": true
+  },
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
     }
+  ]
 }
