@@ -15,7 +15,10 @@
         "src/*"
       ]
     },
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "NodeNext"
   },
   "references": [
     {

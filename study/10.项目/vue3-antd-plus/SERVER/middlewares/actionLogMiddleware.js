@@ -7,7 +7,7 @@ const {UsersOptLogModel} = require('@models/v1');
 function parseIP(clientIp) {
     return new Promise((resolve, reject) => {
         request(
-            `https://opendata.baidu.com/api.php?query=[${clientIp}]&co=&resource_id=6006&oe=utf8`,
+            `https://restapi.amap.com/v3/ip?ip=[${clientIp}]&output=xml&key=ea3dd8eac84988e976da4f3027e6b3d8`,
             {method: 'GET'},
             function (error, response, body) {
                 if (error !== null) {

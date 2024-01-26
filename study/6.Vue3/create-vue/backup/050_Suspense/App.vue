@@ -1,13 +1,23 @@
 <template>
   <div class="app">
     <h2>我是App组件</h2>
-    <hello></hello>
-    <Child />
+    <Suspense>
+      <template v-slot:default>
+        <Child />
+      </template>
+
+      <template v-slot:fallback>
+        <h2>加载中......</h2>
+      </template>
+    </Suspense>
   </div>
 </template>
 
 <script lang="ts" name="App" setup>
+import { Suspense } from 'vue'
 import Child from './Child.vue'
+
+console.log(Suspense)
 </script>
 
 <style>
