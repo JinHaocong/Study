@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "SET NODE_ENV=development&& nodemon app.js --mode development"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.10",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.0.3"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-jwt": "^8.4.1",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.9.0"
+  }
+}
