@@ -16,4 +16,8 @@ const db = mysql.createPool({
   keepAliveInitialDelay: 0,
 });
 
+db.on('connection', () => {
+  console.log('数据库连接成功');
+});
+
 module.exports = db;
