@@ -179,7 +179,44 @@ module.exports = db;
 安装中间件
 
 ```powershell
-yarn add bcryptjs jsonwebtoken
+yarn add bcryptjs jsonwebtoken express-jwt
+```
+
+全局响应中间件
+
+```js
+const requestMiddleware = (req, res, next) => {
+  // status=0为成功,=1为失败,默认设为1,方便处理失败的情况
+  res.error = (msg, err = null, status = 1) => {
+    res.send({
+      status,
+      message: msg,
+      error: err,
+    });
+  };
+
+  res.success = (msg, data = [], status = 0) => {
+    res.send({
+      status,
+      message: msg,
+      data,
+    });
+  };
+
+  res.token = (msg, tokenStr, data = [], status = 0) => {
+    res.send({
+      status,
+      message: msg,
+      data,
+      token: `Bearer ${tokenStr}`,
+    });
+  };
+
+  next();
+};
+
+module.exports = requestMiddleware;
+
 ```
 
 router/login/js
@@ -204,68 +241,78 @@ handler/login/js
 
 ```ts
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const db = require('../db/index');
+const jwtConfig = require('../jwt_config/index');
 
 exports.register = async (req, res) => {
-  const { account, password } = req.body;
-  // step 1: 判断前端传过来的数据是否为空
-  if (!account || !password) {
-    return res.send({
-      status: 1,
-      message: '账号或者密码不能为空',
-    });
-  }
-
-  // step 2: 判断前端传过来账号有没有已经存在在数据表中
   try {
-    const querySQL = 'select * from users where account = ?';
-    const [queryData] = await db.query(querySQL, password);
-    if (queryData.length) {
-      return res.send({
-        status: 1,
-        message: '账号已存在',
-      });
-    }
+    // step 1：检查账号或密码是否为空
+    const { account, password } = req.body;
+    if (!account || !password) return res.error('账号或者密码不能为空');
 
-    // step 3: 对密码进行加密 需要使用加密中间件 bcrypt.js
-    // bcrypt.hashSyncd第一个参数是传入的密码，第二个参数是加密后的长度
+    // step 2：检查账号是否已经存在
+    const querySQL = 'SELECT * FROM users WHERE account = ?';
+    const [queryData] = await db.query(querySQL, account) || [];
+
+    if (queryData.length) return res.error('账号已存在');
+
+    // step 3：加密密码
     const encryptedPassword = bcrypt.hashSync(password, 10);
 
-    // step 4: 把账号跟密码插入到users表里面
-    const insertSQL = 'insert into users set ?';
-    const info = {
+    // step 4：将账号和加密后的密码插入到users表中
+    const insertSQL = 'INSERT INTO users SET ?';
+    const userInfo = {
       account,
       password: encryptedPassword,
-      // 身份
       identity: '用户',
-      // 创建时间
       create_time: new Date(),
-      // 初始未冻结状态为0
       status: 0,
     };
-    const [insertData] = await db.query(insertSQL, info);
-    console.log(insertData.affectedRows);
-    if (insertData.affectedRows !== 1) {
-      return res.send({
-        status: 1,
-        message: '注册账号失败',
-      });
-    }
-    res.send({
-      status: 0,
-      message: '注册账号成功',
-    });
+
+    const [insertData] = await db.query(insertSQL, userInfo);
+
+    // 确保之影响一行数据
+    if (insertData.affectedRows !== 1) return res.error('注册账号失败');
+
+    res.success('注册账号成功');
   } catch (e) {
-    console.log(e, '注册账号失败');
-    return res.send({
-      status: 1,
-      message: '注册账号失败',
-    });
+    res.error('注册账号失败', e);
   }
 };
 
-exports.login = (req, res) => {
-  res.send('登录');
+exports.login = async (req, res) => {
+  try {
+    const { account, password } = req.body;
+
+    // step 1：查看数据表中有没有前端传过来的账号
+    const querySQL = 'select * from users where account = ?';
+    const [queryData] = await db.query(querySQL, account) || [];
+    if (!queryData.length) return res.error('登录失败：用户不存在');
+
+    // step 2：对前端传过来的密码进行解密
+    const compareResult = bcrypt.compareSync(password, queryData[0].password);
+    if (!compareResult) return res.error('登录失败：密码错误');
+
+    // step 3：对账号是否冻结做判定
+    if (queryData[0].status === '1') return res.error('登录失败：账号被冻结');
+
+    // step 4：生成返回给前端的token 剔除加密后的密码,头像,创建时间,更新时间
+    const user = {
+      ...queryData[0],
+      password: '',
+      imageUrl: '',
+      create_time: '',
+      update_time: '',
+    };
+    // 设置token的有效时长 有效期为7个小时
+    const tokenStr = jwt.sign(user, jwtConfig.jwtSecretKey, {
+      expiresIn: '7h',
+    });
+    res.token('登录成功', tokenStr, queryData[0]);
+  } catch (e) {
+    return res.error('登录失败', e);
+  }
 };
 
 ```

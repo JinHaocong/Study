@@ -23,13 +23,13 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // jwt
-const jwtconfig = require('./jwt_config/index');
+const jwtConfig = require('./jwt_config/index');
 
 // 全局请求处理中间件
 app.use(requestMiddleware);
 
 app.use(jwt({
-  secret: jwtconfig.jwtSecretKey, algorithms: ['HS256'],
+  secret: jwtConfig.jwtSecretKey, algorithms: ['HS256'],
 }).unless({
   path: [/^\/api\//],
 }));
