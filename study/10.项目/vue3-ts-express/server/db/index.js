@@ -21,11 +21,18 @@ async function testConnection() {
     // 提取数据库名称
     const { dbName } = rows[0];
 
-    console.log(chalk.rgb(123, 45, 67).bold(`连接${isDev ? chalk.blue.bold('开发环境') : chalk.blue.bold('生产环境')}数据库成功：${chalk.hex('#DEADED').underline(dbName)}`));
+    console.log(
+      chalk.rgb(123, 45, 67)
+        .bold(
+          `连接${isDev
+            ? chalk.blue.bold('开发环境')
+            : chalk.blue.bold('生产环境')}数据库成功：${chalk.hex('#DEADED').underline(dbName)}`,
+        ),
+    );
     // 释放连接，将连接归还给连接池
     connection.release();
   } catch (error) {
-    console.error('连接到MySQL数据库时发生错误:', error);
+    console.error(chalk.bgRed.black.bold('连接到MySQL数据库时发生错误:'), error);
   }
 }
 
