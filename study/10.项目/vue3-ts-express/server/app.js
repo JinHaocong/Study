@@ -4,9 +4,8 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const chalk = require('chalk');
 
-const isDev = process.env.NODE_ENV === 'development';
-
 // 访问不同的 .env 文件
+const isDev = process.env.NODE_ENV === 'development';
 require('dotenv').config({ path: isDev ? './.env.development' : './.env.production' });
 
 const {
