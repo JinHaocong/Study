@@ -371,23 +371,19 @@ joi检验中间件
 const Joi = require('joi');
 
 const handleJoiValidationError = (err, req, res, next) => {
-  if (err instanceof Joi.ValidationError) {
-    res.error('输入的数据不符合验证规则');
-  } else {
-    // 将错误传递给下一个中间件或错误处理程序
-    next(err);
-  }
+  if (err instanceof Joi.ValidationError) return res.error('输入的数据不符合验证规则');
+  next(err);
 };
 
 module.exports = handleJoiValidationError;
 
 ```
 
-app.js引入中间件
+app.js引入中间件(**注意要放到路由中间件的后面**)
 
 ```js
 const handleJoiValidationError = require('./middlewares/handleJoiValidationError');
 
-// joi校验中间件
+// joi校验中间件 注意要放到路由中间件的后面
 app.use(handleJoiValidationError);
 ```
