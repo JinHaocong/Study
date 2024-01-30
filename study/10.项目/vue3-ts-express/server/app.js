@@ -3,17 +3,17 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const chalk = require('chalk');
+const {
+  expressjwt: jwt,
+} = require('express-jwt');
+const handleJoiValidationError = require('./middlewares/handleJoiValidationError');
+const requestMiddleware = require('./middlewares/requestMiddleware');
+const loginRouter = require('./router/login');
+const jwtConfig = require('./jwt_config/index');
 
 // 访问不同的 .env 文件
 const isDev = process.env.NODE_ENV === 'development';
 require('dotenv').config({ path: isDev ? './.env.development' : './.env.production' });
-
-const {
-  expressjwt: jwt,
-} = require('express-jwt');
-const requestMiddleware = require('./middlewares/requestMiddleware');
-
-const loginRouter = require('./router/login');
 
 // 创建express实例
 const app = express();
@@ -24,16 +24,14 @@ app.use(cors());
 // 日志
 app.use(logger('dev'));
 
+// 全局请求处理中间件
+app.use(requestMiddleware);
+
 // parse application/x-www-form-urlencoded
 // 当extended为false时，值为数组或者字符串，当为ture时，值可以为任意类型
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // jwt
-const jwtConfig = require('./jwt_config/index');
-
-// 全局请求处理中间件
-app.use(requestMiddleware);
-
 app.use(jwt({
   secret: jwtConfig.jwtSecretKey, algorithms: ['HS256'],
 }).unless({
@@ -45,6 +43,9 @@ app.use(bodyParser.json());
 
 // 路由模块
 app.use('/api', loginRouter);
+
+// joi校验中间件 注意要放到路由中间件的后面
+app.use(handleJoiValidationError);
 
 // 监听端口
 app.listen(process.env.PORT, () => {

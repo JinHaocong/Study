@@ -31,6 +31,10 @@ const bodyParser = require('body-parser');
 // 导入日志中间件
 const logger = require('morgan')
 
+// 访问不同的 .env 文件
+const isDev = process.env.NODE_ENV === 'development';
+require('dotenv').config({ path: isDev ? './.env.development' : './.env.production' });
+
 // 创建express实例
 const app = express()
 
@@ -58,9 +62,20 @@ app.use(function (req: { body: any }, res: {
 })
 
 // 监听端口
-app.listen(3070, () => {
-  console.log('app is listening')
-})
+app.listen(process.env.PORT, () => {
+  console.log(
+    chalk.hex('#8e44ad').bold(`
+   ____    ___    _   _    ____    ____    ___    _   _    ____ 
+  / ___|  / _ \\  | \\ | |  / ___|  / ___|  / _ \\  | \\ | |  / ___|
+ | |     | | | | |  \\| | | |  _  | |     | | | | |  \\| | | |  _ 
+ | |___  | |_| | | |\\  | | |_| | | |___  | |_| | | |\\  | | |_| |
+  \\____|  \\___/  |_| \\_|  \\____|  \\____|  \\___/  |_| \\_|  \\____|
+                                                                
+`),
+  );
+  console.log(chalk.bold.green(`项目启动成功: ${process.env.URL}:${process.env.PORT}`));
+});
+
 
 ```
 
@@ -146,25 +161,49 @@ module.exports = {
 db/index.js
 
 ```ts
+const chalk = require('chalk');
 // 导入数据库
 const mysql = require('mysql2/promise');
+// 导入配置
+const config = require('../config/db.config');
 
 // 创建连接池
-const db = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: '123456',
-  database: 'vue3_ts_express',
-  waitForConnections: true,
-  connectionLimit: 10,
-  maxIdle: 10, // max idle connections, the default value is the same as `connectionLimit`
-  idleTimeout: 60000, // idle connections timeout, in milliseconds, the default value 60000
-  queueLimit: 0,
-  enableKeepAlive: true,
-  keepAliveInitialDelay: 0,
-});
+const db = mysql.createPool(config);
+
+// 打印连接池创建成功信息
+console.log(chalk.bgGreen.black('MySQL连接池创建成功'));
+
+// 进行简单的查询测试
+async function testConnection() {
+  try {
+    const connection = await db.getConnection();
+    const isDev = process.env.NODE_ENV === 'development';
+    // 执行查询语句获取数据库名称
+    const [rows] = await connection.execute('SELECT DATABASE() AS dbName');
+
+    // 提取数据库名称
+    const { dbName } = rows[0];
+
+    console.log(
+      chalk.rgb(123, 45, 67)
+        .bold(
+          `连接${isDev
+            ? chalk.blue.bold('开发环境')
+            : chalk.blue.bold('生产环境')}数据库成功：${chalk.hex('#DEADED').underline(dbName)}`,
+        ),
+    );
+    // 释放连接，将连接归还给连接池
+    connection.release();
+  } catch (error) {
+    console.error(chalk.bgRed.black.bold('连接到MySQL数据库时发生错误:'), error);
+  }
+}
+
+// 调用测试连接的函数
+testConnection();
 
 module.exports = db;
+
 ```
 
 # 登录/注册功能实现
@@ -326,3 +365,29 @@ const loginRouter = require('./router/login');
 app.use('/api', loginRouter)
 ```
 
+joi检验中间件
+
+```js
+const Joi = require('joi');
+
+const handleJoiValidationError = (err, req, res, next) => {
+  if (err instanceof Joi.ValidationError) {
+    res.error('输入的数据不符合验证规则');
+  } else {
+    // 将错误传递给下一个中间件或错误处理程序
+    next(err);
+  }
+};
+
+module.exports = handleJoiValidationError;
+
+```
+
+app.js引入中间件
+
+```js
+const handleJoiValidationError = require('./middlewares/handleJoiValidationError');
+
+// joi校验中间件
+app.use(handleJoiValidationError);
+```
