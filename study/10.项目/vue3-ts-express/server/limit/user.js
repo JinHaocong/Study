@@ -14,7 +14,7 @@ const oldPassword = joi.string().pattern(/^(?![0-9]+$)[a-z0-9]{1,50}$/).min(6).m
 const newPassword = joi.string().pattern(/^(?![0-9]+$)[a-z0-9]{1,50}$/).min(6).max(12)
   .required();
 
-exports.password_limit = {
+exports.passwordLimit = {
   // 表示对req.body里面的数据进行验证
   body: {
     id,
@@ -23,7 +23,7 @@ exports.password_limit = {
   },
 };
 
-exports.name_limit = {
+exports.nameLimit = {
   // 表示对req.body里面的数据进行验证
   body: {
     id,
@@ -31,7 +31,7 @@ exports.name_limit = {
   },
 };
 
-exports.email_limit = {
+exports.emailLimit = {
   // 表示对req.body里面的数据进行验证
   body: {
     id,
@@ -39,7 +39,7 @@ exports.email_limit = {
   },
 };
 
-exports.forgetPassword_limit = {
+exports.forgetPasswordLimit = {
   // 表示对req.body里面的数据进行验证
   body: {
     id,

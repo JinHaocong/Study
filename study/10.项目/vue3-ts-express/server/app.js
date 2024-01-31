@@ -3,13 +3,11 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const chalk = require('chalk');
-const {
-  expressjwt: jwt,
-} = require('express-jwt');
 const handleJoiValidationError = require('./middlewares/handleJoiValidationError');
 const requestMiddleware = require('./middlewares/requestMiddleware');
 const loginRouter = require('./router/login');
-const jwtConfig = require('./jwt_config/index');
+const userRouter = require('./router/userinfo');
+const tokenAuthentication = require('./middlewares/tokenAuthentication');
 
 // 访问不同的 .env 文件
 const isDev = process.env.NODE_ENV === 'development';
@@ -31,18 +29,12 @@ app.use(requestMiddleware);
 // 当extended为false时，值为数组或者字符串，当为ture时，值可以为任意类型
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// jwt
-app.use(jwt({
-  secret: jwtConfig.jwtSecretKey, algorithms: ['HS256'],
-}).unless({
-  path: [/^\/api\//],
-}));
-
 // parse application/json
 app.use(bodyParser.json());
 
 // 路由模块
 app.use('/api', loginRouter);
+app.use('/user', userRouter);
 
 // joi校验中间件 注意要放到路由中间件的后面
 app.use(handleJoiValidationError);
