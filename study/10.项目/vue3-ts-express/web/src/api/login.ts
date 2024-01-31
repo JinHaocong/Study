@@ -58,12 +58,8 @@ export const verify = (data: VerifyData) => {
 
 // 密码重置
 export const reset = (id: number, newPassword: string) => {
-  return instance({
-    url: '/user/changePasswordInLogin',
-    method: 'POST',
-    data: {
-      id,
-      newPassword
-    }
+  return post<LoginResponse>('/user/changePasswordInLogin', {
+    id,
+    newPassword
   })
 }

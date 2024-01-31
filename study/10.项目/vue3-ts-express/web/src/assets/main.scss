@@ -3,9 +3,57 @@ html, body, #app {
   margin: 0;
   height: 100%;
   width: 100%;
+  --el-color-primary: #3b8d99;
 }
 
 .common-layout {
   height: 100%;
   width: 100%;
 }
+
+.el-button {
+  --el-border-color: #aa4b6b;
+  --el-text-color-regular: #aa4b6b;
+}
+
+.el-button:hover {
+  --el-button-hover-text-color: white;
+  --el-button-hover-border-color: rgba(170, 75, 107, 0.8);
+  --el-button-hover-bg-color: rgba(170, 75, 107, 0.8);
+}
+
+.el-button:focus {
+  --el-button-hover-text-color: white;
+  --el-button-hover-border-color: rgba(170, 75, 107, 0.8);
+  --el-button-hover-bg-color: rgba(170, 75, 107, 0.8);
+}
+
+.el-button:active {
+  --el-button-active-text-color: white;
+  --el-button-active-border-color: rgba(170, 75, 107, 0.8);
+  --el-button-active-bg-color: rgba(170, 75, 107, 0.8);
+}
+
+.el-button--primary {
+  --el-border-color: #3b8d99;
+  --el-text-color-regular: #3b8d99;
+}
+
+.el-button--primary:hover {
+  --el-button-hover-text-color: white;
+  --el-button-hover-border-color: rgba(59, 141, 153, 0.7);
+  --el-button-hover-bg-color: rgba(59, 141, 153, 0.7);
+}
+
+.el-button--primary:focus {
+  --el-button-hover-text-color: white;
+  --el-button-hover-border-color: rgba(59, 141, 153, 0.7);
+  --el-button-hover-bg-color: rgba(59, 141, 153, 0.7);
+}
+
+.el-button--primary:active {
+  --el-button-active-text-color: white;
+  --el-button-active-border-color: rgba(59, 141, 153, 0.7);
+  --el-button-active-bg-color: rgba(59, 141, 153, 0.7);
+}
+

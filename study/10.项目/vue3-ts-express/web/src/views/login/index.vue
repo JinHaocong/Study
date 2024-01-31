@@ -20,11 +20,12 @@
                   label-width="80"
                 >
                   <el-form-item label="账号" prop="account">
-                    <el-input v-model="loginFormData.account" placeholder="请输入账号" />
+                    <el-input v-model="loginFormData.account" clearable placeholder="请输入账号" />
                   </el-form-item>
                   <el-form-item label="密码" prop="password">
                     <el-input
                       v-model="loginFormData.password"
+                      clearable
                       placeholder="请输入密码"
                       show-password
                       type="password"
@@ -37,7 +38,9 @@
                     <span class="forget-password-button" @click="openForget">忘记密码</span>
                   </div>
                   <div class="footer-button">
-                    <el-button type="primary" @click="Login(loginFromRef)">登录</el-button>
+                    <el-button :loading="buttonLoading" type="primary" @click="Login(loginFromRef)"
+                      >登录
+                    </el-button>
                   </div>
                   <div class="footer-go-register">
                     还没有账号？<span class="go-register">马上注册</span>
@@ -53,11 +56,16 @@
                   label-width="80"
                 >
                   <el-form-item label="账号" prop="account">
-                    <el-input v-model="registerFormData.account" placeholder="请输入账号" />
+                    <el-input
+                      v-model="registerFormData.account"
+                      clearable
+                      placeholder="请输入账号"
+                    />
                   </el-form-item>
                   <el-form-item label="密码" prop="password">
                     <el-input
                       v-model="registerFormData.password"
+                      clearable
                       placeholder="请输入密码"
                       show-password
                       type="password"
@@ -66,6 +74,7 @@
                   <el-form-item label="确认密码" prop="nextPassword">
                     <el-input
                       v-model="registerFormData.nextPassword"
+                      clearable
                       placeholder="请再次输入密码"
                       show-password
                       type="password"
@@ -73,7 +82,12 @@
                   </el-form-item>
                 </el-form>
                 <div class="footer-button">
-                  <el-button type="primary" @click="Register(registerFromRef)">注册</el-button>
+                  <el-button
+                    :loading="buttonLoading"
+                    type="primary"
+                    @click="Register(registerFromRef)"
+                    >注册
+                  </el-button>
                 </div>
               </el-tab-pane>
             </el-tabs>
@@ -85,21 +99,21 @@
       </el-footer>
     </el-container>
   </div>
-  <forget ref="forgetP"></forget>
+  <forget ref="forgetRef" class="forget"></forget>
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue'
+import { reactive, ref } from 'vue'
+import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
-import forget from './components/forget_password.vue'
+import forget from './components/forgetPassword.vue'
 import { login, type LoginRegister, register } from '@/api/login'
-import { loginLog } from '@/api/log'
 import { useUserInfo } from '@/stores/userInfo'
 import type { Engine } from 'tsparticles-engine'
 import { loadSlim } from 'tsparticles-slim'
 import { setItems } from '@/utils/storage'
-import type { FormInstance, FormRules } from 'element-plus'
+
 // 自定义验证函数
 const validatePassword = (_: any, value: any, callback: any) => {
   if (value !== registerFormData.password) {
@@ -128,6 +142,9 @@ const setStorage = (
 
 // tab
 const activeName = ref('first')
+
+// button loading
+const buttonLoading = ref(false)
 
 // sign 粒子效果
 // 粒子效果数据
@@ -246,6 +263,7 @@ const Login = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   try {
     await formEl.validate()
+    buttonLoading.value = true
     const res = await login(loginFormData)
     const {
       data: { id, name, account, email, department },
@@ -261,6 +279,8 @@ const Login = async (formEl: FormInstance | undefined) => {
   } catch (e: any) {
     console.log(e, 'Login')
     e.message && ElMessage.error(e.message)
+  } finally {
+    buttonLoading.value = false
   }
 }
 
@@ -292,6 +312,7 @@ const Register = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   try {
     await formEl.validate()
+    buttonLoading.value = true
     const res = await register(registerFormData)
     ElMessage.success(res.message)
     activeName.value = 'first'
@@ -301,20 +322,22 @@ const Register = async (formEl: FormInstance | undefined) => {
   } catch (e: any) {
     console.log(e, 'Register')
     e.message && ElMessage.error(e.message)
+  } finally {
+    buttonLoading.value = false
   }
 }
 
 // sign 忘记密码
 // 打开忘记密码弹窗
-const forgetP = ref()
+const forgetRef = ref()
 const openForget = () => {
-  forgetP.value.open()
+  forgetRef.value.open()
 }
 </script>
 
 <style lang="scss" scoped>
 .login__particles {
-  height: calc(100% - 30px);
+  height: 100%;
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -325,6 +348,7 @@ const openForget = () => {
 
 // 主体部分
 .el-main {
+  height: 100%;
   background-size: cover;
   background-position: center;
   --el-main-padding: 0;
@@ -427,6 +451,10 @@ const openForget = () => {
           background-image: linear-gradient(to right, #aa4b6b, #6b6b83, #3b8d99);
           opacity: 0.7;
           border: none;
+
+          &:hover {
+            opacity: 0.5;
+          }
         }
       }
     }
@@ -435,12 +463,16 @@ const openForget = () => {
 
 // 底部部分
 .el-footer {
+  z-index: 1;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   --el-footer-height: 30px;
   --el-footer-padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(to right, #aa4b6b, #6b6b83, #3b8d99);
   font-size: 12px;
   color: #999;
 }
@@ -467,5 +499,10 @@ const openForget = () => {
   width: 300px;
   height: 45px;
   font-size: 16px;
+}
+
+.forget {
+  height: 100%;
+  width: 100%;
 }
 </style>
