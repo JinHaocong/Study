@@ -79,7 +79,7 @@ import { loadSlim } from 'tsparticles-slim'
 
 // 表单接口
 interface FormData {
-  account: number | null
+  account: string
   password: string
   nextPassword?: string
 }
@@ -182,12 +182,12 @@ const options = {
 }
 // 登录表单数据
 const loginData: FormData = reactive({
-  account: null,
+  account: '',
   password: ''
 })
 // 注册表单数据
 const registerData: FormData = reactive({
-  account: null,
+  account: '',
   password: '',
   nextPassword: ''
 })
@@ -201,25 +201,25 @@ const particlesInit = async (engine: Engine): Promise<void> => {
 
 // 登录
 const Login = async () => {
-  const res = await login(loginData)
-  // console.log(res)
-  const { id, name, account, email, department } = res.results
-  const { token } = res
-  if (res.message == '登录成功') {
-    ElMessage({
-      message: '登录成功',
-      type: 'success'
-    })
-    localStorage.setItem('id', id)
-    localStorage.setItem('token', token)
-    localStorage.setItem('name', name)
-    localStorage.setItem('department', department)
-    await loginLog(account, name, email)
+  try {
+    const res = await login(loginData)
+    const {
+      data: { id, name, account, email, department },
+      token,
+      message
+    } = res
+    ElMessage.success(message)
+    localStorage.setItem('id', String(id))
+    localStorage.setItem('token', token || '')
+    localStorage.setItem('name', name || '')
+    localStorage.setItem('department', department || '')
+    await loginLog(Number(account), name || '', email || '')
     await store.userInfo(id)
     // 跳转
     await router.push('/home')
-  } else {
-    ElMessage.error('登录失败')
+  } catch (e: any) {
+    console.log(e, 'Login')
+    e.message && ElMessage.error(e.message)
   }
 }
 
@@ -361,6 +361,7 @@ const openForget = () => {
         .el-button {
           background-image: linear-gradient(to right, #aa4b6b, #6b6b83, #3b8d99);
           opacity: 0.7;
+          border: none;
         }
       }
     }

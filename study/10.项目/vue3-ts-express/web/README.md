@@ -114,11 +114,12 @@ src/http/index.ts
 
 ```ts
 import axios from 'axios'
+import { type InternalAxiosRequestConfig, type AxiosInstance, type AxiosResponse } from 'axios'
 
-const instance = axios.create({
+const instance: AxiosInstance = axios.create({
   // 后端url地址
   baseURL: 'http://127.0.0.1:3007',
-  timeout: 6000, //设置超时
+  timeout: 6000, // 设置超时
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
@@ -126,29 +127,70 @@ const instance = axios.create({
 
 // 添加请求拦截器
 instance.interceptors.request.use(
-  function (config) {
+  (config: InternalAxiosRequestConfig) => {
     // 在发送请求之前做些什么
     return config
   },
-  function (error) {
-    // 对请求错误做些什么
+  (error: any) => {
+    // 处理请求错误
     return Promise.reject(error)
   }
 )
 
 // 添加响应拦截器
 instance.interceptors.response.use(
-  function (response) {
+  (response: AxiosResponse) => {
     // 对响应数据做点什么
-    return response.data
+    if (!response.data.success) {
+      return Promise.reject(response.data)
+    }
+    return response
   },
-  function (error) {
-    // 对响应错误做点什么
+  (error: any) => {
+    // 处理响应错误
     return Promise.reject(error)
   }
 )
 
 export default instance
+
+```
+
+## 封装axios
+
+src/api/index.ts
+
+```ts
+import instance from '@/http/index'
+
+export interface ApiResult<T> {
+  status: number
+  success: boolean
+  message: string
+  data: T
+  error?: Error
+  token?: string
+}
+
+export async function get<T>(url: string, params?: any): Promise<ApiResult<T>> {
+  const response = await instance.get<ApiResult<T>>(url, { params })
+  return response.data
+}
+
+export async function post<T>(url: string, data?: any): Promise<ApiResult<T>> {
+  const response = await instance.post<ApiResult<T>>(url, data)
+  return response.data
+}
+
+export async function put<T>(url: string, data?: any): Promise<ApiResult<T>> {
+  const response = await instance.put<ApiResult<T>>(url, data)
+  return response.data
+}
+
+export async function del<T>(url: string, params?: any): Promise<ApiResult<T>> {
+  const response = await instance.delete<ApiResult<T>>(url, { params })
+  return response.data
+}
 
 ```
 
@@ -307,4 +349,3 @@ const particlesInit = async (engine: Engine): Promise<void> => {
 }    
 </style>
 ```
-

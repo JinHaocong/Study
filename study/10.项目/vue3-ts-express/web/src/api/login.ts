@@ -1,29 +1,36 @@
 import instance from '@/http/index'
+import { post } from '@/api/index'
+
+interface Login {
+  account: string
+  password: string
+}
+
+interface LoginResponse {
+  id: number
+  name: null | string
+  account: string
+  create_time: string
+  department: null | string
+  email: null
+  identity: string
+  image_url: null | string
+  password: string
+  read_list: null | string
+  read_status: number
+  sex: null | string
+  status: string
+  update_time: null | string
+}
 
 // 注册
-export const register = (data: any) => {
-  const { account, password } = data
-  return instance({
-    url: '/api/register',
-    method: 'POST',
-    data: {
-      account,
-      password
-    }
-  })
+export const register = (data: Login) => {
+  return post<LoginResponse>('/api/register', data)
 }
 
 // 登录
-export const login = (data: any) => {
-  const { account, password } = data
-  return instance({
-    url: '/api/login',
-    method: 'POST',
-    data: {
-      account,
-      password
-    }
-  })
+export const login = (data: Login) => {
+  return post<LoginResponse>('/api/login', data)
 }
 
 export const returnMenuList = (id: number) => {

@@ -1,9 +1,10 @@
 import axios from 'axios'
+import { type InternalAxiosRequestConfig, type AxiosInstance, type AxiosResponse } from 'axios'
 
-const instance = axios.create({
+const instance: AxiosInstance = axios.create({
   // 后端url地址
   baseURL: 'http://127.0.0.1:3007',
-  timeout: 6000, //设置超时
+  timeout: 6000, // 设置超时
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
@@ -11,24 +12,27 @@ const instance = axios.create({
 
 // 添加请求拦截器
 instance.interceptors.request.use(
-  function (config) {
+  (config: InternalAxiosRequestConfig) => {
     // 在发送请求之前做些什么
     return config
   },
-  function (error) {
-    // 对请求错误做些什么
+  (error: any) => {
+    // 处理请求错误
     return Promise.reject(error)
   }
 )
 
 // 添加响应拦截器
 instance.interceptors.response.use(
-  function (response) {
+  (response: AxiosResponse) => {
     // 对响应数据做点什么
-    return response.data
+    if (!response.data.success) {
+      return Promise.reject(response.data)
+    }
+    return response
   },
-  function (error) {
-    // 对响应错误做点什么
+  (error: any) => {
+    // 处理响应错误
     return Promise.reject(error)
   }
 )
