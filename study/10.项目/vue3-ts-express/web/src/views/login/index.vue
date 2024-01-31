@@ -12,29 +12,29 @@
           <el-card class="box-card">
             <el-tabs v-model="activeName" :stretch="true" class="demo-tabs">
               <el-tab-pane label="登录" name="first">
-                <el-form class="login-form">
+                <el-form class="login-form" label-width="70">
                   <el-form-item label="账号">
                     <el-input v-model="loginData.account" placeholder="请输入账号" />
                   </el-form-item>
                   <el-form-item label="密码">
                     <el-input v-model="loginData.password" placeholder="请输入密码" show-password />
                   </el-form-item>
-                  <!-- 底部外壳 -->
-                  <div class="footer-wrapped">
-                    <div class="forget-password">
-                      <span class="forget-password-button" @click="openForget">忘记密码</span>
-                    </div>
-                    <div class="footer-button">
-                      <el-button type="primary" @click="Login">登录</el-button>
-                    </div>
-                    <div class="footer-go-register">
-                      还没有账号？<span class="go-register">马上注册</span>
-                    </div>
-                  </div>
                 </el-form>
+                <!-- 底部外壳 -->
+                <div class="footer-wrapped">
+                  <div class="forget-password">
+                    <span class="forget-password-button" @click="openForget">忘记密码</span>
+                  </div>
+                  <div class="footer-button">
+                    <el-button type="primary" @click="Login">登录</el-button>
+                  </div>
+                  <div class="footer-go-register">
+                    还没有账号？<span class="go-register">马上注册</span>
+                  </div>
+                </div>
               </el-tab-pane>
               <el-tab-pane label="注册" name="second">
-                <el-form class="login-form">
+                <el-form class="login-form" label-width="70">
                   <el-form-item label="账号">
                     <el-input v-model="registerData.account" placeholder="账号长度6-12位" />
                   </el-form-item>
@@ -47,10 +47,10 @@
                   <el-form-item label="确认密码">
                     <el-input v-model="registerData.nextPassword" placeholder="请再次输入密码" />
                   </el-form-item>
-                  <div class="footer-button">
-                    <el-button type="primary" @click="Register">注册</el-button>
-                  </div>
                 </el-form>
+                <div class="footer-button">
+                  <el-button type="primary" @click="Register">注册</el-button>
+                </div>
               </el-tab-pane>
             </el-tabs>
           </el-card>
@@ -253,8 +253,7 @@ const openForget = () => {
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url('@/assets/loginbg.jpeg');
-  opacity: 0.9;
+  background-image: linear-gradient(to right, #aa4b6b, #6b6b83, #3b8d99);
   position: fixed;
   pointer-events: none;
 }
@@ -264,58 +263,104 @@ const openForget = () => {
   background-size: cover;
   background-position: center;
   --el-main-padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  --el-color-primary: #aa4b6b;
 
   // 登录外壳
   .login-wrapped {
-    margin-right: 200px;
-    margin-top: 200px;
-
     // 卡片样式
-    .box-card {
-      width: 350px;
-      height: 375px;
+    :deep(.box-card) {
+      border: none;
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+      border-radius: 30px;
+      width: 370px;
+      height: 385px;
       float: right;
       position: relative;
       top: 14%;
 
-      .login-form {
-        // 登录底部外壳
-        .footer-wrapped {
+      .el-card__body {
+        height: calc(100% - 40px);
+        width: calc(100% - 40px);
+        padding: 20px;
+
+        .el-tabs {
+          height: 100%;
+          width: 100%;
           display: flex;
           flex-direction: column;
 
-          .forget-password {
-            display: flex;
-            justify-content: flex-end;
-            margin: 10px 0;
+          .el-tabs__header {
+            height: 40px;
+            margin-bottom: 40px;
+          }
 
-            .forget-password-button {
-              font-size: 12px;
-              color: #409eff;
-              // 鼠标移入的效果
-              cursor: pointer;
+          .el-tabs__content {
+            height: calc(100% - 80px);
+
+            .el-tab-pane {
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
             }
           }
 
-          .footer-go-register {
-            font-size: 12px;
-            margin: 12px 0;
-            display: flex;
-            justify-content: center;
+          .el-tabs__active-bar {
+            background-image: linear-gradient(to right, #aa4b6b, #6b6b83, #3b8d99);
+            opacity: 0.5;
+          }
+        }
+      }
 
-            .go-register {
-              font-size: 12px;
-              color: #409eff;
-              cursor: pointer;
-            }
+      :deep(.login-form) {
+        .el-input__wrapper {
+          --el-input-focus-border: linear-gradient(to right, #aa4b6b, #6b6b83, #3b8d99);
+        }
+      }
+
+      // 登录底部外壳
+      .footer-wrapped {
+        display: flex;
+        flex-direction: column;
+
+        .forget-password {
+          display: flex;
+          justify-content: flex-end;
+          margin: 10px 0;
+
+          .forget-password-button {
+            font-size: 12px;
+            color: #3b8d99;
+            cursor: pointer;
           }
         }
 
-        // 底部登录按钮
-        .footer-button {
-          width: 100%;
+        .footer-go-register {
+          font-size: 12px;
+          margin: 12px 0;
           display: flex;
           justify-content: center;
+
+          .go-register {
+            font-size: 12px;
+            color: #3b8d99;
+            cursor: 3b8d99;
+          }
+        }
+      }
+
+      // 底部登录按钮
+      .footer-button {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        .el-button {
+          background-image: linear-gradient(to right, #aa4b6b, #6b6b83, #3b8d99);
+          opacity: 0.7;
         }
       }
     }
@@ -329,14 +374,9 @@ const openForget = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fff0f5;
+  background-image: linear-gradient(to right, #aa4b6b, #6b6b83, #3b8d99);
   font-size: 12px;
   color: #999;
-}
-
-// 表单边距
-.el-form {
-  margin-top: 30px;
 }
 
 // tabs标签
