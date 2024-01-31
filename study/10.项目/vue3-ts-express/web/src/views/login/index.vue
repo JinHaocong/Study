@@ -12,12 +12,23 @@
           <el-card class="box-card">
             <el-tabs v-model="activeName" :stretch="true" class="demo-tabs">
               <el-tab-pane label="登录" name="first">
-                <el-form class="login-form" label-width="70">
-                  <el-form-item label="账号">
-                    <el-input v-model="loginData.account" placeholder="请输入账号" />
+                <el-form
+                  ref="loginFromRef"
+                  :model="loginFormData"
+                  :rules="loginRules"
+                  class="login-form"
+                  label-width="80"
+                >
+                  <el-form-item label="账号" prop="account">
+                    <el-input v-model="loginFormData.account" placeholder="请输入账号" />
                   </el-form-item>
-                  <el-form-item label="密码">
-                    <el-input v-model="loginData.password" placeholder="请输入密码" show-password />
+                  <el-form-item label="密码" prop="password">
+                    <el-input
+                      v-model="loginFormData.password"
+                      placeholder="请输入密码"
+                      show-password
+                      type="password"
+                    />
                   </el-form-item>
                 </el-form>
                 <!-- 底部外壳 -->
@@ -26,7 +37,7 @@
                     <span class="forget-password-button" @click="openForget">忘记密码</span>
                   </div>
                   <div class="footer-button">
-                    <el-button type="primary" @click="Login">登录</el-button>
+                    <el-button type="primary" @click="Login(loginFromRef)">登录</el-button>
                   </div>
                   <div class="footer-go-register">
                     还没有账号？<span class="go-register">马上注册</span>
@@ -34,22 +45,35 @@
                 </div>
               </el-tab-pane>
               <el-tab-pane label="注册" name="second">
-                <el-form class="login-form" label-width="70">
-                  <el-form-item label="账号">
-                    <el-input v-model="registerData.account" placeholder="账号长度6-12位" />
+                <el-form
+                  ref="registerFromRef"
+                  :model="registerFormData"
+                  :rules="registerRules"
+                  class="login-form"
+                  label-width="80"
+                >
+                  <el-form-item label="账号" prop="account">
+                    <el-input v-model="registerFormData.account" placeholder="请输入账号" />
                   </el-form-item>
-                  <el-form-item label="密码">
+                  <el-form-item label="密码" prop="password">
                     <el-input
-                      v-model="registerData.password"
-                      placeholder="密码需长度6-12位含字母数字"
+                      v-model="registerFormData.password"
+                      placeholder="请输入密码"
+                      show-password
+                      type="password"
                     />
                   </el-form-item>
-                  <el-form-item label="确认密码">
-                    <el-input v-model="registerData.nextPassword" placeholder="请再次输入密码" />
+                  <el-form-item label="确认密码" prop="nextPassword">
+                    <el-input
+                      v-model="registerFormData.nextPassword"
+                      placeholder="请再次输入密码"
+                      show-password
+                      type="password"
+                    />
                   </el-form-item>
                 </el-form>
                 <div class="footer-button">
-                  <el-button type="primary" @click="Register">注册</el-button>
+                  <el-button type="primary" @click="Register(registerFromRef)">注册</el-button>
                 </div>
               </el-tab-pane>
             </el-tabs>
@@ -74,9 +98,39 @@ import { loginLog } from '@/api/log'
 import { useUserInfo } from '@/stores/userInfo'
 import type { Engine } from 'tsparticles-engine'
 import { loadSlim } from 'tsparticles-slim'
+import { setItems } from '@/utils/storage'
+import type { FormInstance, FormRules } from 'element-plus'
+
+// 自定义验证函数
+const validatePassword = (_: any, value: any, callback: any) => {
+  if (value !== registerFormData.password) {
+    callback(new Error('两次输入的密码不一致'))
+  } else {
+    callback()
+  }
+}
+
+// 存入storage中
+const setStorage = (
+  id: number,
+  token: string | undefined,
+  name: string | null,
+  department: string | null
+) => {
+  const obj = {
+    id,
+    token,
+    name,
+    department
+  }
+
+  setItems(obj)
+}
+
+// tab
+const activeName = ref('first')
 
 // sign 接口
-
 // 表单接口
 interface FormData {
   account: string
@@ -84,14 +138,7 @@ interface FormData {
   nextPassword?: string
 }
 
-// sign ref
-const forgetP = ref()
-
-// sign 数据
-const activeName = ref('first')
-const router = useRouter()
-const store = useUserInfo()
-
+// sign 粒子效果
 // 粒子效果数据
 const options = {
   fpsLimit: 60,
@@ -180,68 +227,95 @@ const options = {
   },
   detectRetina: true
 }
-// 登录表单数据
-const loginData: FormData = reactive({
-  account: '',
-  password: ''
-})
-// 注册表单数据
-const registerData: FormData = reactive({
-  account: '',
-  password: '',
-  nextPassword: ''
-})
-
-// sign 方法
 
 // 初始化粒子效果
 const particlesInit = async (engine: Engine): Promise<void> => {
   await loadSlim(engine)
 }
 
+// sign 登录
+const loginFromRef = ref<FormInstance>()
+const router = useRouter()
+const store = useUserInfo()
+
+// 登录表单数据
+const loginFormData: FormData = reactive<FormData>({
+  account: '',
+  password: ''
+})
+
+// 登录校验规则
+const loginRules = reactive<FormRules<FormData>>({
+  account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
+})
+
 // 登录
-const Login = async () => {
+const Login = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
   try {
-    const res = await login(loginData)
+    await formEl.validate()
+    const res = await login(loginFormData)
     const {
       data: { id, name, account, email, department },
       token,
       message
     } = res
     ElMessage.success(message)
-    localStorage.setItem('id', String(id))
-    localStorage.setItem('token', token || '')
-    localStorage.setItem('name', name || '')
-    localStorage.setItem('department', department || '')
-    await loginLog(Number(account), name || '', email || '')
-    await store.userInfo(id)
+    setStorage(id, token, name, department)
+    // await loginLog(Number(account), name || '', email || '')
+    // await store.userInfo(id)
     // 跳转
-    await router.push('/home')
+    // await router.push('/home')
   } catch (e: any) {
     console.log(e, 'Login')
     e.message && ElMessage.error(e.message)
   }
 }
 
-// 注册
-const Register = async () => {
-  if (registerData.password == registerData.nextPassword) {
-    const res = await register(registerData)
-    if (res.message == '注册账号成功') {
-      ElMessage({
-        message: '注册成功',
-        type: 'success'
-      })
-      activeName.value = 'first'
-    } else {
-      ElMessage.error('注册失败，请检查数据是否正确')
+// sign 注册
+const registerFromRef = ref<FormInstance>()
+
+// 注册表单数据
+const registerFormData: FormData = reactive({
+  account: '',
+  password: '',
+  nextPassword: ''
+})
+
+// 注册校验规则
+const registerRules = reactive<FormRules<FormData>>({
+  account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+  nextPassword: [
+    { required: true, message: '请再次输入密码', trigger: 'blur' },
+    {
+      validator: validatePassword,
+      trigger: 'blur'
     }
-  } else {
-    ElMessage.error('注册失败')
+  ]
+})
+
+// 注册
+const Register = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  try {
+    await formEl.validate()
+    const res = await register(registerFormData)
+    ElMessage.success(res.message)
+    activeName.value = 'first'
+    loginFormData.account = registerFormData.account
+    loginFormData.password = registerFormData.password
+    formEl.resetFields()
+  } catch (e: any) {
+    console.log(e, 'Register')
+    e.message && ElMessage.error(e.message)
   }
 }
 
+// sign 忘记密码
 // 打开忘记密码弹窗
+const forgetP = ref()
 const openForget = () => {
   forgetP.value.open()
 }
