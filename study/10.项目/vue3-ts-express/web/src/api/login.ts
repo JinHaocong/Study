@@ -1,12 +1,13 @@
 import instance from '@/http/index'
 import { post } from '@/api/index'
 
-interface Login {
+export interface LoginRegister {
   account: string
   password: string
+  nextPassword?: string
 }
 
-interface LoginResponse {
+export interface LoginResponse {
   id: number
   name: null | string
   account: string
@@ -23,13 +24,20 @@ interface LoginResponse {
   update_time: null | string
 }
 
+export interface VerifyData {
+  account: number | null
+  email: string
+  password: string
+  nextPassword: string
+}
+
 // 注册
-export const register = (data: Login) => {
+export const register = (data: LoginRegister) => {
   return post<LoginResponse>('/api/register', data)
 }
 
 // 登录
-export const login = (data: Login) => {
+export const login = (data: LoginRegister) => {
   return post<LoginResponse>('/api/login', data)
 }
 
@@ -44,16 +52,8 @@ export const returnMenuList = (id: number) => {
 }
 
 // 忘记密码验证
-export const verify = (data: any) => {
-  const { account, email } = data
-  return instance({
-    url: '/user/verifyAccountAndEmail',
-    method: 'POST',
-    data: {
-      account,
-      email
-    }
-  })
+export const verify = (data: VerifyData) => {
+  return post<LoginResponse>('/user/verifyAccountAndEmail', data)
 }
 
 // 密码重置

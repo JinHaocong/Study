@@ -93,14 +93,13 @@ import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 import forget from './components/forget_password.vue'
-import { login, register } from '@/api/login'
+import { login, type LoginRegister, register } from '@/api/login'
 import { loginLog } from '@/api/log'
 import { useUserInfo } from '@/stores/userInfo'
 import type { Engine } from 'tsparticles-engine'
 import { loadSlim } from 'tsparticles-slim'
 import { setItems } from '@/utils/storage'
 import type { FormInstance, FormRules } from 'element-plus'
-
 // 自定义验证函数
 const validatePassword = (_: any, value: any, callback: any) => {
   if (value !== registerFormData.password) {
@@ -129,14 +128,6 @@ const setStorage = (
 
 // tab
 const activeName = ref('first')
-
-// sign 接口
-// 表单接口
-interface FormData {
-  account: string
-  password: string
-  nextPassword?: string
-}
 
 // sign 粒子效果
 // 粒子效果数据
@@ -239,13 +230,13 @@ const router = useRouter()
 const store = useUserInfo()
 
 // 登录表单数据
-const loginFormData: FormData = reactive<FormData>({
+const loginFormData: LoginRegister = reactive<LoginRegister>({
   account: '',
   password: ''
 })
 
 // 登录校验规则
-const loginRules = reactive<FormRules<FormData>>({
+const loginRules = reactive<FormRules<LoginRegister>>({
   account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
 })
@@ -277,14 +268,14 @@ const Login = async (formEl: FormInstance | undefined) => {
 const registerFromRef = ref<FormInstance>()
 
 // 注册表单数据
-const registerFormData: FormData = reactive({
+const registerFormData: LoginRegister = reactive({
   account: '',
   password: '',
   nextPassword: ''
 })
 
 // 注册校验规则
-const registerRules = reactive<FormRules<FormData>>({
+const registerRules = reactive<FormRules<LoginRegister>>({
   account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
   nextPassword: [
