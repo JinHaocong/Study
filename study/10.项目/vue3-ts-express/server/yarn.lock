@@ -1279,6 +1279,11 @@ isexe@^2.0.0:
   resolved "https://registry.npmmirror.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
 
+joi-messages-zh_cn@^17.0.1:
+  version "17.0.1"
+  resolved "https://registry.npmmirror.com/joi-messages-zh_cn/-/joi-messages-zh_cn-17.0.1.tgz#44d2cdf6b56f126309690a5dc615607987030d6b"
+  integrity sha512-PyJxJ/b3Q7OSmwKNXORcAFxUnOYibcqDUMWn3rjKHVschWnh3JnjFVb858+D8OFGYWNDg6DP/90KCGast8Ri6w==
+
 joi@^17.12.1, joi@^17.4.0:
   version "17.12.1"
   resolved "https://registry.npmmirror.com/joi/-/joi-17.12.1.tgz#3347ecf4cd3301962d42191c021b165eef1f395b"

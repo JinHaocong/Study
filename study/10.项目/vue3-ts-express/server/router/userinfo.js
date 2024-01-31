@@ -13,7 +13,7 @@ const {
   nameLimit,
   emailLimit,
   forgetPasswordLimit,
-} = require('../limit/user');
+} = require('../joi/user');
 const tokenAuthentication = require('../middlewares/tokenAuthentication');
 
 // 上传头像

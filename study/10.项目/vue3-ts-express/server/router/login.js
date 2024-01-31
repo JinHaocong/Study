@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const expressJoi = require('@escook/express-joi');
 const loginHandler = require('../handler/login');
-const { loginLimit } = require('../limit/login');
+const { loginLimit } = require('../joi/login');
 
 // 注册
 router.post('/register', expressJoi(loginLimit), loginHandler.register);
