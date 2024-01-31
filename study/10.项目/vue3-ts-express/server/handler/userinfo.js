@@ -13,7 +13,7 @@ exports.verifyAccountAndEmail = async (req, res) => {
     const verifySQL = 'select * from users where account = ?';
     const [queryData] = await db.query(verifySQL, account) || [];
     if (!queryData.length) return res.error('账号不存在');
-    if (email === queryData[0].email) return res.success('查询成功', { id: queryData[0].id });
+    if (email === queryData[0].email) return res.success('身份验证成功', { id: queryData[0].id });
     return res.error('邮箱不一致');
   } catch (e) {
     res.error('查询失败', e);

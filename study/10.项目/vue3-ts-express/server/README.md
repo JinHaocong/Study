@@ -221,7 +221,9 @@ module.exports = db;
 yarn add bcryptjs jsonwebtoken express-jwt
 ```
 
-全局响应中间件
+## 全局响应中间件
+
+middlewares/requestMiddleware.js
 
 ```js
 const requestMiddleware = (req, res, next) => {
@@ -365,7 +367,9 @@ const loginRouter = require('./router/login');
 app.use('/api', loginRouter)
 ```
 
-joi检验中间件
+## joi检验中间件
+
+middlewares/handleJoiValidationError.js
 
 ```js
 const Joi = require('joi');
@@ -387,3 +391,110 @@ const handleJoiValidationError = require('./middlewares/handleJoiValidationError
 // joi校验中间件 注意要放到路由中间件的后面
 app.use(handleJoiValidationError);
 ```
+
+## jwt中间件
+
+middlewares/tokenAuthentication.js
+
+```js
+const { expressjwt: jwt } = require('express-jwt');
+const jwtConfig = require('../jwt_config');
+
+function tokenAuthentication(req, res, next) {
+  jwt({
+    secret: jwtConfig.jwtSecretKey,
+    algorithms: ['HS256'],
+  }).unless({
+    path: [
+      /^\/api\//,
+      /\/verifyAccountAndEmail/,
+    ],
+  })(req, res, (err) => {
+    if (err) {
+      // 抛出错误给全局错误信息处理
+      return res.error('身份未验证', err);
+    }
+    next();
+  });
+}
+
+module.exports = tokenAuthentication;
+
+```
+
+app.js
+
+```js
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const logger = require('morgan');
+const chalk = require('chalk');
+const handleJoiValidationError = require('./middlewares/handleJoiValidationError');
+const requestMiddleware = require('./middlewares/requestMiddleware');
+const loginRouter = require('./router/login');
+const userRouter = require('./router/userinfo');
+const tokenAuthentication = require('./middlewares/tokenAuthentication');
+
+// 访问不同的 .env 文件
+const isDev = process.env.NODE_ENV === 'development';
+require('dotenv').config({ path: isDev ? './.env.development' : './.env.production' });
+
+// 创建express实例
+const app = express();
+
+// 解决跨域
+app.use(cors());
+
+// 日志
+app.use(logger('dev'));
+
+// 全局请求处理中间件
+app.use(requestMiddleware);
+
+// parse application/x-www-form-urlencoded
+// 当extended为false时，值为数组或者字符串，当为ture时，值可以为任意类型
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
+
+// 路由模块
+app.use('/api', loginRouter);
+app.use('/user', userRouter);
+
+// joi校验中间件 注意要放到路由中间件的后面
+app.use(handleJoiValidationError);
+
+// 监听端口
+app.listen(process.env.PORT, () => {
+  console.log(
+    chalk.hex('#8e44ad').bold(`
+   ____    ___    _   _    ____    ____    ___    _   _    ____ 
+  / ___|  / _ \\  | \\ | |  / ___|  / ___|  / _ \\  | \\ | |  / ___|
+ | |     | | | | |  \\| | | |  _  | |     | | | | |  \\| | | |  _ 
+ | |___  | |_| | | |\\  | | |_| | | |___  | |_| | | |\\  | | |_| |
+  \\____|  \\___/  |_| \\_|  \\____|  \\____|  \\___/  |_| \\_|  \\____|
+                                                                
+`),
+  );
+  console.log(chalk.bold.green(`项目启动成功: ${process.env.URL}:${process.env.PORT}`));
+});
+
+```
+
+**注意** jwt不能在app.use('/user', userRouter);路由挂在前使用，这样会导致404
+
+也不能再挂在后使用，会导致路由处理函数比jwt中间件先执行
+
+应该在路由挂载之后，路由中间件之前使用，
+
+router/userinfo.js
+
+```js
+const tokenAuthentication = require('../middlewares/tokenAuthentication');
+
+// 验证账号与邮箱 verifyAccountAndEmail
+router.post('/verifyAccountAndEmail', tokenAuthentication, userinfoHandler.verifyAccountAndEmail);
+```
+
