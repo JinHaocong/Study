@@ -186,7 +186,7 @@ export default defineConfig({
 
 ```
 
-配置Element Plus按需导入
+## 配置Element Plus按需导入
 
 安装插件
 
@@ -254,5 +254,57 @@ import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 const locale = zhCn
 </script>
 
+```
+
+# 创建路由
+
+## 登陆页面
+
+引入粒子效果
+
+```powershell
+yarn add vue3-particles@latest tsparticles-slim@latest
+```
+
+main.ts引入
+
+```ts
+import Particles from 'vue3-particles'
+
+app.use(Particles)
+```
+
+views/login/index.vue中使用
+
+```vue
+<template>
+  <vue-particles
+    id="tsparticles"
+    :options="options"
+    :particlesInit="particlesInit"
+    class="login__particles"
+  />
+</template>
+<script lang="ts" setup>
+import type { Engine } from 'tsparticles-engine'
+import { loadSlim } from 'tsparticles-slim'
+ 
+// 初始化粒子效果
+const particlesInit = async (engine: Engine): Promise<void> => {
+  await loadSlim(engine)
+}
+</script>
+<style lang="scss" scoped>
+.login__particles {
+  height: calc(100% - 30px);
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url('@/assets/loginbg.jpeg');
+  opacity: 0.9;
+  position: fixed;
+  pointer-events: none;
+}    
+</style>
 ```
 
