@@ -26,7 +26,7 @@ exports.changePasswordInLogin = async (req, res) => {
     const user = req.body;
     user.newPassword = bcrypt.hashSync(user.newPassword, 10);
     const updateSQL = 'update users set password = ? where id = ?';
-    const [queryData] = await db.query(updateSQL, [user.newPassword, user.id]) || [];
+    const [queryData] = await db.query(updateSQL, [user.newPassword, user.id]) || {};
     return res.success('修改成功', queryData);
   } catch (e) {
     res.error('修改失败', e);
