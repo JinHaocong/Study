@@ -560,7 +560,7 @@ html, body, #app {
       </el-footer>
     </el-container>
   </div>
-  <forget ref="forgetRef" class="forget"></forget>
+  <forget ref="forgetRef" class="forget" @setLoginInfo="setInfo"></forget>
 </template>
 
 <script lang="ts" setup>
@@ -610,7 +610,7 @@ const buttonLoading = ref(false)
 // sign 粒子效果
 // 粒子效果数据
 const options = {
-  fpsLimit: 60,
+  fpsLimit: 144,
   interactivity: {
     detectsOn: 'canvas',
     events: {
@@ -678,7 +678,7 @@ const options = {
         enable: true,
         value_area: 800
       },
-      value: 80 //粒子数
+      value: 100 //粒子数
     },
     opacity: {
       //粒子透明度
@@ -736,7 +736,7 @@ const Login = async (formEl: FormInstance | undefined) => {
     // await loginLog(Number(account), name || '', email || '')
     // await store.userInfo(id)
     // 跳转
-    // await router.push('/home')
+    await router.push('/home')
   } catch (e: any) {
     console.log(e, 'Login')
     e.message && ElMessage.error(e.message)
@@ -777,8 +777,7 @@ const Register = async (formEl: FormInstance | undefined) => {
     const res = await register(registerFormData)
     ElMessage.success(res.message)
     activeName.value = 'first'
-    loginFormData.account = registerFormData.account
-    loginFormData.password = registerFormData.password
+    setInfo(registerFormData.account, registerFormData.password)
     formEl.resetFields()
   } catch (e: any) {
     console.log(e, 'Register')
@@ -786,6 +785,12 @@ const Register = async (formEl: FormInstance | undefined) => {
   } finally {
     buttonLoading.value = false
   }
+}
+
+// 设置账号密码
+const setInfo = (account: string, password: string) => {
+  loginFormData.account = account
+  loginFormData.password = password
 }
 
 // sign 忘记密码
@@ -856,11 +861,6 @@ const openForget = () => {
               flex-direction: column;
               justify-content: space-between;
             }
-          }
-
-          .el-tabs__active-bar {
-            background-image: linear-gradient(to right, #aa4b6b, #6b6b83, #3b8d99);
-            opacity: 0.5;
           }
         }
       }
@@ -1032,13 +1032,16 @@ const openForget = () => {
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, defineEmits } from 'vue'
 import { reset, verify, type VerifyData } from '@/api/login.js'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
-import { getItem, setItem } from '@/utils/storage' // 表单对齐方式
+import { getItem, setItem } from '@/utils/storage'
+
+// 自定义事件
+const emit = defineEmits(['setLoginInfo'])
+
 // 表单对齐方式
 const labelPosition = ref('top')
-
 const buttonLoading = ref(false)
 
 // 自定义验证函数
@@ -1083,8 +1086,12 @@ const verifyAccount = async (formEl: FormInstance | undefined) => {
   try {
     await formEl.validate()
     buttonLoading.value = true
-    const { message } = await verify(forgetData)
+    const {
+      message,
+      data: { id }
+    } = await verify(forgetData)
     ElMessage.success(message)
+    setItem('id', id)
     showPassword.value = true
   } catch (e: any) {
     console.log(e, 'verifyAccount')
@@ -1099,12 +1106,10 @@ const resetPassword = async (formEl: FormInstance | undefined) => {
   try {
     await formEl.validate()
     buttonLoading.value = true
-    const {
-      data: { id },
-      message
-    } = await reset(getItem('id'), forgetData.nextPassword)
+    const { message } = await reset(getItem('id'), forgetData.nextPassword)
     ElMessage.success(message)
-    setItem('id', id)
+    emit('setLoginInfo', forgetData.account, forgetData.password)
+    cancel(forgetForm.value)
   } catch (e: any) {
     console.log(e, 'resetPassword')
     e.message && ElMessage.error(e.message)

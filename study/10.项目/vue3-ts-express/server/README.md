@@ -543,3 +543,49 @@ const tokenAuthentication = require('../middlewares/tokenAuthentication');
 router.post('/verifyAccountAndEmail', tokenAuthentication, userinfoHandler.verifyAccountAndEmail);
 ```
 
+# 重置密码功能实现
+
+## 添加接口路由
+
+router/userinfo.js
+
+```js
+// 验证账号与邮箱 verifyAccountAndEmail
+router.post('/verifyAccountAndEmail', tokenAuthentication, userinfoHandler.verifyAccountAndEmail);
+// 登录页面修改密码 changePasswordInLogin
+router.post('/changePasswordInLogin', tokenAuthentication, expressJoi(forgetPasswordLimit), userinfoHandler.changePasswordInLogin);
+```
+
+## 添加handler
+
+handler/userinfo.js
+
+```js
+// 验证账户和与邮箱是否一致 email account
+exports.verifyAccountAndEmail = async (req, res) => {
+  try {
+    const { account, email } = req.body;
+    const verifySQL = 'select * from users where account = ?';
+    const [queryData] = await db.query(verifySQL, account) || [];
+    if (!queryData.length) return res.error('账号不存在');
+    if (email === queryData[0].email) return res.success('身份验证成功', { id: queryData[0].id });
+    return res.error('邮箱不一致');
+  } catch (e) {
+    res.error('查询失败', e);
+  }
+};
+
+// 登录页面修改密码 参数 newPassword id
+exports.changePasswordInLogin = async (req, res) => {
+  try {
+    const user = req.body;
+    user.newPassword = bcrypt.hashSync(user.newPassword, 10);
+    const updateSQL = 'update users set password = ? where id = ?';
+    const [queryData] = await db.query(updateSQL, [user.newPassword, user.id]) || [];
+    return res.success('修改成功', queryData);
+  } catch (e) {
+    res.error('修改失败', e);
+  }
+};
+```
+
