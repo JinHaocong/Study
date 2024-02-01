@@ -267,7 +267,7 @@ const openDepartmentMessage = () => {
 }
 
 .el-main {
-  --el-main-padding: 0;
+  --el-main-padding: 20px;
   background-color: #f3f4fa;
 }
 
