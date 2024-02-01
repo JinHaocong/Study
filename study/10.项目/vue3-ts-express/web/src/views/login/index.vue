@@ -275,7 +275,7 @@ const Login = async (formEl: FormInstance | undefined) => {
     // await loginLog(Number(account), name || '', email || '')
     // await store.userInfo(id)
     // 跳转
-    // await router.push('/home')
+    await router.push('/home')
   } catch (e: any) {
     console.log(e, 'Login')
     e.message && ElMessage.error(e.message)
