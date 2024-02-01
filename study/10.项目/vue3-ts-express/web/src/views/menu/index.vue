@@ -94,26 +94,26 @@
             欢迎您登录本系统</span
           >
           <div class="header-right-content">
-            <!--            <el-badge-->
-            <!--              :is-dot="msgStore.read_list.length > 0"-->
-            <!--              class="item"-->
-            <!--              @click="openDepartmentMessage"-->
-            <!--            >-->
-            <!--              <el-icon :size="20" class="message">-->
-            <!--                <Message />-->
-            <!--              </el-icon>-->
-            <!--            </el-badge>-->
-            <!--            <el-avatar :size="24" :src="userStore.imageUrl" />-->
-            <!--            <el-dropdown>-->
-            <!--              <span class="el-dropdown-link"> 设置 </span>-->
-            <!--              <template #dropdown>-->
-            <!--                <el-dropdown-menu>-->
-            <!--                  <el-dropdown-item>设置账号</el-dropdown-item>-->
-            <!--                  <el-dropdown-item>更改头像</el-dropdown-item>-->
-            <!--                  <el-dropdown-item @click="goLogin">退出登录</el-dropdown-item>-->
-            <!--                </el-dropdown-menu>-->
-            <!--              </template>-->
-            <!--            </el-dropdown>-->
+            <el-badge :is-dot="true" class="badge">
+              <el-icon :size="20" class="message">
+                <Message />
+              </el-icon>
+            </el-badge>
+            <el-dropdown>
+              <span class="el-dropdown-link">
+                <el-avatar
+                  :size="36"
+                  :src="userStore.imageUrl || 'src/assets/default.jpg'"
+                  class="avatar"
+              /></span>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item>设置账号</el-dropdown-item>
+                  <el-dropdown-item>更改头像</el-dropdown-item>
+                  <el-dropdown-item @click="goLogin">退出登录</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </div>
         </el-header>
         <el-main>
@@ -134,6 +134,7 @@ import {
   Document,
   House,
   Menu,
+  Message,
   TakeawayBox,
   Tools,
   User
@@ -254,10 +255,45 @@ const openDepartmentMessage = () => {
   }
 
   .header-right-content {
-    width: 160px;
+    width: 100px;
     display: flex;
     justify-content: space-around;
     align-items: center;
+
+    .badge {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        transform: scale(1.2);
+        color: #3b8d99;
+      }
+    }
+
+    .badge {
+      i {
+        font-size: 24px !important;
+      }
+    }
+  }
+
+  .el-dropdown-link {
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: none;
+    }
+
+    .avatar {
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        transform: rotate(360deg);
+      }
+    }
   }
 }
 
