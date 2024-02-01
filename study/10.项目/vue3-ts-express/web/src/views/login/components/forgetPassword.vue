@@ -57,13 +57,16 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, defineEmits } from 'vue'
 import { reset, verify, type VerifyData } from '@/api/login.js'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
-import { getItem, setItem } from '@/utils/storage' // 表单对齐方式
+import { getItem, setItem } from '@/utils/storage'
+
+// 自定义事件
+const emit = defineEmits(['setLoginInfo'])
+
 // 表单对齐方式
 const labelPosition = ref('top')
-
 const buttonLoading = ref(false)
 
 // 自定义验证函数
@@ -108,8 +111,12 @@ const verifyAccount = async (formEl: FormInstance | undefined) => {
   try {
     await formEl.validate()
     buttonLoading.value = true
-    const { message } = await verify(forgetData)
+    const {
+      message,
+      data: { id }
+    } = await verify(forgetData)
     ElMessage.success(message)
+    setItem('id', id)
     showPassword.value = true
   } catch (e: any) {
     console.log(e, 'verifyAccount')
@@ -124,12 +131,10 @@ const resetPassword = async (formEl: FormInstance | undefined) => {
   try {
     await formEl.validate()
     buttonLoading.value = true
-    const {
-      data: { id },
-      message
-    } = await reset(getItem('id'), forgetData.nextPassword)
+    const { message } = await reset(getItem('id'), forgetData.nextPassword)
     ElMessage.success(message)
-    setItem('id', id)
+    emit('setLoginInfo', forgetData.account, forgetData.password)
+    cancel(forgetForm.value)
   } catch (e: any) {
     console.log(e, 'resetPassword')
     e.message && ElMessage.error(e.message)

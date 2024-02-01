@@ -33,7 +33,7 @@ router.post('/changeEmail', expressJoi(emailLimit), userinfoHandler.changeEmail)
 // 验证账号与邮箱 verifyAccountAndEmail
 router.post('/verifyAccountAndEmail', tokenAuthentication, userinfoHandler.verifyAccountAndEmail);
 // 登录页面修改密码 changePasswordInLogin
-router.post('/changePasswordInLogin', expressJoi(forgetPasswordLimit), userinfoHandler.changePasswordInLogin);
+router.post('/changePasswordInLogin', tokenAuthentication, expressJoi(forgetPasswordLimit), userinfoHandler.changePasswordInLogin);
 
 // sign 用户管理
 // 添加管理员

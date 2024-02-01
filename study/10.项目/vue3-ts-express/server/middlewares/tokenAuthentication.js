@@ -9,6 +9,7 @@ function tokenAuthentication(req, res, next) {
     path: [
       /^\/api\//,
       /\/verifyAccountAndEmail/,
+      /\/changePasswordInLogin/,
     ],
   })(req, res, (err) => {
     if (err) {

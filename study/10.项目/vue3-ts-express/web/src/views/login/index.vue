@@ -99,7 +99,7 @@
       </el-footer>
     </el-container>
   </div>
-  <forget ref="forgetRef" class="forget"></forget>
+  <forget ref="forgetRef" class="forget" @setLoginInfo="setInfo"></forget>
 </template>
 
 <script lang="ts" setup>
@@ -316,8 +316,7 @@ const Register = async (formEl: FormInstance | undefined) => {
     const res = await register(registerFormData)
     ElMessage.success(res.message)
     activeName.value = 'first'
-    loginFormData.account = registerFormData.account
-    loginFormData.password = registerFormData.password
+    setInfo(registerFormData.account, registerFormData.password)
     formEl.resetFields()
   } catch (e: any) {
     console.log(e, 'Register')
@@ -325,6 +324,12 @@ const Register = async (formEl: FormInstance | undefined) => {
   } finally {
     buttonLoading.value = false
   }
+}
+
+// 设置账号密码
+const setInfo = (account: string, password: string) => {
+  loginFormData.account = account
+  loginFormData.password = password
 }
 
 // sign 忘记密码

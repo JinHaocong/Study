@@ -20,6 +20,19 @@ exports.verifyAccountAndEmail = async (req, res) => {
   }
 };
 
+// 登录页面修改密码 参数 newPassword id
+exports.changePasswordInLogin = async (req, res) => {
+  try {
+    const user = req.body;
+    user.newPassword = bcrypt.hashSync(user.newPassword, 10);
+    const updateSQL = 'update users set password = ? where id = ?';
+    const [queryData] = await db.query(updateSQL, [user.newPassword, user.id]) || [];
+    return res.success('修改成功', queryData);
+  } catch (e) {
+    res.error('修改失败', e);
+  }
+};
+
 // todo
 // 上传头像
 exports.uploadAvatar = (req, res) => {
@@ -143,20 +156,6 @@ exports.changeEmail = (req, res) => {
     res.send({
       status: 0,
       message: '修改成功',
-    });
-  });
-};
-
-// 登录页面修改密码 参数 newPassword id
-exports.changePasswordInLogin = (req, res) => {
-  const user = req.body;
-  user.newPassword = bcrypt.hashSync(user.newPassword, 10);
-  const sql = 'update users set password = ? where id = ?';
-  db.query(sql, [user.newPassword, user.id], (err, result) => {
-    if (err) return res.cc(err);
-    res.send({
-      status: 0,
-      message: '更新成功',
     });
   });
 };
