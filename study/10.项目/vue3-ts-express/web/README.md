@@ -1136,3 +1136,16 @@ defineExpose({
 
 ```
 
+### 全局tab样式
+
+mian.css
+
+```scss
+.el-tabs {
+  .el-tabs__active-bar {
+    background-image: linear-gradient(to right, #aa4b6b, #6b6b83, #3b8d99);
+    opacity: 0.6;
+  }
+}
+```
+
