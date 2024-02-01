@@ -228,24 +228,27 @@ middlewares/requestMiddleware.js
 ```js
 const requestMiddleware = (req, res, next) => {
   // status=0为成功,=1为失败,默认设为1,方便处理失败的情况
-  res.error = (msg, err = null, status = 1) => {
+  res.error = (msg, err = null, status = 1, success = false) => {
     res.send({
+      success,
       status,
       message: msg,
       error: err,
     });
   };
 
-  res.success = (msg, data = [], status = 0) => {
+  res.success = (msg, data = [], status = 0, success = true) => {
     res.send({
+      success,
       status,
       message: msg,
       data,
     });
   };
 
-  res.token = (msg, tokenStr, data = [], status = 0) => {
+  res.token = (msg, tokenStr, data = [], status = 0, success = true) => {
     res.send({
+      success,
       status,
       message: msg,
       data,
