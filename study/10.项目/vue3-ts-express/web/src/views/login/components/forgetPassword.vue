@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, defineEmits } from 'vue'
+import { reactive, ref } from 'vue'
 import { reset, verify, type VerifyData } from '@/api/login.js'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { getItem, setItem } from '@/utils/storage'
