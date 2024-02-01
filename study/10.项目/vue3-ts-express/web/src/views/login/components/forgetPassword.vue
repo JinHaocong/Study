@@ -35,10 +35,20 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="cancel(forgetForm)">取消</el-button>
-        <el-button v-if="!showPassword" type="primary" @click="verifyAccount(forgetForm)">
+        <el-button
+          v-if="!showPassword"
+          :loading="buttonLoading"
+          type="primary"
+          @click="verifyAccount(forgetForm)"
+        >
           下一步
         </el-button>
-        <el-button v-if="showPassword" type="primary" @click="resetPassword(forgetForm)">
+        <el-button
+          v-if="showPassword"
+          :loading="buttonLoading"
+          type="primary"
+          @click="resetPassword(forgetForm)"
+        >
           确定
         </el-button>
       </span>
@@ -53,6 +63,8 @@ import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { getItem, setItem } from '@/utils/storage' // 表单对齐方式
 // 表单对齐方式
 const labelPosition = ref('top')
+
+const buttonLoading = ref(false)
 
 // 自定义验证函数
 const validatePassword = (_: any, value: any, callback: any) => {
@@ -95,12 +107,15 @@ const verifyAccount = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   try {
     await formEl.validate()
+    buttonLoading.value = true
     const { message } = await verify(forgetData)
     ElMessage.success(message)
     showPassword.value = true
   } catch (e: any) {
     console.log(e, 'verifyAccount')
     e.message && ElMessage.error(e.message)
+  } finally {
+    buttonLoading.value = false
   }
 }
 // 重置密码
@@ -108,6 +123,7 @@ const resetPassword = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   try {
     await formEl.validate()
+    buttonLoading.value = true
     const {
       data: { id },
       message
@@ -117,6 +133,8 @@ const resetPassword = async (formEl: FormInstance | undefined) => {
   } catch (e: any) {
     console.log(e, 'resetPassword')
     e.message && ElMessage.error(e.message)
+  } finally {
+    buttonLoading.value = false
   }
 }
 
