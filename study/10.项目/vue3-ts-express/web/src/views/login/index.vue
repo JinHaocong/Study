@@ -149,7 +149,7 @@ const buttonLoading = ref(false)
 // sign 粒子效果
 // 粒子效果数据
 const options = {
-  fpsLimit: 60,
+  fpsLimit: 144,
   interactivity: {
     detectsOn: 'canvas',
     events: {
@@ -217,7 +217,7 @@ const options = {
         enable: true,
         value_area: 800
       },
-      value: 80 //粒子数
+      value: 100 //粒子数
     },
     opacity: {
       //粒子透明度
