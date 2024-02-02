@@ -3,7 +3,7 @@ import { type InternalAxiosRequestConfig, type AxiosInstance, type AxiosResponse
 
 const instance: AxiosInstance = axios.create({
   // 后端url地址
-  baseURL: 'http://127.0.0.1:3007',
+  baseURL: import.meta.env.VITE_APP_BASE_URL,
   timeout: 6000, // 设置超时
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
