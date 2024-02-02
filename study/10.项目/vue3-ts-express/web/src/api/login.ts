@@ -41,16 +41,6 @@ export const login = (data: LoginRegister) => {
   return post<LoginResponse>('/api/login', data)
 }
 
-export const returnMenuList = (id: number) => {
-  return instance({
-    url: '/api/returnMenuList',
-    method: 'POST',
-    data: {
-      id
-    }
-  })
-}
-
 // 忘记密码验证
 export const verify = (data: VerifyData) => {
   return post<LoginResponse>('/user/verifyAccountAndEmail', data)
@@ -61,5 +51,16 @@ export const reset = (id: number, newPassword: string) => {
   return post<LoginResponse>('/user/changePasswordInLogin', {
     id,
     newPassword
+  })
+}
+
+// todo
+export const returnMenuList = (id: number) => {
+  return instance({
+    url: '/api/returnMenuList',
+    method: 'POST',
+    data: {
+      id
+    }
   })
 }
