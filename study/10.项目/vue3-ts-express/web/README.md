@@ -104,6 +104,28 @@ export default bus
 
 ```
 
+## 配置全局环境变量
+
+.env
+
+```env
+VITE_APP_WEB_TITLE="JHC·Admin"
+```
+
+.env.development
+
+```env
+# development
+VITE_APP_BASE_URL= 'http://127.0.0.1:3007'
+```
+
+.env.production
+
+```env
+# production
+VITE_APP_BASE_URL= 'http://127.0.0.1:3007'
+```
+
 ## 安装并配置axios
 
 ```powershell
@@ -118,7 +140,7 @@ import { type InternalAxiosRequestConfig, type AxiosInstance, type AxiosResponse
 
 const instance: AxiosInstance = axios.create({
   // 后端url地址
-  baseURL: 'http://127.0.0.1:3007',
+  baseURL: import.meta.env.VITE_APP_BASE_URL,
   timeout: 6000, // 设置超时
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
