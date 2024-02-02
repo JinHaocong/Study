@@ -589,3 +589,11 @@ exports.changePasswordInLogin = async (req, res) => {
 };
 ```
 
+# 上传头像功能实现
+
+安装multer中间件
+
+```powershell
+yarn add multer
+```
+

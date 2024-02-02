@@ -3,11 +3,11 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const chalk = require('chalk');
+const multer = require('./middlewares/uploadFileMiddleware');
 const handleJoiValidationError = require('./middlewares/handleJoiValidationError');
 const requestMiddleware = require('./middlewares/requestMiddleware');
 const loginRouter = require('./router/login');
 const userRouter = require('./router/userinfo');
-const tokenAuthentication = require('./middlewares/tokenAuthentication');
 
 // 访问不同的 .env 文件
 const isDev = process.env.NODE_ENV === 'development';
@@ -18,6 +18,8 @@ const app = express();
 
 // 解决跨域
 app.use(cors());
+
+app.use(multer);
 
 // 日志
 app.use(logger('dev'));
