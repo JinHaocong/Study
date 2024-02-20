@@ -698,25 +698,34 @@ router.post('/bindAccount', tokenAuthentication, userinfoHandler.bindAccount);
 handler/userinfo.js
 
 ```js
-
 // 将上传头像的onlyId绑定到账号
 exports.bindAccount = async (req, res) => {
+  const connection = await db.getConnection();
+
   try {
     const { account, onlyId, url } = req.body;
+    // step 1：开启事务
+    await connection.beginTransaction();
 
-    // step 1：更新image表
+    // step 2：更新image表
     const updateSql1 = 'update image set account = ? where onlyId = ?';
     const [queryData1] = await db.query(updateSql1, [account, onlyId]) || {};
     if (queryData1.affectedRows !== 1) return res.error('头像更换失败');
 
-    // step 2：更新user表
+    // step 3：更新user表
     const updateSql2 = 'update users set image_url = ? where account = ?';
     const [queryData2] = await db.query(updateSql2, [url, account]);
     if (queryData2.affectedRows !== 1) return res.error('头像更换失败');
 
+    // step 4：提交事物
+    await connection.commit();
+
     res.success('头像更换成功');
   } catch (e) {
     res.error('上传头像失败', e);
+  } finally {
+    // step 5：释放连接，将连接归还给连接池
+    connection.release();
   }
 };
 ```
