@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 // 导入node.js的crypto库生成uuid
 const crypto = require('crypto');
 // 导入数据库
+const { number } = require('joi');
 const db = require('../db/index');
 
 // 验证账户和与邮箱是否一致 email account
@@ -145,31 +146,31 @@ exports.changeEmail = async (req, res, next) => {
   }
 };
 
-// todo
 // 修改用户密码 先输入旧密码 oldPassword 新密码 newPassword id
-exports.changePassword = (req, res) => {
-  const sql = 'select password from users where id = ?';
-  db.query(sql, req.body.id, (err, result) => {
-    if (err) return res.cc(err);
-    // bcrypt
-    const compareResult = bcrypt.compareSync(req.body.oldPassword, result[0].password);
-    if (!compareResult) {
-      return res.send({
-        status: 1,
-        message: '原密码错误',
-      });
-    }
-    req.body.newPassword = bcrypt.hashSync(req.body.newPassword, 10);
-    const sql1 = 'update users set password = ? where id = ?';
-    db.query(sql1, [req.body.newPassword, req.body.id], (err, result) => {
-      if (err) return res.cc(err);
-      res.send({
-        status: 0,
-        message: '修改成功',
-      });
-    });
-  });
+exports.changePassword = async (req, res, next) => {
+  try {
+    const { id, oldPassword, newPassword } = req.body;
+    // step 1: 验证原密码是否正确
+    const selectSql = 'select password from users where id = ?';
+    const [selectData] = await db.query(selectSql, id);
+    const compareResult = bcrypt.compareSync(oldPassword, selectData[0].password);
+    if (!compareResult) return res.error('原密码错误');
+
+    // step 2：修改密码
+    const updateSql = 'update users set password = ? where id = ?';
+    const hashPassword = bcrypt.hashSync(newPassword, Number(process.env.HASH_SALT));
+    const [queryData] = await db.query(updateSql, [hashPassword, id]);
+    if (queryData.affectedRows !== 1) return res.error('修改失败');
+
+    res.success('操作成功');
+    next();
+  } catch (e) {
+    console.log(e);
+    res.error('修改失败', e);
+  }
 };
+
+// todo
 
 // ----------------------------------------用户管理
 // 添加管理员

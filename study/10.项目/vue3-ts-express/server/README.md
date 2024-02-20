@@ -894,3 +894,54 @@ router.post('/changeSex', tokenAuthentication, userinfoHandler.changeSex, update
 router.post('/changeEmail', tokenAuthentication, expressJoi(emailLimit), userinfoHandler.changeEmail, updateTimeMiddleware);
 ```
 
+# 修改密码实现
+
+## 添加环境变量HASH_SALT
+
+.dev.development
+
+```
+# hashSalt
+HASH_SALT='10'
+```
+
+## 创建路由
+
+router/userinfo.js
+
+```js
+// 修改用户密码 changePassword
+router.post('/changePassword', tokenAuthentication, expressJoi(passwordLimit), userinfoHandler.changePassword, updateTimeMiddleware);
+```
+
+## 创建路由处理函数
+
+handler/userinfo.js
+
+```js
+// 修改用户密码 先输入旧密码 oldPassword 新密码 newPassword id
+exports.changePassword = async (req, res, next) => {
+  try {
+    const { id, oldPassword, newPassword } = req.body;
+    // step 1: 验证原密码是否正确
+    const selectSql = 'select password from users where id = ?';
+    const [selectData] = await db.query(selectSql, id);
+    const compareResult = bcrypt.compareSync(oldPassword, selectData[0].password);
+    if (!compareResult) return res.error('原密码错误');
+
+    // step 2：修改密码
+    const updateSql = 'update users set password = ? where id = ?';
+    const hashPassword = bcrypt.hashSync(newPassword, Number(process.env.HASH_SALT));
+    const [queryData] = await db.query(updateSql, [hashPassword, id]);
+    if (queryData.affectedRows !== 1) return res.error('修改失败');
+
+    res.success('操作成功');
+    next();
+  } catch (e) {
+    console.log(e);
+    res.error('修改失败', e);
+  }
+};
+```
+
+# 

@@ -16,7 +16,7 @@ exports.register = async (req, res) => {
     if (queryData.length) return res.error('账号已存在');
 
     // step 3：加密密码
-    const encryptedPassword = bcrypt.hashSync(password, 10);
+    const encryptedPassword = bcrypt.hashSync(password, process.env.HASH_SALT);
 
     // step 4：将账号和加密后的密码插入到users表中
     const insertSQL = 'INSERT INTO users SET ?';
