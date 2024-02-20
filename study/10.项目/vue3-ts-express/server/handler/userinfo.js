@@ -96,6 +96,17 @@ exports.bindAccount = async (req, res) => {
   }
 };
 
+// 获取用户信息 接收参数 id
+exports.getUserInfo = async (req, res) => {
+  try {
+    const selectSql = 'select * from users where id = ?';
+    const [queryData] = await db.query(selectSql, req.body.id) || [];
+    res.success('查询成功', queryData[0]);
+  } catch (e) {
+    req.error('获取用户信息失败', e);
+  }
+};
+
 // todo
 // 修改用户密码 先输入旧密码 oldPassword 新密码 newPassword id
 exports.changePassword = (req, res) => {
@@ -119,16 +130,6 @@ exports.changePassword = (req, res) => {
         message: '修改成功',
       });
     });
-  });
-};
-
-// 获取用户信息 接收参数 id
-exports.getUserInfo = (req, res) => {
-  const sql = 'select * from users where id = ?';
-  db.query(sql, req.body.id, (err, result) => {
-    if (err) return res.cc(err);
-    result[0].password = '';
-    res.send(result[0]);
   });
 };
 

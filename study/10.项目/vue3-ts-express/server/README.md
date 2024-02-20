@@ -739,3 +739,31 @@ exports.bindAccount = async (req, res) => {
 };
 ```
 
+# 根据id获取用户信息
+
+## 创建路由
+
+router/userinfo.js
+
+```js
+// 获取用户信息
+router.post('/getUserInfo', tokenAuthentication, userinfoHandler.getUserInfo);
+```
+
+## 创建路由处理函数
+
+handler/userinfo.js
+
+```js
+// 获取用户信息 接收参数 id
+exports.getUserInfo = async (req, res) => {
+  try {
+    const selectSql = 'select * from users where id = ?';
+    const [queryData] = await db.query(selectSql, req.body.id) || [];
+    res.success('查询成功', queryData[0]);
+  } catch (e) {
+    req.error('获取用户信息失败', e);
+  }
+};
+```
+

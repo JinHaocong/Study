@@ -26,7 +26,7 @@ router.post('/bindAccount', tokenAuthentication, userinfoHandler.bindAccount);
 // 修改用户密码 changePassword
 router.post('/changePassword', expressJoi(passwordLimit), userinfoHandler.changePassword);
 // 获取用户信息
-router.post('/getUserInfo', userinfoHandler.getUserInfo);
+router.post('/getUserInfo', tokenAuthentication, userinfoHandler.getUserInfo);
 // 修改姓名 changeName
 router.post('/changeName', expressJoi(nameLimit), userinfoHandler.changeName);
 // 修改性别
