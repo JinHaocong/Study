@@ -857,3 +857,40 @@ exports.changeEmail = async (req, res) => {
 };
 ```
 
+# 增加更新时间中间件
+
+middlewares/updateTimeMiddleware.js
+
+```js
+// 导入数据库
+const db = require('../db/index');
+
+const updateTimeMiddleware = async (req) => {
+  try {
+    const { id } = req.body;
+    const updateSql = 'update users set update_time = ? where id = ?';
+    await db.query(updateSql, [new Date(), id]);
+  } catch (e) {
+    console.log(e, 'updateTimeMiddleware');
+  }
+};
+
+module.exports = updateTimeMiddleware;
+
+```
+
+## 在路由中使用
+
+**注意：记得在updateTimeMiddleware前一个中间件函数中添加next**
+
+router/userinfo.js
+
+```js
+// 修改姓名 changeName
+router.post('/changeName', tokenAuthentication, expressJoi(nameLimit), userinfoHandler.changeName, updateTimeMiddleware);
+// 修改性别
+router.post('/changeSex', tokenAuthentication, userinfoHandler.changeSex, updateTimeMiddleware);
+// 修改邮箱
+router.post('/changeEmail', tokenAuthentication, expressJoi(emailLimit), userinfoHandler.changeEmail, updateTimeMiddleware);
+```
+

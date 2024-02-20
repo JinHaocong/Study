@@ -18,6 +18,7 @@ const tokenAuthentication = require('../middlewares/tokenAuthentication');
 
 // 文件上传中间件
 const multer = require('../middlewares/uploadFileMiddleware');
+const updateTimeMiddleware = require('../middlewares/updateTimeMiddleware');
 
 // 上传头像
 router.post('/uploadAvatar', tokenAuthentication, multer, userinfoHandler.uploadAvatar);
@@ -28,11 +29,11 @@ router.post('/changePassword', expressJoi(passwordLimit), userinfoHandler.change
 // 获取用户信息
 router.post('/getUserInfo', tokenAuthentication, userinfoHandler.getUserInfo);
 // 修改姓名 changeName
-router.post('/changeName', tokenAuthentication, expressJoi(nameLimit), userinfoHandler.changeName);
+router.post('/changeName', tokenAuthentication, expressJoi(nameLimit), userinfoHandler.changeName, updateTimeMiddleware);
 // 修改性别
-router.post('/changeSex', tokenAuthentication, userinfoHandler.changeSex);
+router.post('/changeSex', tokenAuthentication, userinfoHandler.changeSex, updateTimeMiddleware);
 // 修改邮箱
-router.post('/changeEmail', tokenAuthentication, expressJoi(emailLimit), userinfoHandler.changeEmail);
+router.post('/changeEmail', tokenAuthentication, expressJoi(emailLimit), userinfoHandler.changeEmail, updateTimeMiddleware);
 // 验证账号与邮箱 verifyAccountAndEmail
 router.post('/verifyAccountAndEmail', tokenAuthentication, userinfoHandler.verifyAccountAndEmail);
 // 登录页面修改密码 changePasswordInLogin

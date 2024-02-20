@@ -104,39 +104,42 @@ exports.getUserInfo = async (req, res) => {
 };
 
 // 修改姓名 接收参数 id name
-exports.changeName = async (req, res) => {
+exports.changeName = async (req, res, next) => {
   try {
     const { name, id } = req.body;
     const updateSql = 'update users set name = ? where id = ?';
     const [queryData] = await db.query(updateSql, [name, id]);
     if (queryData.affectedRows !== 1) return res.error('修改失败');
     res.success('修改成功');
+    next();
   } catch (e) {
     res.error('修改失败', e);
   }
 };
 
 // 修改性别 接收参数 id sex
-exports.changeSex = async (req, res) => {
+exports.changeSex = async (req, res, next) => {
   try {
     const { sex, id } = req.body;
     const updateSql = 'update users set sex = ? where id = ?';
     const [queryData] = await db.query(updateSql, [sex, id]);
     if (queryData.affectedRows !== 1) return res.error('修改失败');
     res.success('修改成功');
+    next();
   } catch (e) {
     res.error('修改失败', e);
   }
 };
 
 // 修改邮箱 接收参数 id email
-exports.changeEmail = async (req, res) => {
+exports.changeEmail = async (req, res, next) => {
   try {
     const { email, id } = req.body;
     const updateSql = 'update users set email = ? where id = ?';
     const [queryData] = await db.query(updateSql, [email, id]);
     if (queryData.affectedRows !== 1) return res.error('修改失败');
     res.success('修改成功');
+    next();
   } catch (e) {
     res.error('修改失败', e);
   }
