@@ -32,7 +32,7 @@ router.post('/changeName', tokenAuthentication, expressJoi(nameLimit), userinfoH
 // 修改性别
 router.post('/changeSex', tokenAuthentication, userinfoHandler.changeSex);
 // 修改邮箱
-router.post('/changeEmail', expressJoi(emailLimit), userinfoHandler.changeEmail);
+router.post('/changeEmail', tokenAuthentication, expressJoi(emailLimit), userinfoHandler.changeEmail);
 // 验证账号与邮箱 verifyAccountAndEmail
 router.post('/verifyAccountAndEmail', tokenAuthentication, userinfoHandler.verifyAccountAndEmail);
 // 登录页面修改密码 changePasswordInLogin

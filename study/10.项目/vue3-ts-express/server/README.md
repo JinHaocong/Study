@@ -827,3 +827,33 @@ exports.changeSex = async (req, res) => {
 };
 ```
 
+# 修改邮箱实现
+
+## 创建路由
+
+router/userinfo.js
+
+```js
+// 修改邮箱
+router.post('/changeEmail', tokenAuthentication, expressJoi(emailLimit), userinfoHandler.changeEmail);
+```
+
+## 创建路由处理函数
+
+handler/userinfo.js
+
+```js
+// 修改邮箱 接收参数 id email
+exports.changeEmail = async (req, res) => {
+  try {
+    const { email, id } = req.body;
+    const updateSql = 'update users set email = ? where id = ?';
+    const [queryData] = await db.query(updateSql, [email, id]);
+    if (queryData.affectedRows !== 1) return res.error('修改失败');
+    res.success('修改成功');
+  } catch (e) {
+    res.error('修改失败', e);
+  }
+};
+```
+

@@ -11,7 +11,7 @@ const zhCnFile = cnMessages['zh-cn'];
 
 const id = joi.required().messages({ ...zhCnFile });
 const name = joi.string().required().messages({ ...zhCnFile });
-const email = joi.string().required().messages({ ...zhCnFile });
+const email = joi.string().pattern(/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$/).required().messages({ ...zhCnFile });
 const oldPassword = joi.string().min(6).max(12)
   .required()
   .messages({ ...zhCnFile });
