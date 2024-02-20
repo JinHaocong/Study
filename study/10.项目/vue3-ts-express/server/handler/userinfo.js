@@ -41,16 +41,10 @@ exports.uploadAvatar = async (req, res) => {
   try {
     // step 1：生成唯一标识
     const onlyId = crypto.randomUUID();
-    const oldName = req.files[0].filename;
-    const newNameBuffer = Buffer.from(req.files[0].originalname, 'utf8');
-    const newName = iconv.decode(newNameBuffer, 'utf8');
-    console.log(newName);
-    // step 2：更改名称
-    fs.renameSync(`./public/upload/${oldName}`, `./public/upload/${newName}`);
-    // step 3：插入数据库
+    // step 2：插入数据库
     const insertSql = 'insert into image set ?';
     const avatarInfo = {
-      image_url: process.env.IMAGE_BASE_URL + newName,
+      image_url: process.env.IMAGE_BASE_URL + req.file.filename,
       onlyId,
     };
 
@@ -62,30 +56,28 @@ exports.uploadAvatar = async (req, res) => {
   }
 };
 
-// todo
-// 绑定账号 onlyid account url
-exports.bindAccount = (req, res) => {
-  const {
-    account,
-    onlyId,
-    url,
-  } = req.body;
-  const sql = 'update image set account = ? where onlyId = ?';
-  db.query(sql, [account, onlyId], (err, result) => {
-    if (err) return res.cc(err);
-    if (result.affectedRows == 1) {
-      const sql1 = 'update users set image_url = ? where account = ?';
-      db.query(sql1, [url, account], (err, result) => {
-        if (err) return res.cc(err);
-        res.send({
-          status: 0,
-          message: '修改成功',
-        });
-      });
-    }
-  });
+// 将上传头像的onlyId绑定到账号
+exports.bindAccount = async (req, res) => {
+  try {
+    const { account, onlyId, url } = req.body;
+
+    // step 1：更新image表
+    const updateSql1 = 'update image set account = ? where onlyId = ?';
+    const [queryData1] = await db.query(updateSql1, [account, onlyId]) || {};
+    if (queryData1.affectedRows !== 1) return res.error('头像更换失败');
+
+    // step 2：更新user表
+    const updateSql2 = 'update users set image_url = ? where account = ?';
+    const [queryData2] = await db.query(updateSql2, [url, account]);
+    if (queryData2.affectedRows !== 1) return res.error('头像更换失败');
+
+    res.success('头像更换成功');
+  } catch (e) {
+    res.error('上传头像失败', e);
+  }
 };
 
+// todo
 // 修改用户密码 先输入旧密码 oldPassword 新密码 newPassword id
 exports.changePassword = (req, res) => {
   const sql = 'select password from users where id = ?';

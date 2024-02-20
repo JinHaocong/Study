@@ -22,7 +22,7 @@ const multer = require('../middlewares/uploadFileMiddleware');
 // 上传头像
 router.post('/uploadAvatar', tokenAuthentication, multer, userinfoHandler.uploadAvatar);
 // 绑定账号
-router.post('/bindAccount', userinfoHandler.bindAccount);
+router.post('/bindAccount', tokenAuthentication, userinfoHandler.bindAccount);
 // 修改用户密码 changePassword
 router.post('/changePassword', expressJoi(passwordLimit), userinfoHandler.changePassword);
 // 获取用户信息

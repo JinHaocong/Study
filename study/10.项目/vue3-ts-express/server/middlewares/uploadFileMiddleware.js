@@ -1,14 +1,25 @@
 const multer = require('multer');
+const iconv = require('iconv-lite');
 
+const storage = multer.diskStorage({
+  // 文件储存路径
+  destination(req, file, cb) {
+    cb(null, 'public/upload');
+  },
+  // 名称替换
+  filename(req, file, cb) {
+    const newNameBuffer = Buffer.from(file.originalname, 'utf8');
+    const newName = iconv.decode(newNameBuffer, 'utf8');
+    cb(null, newName);
+  },
+});
+
+const upload = multer({ storage }).single('avatar');
 const uploadFileMiddleware = (req, res, next) => {
-  // dest 值为文件存储的路径;single方法,表示上传单个文件,参数为表单数据对应的key
-  const upload = multer({ dest: 'public/upload' }).any();
   upload(req, res, (err) => {
-    if (err) {
-      res.error(err);
-    } else {
-      next();
-    }
+    if (err) return res.error(err);
+    if (!req.file) return res.error('文件未上传');
+    next();
   });
 };
 
