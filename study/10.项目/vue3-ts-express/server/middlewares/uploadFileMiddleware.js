@@ -7,8 +7,6 @@ const uploadFileMiddleware = (req, res, next) => {
     if (err) {
       res.error(err);
     } else {
-      // 将文件信息赋值到req.body中，继续执行下一步
-      req.body.photo = req.file.filename;
       next();
     }
   });

@@ -2,9 +2,12 @@
 const bcrypt = require('bcryptjs');
 // 导入node.js的crypto库生成uuid
 const crypto = require('crypto');
-const fs = require('fs');
-const db = require('../db/index');
 // 导入fs处理文件
+const fs = require('fs');
+// 导入iconv-lite处理中文乱码
+const iconv = require('iconv-lite');
+// 导入数据库
+const db = require('../db/index');
 
 // 验证账户和与邮箱是否一致 email account
 exports.verifyAccountAndEmail = async (req, res) => {
@@ -33,27 +36,33 @@ exports.changePasswordInLogin = async (req, res) => {
   }
 };
 
-// todo
 // 上传头像
-exports.uploadAvatar = (req, res) => {
-  // 生成唯一标识
-  const onlyId = crypto.randomUUID();
-  const oldName = req.files[0].filename;
-  const newName = Buffer.from(req.files[0].originalname, 'latin1').toString('utf8');
-  fs.renameSync(`./public/upload/${oldName}`, `./public/upload/${newName}`);
-  const sql = 'insert into image set ?';
-  db.query(sql, {
-    image_url: `http://127.0.0.1:3007/upload/${newName}`,
-    onlyId,
-  }, (err, result) => {
-    if (err) return res.cc(err);
-    res.send({
+exports.uploadAvatar = async (req, res) => {
+  try {
+    // step 1：生成唯一标识
+    const onlyId = crypto.randomUUID();
+    const oldName = req.files[0].filename;
+    const newNameBuffer = Buffer.from(req.files[0].originalname, 'utf8');
+    const newName = iconv.decode(newNameBuffer, 'utf8');
+    console.log(newName);
+    // step 2：更改名称
+    fs.renameSync(`./public/upload/${oldName}`, `./public/upload/${newName}`);
+    // step 3：插入数据库
+    const insertSql = 'insert into image set ?';
+    const avatarInfo = {
+      image_url: process.env.IMAGE_BASE_URL + newName,
       onlyId,
-      status: 0,
-      url: `http://127.0.0.1:3007/upload/${newName}`,
-    });
-  });
+    };
+
+    const [insertData] = await db.query(insertSql, avatarInfo);
+    if (insertData.affectedRows !== 1) return res.error('上传失败');
+    res.success('上传成功', avatarInfo);
+  } catch (e) {
+    res.error('上传失败', e);
+  }
 };
+
+// todo
 // 绑定账号 onlyid account url
 exports.bindAccount = (req, res) => {
   const {

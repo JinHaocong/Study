@@ -453,11 +453,12 @@ function tokenAuthentication(req, res, next) {
     path: [
       /^\/api\//,
       /\/verifyAccountAndEmail/,
+      /\/changePasswordInLogin/,
     ],
   })(req, res, (err) => {
     if (err) {
       // 抛出错误给全局错误信息处理
-      return res.error('身份未验证', err);
+      return res.error('身份未验证', err, 401);
     }
     next();
   });
@@ -591,9 +592,89 @@ exports.changePasswordInLogin = async (req, res) => {
 
 # 上传头像功能实现
 
-安装multer中间件
+## 安装multer中间件
 
 ```powershell
 yarn add multer
+```
+
+## 添加文件上传multer中间件
+
+uploadFileMiddleware.js
+
+```js
+const multer = require('multer');
+
+const uploadFileMiddleware = (req, res, next) => {
+  // dest 值为文件存储的路径;single方法,表示上传单个文件,参数为表单数据对应的key
+  const upload = multer({ dest: 'public/upload' }).any();
+  upload(req, res, (err) => {
+    if (err) {
+      res.error(err);
+    } else {
+      next();
+    }
+  });
+};
+
+module.exports = uploadFileMiddleware;
+
+```
+
+## 添加接口路由
+
+router/userinfo.js
+
+```js
+// 上传头像
+router.post('/uploadAvatar', tokenAuthentication, multer, userinfoHandler.uploadAvatar);
+```
+
+## 安装iconv-lite 解决中文乱码
+
+```js
+yarn add iconv-lite
+```
+
+## 添加路由处理函数
+
+添加环境变量
+
+.env.development
+
+```
+# 上传图片baseUrl
+IMAGE_BASE_URL = 'http://127.0.0.1:3007/upload/'
+```
+
+handler/userinfo.js
+
+```js
+
+// 上传头像
+exports.uploadAvatar = async (req, res) => {
+  try {
+    // step 1：生成唯一标识
+    const onlyId = crypto.randomUUID();
+    const oldName = req.files[0].filename;
+    const newNameBuffer = Buffer.from(req.files[0].originalname, 'utf8');
+    const newName = iconv.decode(newNameBuffer, 'utf8');
+    console.log(newName);
+    // step 2：更改名称
+    fs.renameSync(`./public/upload/${oldName}`, `./public/upload/${newName}`);
+    // step 3：插入数据库
+    const insertSql = 'insert into image set ?';
+    const avatarInfo = {
+      image_url: process.env.IMAGE_BASE_URL + newName,
+      onlyId,
+    };
+
+    const [insertData] = await db.query(insertSql, avatarInfo);
+    if (insertData.affectedRows !== 1) return res.error('上传失败');
+    res.success('上传成功', avatarInfo);
+  } catch (e) {
+    res.error('上传失败', e);
+  }
+};
 ```
 

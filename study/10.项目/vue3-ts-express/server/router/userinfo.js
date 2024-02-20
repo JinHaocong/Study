@@ -16,8 +16,11 @@ const {
 } = require('../joi/user');
 const tokenAuthentication = require('../middlewares/tokenAuthentication');
 
+// 文件上传中间件
+const multer = require('../middlewares/uploadFileMiddleware');
+
 // 上传头像
-router.post('/uploadAvatar', userinfoHandler.uploadAvatar);
+router.post('/uploadAvatar', tokenAuthentication, multer, userinfoHandler.uploadAvatar);
 // 绑定账号
 router.post('/bindAccount', userinfoHandler.bindAccount);
 // 修改用户密码 changePassword

@@ -14,7 +14,7 @@ function tokenAuthentication(req, res, next) {
   })(req, res, (err) => {
     if (err) {
       // 抛出错误给全局错误信息处理
-      return res.error('身份未验证', err);
+      return res.error('身份未验证', err, 401);
     }
     next();
   });

@@ -3,7 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const chalk = require('chalk');
-const multer = require('./middlewares/uploadFileMiddleware');
+
 const handleJoiValidationError = require('./middlewares/handleJoiValidationError');
 const requestMiddleware = require('./middlewares/requestMiddleware');
 const loginRouter = require('./router/login');
@@ -18,9 +18,6 @@ const app = express();
 
 // 解决跨域
 app.use(cors());
-
-// 文件上传中间件
-// app.use(multer);
 
 // 日志
 app.use(logger('dev'));
