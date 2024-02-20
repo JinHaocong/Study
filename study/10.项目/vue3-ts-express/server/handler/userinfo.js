@@ -62,24 +62,33 @@ exports.bindAccount = async (req, res) => {
 
   try {
     const { account, onlyId, url } = req.body;
+
     // step 1：开启事务
     await connection.beginTransaction();
 
     // step 2：更新image表
     const updateSql1 = 'update image set account = ? where onlyId = ?';
-    const [queryData1] = await db.query(updateSql1, [account, onlyId]) || {};
-    if (queryData1.affectedRows !== 1) return res.error('头像更换失败');
+    const updateImagePromise = db.query(updateSql1, [account, onlyId]);
 
     // step 3：更新user表
     const updateSql2 = 'update users set image_url = ? where account = ?';
-    const [queryData2] = await db.query(updateSql2, [url, account]);
-    if (queryData2.affectedRows !== 1) return res.error('头像更换失败');
+    const updateUserPromise = db.query(updateSql2, [url, account]);
 
-    // step 4：提交事物
+    // Use Promise.all to wait for both updates to complete
+    const [queryData1, queryData2] = await Promise.all([updateImagePromise, updateUserPromise]);
+
+    // Check if both updates were successful
+    if (queryData1[0].affectedRows !== 1 || queryData2[0].affectedRows !== 1) {
+      await connection.rollback();
+      return res.error('头像更换失败');
+    }
+
+    // step 4：提交事务
     await connection.commit();
 
     res.success('头像更换成功');
   } catch (e) {
+    await connection.rollback();
     res.error('上传头像失败', e);
   } finally {
     // step 5：释放连接，将连接归还给连接池
