@@ -30,7 +30,7 @@ router.post('/getUserInfo', tokenAuthentication, userinfoHandler.getUserInfo);
 // 修改姓名 changeName
 router.post('/changeName', tokenAuthentication, expressJoi(nameLimit), userinfoHandler.changeName);
 // 修改性别
-router.post('/changeSex', userinfoHandler.changeSex);
+router.post('/changeSex', tokenAuthentication, userinfoHandler.changeSex);
 // 修改邮箱
 router.post('/changeEmail', expressJoi(emailLimit), userinfoHandler.changeEmail);
 // 验证账号与邮箱 verifyAccountAndEmail

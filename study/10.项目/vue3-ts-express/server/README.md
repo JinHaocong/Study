@@ -797,3 +797,33 @@ exports.changeName = async (req, res) => {
 };
 ```
 
+# 修改性别实现
+
+## 创建路由
+
+router/userinfo.js
+
+```js
+// 修改性别
+router.post('/changeSex', tokenAuthentication, userinfoHandler.changeSex);
+```
+
+## 创建路由处理函数
+
+handler/userinfo.js
+
+```js
+// 修改性别 接收参数 id sex
+exports.changeSex = async (req, res) => {
+  try {
+    const { sex, id } = req.body;
+    const updateSql = 'update users set sex = ? where id = ?';
+    const [queryData] = await db.query(updateSql, [sex, id]);
+    if (queryData.affectedRows !== 1) return res.error('修改失败');
+    res.success('修改成功');
+  } catch (e) {
+    res.error('修改失败', e);
+  }
+};
+```
+
