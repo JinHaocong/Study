@@ -28,7 +28,7 @@ router.post('/changePassword', expressJoi(passwordLimit), userinfoHandler.change
 // 获取用户信息
 router.post('/getUserInfo', tokenAuthentication, userinfoHandler.getUserInfo);
 // 修改姓名 changeName
-router.post('/changeName', expressJoi(nameLimit), userinfoHandler.changeName);
+router.post('/changeName', tokenAuthentication, expressJoi(nameLimit), userinfoHandler.changeName);
 // 修改性别
 router.post('/changeSex', userinfoHandler.changeSex);
 // 修改邮箱

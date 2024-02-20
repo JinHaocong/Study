@@ -107,6 +107,19 @@ exports.getUserInfo = async (req, res) => {
   }
 };
 
+// 修改姓名 接收参数 id name
+exports.changeName = async (req, res) => {
+  try {
+    const { name, id } = req.body;
+    const updateSql = 'update users set name = ? where id = ?';
+    const [queryData] = await db.query(updateSql, [name, id]);
+    if (queryData.affectedRows !== 1) return res.error('修改失败');
+    res.success('修改成功');
+  } catch (e) {
+    res.error('修改失败', e);
+  }
+};
+
 // todo
 // 修改用户密码 先输入旧密码 oldPassword 新密码 newPassword id
 exports.changePassword = (req, res) => {
@@ -129,22 +142,6 @@ exports.changePassword = (req, res) => {
         status: 0,
         message: '修改成功',
       });
-    });
-  });
-};
-
-// 修改姓名 接收参数 id name
-exports.changeName = (req, res) => {
-  const {
-    id,
-    name,
-  } = req.body;
-  const sql = 'update users set name = ? where id = ?';
-  db.query(sql, [name, id], (err, result) => {
-    if (err) return res.cc(err);
-    res.send({
-      status: 0,
-      message: '修改成功',
     });
   });
 };

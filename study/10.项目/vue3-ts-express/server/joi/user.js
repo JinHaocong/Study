@@ -10,8 +10,8 @@ const zhCnFile = cnMessages['zh-cn'];
 // pattern是正则
 
 const id = joi.required().messages({ ...zhCnFile });
-const name = joi.string().pattern(/^[\u4E00-\u9FA5]{2,10}(·[\u4E00-\u9FA5]{2,10}){0,2}$/).required().messages({ ...zhCnFile });
-const email = joi.string().pattern(/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$/).required().messages({ ...zhCnFile });
+const name = joi.string().required().messages({ ...zhCnFile });
+const email = joi.string().required().messages({ ...zhCnFile });
 const oldPassword = joi.string().min(6).max(12)
   .required()
   .messages({ ...zhCnFile });

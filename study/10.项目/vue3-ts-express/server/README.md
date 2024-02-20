@@ -767,3 +767,33 @@ exports.getUserInfo = async (req, res) => {
 };
 ```
 
+# 修改姓名实现
+
+## 创建路由
+
+router/userinfo.js
+
+```js
+// 修改姓名 changeName
+router.post('/changeName', tokenAuthentication, expressJoi(nameLimit), userinfoHandler.changeName);
+```
+
+## 创建路由处理函数
+
+handler/userinfo.js
+
+```js
+// 修改姓名 接收参数 id name
+exports.changeName = async (req, res) => {
+  try {
+    const { name, id } = req.body;
+    const updateSql = 'update users set name = ? where id = ?';
+    const [queryData] = await db.query(updateSql, [name, id]);
+    if (queryData.affectedRows !== 1) return res.error('修改失败');
+    res.success('修改成功');
+  } catch (e) {
+    res.error('修改失败', e);
+  }
+};
+```
+
