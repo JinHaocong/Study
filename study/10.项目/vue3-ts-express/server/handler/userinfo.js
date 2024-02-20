@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs');
 // 导入node.js的crypto库生成uuid
 const crypto = require('crypto');
 // 导入数据库
-const { number } = require('joi');
 const db = require('../db/index');
 
 // 验证账户和与邮箱是否一致 email account
