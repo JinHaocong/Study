@@ -2,10 +2,6 @@
 const bcrypt = require('bcryptjs');
 // 导入node.js的crypto库生成uuid
 const crypto = require('crypto');
-// 导入fs处理文件
-const fs = require('fs');
-// 导入iconv-lite处理中文乱码
-const iconv = require('iconv-lite');
 // 导入数据库
 const db = require('../db/index');
 
