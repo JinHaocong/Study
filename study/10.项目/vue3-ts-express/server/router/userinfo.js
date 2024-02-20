@@ -24,6 +24,8 @@ const updateTimeMiddleware = require('../middlewares/updateTimeMiddleware');
 router.post('/uploadAvatar', tokenAuthentication, multer, userinfoHandler.uploadAvatar);
 // 绑定账号
 router.post('/bindAccount', tokenAuthentication, userinfoHandler.bindAccount);
+
+// sign 用户管理
 // 修改用户密码 changePassword
 router.post('/changePassword', expressJoi(passwordLimit), userinfoHandler.changePassword);
 // 获取用户信息
@@ -39,7 +41,7 @@ router.post('/verifyAccountAndEmail', tokenAuthentication, userinfoHandler.verif
 // 登录页面修改密码 changePasswordInLogin
 router.post('/changePasswordInLogin', tokenAuthentication, expressJoi(forgetPasswordLimit), userinfoHandler.changePasswordInLogin);
 
-// sign 用户管理
+// todo
 // 添加管理员
 router.post('/createAdmin', userinfoHandler.createAdmin);
 // 获取管理员列表
