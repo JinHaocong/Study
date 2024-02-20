@@ -20,13 +20,14 @@ exports.verifyAccountAndEmail = async (req, res) => {
 };
 
 // 登录页面修改密码 参数 newPassword id
-exports.changePasswordInLogin = async (req, res) => {
+exports.changePasswordInLogin = async (req, res, next) => {
   try {
-    const user = req.body;
-    user.newPassword = bcrypt.hashSync(user.newPassword, 10);
+    const { newPassword, id } = req.body;
+    const hashPassword = bcrypt.hashSync(newPassword, Number(process.env.HASH_SALT));
     const updateSQL = 'update users set password = ? where id = ?';
-    const [queryData] = await db.query(updateSQL, [user.newPassword, user.id]) || {};
-    return res.success('修改成功', queryData);
+    const [queryData] = await db.query(updateSQL, [hashPassword, id]) || {};
+    res.success('修改成功', queryData);
+    next();
   } catch (e) {
     res.error('修改失败', e);
   }

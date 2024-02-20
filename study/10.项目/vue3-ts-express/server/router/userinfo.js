@@ -37,9 +37,9 @@ router.post('/changeSex', tokenAuthentication, userinfoHandler.changeSex, update
 // 修改邮箱
 router.post('/changeEmail', tokenAuthentication, expressJoi(emailLimit), userinfoHandler.changeEmail, updateTimeMiddleware);
 // 验证账号与邮箱 verifyAccountAndEmail
-router.post('/verifyAccountAndEmail', tokenAuthentication, userinfoHandler.verifyAccountAndEmail);
+router.post('/verifyAccountAndEmail', userinfoHandler.verifyAccountAndEmail);
 // 登录页面修改密码 changePasswordInLogin
-router.post('/changePasswordInLogin', tokenAuthentication, expressJoi(forgetPasswordLimit), userinfoHandler.changePasswordInLogin);
+router.post('/changePasswordInLogin', expressJoi(forgetPasswordLimit), userinfoHandler.changePasswordInLogin, updateTimeMiddleware);
 
 // todo
 // 添加管理员
