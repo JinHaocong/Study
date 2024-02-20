@@ -6,20 +6,20 @@ export const useUserInfo = defineStore(
   'userinfo',
   () => {
     const imageUrl = ref<string | null>()
-    const soreIdentity = ref<string>()
+    const storeIdentity = ref<string>()
     const userInfo = async (id: number) => {
       const res = await getUserInfo(id)
       const {
         data: { image_url, identity }
       } = res
       imageUrl.value = image_url
-      soreIdentity.value = identity
+      storeIdentity.value = identity
     }
 
     return {
       imageUrl,
       userInfo,
-      soreIdentity
+      storeIdentity
     }
   },
   {
