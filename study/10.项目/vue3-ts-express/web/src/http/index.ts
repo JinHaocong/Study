@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { type InternalAxiosRequestConfig, type AxiosInstance, type AxiosResponse } from 'axios'
+import { getItem } from '@/utils/storage'
 
 const instance: AxiosInstance = axios.create({
   // 后端url地址
@@ -14,6 +15,7 @@ const instance: AxiosInstance = axios.create({
 instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     // 在发送请求之前做些什么
+    config.headers.Authorization = getItem('token')
     return config
   },
   (error: any) => {
