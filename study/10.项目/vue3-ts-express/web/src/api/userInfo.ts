@@ -1,11 +1,41 @@
 import instance from '@/http/index'
 import { post } from '@/api/index'
-import type { LoginResponse } from '@/api/login'
+
+export interface UserInfo {
+  name: null | string
+  account: string
+  sex: null | string
+  identity: string
+  department: null | string
+  email: null | string
+}
 
 // 获取用户信息
 export const getUserInfo = (id: number) => {
-  return post<LoginResponse>('/user/getUserInfo', { id })
+  return post<UserInfo>('/user/getUserInfo', { id })
 }
+
+// 修改姓名
+export const changeName = (name: string | null, id: number) => {
+  return post<[]>('/user/changeName', { name, id })
+}
+
+// 修改性别
+export const changeSex = (sex: string | null, id: number) => {
+  return post<[]>('/user/changeSex', { sex, id })
+}
+
+// 修改密码
+export const changePassword = (id: number, oldPassword: string, newPassword: string) => {
+  return post<[]>('/user/changePassword', { id, oldPassword, newPassword })
+}
+
+// 修改邮箱
+export const changeEmail = (email: string | null, id: number) => {
+  return post<[]>('/user/changeEmail', { email, id })
+}
+
+// todo
 // 绑定图片地址跟账号
 export const bind = (account: number, onlyId: any, url: any) => {
   return instance({
@@ -15,55 +45,6 @@ export const bind = (account: number, onlyId: any, url: any) => {
       account,
       onlyId,
       url
-    }
-  })
-}
-
-// 修改密码
-export const changePassword = (id: number, oldPassword: string, newPassword: string) => {
-  return instance({
-    url: '/user/changePassword',
-    method: 'POST',
-    data: {
-      id,
-      oldPassword,
-      newPassword
-    }
-  })
-}
-
-// 修改姓名
-export const changeName = (name: string, id: number) => {
-  return instance({
-    url: '/user/changeName',
-    method: 'POST',
-    data: {
-      name,
-      id
-    }
-  })
-}
-
-// 修改性别
-export const changeSex = (sex: string, id: number) => {
-  return instance({
-    url: '/user/changeSex',
-    method: 'POST',
-    data: {
-      sex,
-      id
-    }
-  })
-}
-
-// 修改邮箱
-export const changeEmail = (email: string, id: number) => {
-  return instance({
-    url: '/user/changeEmail',
-    method: 'POST',
-    data: {
-      email,
-      id
     }
   })
 }
