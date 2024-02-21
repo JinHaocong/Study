@@ -10,11 +10,13 @@
             <div class="account-info-content">
               <!-- action 是上传头像的接口 -->
               <el-upload
+                :action="instance.defaults.baseURL + '/user/uploadAvatar'"
                 :before-upload="beforeAvatarUpload"
+                :headers="instance.defaults.headers"
                 :on-success="handleAvatarSuccess"
                 :show-file-list="false"
-                action="http://127.0.0.1:3007/user/uploadAvatar"
                 class="avatar-uploader"
+                name="avatar"
               >
                 <img
                   v-if="userStore.imageUrl"
@@ -104,7 +106,7 @@
 
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
-import { ElInput, type TabsPaneContext } from 'element-plus'
+import { ElInput, type TabsPaneContext, type UploadProps } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
 import {
@@ -113,11 +115,15 @@ import {
   changeSex,
   changeEmail,
   getUserInfo,
-  type UserInfo
+  type UserInfo,
+  type imageInfo
 } from '@/api/userInfo'
 import { useUserStore } from '@/stores/userStore'
 import { getItem } from '@/utils/storage'
 import ChangePassword from '@/views/set/components/ChangePassword.vue'
+import instance from '@/http/index'
+import type { ApiResult } from '@/api'
+
 // 默认打开的标签页
 const activeName = ref('accountDetails')
 
@@ -151,7 +157,8 @@ let userData: UserInfo = reactive({
   sex: '',
   identity: '',
   department: '',
-  email: ''
+  email: '',
+  image_url: ''
 })
 
 // 请求获取用户信息
@@ -168,37 +175,31 @@ const requestUserInfo = async () => {
   }
 }
 // 头像上传成功的函数 response回应
-const handleAvatarSuccess = (response: any) => {
-  // imageUrl.value = URL.createObjectURL(uploadFile.raw!)
-  if (response.status == 0) {
-    userStore.$patch({
-      imageUrl: response.url
-    })
-    ElMessage({
-      message: '更新头像成功',
-      type: 'success'
-    })
-    ;(async () => {
-      const res = await bind(
-        localStorage.getItem('account') as unknown as number,
-        response.onlyId,
-        response.url
-      )
-      console.log(res)
-    })()
-  } else {
-    ElMessage.error('更新头像失败！请重新上传')
+const handleAvatarSuccess = async (response: ApiResult<imageInfo>) => {
+  try {
+    const { image_url, onlyId } = response.data
+    const res = await bind(getItem('account'), { image_url, onlyId })
+    userStore.$patch({ imageUrl: image_url })
+    ElMessage.success(res.message)
+  } catch (e: any) {
+    e.message && ElMessage.error(e.message)
+    console.log(e, 'handleAvatarSuccess')
   }
 }
 // 头像上传之前的函数
-const beforeAvatarUpload = (rawFile: any) => {
-  if (rawFile.type !== 'image/jpeg') {
-    ElMessage.error('头像必须是jpg格式！')
-    return false
-  } else if (rawFile.size / 1024 / 1024 > 2) {
-    ElMessage.error('头像必须小于2MB!')
+const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
+
+  if (!allowedTypes.includes(rawFile.type)) {
+    ElMessage.error('头像必须是jpg、jpeg或png格式！')
     return false
   }
+
+  if (rawFile.size / 1024 / 1024 > 10) {
+    ElMessage.error('头像必须小于10MB!')
+    return false
+  }
+
   return true
 }
 // 保存姓名

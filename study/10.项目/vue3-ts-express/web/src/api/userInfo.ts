@@ -8,6 +8,12 @@ export interface UserInfo {
   identity: string
   department: null | string
   email: null | string
+  image_url: string
+}
+
+export interface imageInfo {
+  image_url: string
+  onlyId: string
 }
 
 // 获取用户信息
@@ -35,19 +41,16 @@ export const changeEmail = (email: string | null, id: number) => {
   return post<[]>('/user/changeEmail', { email, id })
 }
 
-// todo
 // 绑定图片地址跟账号
-export const bind = (account: number, onlyId: any, url: any) => {
-  return instance({
-    url: '/user/bindAccount',
-    method: 'POST',
-    data: {
-      account,
-      onlyId,
-      url
-    }
+export const bind = (account: number, imageInfo: imageInfo) => {
+  return post<[]>('/user/bindAccount', {
+    account,
+    onlyId: imageInfo.onlyId,
+    url: imageInfo.image_url
   })
 }
+
+// todo
 
 // ----------------------------------------用户管理
 // 添加管理员

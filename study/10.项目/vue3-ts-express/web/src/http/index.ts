@@ -7,7 +7,7 @@ const instance: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_URL,
   timeout: 6000, // 设置超时
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
+    Authorization: getItem('token')
   }
 })
 
@@ -15,7 +15,6 @@ const instance: AxiosInstance = axios.create({
 instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     // 在发送请求之前做些什么
-    config.headers.Authorization = getItem('token')
     return config
   },
   (error: any) => {
