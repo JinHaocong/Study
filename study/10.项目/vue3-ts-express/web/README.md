@@ -1927,7 +1927,8 @@ const router = createRouter({
           path: '/home',
           component: () => import('@/views/home/index.vue'),
           meta: {
-            title: '首页'
+            title: '首页',
+            iconName: 'home'
           }
         },
         {
@@ -1935,7 +1936,10 @@ const router = createRouter({
           path: '/set',
           component: () => import('@/views/set/index.vue'),
           meta: {
-            title: '系统设置'
+            title: '系统设置',
+            iconName: 'set',
+            iconSize: 14,
+            iconColor: '#B75D7DA3'
           }
         }
       ]
@@ -1946,3 +1950,400 @@ const router = createRouter({
 export default router
 
 ```
+
+### 账号详情
+
+#### 接口添加
+
+web/src/api/userInfo.ts
+
+```ts
+// 获取用户信息
+export const getUserInfo = (id: number) => {
+  return post<UserInfo>('/user/getUserInfo', { id })
+}
+
+// 修改姓名
+export const changeName = (name: string | null, id: number) => {
+  return post<[]>('/user/changeName', { name, id })
+}
+
+// 修改性别
+export const changeSex = (sex: string | null, id: number) => {
+  return post<[]>('/user/changeSex', { sex, id })
+}
+
+// 修改密码
+export const changePassword = (id: number, oldPassword: string, newPassword: string) => {
+  return post<[]>('/user/changePassword', { id, oldPassword, newPassword })
+}
+
+// 修改邮箱
+export const changeEmail = (email: string | null, id: number) => {
+  return post<[]>('/user/changeEmail', { email, id })
+}
+```
+
+#### 修改密码弹窗组件
+
+web/src/views/set/components/ChangePassword.vue
+
+```vue
+<template>
+  <!-- 修改密码 -->
+  <el-dialog
+    v-model="state.changePasswordDialog"
+    title="修改密码"
+    width="400px"
+    @close="close(formRef)"
+  >
+    <el-form
+      ref="formRef"
+      :label-position="labelPosition"
+      :model="passwordData"
+      :rules="rules"
+      class="login-form"
+    >
+      <el-form-item label="请输入您的旧密码" prop="oldPassword">
+        <el-input v-model="passwordData.oldPassword" placeholder="请输入您的旧密码" show-password />
+      </el-form-item>
+      <el-form-item label="请输入您的新密码" prop="newPassword">
+        <el-input v-model="passwordData.newPassword" placeholder="请输入您的新密码" show-password />
+      </el-form-item>
+    </el-form>
+    <!-- 底部内容 -->
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="close(formRef)">取消</el-button>
+        <el-button :loading="state.confirmLoading" type="primary" @click="confirm(formRef)">
+          确定
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
+</template>
+
+<script lang="ts" setup>
+import { reactive, ref } from 'vue'
+import { changePassword } from '@/api/userInfo.js'
+import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
+import type { FormProps } from 'element-plus'
+import { getItem } from '@/utils/storage'
+
+const formRef = ref<FormInstance>()
+const labelPosition = ref<FormProps['labelPosition']>('top')
+
+interface PasswordData {
+  oldPassword: string
+  newPassword: string
+}
+
+// 表单对象
+const passwordData = reactive<PasswordData>({
+  oldPassword: '',
+  newPassword: ''
+})
+// 表单规则
+const rules = reactive<FormRules<PasswordData>>({
+  oldPassword: [{ required: true, message: '请输入您的旧密码', trigger: 'blur' }],
+  newPassword: [{ required: true, message: '请输入您的新密码', trigger: 'blur' }]
+})
+// 控制弹窗 默认关闭
+const state = reactive({
+  changePasswordDialog: false,
+  confirmLoading: false
+})
+
+// 打开修改密码的弹窗
+const open = () => {
+  state.changePasswordDialog = true
+}
+// 修改密码 id 跟 两个 password
+const confirm = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  try {
+    await formEl.validate()
+    state.confirmLoading = true
+    const { message } = await changePassword(
+      getItem('id'),
+      passwordData.oldPassword,
+      passwordData.newPassword
+    )
+    ElMessage.success(message)
+    close(formRef.value)
+  } catch (e: any) {
+    console.log(e, 'confirm')
+    e.message && ElMessage.error(e.message)
+  } finally {
+    state.confirmLoading = false
+  }
+}
+// 关闭dialog
+const close = (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  formEl.resetFields()
+  state.changePasswordDialog = false
+}
+
+defineExpose({
+  open
+})
+</script>
+
+<style lang="scss" scoped></style>
+
+```
+
+#### 页面完成
+
+web/src/views/set/index.vue
+
+```vue
+<template>
+  <!-- 外壳 -->
+  <div class="common-wrapped">
+    <!-- 内容 -->
+    <div class="common-content">
+      <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
+        <el-tab-pane v-loading="accountLoading" label="账号详情" name="accountDetails">
+          <div class="account-info-wrapped">
+            <span>用户头像：</span>
+            <div class="account-info-content">
+              <!-- action 是上传头像的接口 -->
+              <el-upload
+                :before-upload="beforeAvatarUpload"
+                :on-success="handleAvatarSuccess"
+                :show-file-list="false"
+                action="http://127.0.0.1:3007/user/uploadAvatar"
+                class="avatar-uploader"
+              >
+                <img
+                  v-if="userStore.imageUrl"
+                  :src="userStore.imageUrl"
+                  alt="用户头像"
+                  class="avatar"
+                />
+                <el-icon v-else class="avatar-uploader-icon">
+                  <Plus />
+                </el-icon>
+              </el-upload>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>用户账号：</span>
+            <div class="account-info-content">
+              <el-input v-model="userData.account" disabled></el-input>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>用户密码：</span>
+            <div class="account-info-content">
+              <el-button type="primary" @click="openChangePassword">修改密码</el-button>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>用户姓名：</span>
+            <div class="account-info-content">
+              <el-input v-model="userData.name"></el-input>
+            </div>
+            <div class="account-save-button">
+              <el-button :loading="saveNameLoading" type="primary" @click="saveName"
+                >保存
+              </el-button>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>用户性别：</span>
+            <div class="account-info-content">
+              <el-select v-model="userData.sex" style="width: 80px">
+                <el-option label="男" value="男" />
+                <el-option label="女" value="女" />
+              </el-select>
+            </div>
+            <div class="account-save-button">
+              <el-button :loading="saveSexLoading" type="primary" @click="saveSex">保存</el-button>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>用户身份：</span>
+            <div class="account-info-content">
+              <el-input v-model="userData.identity" disabled></el-input>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>用户部门：</span>
+            <div class="account-info-content">
+              <el-input v-model="userData.department" disabled></el-input>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>用户邮箱：</span>
+            <div class="account-info-content">
+              <el-input v-model="userData.email"></el-input>
+            </div>
+            <div class="account-save-button">
+              <el-button :loading="saveEmailLoading" type="primary" @click="saveEmail"
+                >保存
+              </el-button>
+            </div>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane v-if="userStore.identity == '超级管理员'" label="公司信息" name="second">
+        </el-tab-pane>
+        <el-tab-pane v-if="userStore.identity == '超级管理员'" label="首页管理" name="third">
+        </el-tab-pane>
+        <el-tab-pane label="其他设置" name="fourth"></el-tab-pane>
+      </el-tabs>
+    </div>
+  </div>
+
+  <!-- 修改密码弹窗 -->
+  <ChangePassword ref="changeP"></ChangePassword>
+</template>
+
+<script lang="ts" setup>
+import { onMounted, reactive, ref } from 'vue'
+import { ElInput, type TabsPaneContext } from 'element-plus'
+import { ElMessage } from 'element-plus'
+import { Plus } from '@element-plus/icons-vue'
+import {
+  bind,
+  changeName,
+  changeSex,
+  changeEmail,
+  getUserInfo,
+  type UserInfo
+} from '@/api/userInfo'
+import { useUserStore } from '@/stores/userStore'
+import { getItem } from '@/utils/storage'
+import ChangePassword from '@/views/set/components/ChangePassword.vue'
+// 默认打开的标签页
+const activeName = ref('accountDetails')
+
+onMounted(() => {
+  requestUserInfo()
+})
+
+// tab点击事件 刷新数据
+const handleClick = (tab: TabsPaneContext) => {
+  switch (tab.paneName) {
+    case 'accountDetails':
+      requestUserInfo()
+      break
+    default:
+      break
+  }
+}
+
+// sign 账号详情
+const userStore = useUserStore()
+const accountLoading = ref(false)
+const saveNameLoading = ref(false)
+const saveSexLoading = ref(false)
+const saveEmailLoading = ref(false)
+const changeP = ref()
+let userData: UserInfo = reactive({
+  name: '',
+  account: '',
+  sex: '',
+  identity: '',
+  department: '',
+  email: ''
+})
+
+// 请求获取用户信息
+const requestUserInfo = async () => {
+  try {
+    accountLoading.value = true
+    const res = await getUserInfo(getItem('id'))
+    Object.assign(userData, res.data)
+  } catch (e: any) {
+    e.message && ElMessage.error(e.message)
+    console.log(e, 'requestUserInfo')
+  } finally {
+    accountLoading.value = false
+  }
+}
+// 头像上传成功的函数 response回应
+const handleAvatarSuccess = (response: any) => {
+  // imageUrl.value = URL.createObjectURL(uploadFile.raw!)
+  if (response.status == 0) {
+    userStore.$patch({
+      imageUrl: response.url
+    })
+    ElMessage({
+      message: '更新头像成功',
+      type: 'success'
+    })
+    ;(async () => {
+      const res = await bind(
+        localStorage.getItem('account') as unknown as number,
+        response.onlyId,
+        response.url
+      )
+      console.log(res)
+    })()
+  } else {
+    ElMessage.error('更新头像失败！请重新上传')
+  }
+}
+// 头像上传之前的函数
+const beforeAvatarUpload = (rawFile: any) => {
+  if (rawFile.type !== 'image/jpeg') {
+    ElMessage.error('头像必须是jpg格式！')
+    return false
+  } else if (rawFile.size / 1024 / 1024 > 2) {
+    ElMessage.error('头像必须小于2MB!')
+    return false
+  }
+  return true
+}
+// 保存姓名
+const saveName = async () => {
+  try {
+    saveNameLoading.value = true
+    const { message } = await changeName(userData.name, getItem('id'))
+    ElMessage.success(message)
+  } catch (e: any) {
+    e.message && ElMessage.error(e.message)
+    console.log(e, 'saveName')
+  } finally {
+    saveNameLoading.value = false
+  }
+}
+// 保存性别
+const saveSex = async () => {
+  try {
+    saveSexLoading.value = true
+    const { message } = await changeSex(userData.sex, getItem('id'))
+    ElMessage.success(message)
+  } catch (e: any) {
+    e.message && ElMessage.error(e.message)
+    console.log(e, 'saveSex')
+  } finally {
+    saveSexLoading.value = false
+  }
+}
+// 保存邮箱
+const saveEmail = async () => {
+  try {
+    const { message } = await changeEmail(userData.email, getItem('id'))
+    ElMessage.success(message)
+  } catch (e: any) {
+    e.message && ElMessage.error(e.message)
+    console.log(e, 'saveEmail')
+  } finally {
+    saveEmailLoading.value = false
+  }
+}
+// 打开密码弹窗
+const openChangePassword = () => {
+  changeP.value.open()
+}
+</script>
+
+<style lang="scss" scoped>
+...
+</style>
+```
+

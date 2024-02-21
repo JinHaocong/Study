@@ -13,7 +13,7 @@ export interface LoginResponse {
   account: string
   create_time: string
   department: null | string
-  email: null
+  email: null | string
   identity: string
   image_url: null | string
   password: string
