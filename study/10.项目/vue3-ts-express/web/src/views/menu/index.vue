@@ -1,6 +1,6 @@
 <template>
   <div class="common-layout">
-    <el-container>
+    <el-container style="height: 100%; width: 100%">
       <el-aside width="200px">
         <el-menu class="el-menu-vertical-demo" router>
           <div class="title">通用后台管理系统</div>
@@ -86,7 +86,7 @@
           </el-menu-item>
         </el-menu>
       </el-aside>
-      <el-container>
+      <el-container style="height: 100%">
         <el-header>
           <span class="header-left-content"
             >尊敬的
@@ -117,7 +117,7 @@
           </div>
         </el-header>
         <BreadCrumb :crumb-item-list="crumbStore.crumbItemList" />
-        <el-main>
+        <el-main style="height: calc(100% - 85px)">
           <router-view></router-view>
         </el-main>
       </el-container>
@@ -325,7 +325,7 @@ const openDepartmentMessage = () => {
 }
 
 .el-main {
-  --el-main-padding: 20px;
+  --el-main-padding: 10px;
   background-color: #f3f4fa;
 }
 
