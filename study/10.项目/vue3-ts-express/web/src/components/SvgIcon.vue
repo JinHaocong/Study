@@ -20,7 +20,6 @@ const props = defineProps({
     default: 14
   }
 })
-console.log(props)
 const symbolId = computed(() => `#icon-${props.iconName}`)
 </script>
 
