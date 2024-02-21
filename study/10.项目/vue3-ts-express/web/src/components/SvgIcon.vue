@@ -13,11 +13,11 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: ''
+    default: '#B75D7DA3'
   },
   size: {
     type: [Number, String],
-    default: 16
+    default: 14
   }
 })
 console.log(props)

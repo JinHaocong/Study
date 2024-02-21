@@ -167,9 +167,7 @@ router.beforeEach((to) => {
       meta: {
         ...item.meta,
         title: (item.meta?.title as string) || '',
-        iconName: (item.meta?.iconName as string) || '',
-        iconColor: (item.meta?.iconColor as string) || '',
-        iconSize: (item.meta?.iconSize as string | number) || 16
+        iconName: (item.meta?.iconName as string) || ''
       }
     }))
 

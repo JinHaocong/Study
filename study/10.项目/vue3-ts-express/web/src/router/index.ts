@@ -25,7 +25,8 @@ const router = createRouter({
           path: '/home',
           component: () => import('@/views/home/index.vue'),
           meta: {
-            title: '首页'
+            title: '首页',
+            iconName: 'home'
           }
         },
         {

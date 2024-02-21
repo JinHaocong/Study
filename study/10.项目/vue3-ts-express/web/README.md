@@ -1601,11 +1601,11 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: ''
+    default: '#B75D7DA3'
   },
   size: {
     type: [Number, String],
-    default: 16
+    default: 14
   }
 })
 console.log(props)
@@ -1751,7 +1751,8 @@ const router = createRouter({
           path: '/home',
           component: () => import('@/views/home/index.vue'),
           meta: {
-            title: '首页'
+            title: '首页',
+            iconName: 'home'
           }
         },
         {
@@ -1883,9 +1884,7 @@ router.beforeEach((to) => {
       meta: {
         ...item.meta,
         title: (item.meta?.title as string) || '',
-        iconName: (item.meta?.iconName as string) || '',
-        iconColor: (item.meta?.iconColor as string) || '',
-        iconSize: (item.meta?.iconSize as string | number) || 16
+        iconName: (item.meta?.iconName as string) || ''
       }
     }))
 
