@@ -10,6 +10,8 @@ import Particles from 'vue3-particles'
 import App from './App.vue'
 import router from './router'
 
+import 'virtual:svg-icons-register'
+
 const app = createApp(App)
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {

@@ -33,7 +33,10 @@ const router = createRouter({
           path: '/set',
           component: () => import('@/views/set/index.vue'),
           meta: {
-            title: '系统设置'
+            title: '系统设置',
+            iconName: 'set',
+            iconSize: 14,
+            iconColor: '#B75D7DA3'
           }
         }
       ]

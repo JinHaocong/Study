@@ -6,6 +6,9 @@ export interface CrumbItem {
   path: string
   meta: {
     title: string
+    iconName: string
+    iconColor?: string
+    iconSize?: string | number
   }
   replace?: boolean
 

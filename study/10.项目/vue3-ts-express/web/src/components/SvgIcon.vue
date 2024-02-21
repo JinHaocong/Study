@@ -1,5 +1,5 @@
 <template>
-  <svg :style="{ width: size + 'px', height: size + 'px' }" aria-hidden="true">
+  <svg :style="{ width: size + 'px', height: size + 'px' }" aria-hidden="true" class="svg-icon">
     <use :fill="color" :xlink:href="symbolId" />
   </svg>
 </template>
@@ -20,10 +20,11 @@ const props = defineProps({
     default: 16
   }
 })
+console.log(props)
 const symbolId = computed(() => `#icon-${props.iconName}`)
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .svg-icon {
   fill: currentColor;
   vertical-align: middle;

@@ -8,6 +8,12 @@
           :replace="item.replace"
           :to="item"
         >
+          <SvgIcon
+            :color="item.meta.iconColor"
+            :icon-name="item.meta.iconName"
+            :size="item.meta.iconSize"
+            class="bread-crumb-icon"
+          />
           <span style="cursor: pointer" @click.prevent="handleLink(item, index)">{{
             item.meta.title
           }}</span>
@@ -20,6 +26,7 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 import type { CrumbItem } from '@/stores/useCrumbStore'
+import SvgIcon from '@/components/SvgIcon.vue'
 
 const router = useRouter()
 
@@ -59,6 +66,8 @@ const handleLink = (item: CrumbItem, index: number) => {
 
 :deep(.el-breadcrumb__inner) {
   font-weight: 500;
+  display: flex;
+  align-items: center;
 }
 
 .breadcrumb-enter-active {

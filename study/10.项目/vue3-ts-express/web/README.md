@@ -1543,6 +1543,84 @@ assets/main.scss
 }
 ```
 
+## svgIcon组件
+
+### 安装依赖
+
+```powershell
+pnpm install vite-plugin-svg-icons -D
+
+pnpm install fast-glob
+```
+
+### 新建目录src/assets/svg
+
+### 配置 vite.config.ts
+
+```ts
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import path from 'path'
+
+export default () => {
+  return {
+    plugins: [
+    createSvgIconsPlugin({
+      // 指定需要缓存的图标文件夹
+      iconDirs: [path.resolve(process.cwd(), 'src/assets/svg')], // 与本地储存地址一致
+      // 指定symbolId格式
+      symbolId: 'icon-[dir]-[name]'
+    })
+    ],
+  }
+}
+```
+
+### 在 src/main.ts 中注入脚本
+
+```ts
+import 'virtual:svg-icons-register'
+```
+
+### 封装公共组件
+
+web/src/components/SvgIcon.vue
+
+```vue
+<template>
+  <svg :style="{ width: size + 'px', height: size + 'px' }" aria-hidden="true" class="svg-icon">
+    <use :fill="color" :xlink:href="symbolId" />
+  </svg>
+</template>
+<script lang="ts" setup>
+import { computed } from 'vue'
+
+const props = defineProps({
+  iconName: {
+    type: String,
+    required: true
+  },
+  color: {
+    type: String,
+    default: ''
+  },
+  size: {
+    type: [Number, String],
+    default: 16
+  }
+})
+console.log(props)
+const symbolId = computed(() => `#icon-${props.iconName}`)
+</script>
+
+<style lang="scss" scoped>
+.svg-icon {
+  fill: currentColor;
+  vertical-align: middle;
+}
+</style>
+
+```
+
 ## 面包屑组件
 
 ### 封装组件
@@ -1560,6 +1638,12 @@ web/src/components/BreadCrumb.vue
           :replace="item.replace"
           :to="item"
         >
+          <SvgIcon
+            :color="item.meta.iconColor"
+            :icon-name="item.meta.iconName"
+            :size="item.meta.iconSize"
+            class="bread-crumb-icon"
+          />
           <span style="cursor: pointer" @click.prevent="handleLink(item, index)">{{
             item.meta.title
           }}</span>
@@ -1572,6 +1656,7 @@ web/src/components/BreadCrumb.vue
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 import type { CrumbItem } from '@/stores/useCrumbStore'
+import SvgIcon from '@/components/SvgIcon.vue'
 
 const router = useRouter()
 
@@ -1667,6 +1752,17 @@ const router = createRouter({
           component: () => import('@/views/home/index.vue'),
           meta: {
             title: '首页'
+          }
+        },
+        {
+          name: 'set',
+          path: '/set',
+          component: () => import('@/views/set/index.vue'),
+          meta: {
+            title: '系统设置',
+            iconName: 'set',
+            iconSize: 14,
+            iconColor: '#B75D7DA3'
           }
         }
       ]
@@ -1781,10 +1877,15 @@ router.beforeEach((to) => {
   const crumbItemList: CrumbItem[] = to.matched
     .filter((item) => item.name !== 'menu')
     .map((item) => ({
+      ...item,
       name: item.name as string,
       path: item.path,
       meta: {
-        title: (item.meta?.title as string) || ''
+        ...item.meta,
+        title: (item.meta?.title as string) || '',
+        iconName: (item.meta?.iconName as string) || '',
+        iconColor: (item.meta?.iconColor as string) || '',
+        iconSize: (item.meta?.iconSize as string | number) || 16
       }
     }))
 
