@@ -214,7 +214,7 @@
 
 <script lang="ts" setup>
 import { onMounted, reactive, ref, nextTick, toRaw } from 'vue'
-import BreadCrumb from '@/components/breadCrumb.vue'
+import BreadCrumb from '@/components/BreadCrumb.vue'
 import { ElInput } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
