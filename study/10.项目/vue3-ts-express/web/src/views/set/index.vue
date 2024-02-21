@@ -1,5 +1,5 @@
 <template>
-  <breadCrumb ref="breadcrumb" :item="item"></breadCrumb>
+  <BreadCrumb ref="breadcrumb" :item="item"></BreadCrumb>
   <!-- 外壳 -->
   <div class="common-wrapped">
     <!-- 内容 -->
@@ -214,7 +214,7 @@
 
 <script lang="ts" setup>
 import { onMounted, reactive, ref, nextTick, toRaw } from 'vue'
-import breadCrumb from '@/components/bread_crumb.vue'
+import BreadCrumb from '@/components/breadCrumb.vue'
 import { ElInput } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
