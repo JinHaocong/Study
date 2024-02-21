@@ -15,17 +15,26 @@ const router = createRouter({
     {
       name: 'menu',
       path: '/menu',
+      meta: {
+        title: '菜单'
+      },
       component: () => import('@/views/menu/index.vue'),
       children: [
         {
           name: 'home',
           path: '/home',
-          component: () => import('@/views/home/index.vue')
+          component: () => import('@/views/home/index.vue'),
+          meta: {
+            title: '首页'
+          }
         },
         {
           name: 'set',
           path: '/set',
-          component: () => import('@/views/set/index.vue')
+          component: () => import('@/views/set/index.vue'),
+          meta: {
+            title: '系统设置'
+          }
         }
       ]
     }

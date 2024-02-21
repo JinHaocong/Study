@@ -1543,11 +1543,100 @@ assets/main.scss
 }
 ```
 
-## 封装面包屑组件
+## 面包屑组件
 
-## 系统设置
+### 封装组件
 
-### 添加路由
+web/src/components/BreadCrumb.vue
+
+```vue
+<template>
+  <div class="bread-crumb">
+    <el-breadcrumb :separator="crumbProps.separator" :separator-icon="crumbProps.separatorIcon">
+      <transition-group name="breadcrumb">
+        <el-breadcrumb-item
+          v-for="(item, index) in crumbProps.crumbItemList"
+          :key="item.name"
+          :replace="item.replace"
+          :to="item"
+        >
+          <span style="cursor: pointer" @click.prevent="handleLink(item, index)">{{
+            item.meta.title
+          }}</span>
+        </el-breadcrumb-item>
+      </transition-group>
+    </el-breadcrumb>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { useRouter } from 'vue-router'
+import type { CrumbItem } from '@/stores/useCrumbStore'
+
+const router = useRouter()
+
+interface CrumbProps {
+  separator?: string
+  separatorIcon?: string
+  crumbItemList: CrumbItem[]
+}
+
+const crumbProps = defineProps<CrumbProps>()
+
+// 路由跳转
+const handleLink = (item: CrumbItem, index: number) => {
+  //处于本页就不再跳转
+  if (index === crumbProps.crumbItemList.length - 1) return
+  router.push({ path: `${item.to.path}` })
+}
+</script>
+
+<style lang="scss" scoped>
+.bread-crumb {
+  height: 30px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+}
+
+.bread-crumb-icon {
+  margin-right: 4px;
+}
+
+:deep(.el-breadcrumb__item) {
+  height: 30px;
+  font-size: 14px;
+  line-height: 30px;
+}
+
+:deep(.el-breadcrumb__inner) {
+  font-weight: 500;
+}
+
+.breadcrumb-enter-active {
+  transition: all 0.4s;
+}
+
+.breadcrumb-leave-active {
+  transition: all 0.3s;
+}
+
+.breadcrumb-enter-from,
+.breadcrumb-leave-active {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.breadcrumb-leave-active {
+  position: absolute;
+}
+</style>
+
+```
+
+### 路由添加参数meta.title
+
+web/src/router/index.ts
 
 ```ts
 import { createRouter, createWebHistory } from 'vue-router'
@@ -1567,17 +1656,18 @@ const router = createRouter({
     {
       name: 'menu',
       path: '/menu',
+      meta: {
+        title: '菜单'
+      },
       component: () => import('@/views/menu/index.vue'),
       children: [
         {
           name: 'home',
           path: '/home',
-          component: () => import('@/views/home/index.vue')
-        },
-        {
-          name: 'set',
-          path: '/set',
-          component: () => import('@/views/set/index.vue')
+          component: () => import('@/views/home/index.vue'),
+          meta: {
+            title: '首页'
+          }
         }
       ]
     }
@@ -1585,4 +1675,174 @@ const router = createRouter({
 })
 
 export default router
+
+```
+
+### 创建store useCrumbStore
+
+web/src/stores/useCrumbStore.ts
+
+```ts
+import { defineStore } from 'pinia'
+import { reactive, toRefs } from 'vue'
+
+export interface CrumbItem {
+  name: string
+  path: string
+  meta: {
+    title: string
+  }
+  replace?: boolean
+
+  [index: string]: any
+}
+
+export const useCrumbStore = defineStore(
+  'crumbsStore',
+  () => {
+    // 使用 `reactive` 创建响应式对象
+    const state = reactive({
+      crumbItemList: [
+        {
+          name: 'home',
+          path: '/',
+          meta: {
+            title: '首页'
+          }
+        }
+      ] as CrumbItem[]
+    })
+
+    const pushCrumb = (crumbItem: CrumbItem) => {
+      state.crumbItemList.push(crumbItem)
+    }
+
+    const sliceLastCrumb = () => {
+      state.crumbItemList.splice(-1)
+    }
+
+    const replaceCrumb = (list: CrumbItem[]) => {
+      // 使用 `toRefs` 将响应式对象的属性转换为 ref
+      const { crumbItemList } = toRefs(state)
+      crumbItemList.value = list
+    }
+
+    return {
+      ...toRefs(state),
+      pushCrumb,
+      sliceLastCrumb,
+      replaceCrumb
+    }
+  },
+  {
+    persist: true
+  }
+)
+
+```
+
+### 再menu中引入并使用面包屑
+
+web/src/views/menu/index.vue
+
+```vue
+<template>
+  <div class="common-layout">
+    <el-container>
+      <el-aside width="200px">
+      	...
+      </el-aside>
+      <el-container>
+        <el-header>
+          ...
+        </el-header>
+        <BreadCrumb :crumb-item-list="crumbStore.crumbItemList" />
+        <el-main>
+          <router-view></router-view>
+        </el-main>
+      </el-container>
+    </el-container>
+  </div>
+</template>
+```
+
+### 添加路由守卫动态替换路由
+
+web/src/views/menu/index.vue
+
+```vue
+<script lang="ts" setup>
+import { useRouter } from 'vue-router'
+import { type CrumbItem, useCrumbStore } from '@/stores/useCrumbStore'
+// sign 面包屑
+const crumbStore = useCrumbStore()
+const router = useRouter()
+router.beforeEach((to) => {
+  const crumbItemList: CrumbItem[] = to.matched
+    .filter((item) => item.name !== 'menu')
+    .map((item) => ({
+      name: item.name as string,
+      path: item.path,
+      meta: {
+        title: (item.meta?.title as string) || ''
+      }
+    }))
+
+  crumbStore.replaceCrumb(crumbItemList)
+})
+</script>
+```
+
+## 系统设置页面
+
+### 添加路由
+
+web/src/router/index.ts
+
+```ts
+import { createRouter, createWebHistory } from 'vue-router'
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      redirect: '/login'
+    },
+    {
+      name: 'login',
+      path: '/login',
+      component: () => import('@/views/login/index.vue')
+    },
+    {
+      name: 'menu',
+      path: '/menu',
+      meta: {
+        title: '菜单'
+      },
+      component: () => import('@/views/menu/index.vue'),
+      children: [
+        {
+          name: 'home',
+          path: '/home',
+          component: () => import('@/views/home/index.vue'),
+          meta: {
+            title: '首页'
+          }
+        },
+        {
+          name: 'set',
+          path: '/set',
+          component: () => import('@/views/set/index.vue'),
+          meta: {
+            title: '系统设置'
+          }
+        }
+      ]
+    }
+  ]
+})
+
+export default router
+
 ```

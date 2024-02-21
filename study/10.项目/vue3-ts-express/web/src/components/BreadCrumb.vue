@@ -1,17 +1,42 @@
 <template>
   <div class="bread-crumb">
-    <SvgIcon class="bread-crumb-icon" icon-name="location"></SvgIcon>
-    <el-breadcrumb separator="/">
-      <el-breadcrumb-item>{{ props.item.first }}</el-breadcrumb-item>
-      <el-breadcrumb-item v-if="props.item.second">{{ props.item.second }}</el-breadcrumb-item>
+    <el-breadcrumb :separator="crumbProps.separator" :separator-icon="crumbProps.separatorIcon">
+      <transition-group name="breadcrumb">
+        <el-breadcrumb-item
+          v-for="(item, index) in crumbProps.crumbItemList"
+          :key="item.name"
+          :replace="item.replace"
+          :to="item"
+        >
+          <span style="cursor: pointer" @click.prevent="handleLink(item, index)">{{
+            item.meta.title
+          }}</span>
+        </el-breadcrumb-item>
+      </transition-group>
     </el-breadcrumb>
   </div>
 </template>
 
-<script setup>
-import SvgIcon from '@/components/SvgIcon.vue'
+<script lang="ts" setup>
+import { useRouter } from 'vue-router'
+import type { CrumbItem } from '@/stores/useCrumbStore'
 
-const props = defineProps(['item'])
+const router = useRouter()
+
+interface CrumbProps {
+  separator?: string
+  separatorIcon?: string
+  crumbItemList: CrumbItem[]
+}
+
+const crumbProps = defineProps<CrumbProps>()
+
+// 路由跳转
+const handleLink = (item: CrumbItem, index: number) => {
+  //处于本页就不再跳转
+  if (index === crumbProps.crumbItemList.length - 1) return
+  router.push({ path: `${item.to.path}` })
+}
 </script>
 
 <style lang="scss" scoped>
@@ -34,5 +59,23 @@ const props = defineProps(['item'])
 
 :deep(.el-breadcrumb__inner) {
   font-weight: 500;
+}
+
+.breadcrumb-enter-active {
+  transition: all 0.4s;
+}
+
+.breadcrumb-leave-active {
+  transition: all 0.3s;
+}
+
+.breadcrumb-enter-from,
+.breadcrumb-leave-active {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.breadcrumb-leave-active {
+  position: absolute;
 }
 </style>

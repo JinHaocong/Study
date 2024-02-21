@@ -116,6 +116,7 @@
             </el-dropdown>
           </div>
         </el-header>
+        <BreadCrumb :crumb-item-list="crumbStore.crumbItemList" />
         <el-main>
           <router-view></router-view>
         </el-main>
@@ -145,12 +146,30 @@ import {
 import { useRouter } from 'vue-router'
 import { getItem } from '@/utils/storage'
 import { useUserStore } from '@/stores/userStore'
+import BreadCrumb from '@/components/BreadCrumb.vue'
+import { type CrumbItem, useCrumbStore } from '@/stores/useCrumbStore'
 // import { useMsg } from '@/store/message.js'
 
 // const msgStore = useMsg()
 const userStore = useUserStore()
-const router = useRouter()
 const name = getItem('name')
+
+// sign 面包屑
+const crumbStore = useCrumbStore()
+const router = useRouter()
+router.beforeEach((to) => {
+  const crumbItemList: CrumbItem[] = to.matched
+    .filter((item) => item.name !== 'menu')
+    .map((item) => ({
+      name: item.name as string,
+      path: item.path,
+      meta: {
+        title: (item.meta?.title as string) || ''
+      }
+    }))
+
+  crumbStore.replaceCrumb(crumbItemList)
+})
 
 const goLogin = () => {
   router.push('/login')
