@@ -161,9 +161,11 @@ router.beforeEach((to) => {
   const crumbItemList: CrumbItem[] = to.matched
     .filter((item) => item.name !== 'menu')
     .map((item) => ({
+      ...item,
       name: item.name as string,
       path: item.path,
       meta: {
+        ...item.meta,
         title: (item.meta?.title as string) || ''
       }
     }))
