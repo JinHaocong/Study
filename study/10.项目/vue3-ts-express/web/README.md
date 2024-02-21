@@ -144,7 +144,7 @@ const instance: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_URL,
   timeout: 6000, // 设置超时
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
+    Authorization: getItem('token')
   }
 })
 
@@ -152,7 +152,6 @@ const instance: AxiosInstance = axios.create({
 instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     // 在发送请求之前做些什么
-    config.headers.Authorization = getItem('token')
     return config
   },
   (error: any) => {
@@ -1958,6 +1957,21 @@ export default router
 web/src/api/userInfo.ts
 
 ```ts
+export interface UserInfo {
+  name: null | string
+  account: string
+  sex: null | string
+  identity: string
+  department: null | string
+  email: null | string
+  image_url: string
+}
+
+export interface imageInfo {
+  image_url: string
+  onlyId: string
+}
+
 // 获取用户信息
 export const getUserInfo = (id: number) => {
   return post<UserInfo>('/user/getUserInfo', { id })
@@ -1981,6 +1995,15 @@ export const changePassword = (id: number, oldPassword: string, newPassword: str
 // 修改邮箱
 export const changeEmail = (email: string | null, id: number) => {
   return post<[]>('/user/changeEmail', { email, id })
+}
+
+// 绑定图片地址跟账号
+export const bind = (account: number, imageInfo: imageInfo) => {
+  return post<[]>('/user/bindAccount', {
+    account,
+    onlyId: imageInfo.onlyId,
+    url: imageInfo.image_url
+  })
 }
 ```
 
@@ -2105,17 +2128,19 @@ web/src/views/set/index.vue
     <!-- 内容 -->
     <div class="common-content">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane v-loading="accountLoading" label="账号详情" name="accountDetails">
+        <el-tab-pane v-loading="state.accountLoading" label="账号详情" name="accountDetails">
           <div class="account-info-wrapped">
             <span>用户头像：</span>
             <div class="account-info-content">
               <!-- action 是上传头像的接口 -->
               <el-upload
+                :action="instance.defaults.baseURL + '/user/uploadAvatar'"
                 :before-upload="beforeAvatarUpload"
+                :headers="instance.defaults.headers"
                 :on-success="handleAvatarSuccess"
                 :show-file-list="false"
-                action="http://127.0.0.1:3007/user/uploadAvatar"
                 class="avatar-uploader"
+                name="avatar"
               >
                 <img
                   v-if="userStore.imageUrl"
@@ -2147,7 +2172,7 @@ web/src/views/set/index.vue
               <el-input v-model="userData.name"></el-input>
             </div>
             <div class="account-save-button">
-              <el-button :loading="saveNameLoading" type="primary" @click="saveName"
+              <el-button :loading="state.saveNameLoading" type="primary" @click="saveName"
                 >保存
               </el-button>
             </div>
@@ -2161,7 +2186,9 @@ web/src/views/set/index.vue
               </el-select>
             </div>
             <div class="account-save-button">
-              <el-button :loading="saveSexLoading" type="primary" @click="saveSex">保存</el-button>
+              <el-button :loading="state.saveSexLoading" type="primary" @click="saveSex"
+                >保存
+              </el-button>
             </div>
           </div>
           <div class="account-info-wrapped">
@@ -2182,7 +2209,7 @@ web/src/views/set/index.vue
               <el-input v-model="userData.email"></el-input>
             </div>
             <div class="account-save-button">
-              <el-button :loading="saveEmailLoading" type="primary" @click="saveEmail"
+              <el-button :loading="state.saveEmailLoading" type="primary" @click="saveEmail"
                 >保存
               </el-button>
             </div>
@@ -2203,7 +2230,7 @@ web/src/views/set/index.vue
 
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
-import { ElInput, type TabsPaneContext } from 'element-plus'
+import { ElInput, type TabsPaneContext, type UploadProps } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
 import {
@@ -2212,11 +2239,15 @@ import {
   changeSex,
   changeEmail,
   getUserInfo,
-  type UserInfo
+  type UserInfo,
+  type imageInfo
 } from '@/api/userInfo'
 import { useUserStore } from '@/stores/userStore'
 import { getItem } from '@/utils/storage'
 import ChangePassword from '@/views/set/components/ChangePassword.vue'
+import instance from '@/http/index'
+import type { ApiResult } from '@/api'
+
 // 默认打开的标签页
 const activeName = ref('accountDetails')
 
@@ -2237,10 +2268,12 @@ const handleClick = (tab: TabsPaneContext) => {
 
 // sign 账号详情
 const userStore = useUserStore()
-const accountLoading = ref(false)
-const saveNameLoading = ref(false)
-const saveSexLoading = ref(false)
-const saveEmailLoading = ref(false)
+const state = reactive({
+  accountLoading: false,
+  saveNameLoading: false,
+  saveSexLoading: false,
+  saveEmailLoading: false
+})
 const changeP = ref()
 let userData: UserInfo = reactive({
   name: '',
@@ -2254,86 +2287,81 @@ let userData: UserInfo = reactive({
 // 请求获取用户信息
 const requestUserInfo = async () => {
   try {
-    accountLoading.value = true
+    state.accountLoading = true
     const res = await getUserInfo(getItem('id'))
     Object.assign(userData, res.data)
   } catch (e: any) {
     e.message && ElMessage.error(e.message)
     console.log(e, 'requestUserInfo')
   } finally {
-    accountLoading.value = false
+    state.accountLoading = false
   }
 }
 // 头像上传成功的函数 response回应
-const handleAvatarSuccess = (response: any) => {
-  // imageUrl.value = URL.createObjectURL(uploadFile.raw!)
-  if (response.status == 0) {
-    userStore.$patch({
-      imageUrl: response.url
-    })
-    ElMessage({
-      message: '更新头像成功',
-      type: 'success'
-    })
-    ;(async () => {
-      const res = await bind(
-        localStorage.getItem('account') as unknown as number,
-        response.onlyId,
-        response.url
-      )
-      console.log(res)
-    })()
-  } else {
-    ElMessage.error('更新头像失败！请重新上传')
+const handleAvatarSuccess = async (response: ApiResult<imageInfo>) => {
+  try {
+    const { image_url, onlyId } = response.data
+    const res = await bind(getItem('account'), { image_url, onlyId })
+    userStore.$patch({ imageUrl: image_url })
+    ElMessage.success(res.message)
+  } catch (e: any) {
+    e.message && ElMessage.error(e.message)
+    console.log(e, 'handleAvatarSuccess')
   }
 }
 // 头像上传之前的函数
-const beforeAvatarUpload = (rawFile: any) => {
-  if (rawFile.type !== 'image/jpeg') {
-    ElMessage.error('头像必须是jpg格式！')
-    return false
-  } else if (rawFile.size / 1024 / 1024 > 2) {
-    ElMessage.error('头像必须小于2MB!')
+const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
+
+  if (!allowedTypes.includes(rawFile.type)) {
+    ElMessage.error('头像必须是jpg、jpeg或png格式！')
     return false
   }
+
+  if (rawFile.size / 1024 / 1024 > 10) {
+    ElMessage.error('头像必须小于10MB!')
+    return false
+  }
+
   return true
 }
 // 保存姓名
 const saveName = async () => {
   try {
-    saveNameLoading.value = true
+    state.saveNameLoading = true
     const { message } = await changeName(userData.name, getItem('id'))
     ElMessage.success(message)
   } catch (e: any) {
     e.message && ElMessage.error(e.message)
     console.log(e, 'saveName')
   } finally {
-    saveNameLoading.value = false
+    state.saveNameLoading = false
   }
 }
 // 保存性别
 const saveSex = async () => {
   try {
-    saveSexLoading.value = true
+    state.saveSexLoading = true
     const { message } = await changeSex(userData.sex, getItem('id'))
     ElMessage.success(message)
   } catch (e: any) {
     e.message && ElMessage.error(e.message)
     console.log(e, 'saveSex')
   } finally {
-    saveSexLoading.value = false
+    state.saveSexLoading = false
   }
 }
 // 保存邮箱
 const saveEmail = async () => {
   try {
+    state.saveEmailLoading = true
     const { message } = await changeEmail(userData.email, getItem('id'))
     ElMessage.success(message)
   } catch (e: any) {
     e.message && ElMessage.error(e.message)
     console.log(e, 'saveEmail')
   } finally {
-    saveEmailLoading.value = false
+    state.saveEmailLoading = false
   }
 }
 // 打开密码弹窗
@@ -2345,5 +2373,6 @@ const openChangePassword = () => {
 <style lang="scss" scoped>
 ...
 </style>
+
 ```
 
