@@ -7,20 +7,17 @@ export const useUserStore = defineStore(
   'userStore',
   () => {
     const imageUrl = ref<string | null>()
-    const storeIdentity = ref<string>()
+    const identity = ref<string>()
     const userInfo = async (id: number) => {
       const res = await getUserInfo(id)
-      const {
-        data: { image_url, identity }
-      } = res
-      imageUrl.value = image_url
-      storeIdentity.value = identity
+      imageUrl.value = res.data.image_url
+      identity.value = res.data.identity
     }
 
     return {
       imageUrl,
       userInfo,
-      storeIdentity
+      identity
     }
   },
   {
@@ -32,17 +29,14 @@ export const useUserStore = defineStore(
 // export const useUserStore = defineStore('userStore', {
 //   state: () => ({
 //     imageUrl: '',
-//     storeIdentity: ''
+//     identity: ''
 //   }),
 //   actions: {
 //     async userInfo(id: number) {
 //       const res = await getUserInfo(id)
-//       const {
-//         data: { image_url, identity }
-//       } = res
 //
-//       this.imageUrl = image_url || ''
-//       this.storeIdentity = identity
+//       this.imageUrl = res.data.image_url || ''
+//       this.identity = res.data.identity
 //     }
 //   },
 //   persist: false
