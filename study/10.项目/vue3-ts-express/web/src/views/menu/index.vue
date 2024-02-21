@@ -144,11 +144,11 @@ import {
 // import { getReadListAndStatus } from '@/api/dep_msg.js'
 import { useRouter } from 'vue-router'
 import { getItem } from '@/utils/storage'
-import { useUserInfo } from '@/stores/userInfo'
+import { useUserStore } from '@/stores/userStore'
 // import { useMsg } from '@/store/message.js'
 
 // const msgStore = useMsg()
-const userStore = useUserInfo()
+const userStore = useUserStore()
 const router = useRouter()
 const name = getItem('name')
 

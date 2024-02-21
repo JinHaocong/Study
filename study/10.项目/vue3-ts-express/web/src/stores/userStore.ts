@@ -2,8 +2,8 @@ import { defineStore } from 'pinia'
 import { getUserInfo } from '@/api/userInfo'
 import { ref } from 'vue'
 
-export const useUserInfo = defineStore(
-  'userinfo',
+export const useUserStore = defineStore(
+  'userStore',
   () => {
     const imageUrl = ref<string | null>()
     const storeIdentity = ref<string>()

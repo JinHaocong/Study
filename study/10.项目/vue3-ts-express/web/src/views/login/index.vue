@@ -109,7 +109,7 @@ import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 import forget from './components/forgetPassword.vue'
 import { login, type LoginRegister, register } from '@/api/login'
-import { useUserInfo } from '@/stores/userInfo'
+import { useUserStore } from '@/stores/userStore'
 import type { Engine } from 'tsparticles-engine'
 import { loadSlim } from 'tsparticles-slim'
 import { setItems } from '@/utils/storage'
@@ -244,7 +244,7 @@ const particlesInit = async (engine: Engine): Promise<void> => {
 // sign 登录
 const loginFromRef = ref<FormInstance>()
 const router = useRouter()
-const store = useUserInfo()
+const store = useUserStore()
 
 // 登录表单数据
 const loginFormData: LoginRegister = reactive<LoginRegister>({
