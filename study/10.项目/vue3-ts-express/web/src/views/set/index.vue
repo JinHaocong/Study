@@ -225,10 +225,8 @@ const saveUserData = async (
     await userStore.setUserInfo(getItem('id'))
     ElMessage.success(message)
   } catch (e: any) {
-    if (e.message) {
-      ElMessage.error(e.message)
-      console.error(e, saveFunction)
-    }
+    if (e.message) ElMessage.error(e.message)
+    console.error(e, saveFunction)
   } finally {
     state[saveFunction + 'Loading'] = false
   }
