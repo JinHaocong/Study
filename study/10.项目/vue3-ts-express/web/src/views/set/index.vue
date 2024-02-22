@@ -1,5 +1,4 @@
 <template>
-  <!-- 外壳 -->
   <div class="common-wrapped">
     <!-- 内容 -->
     <div class="common-content">
@@ -102,10 +101,10 @@
         <el-tab-pane label="其他设置" name="fourth"></el-tab-pane>
       </el-tabs>
     </div>
-  </div>
 
-  <!-- 修改密码弹窗 -->
-  <ChangePassword ref="changeP"></ChangePassword>
+    <!-- 修改密码弹窗 -->
+    <ChangePassword ref="changeP"></ChangePassword>
+  </div>
 </template>
 
 <script lang="ts" setup>

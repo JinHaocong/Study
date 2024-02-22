@@ -117,8 +117,12 @@
           </div>
         </el-header>
         <BreadCrumb :crumb-item-list="crumbStore.crumbItemList" />
-        <el-main>
-          <router-view></router-view>
+        <el-main style="overflow: hidden; width: 100%; height: calc(100vh - 85px)">
+          <router-view v-slot="{ Component }">
+            <transition mode="out-in" name="fade-transform">
+              <component :is="Component" />
+            </transition>
+          </router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -204,7 +208,7 @@ const openDepartmentMessage = () => {
   height: 100vh;
   width: 220px;
   overflow: hidden;
-  box-shadow: 10px 0 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
   font-weight: bold;
 
   // 标题
@@ -330,11 +334,30 @@ const openDepartmentMessage = () => {
 }
 
 .el-main {
-  --el-main-padding: 10px;
+  --el-main-padding: 15px;
   background-color: #f3f4fa;
+}
+
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+  transition: all 0.5s;
+}
+
+.fade-transform-enter-from {
+  opacity: 0;
+  transform: translateX(-15px);
+}
+
+.fade-transform-leave-to {
+  opacity: 0;
+  transform: translateX(15px);
 }
 
 :deep(.el-menu--inline) {
   background: #aa4b6b;
+}
+
+.el-menu-vertical-demo {
+  overflow: auto;
 }
 </style>
