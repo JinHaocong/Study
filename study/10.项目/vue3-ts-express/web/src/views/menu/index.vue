@@ -2,7 +2,7 @@
   <div class="common-layout">
     <el-container>
       <el-aside width="200px">
-        <el-menu class="el-menu-vertical-demo" router>
+        <el-menu :default-active="$route.name" class="el-menu-vertical-demo" router>
           <div class="title">通用后台管理系统</div>
           <el-menu-item index="home">
             <el-icon>
