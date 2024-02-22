@@ -193,7 +193,7 @@ const handleAvatarSuccess = async (response: ApiResult<imageInfo>) => {
   try {
     const { image_url, onlyId } = response.data
     const res = await bind(getItem('account'), { image_url, onlyId })
-    userStore.$patch({ image_url })
+    userStore.image_url = image_url
     await userStore.setUserInfo(getItem('id'))
     ElMessage.success(res.message)
   } catch (e: any) {
@@ -226,8 +226,8 @@ const saveUserData = async (
   try {
     userInfoState[saveFunction + 'Loading'] = true
     const { message } = await apiFunction(userData[userDataKey], getItem('id'))
-    await userStore.setUserInfo(getItem('id'))
     ElMessage.success(message)
+    userStore[userDataKey] = userData[userDataKey]
   } catch (e: any) {
     if (e.message) ElMessage.error(e.message)
     console.error(e, saveFunction)
