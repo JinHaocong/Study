@@ -250,15 +250,9 @@ const openChangePassword = () => {
 <style lang="scss" scoped>
 // 外壳
 .common-wrapped {
-  background: #f5f5f5;
-  // 计算 减去了头部还有面包屑 + 2X8=16边距
-  height: 100%;
-
   // 内容
   .common-content {
     padding: 0 10px;
-    height: 100%;
-    background: #fff;
 
     // 账号信息外壳
     .account-info-wrapped {
