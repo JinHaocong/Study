@@ -19,6 +19,9 @@ const app = express();
 // 解决跨域
 app.use(cors());
 
+// 静态资源托管
+app.use(express.static('./public'));
+
 // 日志
 app.use(logger('dev'));
 

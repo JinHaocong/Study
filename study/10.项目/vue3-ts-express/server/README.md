@@ -630,6 +630,15 @@ module.exports = uploadFileMiddleware;
 
 ```
 
+## express添加静态资源托管
+
+app.js
+
+```js
+// 静态资源托管
+app.use(express.static('./public'));
+```
+
 ## 添加接口路由
 
 router/userinfo.js
