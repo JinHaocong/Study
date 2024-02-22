@@ -51,7 +51,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.use(function (req: { body: any }, res: {
+app.use(function(req: { body: any }, res: {
   setHeader: (arg0: string, arg1: string) => void
   write: (arg0: string) => void
   end: (arg0: string) => void
@@ -83,8 +83,8 @@ app.listen(process.env.PORT, () => {
 
 ```json
   "scripts": {
-    "dev": "SET NODE_ENV=development&& nodemon app.js --mode development"
-  },
+"dev": "SET NODE_ENV=development&& nodemon app.js --mode development"
+},
 ```
 
 ## 配置编码规范
@@ -435,8 +435,6 @@ exports.loginLimit = {
 
 ```
 
-
-
 ## jwt中间件
 
 middlewares/tokenAuthentication.js
@@ -613,7 +611,7 @@ const storage = multer.diskStorage({
   },
   // 名称替换
   filename(req, file, cb) {
-    const newNameBuffer = Buffer.from(file.originalname, 'utf8');
+    const newNameBuffer = Buffer.from(file.originalname, 'binary');
     const newName = iconv.decode(newNameBuffer, 'utf8');
     cb(null, newName);
   },
@@ -644,7 +642,9 @@ router.post('/uploadAvatar', tokenAuthentication, multer, userinfoHandler.upload
 ## 安装iconv-lite 解决中文乱码
 
 ```js
-yarn add iconv-lite
+yarn
+add
+iconv - lite
 ```
 
 ## 添加路由处理函数
@@ -944,4 +944,4 @@ exports.changePassword = async (req, res, next) => {
 };
 ```
 
-# 
+#  

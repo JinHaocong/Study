@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
   },
   // 名称替换
   filename(req, file, cb) {
-    const newNameBuffer = Buffer.from(file.originalname, 'utf8');
+    const newNameBuffer = Buffer.from(file.originalname, 'binary');
     const newName = iconv.decode(newNameBuffer, 'utf8');
     cb(null, newName);
   },
@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage }).single('avatar');
 const uploadFileMiddleware = (req, res, next) => {
   upload(req, res, (err) => {
-    if (err) return res.error(err);
+    if (err) return res.error(err.message);
     if (!req.file) return res.error('文件未上传');
     next();
   });
