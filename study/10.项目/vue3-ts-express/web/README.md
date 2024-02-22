@@ -2202,8 +2202,8 @@ web/src/views/set/index.vue
                 name="avatar"
               >
                 <img
-                  v-if="userStore.imageUrl"
-                  :src="userStore.imageUrl"
+                  v-if="userStore.image_url"
+                  :src="userStore.image_url"
                   alt="用户头像"
                   class="avatar"
                 />
@@ -2327,7 +2327,17 @@ const handleClick = (tab: TabsPaneContext) => {
 
 // sign 账号详情
 const userStore = useUserStore()
-const state = reactive({
+
+interface State {
+  accountLoading: boolean
+  saveNameLoading: boolean
+  saveSexLoading: boolean
+  saveEmailLoading: boolean
+
+  [key: string]: boolean // 添加索引签名
+}
+
+const state: State = reactive({
   accountLoading: false,
   saveNameLoading: false,
   saveSexLoading: false,
@@ -2340,7 +2350,8 @@ let userData: UserInfo = reactive({
   sex: '',
   identity: '',
   department: '',
-  email: ''
+  email: '',
+  image_url: ''
 })
 
 // 请求获取用户信息
@@ -2361,7 +2372,8 @@ const handleAvatarSuccess = async (response: ApiResult<imageInfo>) => {
   try {
     const { image_url, onlyId } = response.data
     const res = await bind(getItem('account'), { image_url, onlyId })
-    userStore.$patch({ imageUrl: image_url })
+    userStore.$patch({ image_url })
+    await userStore.setUserInfo(getItem('id'))
     ElMessage.success(res.message)
   } catch (e: any) {
     e.message && ElMessage.error(e.message)
@@ -2384,44 +2396,40 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 
   return true
 }
+// 保存用户数据的通用函数
+const saveUserData = async (
+  saveFunction: 'saveName' | 'saveSex' | 'saveEmail',
+  userDataKey: 'name' | 'sex' | 'email',
+  apiFunction: (data: string | null, id: number) => Promise<ApiResult<[]>>
+) => {
+  try {
+    state[saveFunction + 'Loading'] = true
+    const { message } = await apiFunction(userData[userDataKey], getItem('id'))
+    await userStore.setUserInfo(getItem('id'))
+    ElMessage.success(message)
+  } catch (e: any) {
+    if (e.message) {
+      ElMessage.error(e.message)
+      console.error(e, saveFunction)
+    }
+  } finally {
+    state[saveFunction + 'Loading'] = false
+  }
+}
+
 // 保存姓名
 const saveName = async () => {
-  try {
-    state.saveNameLoading = true
-    const { message } = await changeName(userData.name, getItem('id'))
-    ElMessage.success(message)
-  } catch (e: any) {
-    e.message && ElMessage.error(e.message)
-    console.log(e, 'saveName')
-  } finally {
-    state.saveNameLoading = false
-  }
+  await saveUserData('saveName', 'name', changeName)
 }
+
 // 保存性别
 const saveSex = async () => {
-  try {
-    state.saveSexLoading = true
-    const { message } = await changeSex(userData.sex, getItem('id'))
-    ElMessage.success(message)
-  } catch (e: any) {
-    e.message && ElMessage.error(e.message)
-    console.log(e, 'saveSex')
-  } finally {
-    state.saveSexLoading = false
-  }
+  await saveUserData('saveSex', 'sex', changeSex)
 }
+
 // 保存邮箱
 const saveEmail = async () => {
-  try {
-    state.saveEmailLoading = true
-    const { message } = await changeEmail(userData.email, getItem('id'))
-    ElMessage.success(message)
-  } catch (e: any) {
-    e.message && ElMessage.error(e.message)
-    console.log(e, 'saveEmail')
-  } finally {
-    state.saveEmailLoading = false
-  }
+  await saveUserData('saveEmail', 'email', changeEmail)
 }
 // 打开密码弹窗
 const openChangePassword = () => {
