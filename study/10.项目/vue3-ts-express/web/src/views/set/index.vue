@@ -4,7 +4,11 @@
     <!-- 内容 -->
     <div class="common-content">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane v-loading="state.accountLoading" label="账号详情" name="accountDetails">
+        <el-tab-pane
+          v-loading="userInfoState.accountLoading"
+          label="账号详情"
+          name="accountDetails"
+        >
           <div class="account-info-wrapped">
             <span>用户头像：</span>
             <div class="account-info-content">
@@ -48,7 +52,7 @@
               <el-input v-model="userData.name"></el-input>
             </div>
             <div class="account-save-button">
-              <el-button :loading="state.saveNameLoading" type="primary" @click="saveName"
+              <el-button :loading="userInfoState.saveNameLoading" type="primary" @click="saveName"
                 >保存
               </el-button>
             </div>
@@ -62,7 +66,7 @@
               </el-select>
             </div>
             <div class="account-save-button">
-              <el-button :loading="state.saveSexLoading" type="primary" @click="saveSex"
+              <el-button :loading="userInfoState.saveSexLoading" type="primary" @click="saveSex"
                 >保存
               </el-button>
             </div>
@@ -85,7 +89,7 @@
               <el-input v-model="userData.email"></el-input>
             </div>
             <div class="account-save-button">
-              <el-button :loading="state.saveEmailLoading" type="primary" @click="saveEmail"
+              <el-button :loading="userInfoState.saveEmailLoading" type="primary" @click="saveEmail"
                 >保存
               </el-button>
             </div>
@@ -145,7 +149,7 @@ const handleClick = (tab: TabsPaneContext) => {
 // sign 账号详情
 const userStore = useUserStore()
 
-interface State {
+interface UserInfoState {
   accountLoading: boolean
   saveNameLoading: boolean
   saveSexLoading: boolean
@@ -154,7 +158,7 @@ interface State {
   [key: string]: boolean // 添加索引签名
 }
 
-const state: State = reactive({
+const userInfoState: UserInfoState = reactive({
   accountLoading: false,
   saveNameLoading: false,
   saveSexLoading: false,
@@ -174,14 +178,14 @@ let userData: UserInfo = reactive({
 // 请求获取用户信息
 const requestUserInfo = async () => {
   try {
-    state.accountLoading = true
+    userInfoState.accountLoading = true
     const res = await getUserInfo(getItem('id'))
     Object.assign(userData, res.data)
   } catch (e: any) {
     e.message && ElMessage.error(e.message)
     console.log(e, 'requestUserInfo')
   } finally {
-    state.accountLoading = false
+    userInfoState.accountLoading = false
   }
 }
 // 头像上传成功的函数 response回应
@@ -220,7 +224,7 @@ const saveUserData = async (
   apiFunction: (data: string | null, id: number) => Promise<ApiResult<[]>>
 ) => {
   try {
-    state[saveFunction + 'Loading'] = true
+    userInfoState[saveFunction + 'Loading'] = true
     const { message } = await apiFunction(userData[userDataKey], getItem('id'))
     await userStore.setUserInfo(getItem('id'))
     ElMessage.success(message)
@@ -228,7 +232,7 @@ const saveUserData = async (
     if (e.message) ElMessage.error(e.message)
     console.error(e, saveFunction)
   } finally {
-    state[saveFunction + 'Loading'] = false
+    userInfoState[saveFunction + 'Loading'] = false
   }
 }
 
