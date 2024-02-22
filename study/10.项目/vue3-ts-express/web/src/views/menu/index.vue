@@ -243,6 +243,10 @@ const openDepartmentMessage = () => {
     }
   }
 
+  .el-menu-item.is-active {
+    color: #3b8d99;
+  }
+
   :deep(.el-sub-menu__title) {
     color: #333333;
 
