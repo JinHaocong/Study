@@ -2136,7 +2136,7 @@ web/src/views/set/index.vue
               <el-upload
                 :action="instance.defaults.baseURL + '/user/uploadAvatar'"
                 :before-upload="beforeAvatarUpload"
-                :headers="instance.defaults.headers"
+                :headers="{ Authorization: getItem('token') }"
                 :on-success="handleAvatarSuccess"
                 :show-file-list="false"
                 class="avatar-uploader"
