@@ -644,13 +644,17 @@ const setStorage = (
   id: number,
   token: string | undefined,
   name: string | null,
-  department: string | null
+  department: string | null,
+  email: string | null,
+  account: string
 ) => {
   const obj = {
     id,
     token,
     name,
-    department
+    department,
+    email,
+    account
   }
 
   setItems(obj)
@@ -787,9 +791,9 @@ const Login = async (formEl: FormInstance | undefined) => {
       message
     } = res
     ElMessage.success(message)
-    setStorage(id, token, name, department)
+    setStorage(id, token, name, department, email, account)
     // await loginLog(Number(account), name || '', email || '')
-    // await store.setUserInfo(id)
+    await store.apiUserInfo(id)
     // 跳转
     await router.push('/home')
   } catch (e: any) {
@@ -857,170 +861,7 @@ const openForget = () => {
 </script>
 
 <style lang="scss" scoped>
-.login__particles {
-  height: 100%;
-  width: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-image: linear-gradient(to right, #aa4b6b, #6b6b83, #3b8d99);
-  position: fixed;
-  pointer-events: none;
-}
-
-// 主体部分
-.el-main {
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  --el-main-padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  --el-color-primary: #aa4b6b;
-
-  // 登录外壳
-  .login-wrapped {
-    // 卡片样式
-    :deep(.box-card) {
-      border: none;
-      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
-      border-radius: 30px;
-      width: 370px;
-      height: 385px;
-      float: right;
-      position: relative;
-      top: 14%;
-
-      .el-card__body {
-        height: calc(100% - 40px);
-        width: calc(100% - 40px);
-        padding: 20px;
-
-        .el-tabs {
-          height: 100%;
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-
-          .el-tabs__header {
-            height: 40px;
-            margin-bottom: 40px;
-          }
-
-          .el-tabs__content {
-            height: calc(100% - 80px);
-
-            .el-tab-pane {
-              height: 100%;
-              display: flex;
-              flex-direction: column;
-              justify-content: space-between;
-            }
-          }
-        }
-      }
-
-      :deep(.login-form) {
-        .el-input__wrapper {
-          --el-input-focus-border: linear-gradient(to right, #aa4b6b, #6b6b83, #3b8d99);
-        }
-      }
-
-      // 登录底部外壳
-      .footer-wrapped {
-        display: flex;
-        flex-direction: column;
-
-        .forget-password {
-          display: flex;
-          justify-content: flex-end;
-          margin: 10px 0;
-
-          .forget-password-button {
-            font-size: 12px;
-            color: #3b8d99;
-            cursor: pointer;
-          }
-        }
-
-        .footer-go-register {
-          font-size: 12px;
-          margin: 12px 0;
-          display: flex;
-          justify-content: center;
-
-          .go-register {
-            font-size: 12px;
-            color: #3b8d99;
-            cursor: 3b8d99;
-          }
-        }
-      }
-
-      // 底部登录按钮
-      .footer-button {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-
-        .el-button {
-          background-image: linear-gradient(to right, #aa4b6b, #6b6b83, #3b8d99);
-          opacity: 0.7;
-          border: none;
-
-          &:hover {
-            opacity: 0.5;
-          }
-        }
-      }
-    }
-  }
-}
-
-// 底部部分
-.el-footer {
-  z-index: 1;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  --el-footer-height: 30px;
-  --el-footer-padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 12px;
-  color: #999;
-}
-
-// tabs标签
-:deep(.el-tabs__item) {
-  color: #333;
-  font-size: 18px;
-}
-
-// 输入框高度
-:deep(.el-input__inner) {
-  height: 40px;
-}
-
-// 输入框标签字体高度
-:deep(.el-form-item__label) {
-  height: 40px;
-  line-height: 40px;
-}
-
-// 登录按钮
-:deep(.el-button) {
-  width: 300px;
-  height: 45px;
-  font-size: 16px;
-}
-
-.forget {
-  height: 100%;
-  width: 100%;
-}
+...
 </style>
 
 ```
@@ -1372,6 +1213,7 @@ const name = getItem('name')
 
 const goLogin = () => {
   router.push('/login')
+  userStore.clearState()
 }
 
 // const noread = ref(false)
@@ -1393,141 +1235,7 @@ const openDepartmentMessage = () => {
 </script>
 
 <style lang="scss" scoped>
-.el-aside {
-  opacity: 0.9;
-  background: rgba(197, 70, 111, 0.6);
-  height: 100vh;
-  width: 220px;
-  overflow: hidden;
-  box-shadow: 10px 0 20px rgba(0, 0, 0, 0.3);
-  font-weight: bold;
-
-  // 标题
-  .title {
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    color: #333333;
-    background: #2b303b;
-  }
-
-  .el-menu {
-    opacity: 0.8;
-    background: #a4a4be;
-    width: 100%;
-    height: 100vh;
-    border-right: 0;
-  }
-
-  :deep(.el-menu--inline) {
-    opacity: 0.8;
-    background: #a4a4be;
-  }
-
-  .title {
-    opacity: 0.8;
-    background: #a4a4be;
-    font-weight: bold;
-    font-size: 18px;
-  }
-
-  :deep(.el-menu-item) {
-    color: #333333;
-
-    &:hover {
-      background: rgba(183, 93, 125, 0.64);
-    }
-  }
-
-  :deep(.el-sub-menu__title) {
-    color: #333333;
-
-    &:hover {
-      background: rgba(183, 93, 125, 0.64);
-    }
-  }
-
-  :deep(.el-menu-item-group__title) {
-    color: rgba(81, 81, 81, 0.61);
-  }
-}
-
-.el-header {
-  display: flex;
-  height: 55px;
-  //background: #a4a4be;
-  opacity: 0.8;
-  background-image: linear-gradient(to right, #c5466f99, #6b6b83, #aea4be);
-  color: #333333;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-
-  // 欢迎语
-  .header-left-content {
-    font-size: 14px;
-
-    .name {
-      font-weight: bold;
-    }
-  }
-
-  .header-right-content {
-    width: 100px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-
-    .badge {
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: all 0.2s ease-in-out;
-
-      &:hover {
-        transform: scale(1.2);
-        color: #3b8d99;
-      }
-    }
-
-    .badge {
-      i {
-        font-size: 24px !important;
-      }
-    }
-  }
-
-  .el-dropdown-link {
-    cursor: pointer;
-
-    &:focus-visible {
-      outline: none;
-    }
-
-    .avatar {
-      transition: all 0.3s ease-in-out;
-
-      &:hover {
-        transform: rotate(360deg);
-      }
-    }
-  }
-}
-
-// 徽章
-.item {
-  cursor: pointer;
-}
-
-.el-main {
-  --el-main-padding: 20px;
-  background-color: #f3f4fa;
-}
-
-:deep(.el-menu--inline) {
-  background: #aa4b6b;
-}
+...
 </style>
 
 ```
@@ -2130,7 +1838,7 @@ import { reactive, toRefs } from 'vue'
 export const useUserStore = defineStore(
   'userStore',
   () => {
-    const state = reactive<UserInfo>({
+    const initialState: UserInfo = {
       name: '',
       account: '',
       sex: '',
@@ -2138,15 +1846,29 @@ export const useUserStore = defineStore(
       department: '',
       email: '',
       image_url: ''
-    })
-    const userInfo = async (id: number) => {
+    }
+
+    const state = reactive<UserInfo>({ ...initialState })
+    const apiUserInfo = async (id: number) => {
       const res = await getUserInfo(id)
-      Object.assign(state, res.data)
+      updateState(res.data)
+    }
+
+    // 通过action更改state中的数据
+    const updateState = (updatedInfo: Partial<UserInfo>): void => {
+      Object.assign(state, updatedInfo)
+    }
+
+    // 清除数据到初始值
+    const clearState = () => {
+      Object.assign(state, initialState)
     }
 
     return {
       ...toRefs(state),
-      userInfo
+      apiUserInfo,
+      updateState,
+      clearState
     }
   },
   {
@@ -2174,6 +1896,7 @@ export const useUserStore = defineStore(
 //   },
 //   persist: true
 // })
+
 ```
 
 #### 页面完成
@@ -2376,8 +2099,7 @@ const handleAvatarSuccess = async (response: ApiResult<imageInfo>) => {
   try {
     const { image_url, onlyId } = response.data
     const res = await bind(getItem('account'), { image_url, onlyId })
-    userStore.image_url = image_url
-    await userStore.setUserInfo(getItem('id'))
+    userStore.updateState({ image_url })
     ElMessage.success(res.message)
   } catch (e: any) {
     e.message && ElMessage.error(e.message)
@@ -2410,7 +2132,7 @@ const saveUserData = async (
     userInfoState[saveFunction + 'Loading'] = true
     const { message } = await apiFunction(userData[userDataKey], getItem('id'))
     ElMessage.success(message)
-    userStore[userDataKey] = userData[userDataKey]
+    userStore.updateState({ [userDataKey]: userData[userDataKey] })
   } catch (e: any) {
     if (e.message) ElMessage.error(e.message)
     console.error(e, saveFunction)

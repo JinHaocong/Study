@@ -176,6 +176,7 @@ router.beforeEach((to) => {
 
 const goLogin = () => {
   router.push('/login')
+  userStore.clearState()
 }
 
 // const noread = ref(false)

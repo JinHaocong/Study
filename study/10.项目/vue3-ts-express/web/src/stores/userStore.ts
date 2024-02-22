@@ -6,7 +6,7 @@ import { reactive, toRefs } from 'vue'
 export const useUserStore = defineStore(
   'userStore',
   () => {
-    const state = reactive<UserInfo>({
+    const initialState: UserInfo = {
       name: '',
       account: '',
       sex: '',
@@ -14,15 +14,29 @@ export const useUserStore = defineStore(
       department: '',
       email: '',
       image_url: ''
-    })
-    const setUserInfo = async (id: number) => {
+    }
+
+    const state = reactive<UserInfo>({ ...initialState })
+    const apiUserInfo = async (id: number) => {
       const res = await getUserInfo(id)
-      Object.assign(state, res.data)
+      updateState(res.data)
+    }
+
+    // 通过action更改state中的数据
+    const updateState = (updatedInfo: Partial<UserInfo>): void => {
+      Object.assign(state, updatedInfo)
+    }
+
+    // 清除数据到初始值
+    const clearState = () => {
+      Object.assign(state, initialState)
     }
 
     return {
       ...toRefs(state),
-      setUserInfo
+      apiUserInfo,
+      updateState,
+      clearState
     }
   },
   {

@@ -277,7 +277,7 @@ const Login = async (formEl: FormInstance | undefined) => {
     ElMessage.success(message)
     setStorage(id, token, name, department, email, account)
     // await loginLog(Number(account), name || '', email || '')
-    await store.setUserInfo(id)
+    await store.apiUserInfo(id)
     // 跳转
     await router.push('/home')
   } catch (e: any) {
