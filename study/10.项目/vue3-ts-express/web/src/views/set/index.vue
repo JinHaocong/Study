@@ -19,8 +19,8 @@
                 name="avatar"
               >
                 <img
-                  v-if="userStore.imageUrl"
-                  :src="userStore.imageUrl"
+                  v-if="userStore.image_url"
+                  :src="userStore.image_url"
                   alt="用户头像"
                   class="avatar"
                 />
@@ -179,7 +179,7 @@ const handleAvatarSuccess = async (response: ApiResult<imageInfo>) => {
   try {
     const { image_url, onlyId } = response.data
     const res = await bind(getItem('account'), { image_url, onlyId })
-    userStore.$patch({ imageUrl: image_url })
+    userStore.$patch({ image_url })
     ElMessage.success(res.message)
   } catch (e: any) {
     e.message && ElMessage.error(e.message)

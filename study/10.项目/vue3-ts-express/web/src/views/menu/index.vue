@@ -103,7 +103,7 @@
               <span class="el-dropdown-link">
                 <el-avatar
                   :size="36"
-                  :src="userStore.imageUrl || 'src/assets/default.jpg'"
+                  :src="userStore.image_url || 'src/assets/default.jpg'"
                   class="avatar"
               /></span>
               <template #dropdown>

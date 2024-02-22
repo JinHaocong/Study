@@ -1,23 +1,28 @@
 import { defineStore } from 'pinia'
-import { getUserInfo } from '@/api/userInfo'
-import { ref } from 'vue'
+import { getUserInfo, type UserInfo } from '@/api/userInfo'
+import { reactive, toRefs } from 'vue'
 
 // sign Setup Store
 export const useUserStore = defineStore(
   'userStore',
   () => {
-    const imageUrl = ref<string | null>()
-    const identity = ref<string>()
-    const userInfo = async (id: number) => {
+    const state = reactive<UserInfo>({
+      name: '',
+      account: '',
+      sex: '',
+      identity: '',
+      department: '',
+      email: '',
+      image_url: ''
+    })
+    const setUserInfo = async (id: number) => {
       const res = await getUserInfo(id)
-      imageUrl.value = res.data.image_url
-      identity.value = res.data.identity
+      Object.assign(state, res.data)
     }
 
     return {
-      imageUrl,
-      userInfo,
-      identity
+      ...toRefs(state),
+      setUserInfo
     }
   },
   {
@@ -26,18 +31,22 @@ export const useUserStore = defineStore(
 )
 
 // sign Option Store
-// export const useUserStore = defineStore('userStore', {
+// export const useUserStore = defineStore({
+//   id: 'userStore',
 //   state: () => ({
-//     imageUrl: '',
-//     identity: ''
+//     name: '',
+//     account: '',
+//     sex: '',
+//     identity: '',
+//     department: '',
+//     email: '',
+//     image_url: ''
 //   }),
 //   actions: {
 //     async userInfo(id: number) {
 //       const res = await getUserInfo(id)
-//
-//       this.imageUrl = res.data.image_url || ''
-//       this.identity = res.data.identity
+//       Object.assign(this, res.data)
 //     }
 //   },
-//   persist: false
+//   persist: true
 // })

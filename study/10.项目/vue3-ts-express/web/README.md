@@ -789,7 +789,7 @@ const Login = async (formEl: FormInstance | undefined) => {
     ElMessage.success(message)
     setStorage(id, token, name, department)
     // await loginLog(Number(account), name || '', email || '')
-    // await store.userInfo(id)
+    // await store.setUserInfo(id)
     // 跳转
     await router.push('/home')
   } catch (e: any) {
@@ -2123,25 +2123,30 @@ web/src/stores/userStore.ts
 
 ```ts
 import { defineStore } from 'pinia'
-import { getUserInfo } from '@/api/userInfo'
-import { ref } from 'vue'
+import { getUserInfo, type UserInfo } from '@/api/userInfo'
+import { reactive, toRefs } from 'vue'
 
 // sign Setup Store
 export const useUserStore = defineStore(
   'userStore',
   () => {
-    const imageUrl = ref<string | null>()
-    const identity = ref<string>()
+    const state = reactive<UserInfo>({
+      name: '',
+      account: '',
+      sex: '',
+      identity: '',
+      department: '',
+      email: '',
+      image_url: ''
+    })
     const userInfo = async (id: number) => {
       const res = await getUserInfo(id)
-      imageUrl.value = res.data.image_url
-      identity.value = res.data.identity
+      Object.assign(state, res.data)
     }
 
     return {
-      imageUrl,
-      userInfo,
-      identity
+      ...toRefs(state),
+      userInfo
     }
   },
   {
@@ -2150,22 +2155,25 @@ export const useUserStore = defineStore(
 )
 
 // sign Option Store
-// export const useUserStore = defineStore('userStore', {
+// export const useUserStore = defineStore({
+//   id: 'userStore',
 //   state: () => ({
-//     imageUrl: '',
-//     identity: ''
+//     name: '',
+//     account: '',
+//     sex: '',
+//     identity: '',
+//     department: '',
+//     email: '',
+//     image_url: ''
 //   }),
 //   actions: {
 //     async userInfo(id: number) {
 //       const res = await getUserInfo(id)
-//
-//       this.imageUrl = res.data.image_url || ''
-//       this.identity = res.data.identity
+//       Object.assign(this, res.data)
 //     }
 //   },
-//   persist: false
+//   persist: true
 // })
-
 ```
 
 #### 页面完成
