@@ -405,7 +405,9 @@ const particlesInit = async (engine: Engine): Promise<void> => {
 </style>
 ```
 
-### 封装localStorage
+### 封装localStorage和sessionStorage
+
+web/src/utils/storage.ts
 
 ```ts
 interface Items {
@@ -435,6 +437,36 @@ export const getItems = (keys: string[]): Items => {
 
   keys.forEach((key) => {
     const storedValue = getItem(key)
+
+    result[key] = storedValue ? JSON.parse(storedValue) : null
+  })
+
+  return result
+}
+
+export const setSessionItem = (key: string, value: any) => {
+  const serializedValue = JSON.stringify(value)
+  sessionStorage.setItem(key, serializedValue)
+}
+
+export const setSessionItems = (obj: Items) => {
+  for (const [key, value] of Object.entries(obj)) {
+    setSessionItem(key, value)
+  }
+}
+
+export const getSessionItem = (key: string) => {
+  const storedValue = sessionStorage.getItem(key)
+
+  if (storedValue !== null) return JSON.parse(storedValue)
+  return null
+}
+
+export const getSessionItems = (keys: string[]): Items => {
+  const result: Items = {}
+
+  keys.forEach((key) => {
+    const storedValue = getSessionItem(key)
 
     result[key] = storedValue ? JSON.parse(storedValue) : null
   })
