@@ -31,7 +31,7 @@ export const changeCompanyName = (companyName: string) => {
 }
 
 // 编辑公司介绍的接口
-export const changeCompanyIntroduce = (companyInfo: CompanyInfo) => {
+export const changeCompanyIntroduce = (companyInfo: Partial<CompanyInfo>) => {
   return post<Setting[]>('/set/changeCompanyIntroduce', companyInfo)
 }
 
