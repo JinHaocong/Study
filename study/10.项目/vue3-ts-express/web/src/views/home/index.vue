@@ -1,18 +1,18 @@
 <template>
   <div class="common-wrapped">
-    <div v-loading="swiperState.swiperLoading" class="swiper-wrapped">
+    <div v-loading="swiperState.loading" class="swiper-wrapped">
       <el-carousel :interval="4000" height="100%" indicator-position="outside" type="card">
-        <el-carousel-item v-for="(item, index) in swiperData" :key="index">
+        <el-carousel-item v-for="(item, index) in swiperState.swiperData" :key="index">
           <img v-if="item.set_value" :src="item.set_value" alt="" class="swiper" />
         </el-carousel-item>
       </el-carousel>
     </div>
-    <div class="layout-wrapped">
+    <div v-loading="companyState.loading" class="layout-wrapped">
       <el-row :gutter="20" style="height: 100%">
-        <el-col v-for="(item, index) in 4" :key="index" :span="6">
+        <el-col v-for="(item, index) in companyState.companyInfo" :key="index" :span="6">
           <div class="company-message-area">
-            <span>{{ item }}</span>
-            <div class="company-introduce" v-html="123"></div>
+            <span>{{ item.set_value }}</span>
+            <div class="company-introduce" v-html="item.set_text"></div>
           </div>
         </el-col>
       </el-row>
@@ -43,29 +43,59 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, ref } from 'vue'
-import { getAllSwiper, type Setting } from '@/api/setting'
+import { onMounted, reactive } from 'vue'
+import { getAllSwiper, getCompanyIntroduce, type Setting } from '@/api/setting'
 
 onMounted(() => {
   apiAllSwiper()
+  apiCompanyIntroduce()
 })
 
 // sign 轮播图
 interface SwiperState {
-  swiperLoading: boolean
+  loading: boolean
+  swiperData: Setting[]
 }
 
-const swiperData = ref<Setting[]>([])
-const swiperState: SwiperState = reactive({ swiperLoading: false })
+const swiperState: SwiperState = reactive({
+  loading: false,
+  swiperData: []
+})
+
+// 获取轮播图
 const apiAllSwiper = async () => {
   try {
-    swiperState.swiperLoading = true
+    swiperState.loading = true
     const { data } = await getAllSwiper()
-    swiperData.value = data
+    swiperState.swiperData = data
   } catch (e) {
     console.log(e, 'apiAllSwiper')
   } finally {
-    swiperState.swiperLoading = false
+    swiperState.loading = false
+  }
+}
+
+// sign 公司信息
+interface CompanyState {
+  companyInfo: Setting[]
+  loading: boolean
+}
+
+const companyState = reactive<CompanyState>({
+  companyInfo: [],
+  loading: false
+})
+
+// 获取公司介绍
+const apiCompanyIntroduce = async () => {
+  try {
+    companyState.loading = true
+    const { data } = await getCompanyIntroduce()
+    companyState.companyInfo = data.filter((item) => item.set_name !== 'companyName')
+  } catch (e) {
+    console.log(e, 'apiCompanyIntroduce')
+  } finally {
+    companyState.loading = false
   }
 }
 </script>

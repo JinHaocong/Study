@@ -429,8 +429,12 @@ const openEditor = (id: string) => {
 }
 // 获取公司信息
 const apiCompanyIntroduce = async () => {
-  const { data } = await getCompanyIntroduce()
-  companyState.companyInfo = data.filter((item) => item.set_name !== 'companyName')
+  try {
+    const { data } = await getCompanyIntroduce()
+    companyState.companyInfo = data.filter((item) => item.set_name !== 'companyName')
+  } catch (e) {
+    console.log(e, 'apiCompanyIntroduce')
+  }
 }
 </script>
 
