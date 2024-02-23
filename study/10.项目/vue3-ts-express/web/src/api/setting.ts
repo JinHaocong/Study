@@ -36,17 +36,11 @@ export const changeCompanyIntroduce = (companyInfo: CompanyInfo) => {
 }
 
 // 获取公司介绍
-export const getCompanyIntroduce = (set_name: string) => {
-  return instance({
-    url: '/set/getCompanyIntroduce',
-    method: 'POST',
-    data: {
-      set_name
-    }
-  })
+export const getCompanyIntroduce = (setName?: string) => {
+  return post<Setting[]>('/set/getCompanyIntroduce', { setName })
 }
 
-// 获取所有公司介绍
+// todo 获取所有公司介绍
 export const getAllCompanyIntroduce = () => {
   return instance({
     url: '/set/getAllCompanyIntroduce',
