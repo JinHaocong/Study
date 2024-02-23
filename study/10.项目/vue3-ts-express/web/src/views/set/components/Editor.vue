@@ -112,19 +112,19 @@ const handleCreated = (editor: any) => {
 }
 
 // 获取信息给富文本赋值
-const editorTitle = async (id: number) => {
-  const titleMappings: Record<number, string> = {
-    1: '编辑公司介绍',
-    2: '编辑公司架构',
-    3: '编辑公司战略',
-    4: '编辑公司高层'
+const editorTitle = async (id: string) => {
+  const titleMappings: Record<string, string> = {
+    companyIntroduction: '编辑公司介绍',
+    companyStructure: '编辑公司架构',
+    companyStrategy: '编辑公司战略',
+    companyLeader: '编辑公司高层'
   }
 
-  const endpointMappings: Record<number, CompanySetName> = {
-    1: 'companyIntroduction',
-    2: 'companyStructure',
-    3: 'companyStrategy',
-    4: 'companyLeader'
+  const endpointMappings: Record<string, CompanySetName> = {
+    companyIntroduction: 'companyIntroduction',
+    companyStructure: 'companyStructure',
+    companyStrategy: 'companyStrategy',
+    companyLeader: 'companyLeader'
   }
 
   const titleKey = id as keyof typeof titleMappings

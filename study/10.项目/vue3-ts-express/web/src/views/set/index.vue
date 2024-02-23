@@ -110,17 +110,21 @@
             </div>
           </div>
           <div class="company-wrapped">
-            <div v-for="(item, key) in titleMappings" :key="key" class="company-info-item">
+            <div
+              v-for="(item, index) in companyState.companyInfo"
+              :key="index"
+              class="company-info-item"
+            >
               <el-card class="box-card">
                 <template #header>
                   <div class="card-header">
-                    <span class="item-title">{{ item }}</span>
+                    <span class="item-title">{{ item.set_value }}</span>
                   </div>
                 </template>
-                <div class="item-html" v-html="returnHtml(item)"></div>
+                <div class="item-html" v-html="item.set_text"></div>
                 <template #footer>
-                  <el-button style="width: 100%" type="success" @click="openEditor(key)"
-                    >{{ `编辑${item}` }}
+                  <el-button style="width: 100%" type="success" @click="openEditor(item.set_name)"
+                    >{{ `编辑${item.set_value}` }}
                   </el-button>
                 </template>
               </el-card>
@@ -345,12 +349,6 @@ interface SwiperState {
 
 const swiperData = ref<Setting[]>([])
 const swiperState: SwiperState = reactive({ swiperLoading: false })
-const titleMappings: Record<number, string> = {
-  1: '公司介绍',
-  2: '公司架构',
-  3: '公司战略',
-  4: '公司高层'
-}
 // swiper上传成功的函数 response回应
 const handleSwiperSuccess = async (response: ApiResult<imageInfo>) => {
   try {
@@ -414,7 +412,7 @@ const resetCompanyName = async () => {
   }
 }
 // 打开富文本
-const openEditor = (id: number) => {
+const openEditor = (id: string) => {
   bus.emit('editorTitle', id)
   editorP.value.open()
 }
@@ -422,11 +420,6 @@ const openEditor = (id: number) => {
 const apiCompanyIntroduce = async () => {
   const { data } = await getCompanyIntroduce()
   companyState.companyInfo = data.filter((item) => item.set_name !== 'companyName')
-}
-// 返回html
-const returnHtml = (setValue: string) => {
-  const item = companyState.companyInfo.find((item) => item.set_value === setValue)
-  return item && item.set_text
 }
 </script>
 
