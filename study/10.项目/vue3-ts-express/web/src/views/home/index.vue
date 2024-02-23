@@ -159,6 +159,7 @@ const apiCompanyIntroduce = async () => {
       span {
         border-bottom: 1px solid #409eff;
         font-size: 14px;
+        font-weight: bold;
       }
 
       .company-introduce {
@@ -166,7 +167,7 @@ const apiCompanyIntroduce = async () => {
         font-size: 14px;
         overflow: hidden;
         text-overflow: ellipsis;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 10;
         display: -webkit-box;
         -webkit-box-orient: vertical;
       }
