@@ -2708,3 +2708,672 @@ const apiAllSwiper = async () => {
 </style>
 ```
 
+### 公司信息
+
+#### 安装富文本编辑器
+
+```powershell
+yarn add @wangeditor/editor @wangeditor/editor-for-vue@next
+```
+
+#### 添加全局事件总线
+
+web/src/utils/mitt.ts
+
+```ts
+import mitt, { type Emitter } from 'mitt'
+
+type MyEvents = {
+  editorTitle: number
+}
+
+const bus: Emitter<MyEvents> = mitt<MyEvents>()
+
+export default bus
+
+```
+
+#### 接口添加
+
+web/src/api/setting.ts
+
+```ts
+export interface Setting {
+  id: number
+  set_name: string
+  set_text: string | null
+  set_value: string | null
+}
+
+export interface CompanyInfo {
+  companyIntroduction: string | null
+  companyStructure: string | null
+  companyStrategy: string | null
+  companyLeader: string | null
+}
+
+// 获取公司名称
+export const getCompanyName = () => {
+  return post<Setting>('/set/getCompanyName')
+}
+
+// 修改公司名称
+export const changeCompanyName = (companyName: string | null) => {
+  return post<[]>('/set/changeCompanyName', { companyName })
+}
+
+// 编辑公司介绍的接口
+export const changeCompanyIntroduce = (companyInfo: Partial<CompanyInfo>) => {
+  return post<Setting[]>('/set/changeCompanyIntroduce', companyInfo)
+}
+
+// 获取公司介绍
+export const getCompanyIntroduce = (setName?: string) => {
+  return post<Setting[]>('/set/getCompanyIntroduce', { setName })
+}
+```
+
+#### 创建富文本组件
+
+web/src/views/set/components/Editor.vue
+
+```vue
+<template>
+  <el-dialog
+    v-model="state.dialogFormVisible"
+    :title="title"
+    destroy-on-close
+    width="50%"
+    @close="cancel"
+  >
+    <div style="border: 1px solid #ccc">
+      <!-- wangEditor结构 -->
+      <Toolbar
+        :defaultConfig="toolbarConfig"
+        :editor="editorRef"
+        :mode="state.mode"
+        style="border-bottom: 1px solid #ccc"
+      />
+      <Editor
+        v-model="state.valueHtml"
+        :defaultConfig="editorConfig"
+        :mode="state.mode"
+        style="height: 500px; overflow-y: hidden"
+        @onCreated="handleCreated"
+      />
+    </div>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="cancel">取消</el-button>
+        <el-button :loading="state.confirmLoading" type="primary" @click="confirm">
+          确认
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
+</template>
+<script lang="ts" setup>
+import '@wangeditor/editor/dist/css/style.css' // 引入 css
+import { onBeforeUnmount, ref, shallowRef, reactive, onMounted } from 'vue'
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import bus from '@/utils/mitt.js'
+import { ElMessage } from 'element-plus'
+import { changeCompanyIntroduce, getCompanyIntroduce } from '@/api/setting'
+import plugins from './plugins'
+
+type CompanySetName =
+  | ''
+  | 'companyIntroduction'
+  | 'companyStructure'
+  | 'companyStrategy'
+  | 'companyLeader'
+
+interface State {
+  dialogFormVisible: boolean
+  valueHtml: string | null
+  mode: 'default' | 'simple'
+  title: string
+  currentSetName: CompanySetName
+  confirmLoading: boolean
+}
+
+// 组件创建时，监听事件
+onMounted(() => {
+  bus.on('editorTitle', editorTitle)
+})
+
+// 组件销毁时，也及时销毁编辑器，并清除事件监听
+onBeforeUnmount(() => {
+  bus.off('editorTitle')
+
+  const editor = editorRef.value
+  if (editor) editor.destroy()
+})
+
+// 编辑器实例，必须用 shallowRef
+const editorRef = shallowRef()
+const title = ref()
+const state = reactive<State>({
+  dialogFormVisible: false,
+  valueHtml: '',
+  mode: 'default',
+  title: '',
+  currentSetName: '',
+  confirmLoading: false
+})
+
+const toolbarConfig = {
+  excludeKeys: plugins
+}
+const editorConfig =    {
+  placeholder: '请输入内容...',
+  MENU_CONF: {
+    uploadImage: {
+      //上传图片配置
+      server: `${import.meta.env.VITE_API_BASEURL}/set/uploadCompanyPicture`, //上传接口地址
+      fieldName: 'file', //上传文件名
+      methods: 'post',
+      metaWithUrl: true, // 参数拼接到 url 上
+      // 单个文件上传成功之后
+      // onSuccess(file, res) {
+      // },
+      // 自定义插入图片
+      customInsert(res: any, insertFn: any) {
+        insertFn(res.url)
+      }
+    }
+  }
+}
+
+// 记录 editor 实例，重要！
+const handleCreated = (editor: any) => {
+  editorRef.value = editor
+}
+
+// 获取信息给富文本赋值
+const editorTitle = async (id: number) => {
+  const titleMappings: Record<number, string> = {
+    1: '编辑公司介绍',
+    2: '编辑公司架构',
+    3: '编辑公司战略',
+    4: '编辑高层介绍'
+  }
+
+  const endpointMappings: Record<number, CompanySetName> = {
+    1: 'companyIntroduction',
+    2: 'companyStructure',
+    3: 'companyStrategy',
+    4: 'companyLeader'
+  }
+
+  const titleKey = id as keyof typeof titleMappings
+  const endpointKey = id as keyof typeof endpointMappings
+  state.currentSetName = endpointMappings[endpointKey]
+
+  if (titleMappings[titleKey] && endpointMappings[endpointKey]) {
+    title.value = titleMappings[titleKey]
+    const { data } = await getCompanyIntroduce(endpointMappings[endpointKey])
+    state.valueHtml = data[0].set_text
+  }
+}
+
+// 点击确认 修改文案
+const confirm = async () => {
+  try {
+    state.confirmLoading = true
+    const res = await changeCompanyIntroduce({ [state.currentSetName]: state.valueHtml })
+    ElMessage.success(res.message)
+    cancel()
+  } catch (e: any) {
+    e.message && ElMessage.error(e.message)
+    console.log(e, 'confirm')
+  } finally {
+    state.confirmLoading = false
+  }
+}
+
+// 取消删除
+const cancel = () => {
+  state.dialogFormVisible = false
+  state.valueHtml = ''
+  state.currentSetName = ''
+}
+
+// 暴露 打开编辑器
+const open = () => {
+  state.dialogFormVisible = true
+}
+
+defineExpose({
+  open
+})
+</script>
+
+<style lang="scss" scoped></style>
+
+```
+
+#### 页面完成
+
+```vue
+<template>
+  <div class="common-wrapped">
+    <!-- 内容 -->
+    <div class="common-content">
+      <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
+        <el-tab-pane
+          v-loading="userInfoState.accountLoading"
+          label="账号详情"
+          name="accountDetails"
+        >
+          <div class="account-info-wrapped">
+            <span>用户头像：</span>
+            <div class="account-info-content">
+              <!-- action 是上传头像的接口 -->
+              <el-upload
+                :action="instance.defaults.baseURL + '/user/uploadAvatar'"
+                :before-upload="beforeUpload"
+                :headers="{ Authorization: getItem('token') }"
+                :on-success="handleAvatarSuccess"
+                :show-file-list="false"
+                class="avatar-uploader"
+                name="avatar"
+              >
+                <img
+                  v-if="userStore.image_url"
+                  :src="userStore.image_url"
+                  alt="用户头像"
+                  class="avatar"
+                />
+                <el-icon v-else class="avatar-uploader-icon">
+                  <Plus />
+                </el-icon>
+              </el-upload>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>用户账号：</span>
+            <div class="account-info-content">
+              <el-input v-model="userData.account" disabled></el-input>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>用户密码：</span>
+            <div class="account-info-content">
+              <el-button type="primary" @click="openChangePassword">修改密码</el-button>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>用户姓名：</span>
+            <div class="account-info-content">
+              <el-input v-model="userData.name"></el-input>
+            </div>
+            <div class="account-save-button">
+              <el-button :loading="userInfoState.saveNameLoading" type="primary" @click="saveName"
+                >保存
+              </el-button>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>用户性别：</span>
+            <div class="account-info-content">
+              <el-select v-model="userData.sex" style="width: 80px">
+                <el-option label="男" value="男" />
+                <el-option label="女" value="女" />
+              </el-select>
+            </div>
+            <div class="account-save-button">
+              <el-button :loading="userInfoState.saveSexLoading" type="primary" @click="saveSex"
+                >保存
+              </el-button>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>用户身份：</span>
+            <div class="account-info-content">
+              <el-input v-model="userData.identity" disabled></el-input>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>用户部门：</span>
+            <div class="account-info-content">
+              <el-input v-model="userData.department" disabled></el-input>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>用户邮箱：</span>
+            <div class="account-info-content">
+              <el-input v-model="userData.email"></el-input>
+            </div>
+            <div class="account-save-button">
+              <el-button :loading="userInfoState.saveEmailLoading" type="primary" @click="saveEmail"
+                >保存
+              </el-button>
+            </div>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane v-if="userStore.identity == '超级管理员'" label="公司信息" name="companyInfo">
+          <div class="account-info-wrapped">
+            <span>公司名称</span>
+            <div class="account-info-content">
+              <el-input v-model="companyState.companyName"></el-input>
+            </div>
+            <div class="account-save-button">
+              <el-button
+                :loading="companyState.nameLoading"
+                type="primary"
+                @click="resetCompanyName"
+                >编辑公司名称
+              </el-button>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>公司介绍</span>
+            <div class="account-info-content">
+              <el-button type="success" @click="openEditor(1)">编辑公司介绍</el-button>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>公司架构</span>
+            <div class="account-info-content">
+              <el-button type="success" @click="openEditor(2)">编辑公司介绍</el-button>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>公司战略</span>
+            <div class="account-info-content">
+              <el-button type="success" @click="openEditor(3)">编辑公司介绍</el-button>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>公司高层</span>
+            <div class="account-info-content">
+              <el-button type="success" @click="openEditor(4)">编辑公司介绍</el-button>
+            </div>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane
+          v-if="userStore.identity == '超级管理员'"
+          v-loading="swiperState.swiperLoading"
+          label="首页管理"
+          name="homeManagement"
+        >
+          <!-- 提示 -->
+          <div class="tips">
+            <span> 提示: 点击图片框进行切换首页轮播图 </span>
+          </div>
+          <div class="home-wrapped">
+            <!-- 轮播图 -->
+            <div v-for="(item, index) in swiperData" :key="index" class="swiper-wrapped">
+              <el-upload
+                v-if="item"
+                :action="instance.defaults.baseURL + '/set/uploadSwiper'"
+                :before-upload="beforeUpload"
+                :headers="{ Authorization: getItem('token') }"
+                :name="item.set_name"
+                :on-success="handleSwiperSuccess"
+                :show-file-list="false"
+                class="avatar-uploader"
+              >
+                <template #trigger>
+                  <img v-if="item.set_value" :src="item.set_value" alt="" class="swiper" />
+                  <img v-else alt="" src="@/assets/雪碧图.png" />
+                </template>
+              </el-upload>
+              <div v-if="item" class="swiper-name">
+                {{ `轮播图(${item.set_name})` }}:&nbsp;&nbsp;
+              </div>
+            </div>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="其他设置" name="fourth"></el-tab-pane>
+      </el-tabs>
+    </div>
+
+    <!-- 修改密码弹窗 -->
+    <ChangePassword ref="changeP"></ChangePassword>
+
+    <Editor ref="editorP"></Editor>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { onMounted, reactive, ref } from 'vue'
+import { ElInput, type TabsPaneContext, type UploadProps } from 'element-plus'
+import { ElMessage } from 'element-plus'
+import { Plus } from '@element-plus/icons-vue'
+import {
+  bind,
+  changeName,
+  changeSex,
+  changeEmail,
+  getUserInfo,
+  type UserInfo,
+  type imageInfo
+} from '@/api/userInfo'
+import { useUserStore } from '@/stores/userStore'
+import { getItem } from '@/utils/storage'
+import ChangePassword from '@/views/set/components/ChangePassword.vue'
+import instance from '@/http/index'
+import type { ApiResult } from '@/api'
+import { changeCompanyName, getAllSwiper, getCompanyName, type Setting } from '@/api/setting'
+import bus from '@/utils/mitt'
+import Editor from '@/views/set/components/Editor.vue'
+
+// 默认打开的标签页
+const activeName = ref('accountDetails')
+
+onMounted(() => {
+  requestUserInfo()
+  apiAllSwiper()
+})
+
+// tab点击事件 刷新数据
+const handleClick = (tab: TabsPaneContext) => {
+  switch (tab.paneName) {
+    case 'accountDetails':
+      requestUserInfo()
+      break
+    case 'homeManagement':
+      apiAllSwiper()
+      break
+    case 'companyInfo':
+      apiCompanyName()
+      break
+    default:
+      break
+  }
+}
+
+// 上传之前的函数
+const beforeUpload: UploadProps['beforeUpload'] = (rawFile) => {
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
+
+  if (!allowedTypes.includes(rawFile.type)) {
+    ElMessage.error('必须是jpg、jpeg或png格式！')
+    return false
+  }
+
+  if (rawFile.size / 1024 / 1024 > 20) {
+    ElMessage.error('必须小于20MB!')
+    return false
+  }
+
+  return true
+}
+
+// sign 账号详情
+const userStore = useUserStore()
+
+interface UserInfoState {
+  accountLoading: boolean
+  saveNameLoading: boolean
+  saveSexLoading: boolean
+  saveEmailLoading: boolean
+
+  [key: string]: boolean // 添加索引签名
+}
+
+const userInfoState: UserInfoState = reactive({
+  accountLoading: false,
+  saveNameLoading: false,
+  saveSexLoading: false,
+  saveEmailLoading: false
+})
+const changeP = ref()
+let userData: UserInfo = reactive({
+  name: '',
+  account: '',
+  sex: '',
+  identity: '',
+  department: '',
+  email: '',
+  image_url: ''
+})
+
+// 请求获取用户信息
+const requestUserInfo = async () => {
+  try {
+    userInfoState.accountLoading = true
+    const res = await getUserInfo(getItem('id'))
+    Object.assign(userData, res.data)
+  } catch (e: any) {
+    e.message && ElMessage.error(e.message)
+    console.log(e, 'requestUserInfo')
+  } finally {
+    userInfoState.accountLoading = false
+  }
+}
+// 头像上传成功的函数 response回应
+const handleAvatarSuccess = async (response: ApiResult<imageInfo>) => {
+  try {
+    if (!response.success) return ElMessage.error(response.message)
+    const { image_url, onlyId } = response.data
+    const res = await bind(getItem('account'), { image_url, onlyId })
+    userStore.updateState({ image_url })
+    ElMessage.success(res.message)
+  } catch (e: any) {
+    e.message && ElMessage.error(e.message)
+    console.log(e, 'handleAvatarSuccess')
+  }
+}
+
+// 保存用户数据的通用函数
+const saveUserData = async (
+  saveFunction: 'saveName' | 'saveSex' | 'saveEmail',
+  userDataKey: 'name' | 'sex' | 'email',
+  apiFunction: (data: string | null, id: number) => Promise<ApiResult<[]>>
+) => {
+  try {
+    userInfoState[saveFunction + 'Loading'] = true
+    const { message } = await apiFunction(userData[userDataKey], getItem('id'))
+    ElMessage.success(message)
+    userStore.updateState({ [userDataKey]: userData[userDataKey] })
+  } catch (e: any) {
+    if (e.message) ElMessage.error(e.message)
+    console.error(e, saveFunction)
+  } finally {
+    userInfoState[saveFunction + 'Loading'] = false
+  }
+}
+
+// 保存姓名
+const saveName = async () => {
+  await saveUserData('saveName', 'name', changeName)
+}
+
+// 保存性别
+const saveSex = async () => {
+  await saveUserData('saveSex', 'sex', changeSex)
+}
+
+// 保存邮箱
+const saveEmail = async () => {
+  await saveUserData('saveEmail', 'email', changeEmail)
+}
+
+// 打开密码弹窗
+const openChangePassword = () => {
+  changeP.value.open()
+}
+
+// sign 首页设置
+interface SwiperState {
+  swiperLoading: boolean
+}
+
+const swiperData = ref<Setting[]>([])
+const swiperState: SwiperState = reactive({ swiperLoading: false })
+// swiper上传成功的函数 response回应
+const handleSwiperSuccess = async (response: ApiResult<imageInfo>) => {
+  try {
+    if (!response.success) return ElMessage.error(response.message)
+    ElMessage.success(response.message)
+    await apiAllSwiper()
+  } catch (e: any) {
+    e.message && ElMessage.error(e.message)
+    console.log(e, 'handleSwiperSuccess')
+  }
+}
+// 获取所有轮播图
+const apiAllSwiper = async () => {
+  try {
+    swiperState.swiperLoading = true
+    const { data } = await getAllSwiper()
+    swiperData.value = data
+  } catch (e) {
+    console.log(e, 'apiAllSwiper')
+  } finally {
+    swiperState.swiperLoading = false
+  }
+}
+
+// sign 公司信息
+interface CompanyState {
+  companyName: string | null
+  nameLoading: boolean
+}
+
+const companyState = reactive<CompanyState>({
+  companyName: null,
+  nameLoading: false
+})
+const editorP = ref()
+
+// 获取公司名称
+const apiCompanyName = async () => {
+  try {
+    const {
+      data: { set_value }
+    } = await getCompanyName()
+    companyState.companyName = set_value
+  } catch (e) {
+    console.log(e, 'apiCompanyName')
+  }
+}
+// 修改公司名称
+const resetCompanyName = async () => {
+  try {
+    companyState.nameLoading = true
+    const res = await changeCompanyName(companyState.companyName)
+    ElMessage.success(res.message)
+  } catch (e: any) {
+    e.message && ElMessage.error(e.message)
+    console.log(e, 'resetCompanyName')
+  } finally {
+    companyState.nameLoading = false
+  }
+}
+// 打开富文本
+const openEditor = (id: number) => {
+  bus.emit('editorTitle', id)
+  editorP.value.open()
+}
+</script>
+
+<style lang="scss" scoped>
+...
+</style>
+
+```
+

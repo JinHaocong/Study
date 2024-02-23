@@ -94,7 +94,45 @@
             </div>
           </div>
         </el-tab-pane>
-        <el-tab-pane v-if="userStore.identity == '超级管理员'" label="公司信息" name="second">
+        <el-tab-pane v-if="userStore.identity == '超级管理员'" label="公司信息" name="companyInfo">
+          <div class="account-info-wrapped">
+            <span>公司名称</span>
+            <div class="account-info-content">
+              <el-input v-model="companyState.companyName"></el-input>
+            </div>
+            <div class="account-save-button">
+              <el-button
+                :loading="companyState.nameLoading"
+                type="primary"
+                @click="resetCompanyName"
+                >编辑公司名称
+              </el-button>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>公司介绍</span>
+            <div class="account-info-content">
+              <el-button type="success" @click="openEditor(1)">编辑公司介绍</el-button>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>公司架构</span>
+            <div class="account-info-content">
+              <el-button type="success" @click="openEditor(2)">编辑公司介绍</el-button>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>公司战略</span>
+            <div class="account-info-content">
+              <el-button type="success" @click="openEditor(3)">编辑公司介绍</el-button>
+            </div>
+          </div>
+          <div class="account-info-wrapped">
+            <span>公司高层</span>
+            <div class="account-info-content">
+              <el-button type="success" @click="openEditor(4)">编辑公司介绍</el-button>
+            </div>
+          </div>
         </el-tab-pane>
         <el-tab-pane
           v-if="userStore.identity == '超级管理员'"
@@ -136,6 +174,8 @@
 
     <!-- 修改密码弹窗 -->
     <ChangePassword ref="changeP"></ChangePassword>
+
+    <Editor ref="editorP"></Editor>
   </div>
 </template>
 
@@ -158,7 +198,9 @@ import { getItem } from '@/utils/storage'
 import ChangePassword from '@/views/set/components/ChangePassword.vue'
 import instance from '@/http/index'
 import type { ApiResult } from '@/api'
-import { getAllSwiper, type Setting } from '@/api/setting'
+import { changeCompanyName, getAllSwiper, getCompanyName, type Setting } from '@/api/setting'
+import bus from '@/utils/mitt'
+import Editor from '@/views/set/components/Editor.vue'
 
 // 默认打开的标签页
 const activeName = ref('accountDetails')
@@ -176,6 +218,9 @@ const handleClick = (tab: TabsPaneContext) => {
       break
     case 'homeManagement':
       apiAllSwiper()
+      break
+    case 'companyInfo':
+      apiCompanyName()
       break
     default:
       break
@@ -323,6 +368,48 @@ const apiAllSwiper = async () => {
   } finally {
     swiperState.swiperLoading = false
   }
+}
+
+// sign 公司信息
+interface CompanyState {
+  companyName: string | null
+  nameLoading: boolean
+}
+
+const companyState = reactive<CompanyState>({
+  companyName: null,
+  nameLoading: false
+})
+const editorP = ref()
+
+// 获取公司名称
+const apiCompanyName = async () => {
+  try {
+    const {
+      data: { set_value }
+    } = await getCompanyName()
+    companyState.companyName = set_value
+  } catch (e) {
+    console.log(e, 'apiCompanyName')
+  }
+}
+// 修改公司名称
+const resetCompanyName = async () => {
+  try {
+    companyState.nameLoading = true
+    const res = await changeCompanyName(companyState.companyName)
+    ElMessage.success(res.message)
+  } catch (e: any) {
+    e.message && ElMessage.error(e.message)
+    console.log(e, 'resetCompanyName')
+  } finally {
+    companyState.nameLoading = false
+  }
+}
+// 打开富文本
+const openEditor = (id: number) => {
+  bus.emit('editorTitle', id)
+  editorP.value.open()
 }
 </script>
 

@@ -1,5 +1,9 @@
-import mitt from 'mitt'
+import mitt, { type Emitter } from 'mitt'
 
-const bus = mitt()
+type MyEvents = {
+  editorTitle: number
+}
+
+const bus: Emitter<MyEvents> = mitt<MyEvents>()
 
 export default bus

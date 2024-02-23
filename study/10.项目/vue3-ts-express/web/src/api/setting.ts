@@ -9,10 +9,10 @@ export interface Setting {
 }
 
 export interface CompanyInfo {
-  companyIntroduction: string
-  companyStructure: string
-  companyStrategy: string
-  companyLeader: string
+  companyIntroduction: string | null
+  companyStructure: string | null
+  companyStrategy: string | null
+  companyLeader: string | null
 }
 
 // 获取所有轮播图
@@ -26,7 +26,7 @@ export const getCompanyName = () => {
 }
 
 // 修改公司名称
-export const changeCompanyName = (companyName: string) => {
+export const changeCompanyName = (companyName: string | null) => {
   return post<[]>('/set/changeCompanyName', { companyName })
 }
 
@@ -40,14 +40,7 @@ export const getCompanyIntroduce = (setName?: string) => {
   return post<Setting[]>('/set/getCompanyIntroduce', { setName })
 }
 
-// todo 获取所有公司介绍
-export const getAllCompanyIntroduce = () => {
-  return instance({
-    url: '/set/getAllCompanyIntroduce',
-    method: 'POST'
-  })
-}
-
+// todo
 // 部门设置
 export const setDepartment = (data: any) => {
   return instance({
