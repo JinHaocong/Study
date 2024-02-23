@@ -289,6 +289,11 @@ const saveEmail = async () => {
   await saveUserData('saveEmail', 'email', changeEmail)
 }
 
+// 打开密码弹窗
+const openChangePassword = () => {
+  changeP.value.open()
+}
+
 // sign 首页设置
 interface SwiperState {
   swiperLoading: boolean
@@ -318,11 +323,6 @@ const apiAllSwiper = async () => {
   } finally {
     swiperState.swiperLoading = false
   }
-}
-
-// 打开密码弹窗
-const openChangePassword = () => {
-  changeP.value.open()
 }
 </script>
 
