@@ -1,9 +1,9 @@
 <template>
   <div class="common-wrapped">
-    <div class="swiper-wrapped">
+    <div v-loading="swiperState.swiperLoading" class="swiper-wrapped">
       <el-carousel :interval="4000" height="100%" indicator-position="outside" type="card">
-        <el-carousel-item v-for="(item, index) in 6" :key="index">
-          <img alt="轮播图" class="swiper" src="@/assets/loginbg.jpeg" />
+        <el-carousel-item v-for="(item, index) in swiperData" :key="index">
+          <img v-if="item.set_value" :src="item.set_value" alt="" class="swiper" />
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -42,7 +42,33 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { onMounted, reactive, ref } from 'vue'
+import { getAllSwiper, type Setting } from '@/api/setting'
+
+onMounted(() => {
+  apiAllSwiper()
+})
+
+// sign 轮播图
+interface SwiperState {
+  swiperLoading: boolean
+}
+
+const swiperData = ref<Setting[]>([])
+const swiperState: SwiperState = reactive({ swiperLoading: false })
+const apiAllSwiper = async () => {
+  try {
+    swiperState.swiperLoading = true
+    const { data } = await getAllSwiper()
+    swiperData.value = data
+  } catch (e) {
+    console.log(e, 'apiAllSwiper')
+  } finally {
+    swiperState.swiperLoading = false
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 @mixin table-class {

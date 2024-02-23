@@ -14,7 +14,7 @@
               <!-- action 是上传头像的接口 -->
               <el-upload
                 :action="instance.defaults.baseURL + '/user/uploadAvatar'"
-                :before-upload="beforeAvatarUpload"
+                :before-upload="beforeUpload"
                 :headers="{ Authorization: getItem('token') }"
                 :on-success="handleAvatarSuccess"
                 :show-file-list="false"
@@ -96,7 +96,39 @@
         </el-tab-pane>
         <el-tab-pane v-if="userStore.identity == '超级管理员'" label="公司信息" name="second">
         </el-tab-pane>
-        <el-tab-pane v-if="userStore.identity == '超级管理员'" label="首页管理" name="third">
+        <el-tab-pane
+          v-if="userStore.identity == '超级管理员'"
+          v-loading="swiperState.swiperLoading"
+          label="首页管理"
+          name="homeManagement"
+        >
+          <!-- 提示 -->
+          <div class="tips">
+            <span> 提示: 点击图片框进行切换首页轮播图 </span>
+          </div>
+          <div class="home-wrapped">
+            <!-- 轮播图 -->
+            <div v-for="(item, index) in swiperData" :key="index" class="swiper-wrapped">
+              <el-upload
+                v-if="item"
+                :action="instance.defaults.baseURL + '/set/uploadSwiper'"
+                :before-upload="beforeUpload"
+                :headers="{ Authorization: getItem('token') }"
+                :name="item.set_name"
+                :on-success="handleSwiperSuccess"
+                :show-file-list="false"
+                class="avatar-uploader"
+              >
+                <template #trigger>
+                  <img v-if="item.set_value" :src="item.set_value" alt="" class="swiper" />
+                  <img v-else alt="" src="@/assets/雪碧图.png" />
+                </template>
+              </el-upload>
+              <div v-if="item" class="swiper-name">
+                {{ `轮播图(${item.set_name})` }}:&nbsp;&nbsp;
+              </div>
+            </div>
+          </div>
         </el-tab-pane>
         <el-tab-pane label="其他设置" name="fourth"></el-tab-pane>
       </el-tabs>
@@ -126,12 +158,14 @@ import { getItem } from '@/utils/storage'
 import ChangePassword from '@/views/set/components/ChangePassword.vue'
 import instance from '@/http/index'
 import type { ApiResult } from '@/api'
+import { getAllSwiper, type Setting } from '@/api/setting'
 
 // 默认打开的标签页
 const activeName = ref('accountDetails')
 
 onMounted(() => {
   requestUserInfo()
+  apiAllSwiper()
 })
 
 // tab点击事件 刷新数据
@@ -140,9 +174,29 @@ const handleClick = (tab: TabsPaneContext) => {
     case 'accountDetails':
       requestUserInfo()
       break
+    case 'homeManagement':
+      apiAllSwiper()
+      break
     default:
       break
   }
+}
+
+// 上传之前的函数
+const beforeUpload: UploadProps['beforeUpload'] = (rawFile) => {
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
+
+  if (!allowedTypes.includes(rawFile.type)) {
+    ElMessage.error('必须是jpg、jpeg或png格式！')
+    return false
+  }
+
+  if (rawFile.size / 1024 / 1024 > 20) {
+    ElMessage.error('必须小于20MB!')
+    return false
+  }
+
+  return true
 }
 
 // sign 账号详情
@@ -190,6 +244,7 @@ const requestUserInfo = async () => {
 // 头像上传成功的函数 response回应
 const handleAvatarSuccess = async (response: ApiResult<imageInfo>) => {
   try {
+    if (!response.success) return ElMessage.error(response.message)
     const { image_url, onlyId } = response.data
     const res = await bind(getItem('account'), { image_url, onlyId })
     userStore.updateState({ image_url })
@@ -199,22 +254,7 @@ const handleAvatarSuccess = async (response: ApiResult<imageInfo>) => {
     console.log(e, 'handleAvatarSuccess')
   }
 }
-// 头像上传之前的函数
-const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg']
 
-  if (!allowedTypes.includes(rawFile.type)) {
-    ElMessage.error('头像必须是jpg、jpeg或png格式！')
-    return false
-  }
-
-  if (rawFile.size / 1024 / 1024 > 10) {
-    ElMessage.error('头像必须小于10MB!')
-    return false
-  }
-
-  return true
-}
 // 保存用户数据的通用函数
 const saveUserData = async (
   saveFunction: 'saveName' | 'saveSex' | 'saveEmail',
@@ -248,6 +288,38 @@ const saveSex = async () => {
 const saveEmail = async () => {
   await saveUserData('saveEmail', 'email', changeEmail)
 }
+
+// sign 首页设置
+interface SwiperState {
+  swiperLoading: boolean
+}
+
+const swiperData = ref<Setting[]>([])
+const swiperState: SwiperState = reactive({ swiperLoading: false })
+// swiper上传成功的函数 response回应
+const handleSwiperSuccess = async (response: ApiResult<imageInfo>) => {
+  try {
+    if (!response.success) return ElMessage.error(response.message)
+    ElMessage.success(response.message)
+    await apiAllSwiper()
+  } catch (e: any) {
+    e.message && ElMessage.error(e.message)
+    console.log(e, 'handleSwiperSuccess')
+  }
+}
+// 获取所有轮播图
+const apiAllSwiper = async () => {
+  try {
+    swiperState.swiperLoading = true
+    const { data } = await getAllSwiper()
+    swiperData.value = data
+  } catch (e) {
+    console.log(e, 'apiAllSwiper')
+  } finally {
+    swiperState.swiperLoading = false
+  }
+}
+
 // 打开密码弹窗
 const openChangePassword = () => {
   changeP.value.open()
@@ -281,38 +353,40 @@ const openChangePassword = () => {
       }
     }
 
+    // 提示
+    .tips {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      justify-content: center;
+
+      span {
+        font-size: 14px;
+        color: silver;
+      }
+    }
+
     // 首页管理外壳
     .home-wrapped {
-      padding-left: 50px;
       display: flex;
-      flex-direction: column;
-
-      // 提示
-      .tips {
-        display: flex;
-        align-items: center;
-        margin-bottom: 8px;
-
-        span {
-          font-size: 14px;
-          color: silver;
-        }
-      }
+      flex-wrap: wrap;
+      justify-content: space-between;
 
       // 轮播图
       .swiper-wrapped {
         display: flex;
-        margin-bottom: 16px;
+        flex-direction: column;
+        margin-bottom: 20px;
 
         // 轮播图名字
         .swiper-name {
+          text-align: center;
           font-size: 14px;
-          margin-bottom: 24px;
         }
 
         .swiper {
-          width: 336px;
-          height: 96px;
+          width: 800px;
+          height: 280px;
         }
       }
     }
@@ -372,6 +446,7 @@ const openChangePassword = () => {
 
 .avatar-uploader .el-upload:hover {
   border-color: var(--el-color-primary);
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
 }
 
 .el-icon.avatar-uploader-icon {
