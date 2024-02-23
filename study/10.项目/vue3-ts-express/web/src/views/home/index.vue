@@ -9,7 +9,12 @@
     </div>
     <div v-loading="companyState.loading" class="layout-wrapped">
       <el-row :gutter="20" style="height: 100%">
-        <el-col v-for="(item, index) in companyState.companyInfo" :key="index" :span="6">
+        <el-col
+          v-for="(item, index) in companyState.companyInfo"
+          :key="index"
+          :span="6"
+          style="height: 100%; overflow: hidden"
+        >
           <div class="company-message-area">
             <span>{{ item.set_value }}</span>
             <div class="company-introduce" v-html="item.set_text"></div>
@@ -163,13 +168,10 @@ const apiCompanyIntroduce = async () => {
       }
 
       .company-introduce {
+        height: calc(100% - 20px);
         text-indent: 24px;
         font-size: 14px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        -webkit-line-clamp: 10;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
+        overflow: auto;
       }
     }
 
