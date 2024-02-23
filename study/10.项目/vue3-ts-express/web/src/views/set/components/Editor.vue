@@ -73,6 +73,7 @@ onBeforeUnmount(() => {
 // 编辑器实例，必须用 shallowRef
 const editorRef = shallowRef()
 const title = ref()
+const emit = defineEmits(['refresh'])
 const state = reactive<State>({
   dialogFormVisible: false,
   valueHtml: '',
@@ -116,7 +117,7 @@ const editorTitle = async (id: number) => {
     1: '编辑公司介绍',
     2: '编辑公司架构',
     3: '编辑公司战略',
-    4: '编辑高层介绍'
+    4: '编辑公司高层'
   }
 
   const endpointMappings: Record<number, CompanySetName> = {
@@ -157,6 +158,7 @@ const cancel = () => {
   state.dialogFormVisible = false
   state.valueHtml = ''
   state.currentSetName = ''
+  emit('refresh')
 }
 
 // 暴露 打开编辑器

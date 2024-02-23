@@ -2,7 +2,7 @@
   <div class="common-wrapped">
     <!-- 内容 -->
     <div class="common-content">
-      <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
+      <el-tabs v-model="activeName" class="demo-tabs" style="height: 100%" @tab-click="handleClick">
         <el-tab-pane
           v-loading="userInfoState.accountLoading"
           label="账号详情"
@@ -95,7 +95,7 @@
           </div>
         </el-tab-pane>
         <el-tab-pane v-if="userStore.identity == '超级管理员'" label="公司信息" name="companyInfo">
-          <div class="account-info-wrapped">
+          <div class="account-info-wrapped company-name">
             <span>公司名称</span>
             <div class="account-info-content">
               <el-input v-model="companyState.companyName"></el-input>
@@ -109,28 +109,21 @@
               </el-button>
             </div>
           </div>
-          <div class="account-info-wrapped">
-            <span>公司介绍</span>
-            <div class="account-info-content">
-              <el-button type="success" @click="openEditor(1)">编辑公司介绍</el-button>
-            </div>
-          </div>
-          <div class="account-info-wrapped">
-            <span>公司架构</span>
-            <div class="account-info-content">
-              <el-button type="success" @click="openEditor(2)">编辑公司介绍</el-button>
-            </div>
-          </div>
-          <div class="account-info-wrapped">
-            <span>公司战略</span>
-            <div class="account-info-content">
-              <el-button type="success" @click="openEditor(3)">编辑公司介绍</el-button>
-            </div>
-          </div>
-          <div class="account-info-wrapped">
-            <span>公司高层</span>
-            <div class="account-info-content">
-              <el-button type="success" @click="openEditor(4)">编辑公司介绍</el-button>
+          <div class="company-wrapped">
+            <div v-for="(item, key) in titleMappings" :key="key" class="company-info-item">
+              <el-card class="box-card">
+                <template #header>
+                  <div class="card-header">
+                    <span class="item-title">{{ item }}</span>
+                  </div>
+                </template>
+                <div class="item-html" v-html="returnHtml(item)"></div>
+                <template #footer>
+                  <el-button style="width: 100%" type="success" @click="openEditor(key)"
+                    >{{ `编辑${item}` }}
+                  </el-button>
+                </template>
+              </el-card>
             </div>
           </div>
         </el-tab-pane>
@@ -175,7 +168,7 @@
     <!-- 修改密码弹窗 -->
     <ChangePassword ref="changeP"></ChangePassword>
 
-    <Editor ref="editorP"></Editor>
+    <Editor ref="editorP" @refresh="apiCompanyIntroduce"></Editor>
   </div>
 </template>
 
@@ -198,7 +191,13 @@ import { getItem } from '@/utils/storage'
 import ChangePassword from '@/views/set/components/ChangePassword.vue'
 import instance from '@/http/index'
 import type { ApiResult } from '@/api'
-import { changeCompanyName, getAllSwiper, getCompanyName, type Setting } from '@/api/setting'
+import {
+  changeCompanyName,
+  getAllSwiper,
+  getCompanyIntroduce,
+  getCompanyName,
+  type Setting
+} from '@/api/setting'
 import bus from '@/utils/mitt'
 import Editor from '@/views/set/components/Editor.vue'
 
@@ -207,7 +206,6 @@ const activeName = ref('accountDetails')
 
 onMounted(() => {
   requestUserInfo()
-  apiAllSwiper()
 })
 
 // tab点击事件 刷新数据
@@ -221,6 +219,7 @@ const handleClick = (tab: TabsPaneContext) => {
       break
     case 'companyInfo':
       apiCompanyName()
+      apiCompanyIntroduce()
       break
     default:
       break
@@ -346,6 +345,12 @@ interface SwiperState {
 
 const swiperData = ref<Setting[]>([])
 const swiperState: SwiperState = reactive({ swiperLoading: false })
+const titleMappings: Record<number, string> = {
+  1: '公司介绍',
+  2: '公司架构',
+  3: '公司战略',
+  4: '公司高层'
+}
 // swiper上传成功的函数 response回应
 const handleSwiperSuccess = async (response: ApiResult<imageInfo>) => {
   try {
@@ -374,11 +379,13 @@ const apiAllSwiper = async () => {
 interface CompanyState {
   companyName: string | null
   nameLoading: boolean
+  companyInfo: Setting[]
 }
 
 const companyState = reactive<CompanyState>({
   companyName: null,
-  nameLoading: false
+  nameLoading: false,
+  companyInfo: []
 })
 const editorP = ref()
 
@@ -411,6 +418,16 @@ const openEditor = (id: number) => {
   bus.emit('editorTitle', id)
   editorP.value.open()
 }
+// 获取公司信息
+const apiCompanyIntroduce = async () => {
+  const { data } = await getCompanyIntroduce()
+  companyState.companyInfo = data.filter((item) => item.set_name !== 'companyName')
+}
+// 返回html
+const returnHtml = (setValue: string) => {
+  const item = companyState.companyInfo.find((item) => item.set_value === setValue)
+  return item && item.set_text
+}
 </script>
 
 <style lang="scss" scoped>
@@ -419,6 +436,20 @@ const openEditor = (id: number) => {
   // 内容
   .common-content {
     padding: 0 10px;
+
+    .el-tabs__header {
+      height: 40px;
+    }
+
+    :deep(.el-tabs__content) {
+      height: calc(100% - 70px);
+      overflow: auto;
+      margin-bottom: 15px;
+    }
+
+    .el-tab-pane {
+      height: 100%;
+    }
 
     // 账号信息外壳
     .account-info-wrapped {
@@ -438,6 +469,43 @@ const openEditor = (id: number) => {
       .account-save-button {
         margin-left: 16px;
       }
+    }
+
+    .company-wrapped {
+      width: 100%;
+      height: calc(100% - 56px);
+      display: flex;
+      flex-wrap: wrap;
+
+      :deep(.el-card) {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .el-card__body {
+          flex: 1;
+          background-color: #f5f5f5;
+        }
+      }
+
+      .company-info-item {
+        display: flex;
+        flex-direction: column;
+        flex: 1 0 50%; /* 每个子项占据父容器的50%宽度 */
+        max-width: 50%;
+        box-sizing: border-box;
+        padding: 10px;
+
+        .item-title {
+          font-weight: bold;
+        }
+      }
+    }
+
+    .company-name {
+      padding: 0;
+      justify-content: center;
+      margin-bottom: 10px;
     }
 
     // 提示
