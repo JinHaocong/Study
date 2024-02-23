@@ -2724,7 +2724,7 @@ web/src/utils/mitt.ts
 import mitt, { type Emitter } from 'mitt'
 
 type MyEvents = {
-  editorTitle: number
+  editorTitle: string
 }
 
 const bus: Emitter<MyEvents> = mitt<MyEvents>()
