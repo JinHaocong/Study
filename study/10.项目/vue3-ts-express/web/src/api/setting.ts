@@ -4,8 +4,15 @@ import instance from '@/http'
 export interface Setting {
   id: number
   set_name: string
-  set_text?: string | null
-  set_value?: string | null
+  set_text: string | null
+  set_value: string | null
+}
+
+export interface CompanyInfo {
+  companyIntroduction: string
+  companyStructure: string
+  companyStrategy: string
+  companyLeader: string
 }
 
 // 获取所有轮播图
@@ -15,33 +22,17 @@ export const getAllSwiper = () => {
 
 // 获取公司名称
 export const getCompanyName = () => {
-  return instance({
-    url: '/set/getCompanyName',
-    method: 'POST'
-  })
+  return post<Setting>('/set/getCompanyName')
 }
 
 // 修改公司名称
-export const changeCompanyName = (set_value: any) => {
-  return instance({
-    url: '/set/changeCompanyName',
-    method: 'POST',
-    data: {
-      set_value
-    }
-  })
+export const changeCompanyName = (companyName: string) => {
+  return post<[]>('/set/changeCompanyName', { companyName })
 }
 
 // 编辑公司介绍的接口
-export const changeCompanyIntroduce = (set_text: any, set_name: string) => {
-  return instance({
-    url: '/set/changeCompanyIntroduce',
-    method: 'POST',
-    data: {
-      set_text,
-      set_name
-    }
-  })
+export const changeCompanyIntroduce = (companyInfo: CompanyInfo) => {
+  return post<Setting[]>('/set/changeCompanyIntroduce', companyInfo)
 }
 
 // 获取公司介绍

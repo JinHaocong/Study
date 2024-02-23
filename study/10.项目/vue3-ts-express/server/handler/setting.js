@@ -56,20 +56,19 @@ exports.changeCompanyIntroduce = async (req, res) => {
 
     // 检查是否有必要的字段
     if (bodyKeys.length === 0) return res.error('缺少必要的字段');
+    const updateSql = 'update setting set set_text = ? where set_name = ?';
+    const selectSql = 'SELECT * FROM setting WHERE set_name = ?';
 
     const updatePromises = bodyKeys.map(async (key) => {
       const setText = req.body[key];
       const setName = key;
 
-      const updateSql = 'update setting set set_text = ? where set_name = ?';
       const [updateData] = await db.query(updateSql, [setText, setName]);
 
       if (updateData.affectedRows !== 1) return Promise.reject(new Error(`修改 ${setName} 失败，字段不存在`));
+      const [selectedData] = await db.query(selectSql, setName);
 
-      return Promise.resolve({
-        set_name: setName,
-        set_text: setText,
-      });
+      return Promise.resolve(selectedData[0]);
     });
 
     // 执行所有更新操作
