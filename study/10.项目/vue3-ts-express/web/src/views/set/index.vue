@@ -94,7 +94,12 @@
             </div>
           </div>
         </el-tab-pane>
-        <el-tab-pane v-if="userStore.identity == '超级管理员'" label="公司信息" name="companyInfo">
+        <el-tab-pane
+          v-if="userStore.identity == '超级管理员'"
+          v-loading="companyState.loading"
+          label="公司信息"
+          name="companyInfo"
+        >
           <div class="account-info-wrapped company-name">
             <span>公司名称</span>
             <div class="account-info-content">
@@ -208,22 +213,26 @@ import Editor from '@/views/set/components/Editor.vue'
 // 默认打开的标签页
 const activeName = ref('accountDetails')
 
-onMounted(() => {
-  requestUserInfo()
+onMounted(async () => {
+  await requestUserInfo()
 })
 
 // tab点击事件 刷新数据
-const handleClick = (tab: TabsPaneContext) => {
+const handleClick = async (tab: TabsPaneContext) => {
   switch (tab.paneName) {
     case 'accountDetails':
-      requestUserInfo()
+      await requestUserInfo()
       break
     case 'homeManagement':
-      apiAllSwiper()
+      await apiAllSwiper()
       break
     case 'companyInfo':
-      apiCompanyName()
-      apiCompanyIntroduce()
+      try {
+        companyState.loading = true
+        await Promise.all([apiCompanyName(), apiCompanyIntroduce()])
+      } finally {
+        companyState.loading = false
+      }
       break
     default:
       break
@@ -378,12 +387,14 @@ interface CompanyState {
   companyName: string | null
   nameLoading: boolean
   companyInfo: Setting[]
+  loading: boolean
 }
 
 const companyState = reactive<CompanyState>({
   companyName: null,
   nameLoading: false,
-  companyInfo: []
+  companyInfo: [],
+  loading: false
 })
 const editorP = ref()
 
