@@ -947,4 +947,209 @@ exports.changePassword = async (req, res, next) => {
 };
 ```
 
-#  轮播图及公司介绍实现
+# 轮播图功能实现
+
+## 上传轮播图
+
+### 创建路由
+
+server/router/setting.js
+
+```js
+// 上传轮播图
+router.post('/uploadSwiper', tokenAuthentication, upload.any(), setHandler.uploadSwiper);
+```
+
+### 创建路由函数
+
+server/handler/setting.js
+
+```js
+// 上传轮播图 需要两个参数  set_value set_name
+exports.uploadSwiper = async (req, res) => {
+  try {
+    const { fieldname, filename } = req.files[0];
+    const updateSql = 'update setting set set_value = ? where set_name = ?';
+    const value = process.env.IMAGE_BASE_URL + filename;
+    const [updateData] = await db.query(updateSql, [value, fieldname]);
+    if (updateData.affectedRows !== 1) return res.error('上传轮播图失败');
+    res.success('上传成功', { fieldname, url: process.env.IMAGE_BASE_URL + filename });
+  } catch (e) {
+    res.error('上传失败', e.toString());
+  }
+};
+```
+
+## 获取所有轮播图
+
+### 创建路由
+
+server/router/setting.js
+
+```js
+// 获取所有轮播图
+router.post('/getAllSwiper', tokenAuthentication, setHandler.getAllSwiper);
+```
+
+### 创建路由函数
+
+server/handler/setting.js
+
+```js
+// 获取所有轮播图
+exports.getAllSwiper = async (req, res) => {
+  try {
+    const selectSql = 'select * from setting where set_name like \'swiper%\' ';
+    const [queryData] = await db.query(selectSql) || [];
+    res.success('查询成功', queryData);
+  } catch (e) {
+    res.error('查询失败', e.toString());
+  }
+};
+```
+
+# 公司功能实现
+
+## 修改公司名称
+
+### 创建路由
+
+server/router/setting.js
+
+```js
+// 修改公司名称
+router.post('/changeCompanyName', tokenAuthentication, setHandler.changeCompanyName);
+```
+
+### 创建路由函数
+
+server/handler/setting.js
+
+```js
+// 修改公司名称 参数 set_value
+exports.changeCompanyName = async (req, res) => {
+  try {
+    const { companyName } = req.body;
+    const updateSql = 'update setting set set_value = ? where set_name = "companyName"';
+    const [updateData] = await db.query(updateSql, companyName);
+    if (updateData.affectedRows !== 1) return res.error('修改公司名称失败');
+    res.success('修改成功');
+  } catch (e) {
+    res.error('修改失败', e.toString());
+  }
+};
+```
+
+## 获取公司名称
+
+### 创建路由
+
+server/router/setting.js
+
+```js
+// 获取公司名称
+router.post('/getCompanyName', tokenAuthentication, setHandler.getCompanyName);
+```
+
+### 创建路由函数
+
+server/handler/setting.js
+
+```js
+// 获取公司名称
+exports.getCompanyName = async (req, res) => {
+  try {
+    const selectSql = 'select * from setting where set_name = "companyName"';
+    const [queryData] = await db.query(selectSql) || [];
+    res.success('查询成功', queryData[0]);
+  } catch (e) {
+    res.error('查询失败', e.toString());
+  }
+};
+```
+
+## 修改公司介绍
+
+### 创建路由
+
+server/router/setting.js
+
+```js
+// 修改公司介绍
+router.post('/changeCompanyIntroduce', tokenAuthentication, setHandler.changeCompanyIntroduce);
+```
+
+### 创建路由函数
+
+server/handler/setting.js
+
+```js
+// 编辑公司介绍的接口 参数 set_text set_name
+exports.changeCompanyIntroduce = async (req, res) => {
+  try {
+    const bodyKeys = Object.keys(req.body);
+
+    // 检查是否有必要的字段
+    if (bodyKeys.length === 0) return res.error('缺少必要的字段');
+
+    const updatePromises = bodyKeys.map(async (key) => {
+      const setText = req.body[key];
+      const setName = key;
+
+      const updateSql = 'update setting set set_text = ? where set_name = ?';
+      const [updateData] = await db.query(updateSql, [setText, setName]);
+
+      if (updateData.affectedRows !== 1) return Promise.reject(new Error(`修改 ${setName} 失败，字段不存在`));
+
+      return Promise.resolve({
+        set_name: setName,
+        set_text: setText,
+      });
+    });
+
+    // 执行所有更新操作
+    const data = await Promise.all(updatePromises);
+
+    res.success('修改成功', data);
+  } catch (e) {
+    res.error('修改失败', e.toString());
+  }
+};
+```
+
+## 获取公司信息
+
+### 创建路由
+
+server/router/setting.js
+
+```js
+// 获取公司信息
+router.post('/getCompanyIntroduce', tokenAuthentication, setHandler.getCompanyIntroduce);
+```
+
+### 创建路由函数
+
+server/handler/setting.js
+
+```js
+// 获取公司介绍 参数 set_name
+exports.getCompanyIntroduce = async (req, res) => {
+  try {
+    const { setName } = req.body;
+    let selectSql = 'SELECT * FROM setting';
+
+    if (setName) {
+      selectSql += ' WHERE set_name = ?';
+    } else {
+      selectSql += ' WHERE set_name LIKE ?';
+    }
+
+    const searchParam = setName ? [setName] : ['%company%'];
+    const [queryData] = await db.query(selectSql, searchParam) || [];
+    res.success('查询成功', queryData);
+  } catch (e) {
+    res.error('查询失败', e.toString());
+  }
+};
+```

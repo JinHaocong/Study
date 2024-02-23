@@ -8,6 +8,7 @@ const handleJoiValidationError = require('./middlewares/handleJoiValidationError
 const requestMiddleware = require('./middlewares/requestMiddleware');
 const loginRouter = require('./router/login');
 const userRouter = require('./router/userinfo');
+const setRouter = require('./router/setting');
 
 // 访问不同的 .env 文件
 const isDev = process.env.NODE_ENV === 'development';
@@ -38,6 +39,7 @@ app.use(bodyParser.json());
 // 路由模块
 app.use('/api', loginRouter);
 app.use('/user', userRouter);
+app.use('/set', setRouter);
 
 // joi校验中间件 注意要放到路由中间件的后面
 app.use(handleJoiValidationError);
