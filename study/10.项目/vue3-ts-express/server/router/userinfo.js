@@ -17,11 +17,12 @@ const {
 const tokenAuthentication = require('../middlewares/tokenAuthentication');
 
 // 文件上传中间件
-const multer = require('../middlewares/uploadFileMiddleware');
+const upload = require('../middlewares/uploadFileMiddleware');
+// 更新时间添加中间件
 const updateTimeMiddleware = require('../middlewares/updateTimeMiddleware');
 
 // 上传头像
-router.post('/uploadAvatar', tokenAuthentication, multer, userinfoHandler.uploadAvatar);
+router.post('/uploadAvatar', tokenAuthentication, upload.single('avatar'), userinfoHandler.uploadAvatar);
 // 绑定账号
 router.post('/bindAccount', tokenAuthentication, userinfoHandler.bindAccount);
 

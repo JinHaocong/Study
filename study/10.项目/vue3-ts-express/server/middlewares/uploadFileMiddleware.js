@@ -14,13 +14,6 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage }).single('avatar');
-const uploadFileMiddleware = (req, res, next) => {
-  upload(req, res, (err) => {
-    if (err) return res.error(err.message);
-    if (!req.file) return res.error('文件未上传');
-    next();
-  });
-};
+const uploadFileMiddleware = multer({ storage });
 
 module.exports = uploadFileMiddleware;
