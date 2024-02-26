@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     v-model="state.dialogFormVisible"
-    :title="title"
+    :title="state.title"
     destroy-on-close
     width="50%"
     @close="cancel"
@@ -72,7 +72,6 @@ onBeforeUnmount(() => {
 
 // 编辑器实例，必须用 shallowRef
 const editorRef = shallowRef()
-const title = ref()
 const emit = defineEmits(['refresh'])
 const state = reactive<State>({
   dialogFormVisible: false,
@@ -132,7 +131,7 @@ const editorTitle = async (id: string) => {
   state.currentSetName = endpointMappings[endpointKey]
 
   if (titleMappings[titleKey] && endpointMappings[endpointKey]) {
-    title.value = titleMappings[titleKey]
+    state.title = titleMappings[titleKey]
     const { data } = await getCompanyIntroduce(endpointMappings[endpointKey])
     state.valueHtml = data[0].set_text
   }
