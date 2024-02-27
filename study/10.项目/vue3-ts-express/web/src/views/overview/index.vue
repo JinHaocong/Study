@@ -318,6 +318,7 @@ const initBottomLeftChart = async () => {
   bottomState.leftChart.setOption(option)
 }
 
+// 消息每日总量图
 const initBottomRightChart = async () => {
   const el: HTMLElement | null = document.querySelector('.login-week')
   if (!el) return
