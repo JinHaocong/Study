@@ -1152,3 +1152,114 @@ exports.getCompanyIntroduce = async (req, res) => {
   }
 };
 ```
+
+# 用户管理功能实现
+
+### 添加管理员
+
+#### 创建路由
+
+```js
+// 添加管理员
+router.post('/createAdmin', tokenAuthentication, expressJoi(addAdminLimit), userinfoHandler.createAdmin);
+```
+
+#### 创建路由函数
+
+```js
+// 添加管理员
+exports.createAdmin = async (req, res) => {
+  try {
+    const { account, password } = req.body;
+
+    // step 1：判断账号是否存在与数据库中
+    const selectSql = 'select * from users where account = ?';
+    const [selectData] = await db.query(selectSql, account) || [];
+    // step 2：判断账号是否存在
+    if (selectData.length) return res.error('账号已存在');
+    // step 3：把账号跟密码等信息插入到users表里面
+    const hashPassword = bcrypt.hashSync(password, Number(process.env.HASH_SALT));
+    const insertSql = 'insert into users set ?';
+    const [insertData] = await db.query(insertSql, {
+      ...req.body,
+      password: hashPassword,
+      create_time: new Date(),
+      status: 0,
+    });
+    if (insertData.affectedRows !== 1) return res.error('添加失败');
+    res.success('添加成功');
+  } catch (e) {
+    console.log(e);
+    res.error('添加失败', e.toString());
+  }
+};
+```
+
+### 获取管理员列表
+
+#### 创建路由
+
+```js
+// 获取管理员列表
+router.post('/getAdminList', tokenAuthentication, userinfoHandler.getAdminList);
+```
+
+#### 创建路由函数
+
+```js
+// 获取管理员列表 参数是 identity
+exports.getAdminList = async (req, res) => {
+  try {
+    const { identity } = req.body;
+    const selectSql = 'select * from users where identity = ?';
+    const [selectData] = await db.query(selectSql, identity) || [];
+    const modifiedData = selectData.map((item) => {
+      const { password, ...itemWithoutPassword } = item;
+      return itemWithoutPassword;
+    });
+
+    res.success('查询成功', modifiedData);
+  } catch (e) {
+    console.log(e);
+    res.error('查询失败', e.toString());
+  }
+};
+```
+
+### 编辑管理员
+
+#### 创建路由
+
+```js
+// 编辑管理员账号信息
+router.post('/editAdmin', tokenAuthentication, expressJoi(updateAdminLimit), userinfoHandler.editAdmin);
+```
+
+#### 创建路由函数
+
+```js
+// 编辑管理员账号信息
+exports.editAdmin = async (req, res) => {
+  try {
+    const { id } = req.body;
+    // step 1：查询原有数据
+    const selectSql = 'select department from users where id = ?';
+    const [selectData] = await db.query(selectSql, id) || [];
+    const updateContent = { ...req.body, update_time: new Date() };
+    // step 2：判断部门是否发生改变
+    if (selectData[0].department !== req.body.department) {
+      updateContent.read_list = null;
+      updateContent.read_status = 0;
+    }
+    // step 3：更新数据
+    const updateSql = 'update users set ? where id = ?';
+    const [queryData] = await db.query(updateSql, [updateContent, id]);
+    if (queryData.affectedRows !== 1) return res.error('修改失败');
+    res.success('修改成功');
+  } catch (e) {
+    console.log(e);
+    res.error('修改失败', e.toString());
+  }
+};
+```
+

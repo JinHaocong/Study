@@ -15,7 +15,7 @@ exports.verifyAccountAndEmail = async (req, res) => {
     if (email === queryData[0].email) return res.success('身份验证成功', { id: queryData[0].id });
     return res.error('邮箱不一致');
   } catch (e) {
-    res.error('查询失败', e);
+    res.error('查询失败', e.toString());
   }
 };
 
@@ -30,7 +30,7 @@ exports.changePasswordInLogin = async (req, res, next) => {
     res.success('修改成功');
     next();
   } catch (e) {
-    res.error('修改失败', e);
+    res.error('修改失败', e.toString());
   }
 };
 
@@ -50,7 +50,7 @@ exports.uploadAvatar = async (req, res) => {
     if (insertData.affectedRows !== 1) return res.error('上传失败');
     res.success('上传成功', avatarInfo);
   } catch (e) {
-    res.error('上传失败', e);
+    res.error('上传失败', e.toString());
   }
 };
 
@@ -87,7 +87,7 @@ exports.bindAccount = async (req, res) => {
     res.success('头像更换成功');
   } catch (e) {
     await connection.rollback();
-    res.error('上传头像失败', e);
+    res.error('上传头像失败', e.toString());
   } finally {
     // step 5：释放连接，将连接归还给连接池
     connection.release();
@@ -101,7 +101,7 @@ exports.getUserInfo = async (req, res) => {
     const [queryData] = await db.query(selectSql, req.body.id) || [];
     res.success('查询成功', queryData[0]);
   } catch (e) {
-    req.error('获取用户信息失败', e);
+    req.error('获取用户信息失败', e.toString());
   }
 };
 
@@ -115,7 +115,7 @@ exports.changeName = async (req, res, next) => {
     res.success('修改成功');
     next();
   } catch (e) {
-    res.error('修改失败', e);
+    res.error('修改失败', e.toString());
   }
 };
 
@@ -129,7 +129,7 @@ exports.changeSex = async (req, res, next) => {
     res.success('修改成功');
     next();
   } catch (e) {
-    res.error('修改失败', e);
+    res.error('修改失败', e.toString());
   }
 };
 
@@ -143,7 +143,7 @@ exports.changeEmail = async (req, res, next) => {
     res.success('修改成功');
     next();
   } catch (e) {
-    res.error('修改失败', e);
+    res.error('修改失败', e.toString());
   }
 };
 
@@ -167,136 +167,82 @@ exports.changePassword = async (req, res, next) => {
     next();
   } catch (e) {
     console.log(e);
-    res.error('修改失败', e);
+    res.error('修改失败', e.toString());
+  }
+};
+
+// sign ----------------------------------------用户管理
+
+// 添加管理员
+exports.createAdmin = async (req, res) => {
+  try {
+    const { account, password } = req.body;
+
+    // step 1：判断账号是否存在与数据库中
+    const selectSql = 'select * from users where account = ?';
+    const [selectData] = await db.query(selectSql, account) || [];
+    // step 2：判断账号是否存在
+    if (selectData.length) return res.error('账号已存在');
+    // step 3：把账号跟密码等信息插入到users表里面
+    const hashPassword = bcrypt.hashSync(password, Number(process.env.HASH_SALT));
+    const insertSql = 'insert into users set ?';
+    const [insertData] = await db.query(insertSql, {
+      ...req.body,
+      password: hashPassword,
+      create_time: new Date(),
+      status: 0,
+    });
+    if (insertData.affectedRows !== 1) return res.error('添加失败');
+    res.success('添加成功');
+  } catch (e) {
+    console.log(e);
+    res.error('添加失败', e.toString());
+  }
+};
+
+// 获取管理员列表 参数是 identity
+exports.getAdminList = async (req, res) => {
+  try {
+    const { identity } = req.body;
+    const selectSql = 'select * from users where identity = ?';
+    const [selectData] = await db.query(selectSql, identity) || [];
+    const modifiedData = selectData.map((item) => {
+      const { password, ...itemWithoutPassword } = item;
+      return itemWithoutPassword;
+    });
+
+    res.success('查询成功', modifiedData);
+  } catch (e) {
+    console.log(e);
+    res.error('查询失败', e.toString());
+  }
+};
+
+// 编辑管理员账号信息
+exports.editAdmin = async (req, res) => {
+  try {
+    const { id } = req.body;
+    // step 1：查询原有数据
+    const selectSql = 'select department from users where id = ?';
+    const [selectData] = await db.query(selectSql, id) || [];
+    const updateContent = { ...req.body, update_time: new Date() };
+    // step 2：判断部门是否发生改变
+    if (selectData[0].department !== req.body.department) {
+      updateContent.read_list = null;
+      updateContent.read_status = 0;
+    }
+    // step 3：更新数据
+    const updateSql = 'update users set ? where id = ?';
+    const [queryData] = await db.query(updateSql, [updateContent, id]);
+    if (queryData.affectedRows !== 1) return res.error('修改失败');
+    res.success('修改成功');
+  } catch (e) {
+    console.log(e);
+    res.error('修改失败', e.toString());
   }
 };
 
 // todo
-
-// ----------------------------------------用户管理
-// 添加管理员
-exports.createAdmin = (req, res) => {
-  const {
-    account,
-    password,
-    name,
-    sex,
-    department,
-    email,
-    identity,
-  } = req.body;
-  // 判断账号是否存在与数据库中
-  const sql = 'select * from users where account = ?';
-  db.query(sql, account, (err, results) => {
-    // 判断账号是否存在
-    if (results.length > 0) {
-      return res.send({
-        status: 1,
-        message: '账号已存在',
-      });
-    }
-    const hashpassword = bcrypt.hashSync(password, 10);
-    // 第四步,把账号跟密码插入到users表里面
-    const sql1 = 'insert into users set ?';
-    // 创建时间
-    const create_time = new Date();
-    db.query(sql1, {
-      account,
-      password: hashpassword,
-      name,
-      sex,
-      department,
-      email,
-      // 身份
-      identity,
-      // 创建时间
-      create_time,
-      // 初始未冻结状态为0
-      status: 0,
-    }, (err, results) => {
-      // 第一个,插入失败
-      // affectedRows为影响的行数，如果插入失败，那么就没有影响到行数，也就是行数不为1
-      if (results.affectedRows !== 1) {
-        return res.send({
-          status: 1,
-          message: '添加管理员失败',
-        });
-      }
-      res.send({
-        status: 0,
-        message: '添加管理员成功',
-      });
-    });
-  });
-};
-
-// 获取管理员列表 参数是 identity
-exports.getAdminList = (req, res) => {
-  const sql = 'select * from users where identity = ?';
-  db.query(sql, req.body.identity, (err, result) => {
-    if (err) return res.cc(err);
-    result.forEach((e) => {
-      e.password = '';
-      e.create_time = '';
-      e.image_url = '';
-      e.status = '';
-    });
-    res.send(result);
-  });
-};
-// 编辑管理员账号信息
-exports.editAdmin = (req, res) => {
-  const {
-    id,
-    name,
-    sex,
-    email,
-    department,
-  } = req.body;
-  const date = new Date();
-  const sql0 = 'select department from users where id = ?';
-  db.query(sql0, id, (err, result) => {
-    if (result[0].department == department) {
-      // 修改的内容
-      const updateContent = {
-        id,
-        name,
-        sex,
-        email,
-        department,
-        update_time: date,
-      };
-      const sql = 'update users set ? where id = ?';
-      db.query(sql, [updateContent, updateContent.id], (err, result) => {
-        if (err) return res.cc(err);
-        res.send({
-          status: 0,
-          message: '修改管理员信息成功',
-        });
-      });
-    } else {
-      // 修改的内容
-      const updateContent = {
-        id,
-        name,
-        sex,
-        email,
-        department,
-        update_time: date,
-        read_list: null,
-        read_status: 0,
-      };
-      const sql = 'update users set ? where id = ?';
-      db.query(sql, [updateContent, updateContent.id], (err, result) => {
-        if (err) return res.cc(err);
-        res.send({
-          status: 0,
-          message: '修改管理员信息成功',
-        });
-      });
-    }
-  });
-};
 
 // 对管理员取消赋权 参数 id
 exports.changeIdentityToUser = (req, res) => {

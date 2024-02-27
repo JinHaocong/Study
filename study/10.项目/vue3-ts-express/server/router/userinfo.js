@@ -12,7 +12,7 @@ const {
   passwordLimit,
   nameLimit,
   emailLimit,
-  forgetPasswordLimit,
+  forgetPasswordLimit, addAdminLimit, updateAdminLimit,
 } = require('../joi/user');
 const tokenAuthentication = require('../middlewares/tokenAuthentication');
 
@@ -44,11 +44,11 @@ router.post('/changePasswordInLogin', expressJoi(forgetPasswordLimit), userinfoH
 
 // todo
 // 添加管理员
-router.post('/createAdmin', userinfoHandler.createAdmin);
+router.post('/createAdmin', tokenAuthentication, expressJoi(addAdminLimit), userinfoHandler.createAdmin);
 // 获取管理员列表
-router.post('/getAdminList', userinfoHandler.getAdminList);
+router.post('/getAdminList', tokenAuthentication, userinfoHandler.getAdminList);
 // 编辑管理员账号信息
-router.post('/editAdmin', userinfoHandler.editAdmin);
+router.post('/editAdmin', tokenAuthentication, expressJoi(updateAdminLimit), userinfoHandler.editAdmin);
 // 对管理员取消赋权
 router.post('/changeIdentityToUser', userinfoHandler.changeIdentityToUser);
 // 对用户进行赋权
