@@ -3915,8 +3915,9 @@ const initBottomLeftChart = async () => {
       trigger: 'item'
     },
     legend: {
-      top: '5%',
-      left: 'center'
+      orient: 'vertical',
+      left: 'left',
+      padding: [20, 20, 20, 20]
     },
     series: [
       {
@@ -3943,13 +3944,20 @@ const initBottomLeftChart = async () => {
         labelLine: {
           show: false
         },
-        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        data: [
+          { value: 1048, name: 'Search Engine' },
+          { value: 735, name: 'Direct' },
+          { value: 580, name: 'Email' },
+          { value: 484, name: 'Union Ads' },
+          { value: 300, name: 'Video Ads' }
+        ]
       }
     ]
   }
   bottomState.leftChart.setOption(option)
 }
 
+// 消息每日总量图
 const initBottomRightChart = async () => {
   const el: HTMLElement | null = document.querySelector('.login-week')
   if (!el) return
@@ -3971,14 +3979,14 @@ const initBottomRightChart = async () => {
     },
     xAxis: {
       type: 'category',
-      data: [1, 2, 3, 4, 5]
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
     },
     yAxis: {
       type: 'value'
     },
     series: [
       {
-        data: [5, 4, 3, 2, 1],
+        data: [150, 230, 224, 218, 135, 147, 260],
         type: 'line'
       }
     ]
