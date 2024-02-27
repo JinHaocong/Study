@@ -217,10 +217,80 @@ export async function del<T>(url: string, params?: any): Promise<ApiResult<T>> {
 
 ```
 
-## 安装ECharts
+## ECharts
+
+### 安装
 
 ```powershell
 yarn add echarts
+```
+
+### 封装line，pie，bar按需导入
+
+```ts
+// 引入 echarts 核心模块，核心模块提供了 echarts 使用必须要的接口。
+import * as echarts from 'echarts/core'
+
+/** 引入柱状图 + 折线图 + 饼图，图表后缀都为 Chart，一般常用的就这三个，如果还需要其他的，就自行添加  */
+import { BarChart, LineChart, PieChart } from 'echarts/charts'
+
+// 引入提示框，标题，直角坐标系，数据集，内置数据转换器组件，组件后缀都为 Component
+import {
+  TitleComponent,
+  TooltipComponent,
+  GridComponent,
+  DatasetComponent,
+  TransformComponent,
+  ToolboxComponent,
+  LegendComponent
+} from 'echarts/components'
+
+// 标签自动布局，全局过渡动画等特性
+import { LabelLayout, UniversalTransition } from 'echarts/features'
+
+// 引入 Canvas 渲染器，注意引入 CanvasRenderer 或者 SVGRenderer 是必须的一步
+import { CanvasRenderer } from 'echarts/renderers'
+import {
+  type BarSeriesOption,
+  type ComposeOption,
+  type DatasetComponentOption,
+  type GridComponentOption,
+  type LineSeriesOption,
+  type TitleComponentOption,
+  type TooltipComponentOption,
+  type PieSeriesOption
+} from 'echarts'
+
+// 注册必须的组件
+echarts.use([
+  TitleComponent,
+  TooltipComponent,
+  GridComponent,
+  DatasetComponent,
+  TransformComponent,
+  ToolboxComponent,
+  LegendComponent,
+  CanvasRenderer,
+  BarChart,
+  LineChart,
+  PieChart,
+  LabelLayout,
+  UniversalTransition
+])
+
+export type ECOption = ComposeOption<
+  | BarSeriesOption
+  | LineSeriesOption
+  | TitleComponentOption
+  | TooltipComponentOption
+  | GridComponentOption
+  | DatasetComponentOption
+  | PieSeriesOption
+>
+
+// 导出
+export default echarts
+
 ```
 
 ## 配置vite.config.js
@@ -3478,6 +3548,442 @@ const apiCompanyIntroduce = async () => {
   } finally {
     companyState.loading = false
   }
+}
+</script>
+
+<style lang="scss" scoped>
+...
+</style>
+
+```
+
+## 系统概览页面
+
+### 添加路由
+
+web/src/router/index.ts
+
+```ts
+import { createRouter, createWebHistory } from 'vue-router'
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      redirect: '/login'
+    },
+    {
+      name: 'login',
+      path: '/login',
+      component: () => import('@/views/login/index.vue')
+    },
+    {
+      name: 'menu',
+      path: '/menu',
+      meta: {
+        title: '菜单'
+      },
+      component: () => import('@/views/menu/index.vue'),
+      children: [
+        {
+          name: 'home',
+          path: '/home',
+          component: () => import('@/views/home/index.vue'),
+          meta: {
+            title: '首页',
+            iconName: 'home',
+            iconSize: 14
+          }
+        },
+        {
+          name: 'overview',
+          path: '/overview',
+          component: () => import('@/views/overview/index.vue'),
+          meta: {
+            title: '系统概览',
+            iconName: 'overview',
+            iconSize: 20,
+            iconColor: '#B75D7DA3'
+          }
+        },
+        {
+          name: 'set',
+          path: '/set',
+          component: () => import('@/views/set/index.vue'),
+          meta: {
+            title: '系统设置',
+            iconName: 'set',
+            iconSize: 16,
+            iconColor: '#B75D7DA3'
+          }
+        }
+      ]
+    }
+  ]
+})
+
+export default router
+
+```
+
+### 页面架构搭建
+
+```vue
+<template>
+  <div class="common-wrapped">
+    <!-- 顶部内容外壳 -->
+    <div class="top-content-wrapped">
+      <!-- 个人信息 -->
+      <div class="person-info">
+        <!-- 用户头像外壳 -->
+        <div class="person-avatar-wrapped">
+          <el-avatar :size="100" :src="userStore.image_url" />
+          <span class="department">所属部门：{{ userStore.department || '无' }}</span>
+          <div class="company">所属公司：{{ topState.companyName }}</div>
+        </div>
+        <!-- 竖线 -->
+        <div class="line-wrapped">
+          <div class="line"></div>
+        </div>
+        <!-- 详细信息外壳 -->
+        <div class="detail-info-wrapped">
+          <p>姓名：{{ userStore.name }}</p>
+          <p>性别：{{ userStore.sex }}</p>
+          <p>身份：{{ userStore.identity }}</p>
+          <p>分管领域：超级管理</p>
+          <p>权限：最高权限</p>
+        </div>
+      </div>
+      <div class="manage-user pie"></div>
+    </div>
+    <!-- 中间内容外壳 -->
+    <div class="mid-content-wrapped">
+      <div class="product-category-bar mid-content-left"></div>
+      <div class="mid-content-right">
+        <h1 class="title">
+          常用管理
+          <span style="color: #3b8d99">|</span>
+        </h1>
+        <el-row :gutter="20">
+          <el-col :span="6">
+            <div class="button-area" @click="routerTo('users_manage')">
+              <SvgIcon color="#3b8d99" icon-name="user" style="width: 24px; height: 24px"></SvgIcon>
+              <span class="button-name">用户管理</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="button-area" @click="routerTo('product_manage_list')">
+              <SvgIcon
+                color="#3b8d99"
+                icon-name="product"
+                style="width: 24px; height: 24px"
+              ></SvgIcon>
+              <span class="button-name">产品管理</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="button-area" @click="routerTo('message_list')">
+              <SvgIcon
+                color="#3b8d99"
+                icon-name="notice"
+                style="width: 24px; height: 24px"
+              ></SvgIcon>
+              <span class="button-name">系统消息</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="button-area" @click="routerTo('set')">
+              <SvgIcon color="#3b8d99" icon-name="me" style="width: 24px; height: 24px"></SvgIcon>
+              <span class="button-name">个人信息</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="button-area">
+              <SvgIcon
+                color="#3b8d99"
+                icon-name="department"
+                style="width: 24px; height: 24px"
+              ></SvgIcon>
+              <span class="button-name">部门信息</span>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="button-area" @click="routerTo('set')">
+              <SvgIcon color="#3b8d99" icon-name="set" style="width: 24px; height: 24px"></SvgIcon>
+              <span class="button-name">系统设置</span>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </div>
+    <!-- 底部内容外壳 -->
+    <div class="footer-content-wrapped">
+      <div class="massage-level footer-content-left"></div>
+      <div class="login-week footer-content-right"></div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { onBeforeUnmount, onMounted, nextTick, shallowReactive } from 'vue'
+import SvgIcon from '@/components/SvgIcon.vue'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/userStore'
+import { getCompanyName } from '@/api/setting'
+import echarts, { type ECOption } from '@/utils/echarts'
+
+const userStore = useUserStore()
+const router = useRouter()
+onMounted(async () => {
+  await Promise.all([
+    apiCompanyName(),
+    initTopChart(),
+    initMiddleChart(),
+    initBottomLeftChart(),
+    initBottomRightChart()
+  ])
+  await nextTick()
+  window.addEventListener('resize', handleResize)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleResize)
+})
+
+// 自适应
+const handleResize = () => {
+  topState.chart?.resize()
+  middleState.chart?.resize()
+  bottomState.leftChart?.resize()
+  bottomState.rightChart?.resize()
+}
+
+// sign 上
+interface TopState {
+  companyName: string | null
+  chart: null | echarts.ECharts
+}
+
+const topState = shallowReactive<TopState>({
+  companyName: null,
+  chart: null
+})
+
+// 获取公司名称
+const apiCompanyName = async () => {
+  try {
+    const {
+      data: { set_value }
+    } = await getCompanyName()
+    topState.companyName = set_value
+  } catch (e) {
+    console.log(e, 'apiCompanyName')
+  }
+}
+
+// 初始化pie图
+const initTopChart = async () => {
+  const el: HTMLElement | null = document.querySelector('.manage-user')
+  if (!el) return
+  el.setAttribute('_echarts_instance_', '')
+  topState.chart = echarts.init(el)
+  // topState.chart.showLoading()
+  // topState.chart.hideLoading()
+  const option: ECOption = {
+    title: {
+      text: '管理与用户对比图',
+      left: 'center',
+      top: '10'
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      orient: 'vertical',
+      left: 'left',
+      padding: [20, 20, 20, 20]
+    },
+    series: [
+      {
+        type: 'pie',
+        radius: '65%',
+        data: [
+          { value: 1048, name: 'Search Engine' },
+          { value: 735, name: 'Direct' },
+          { value: 580, name: 'Email' },
+          { value: 484, name: 'Union Ads' },
+          { value: 300, name: 'Video Ads' }
+        ],
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
+  }
+  topState.chart.setOption(option)
+}
+
+// sign 中
+interface MiddleState {
+  chart: null | echarts.ECharts
+}
+
+const middleState = shallowReactive<MiddleState>({
+  chart: null
+})
+
+// 产品类别图
+const initMiddleChart = async () => {
+  const el: HTMLElement | null = document.querySelector('.product-category-bar')
+  if (!el) return
+  el.setAttribute('_echarts_instance_', '')
+  middleState.chart = echarts.init(el)
+  // middleState.chart.showLoading()
+  // middleState.chart.hideLoading()
+  const option: ECOption = {
+    title: {
+      text: '产品类别库存总价图',
+      top: '10',
+      left: 'center',
+      textStyle: {
+        // fontSize: 16
+      }
+    },
+    tooltip: {
+      trigger: 'axis'
+    },
+    xAxis: {
+      type: 'category',
+      // 食品类，服装类，鞋帽类，日用品类，家具类，家用电器类，纺织品类，五金类
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [
+      {
+        data: [120, 200, 150, 80, 70, 110, 130],
+        type: 'bar',
+        barWidth: 40,
+        colorBy: 'data'
+      }
+    ]
+  }
+  middleState.chart.setOption(option)
+}
+
+// 常用管理路由跳转
+const routerTo = (x: string) => {
+  router.push(`/${x}`)
+}
+
+// sign 下
+
+interface BottomState {
+  leftChart: null | echarts.ECharts
+  rightChart: null | echarts.ECharts
+}
+
+const bottomState = shallowReactive<BottomState>({
+  leftChart: null,
+  rightChart: null
+})
+
+// 公告等级分布图
+const initBottomLeftChart = async () => {
+  const el: HTMLElement | null = document.querySelector('.massage-level')
+  if (!el) return
+  el.setAttribute('_echarts_instance_', '')
+  bottomState.leftChart = echarts.init(el)
+  // bottomState.leftChart.showLoading()
+  // bottomState.leftChart.hideLoading()
+  const option = {
+    title: {
+      text: '公告等级分布图',
+      top: '10',
+      left: 'center',
+      textStyle: {
+        // fontSize: 16
+      }
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      top: '5%',
+      left: 'center'
+    },
+    series: [
+      {
+        // name: 'Access From',
+        type: 'pie',
+        radius: ['35%', '65%'],
+        avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2
+        },
+        label: {
+          show: false,
+          position: 'center'
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: 40,
+            fontWeight: 'bold'
+          }
+        },
+        labelLine: {
+          show: false
+        },
+        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+      }
+    ]
+  }
+  bottomState.leftChart.setOption(option)
+}
+
+const initBottomRightChart = async () => {
+  const el: HTMLElement | null = document.querySelector('.login-week')
+  if (!el) return
+  el.setAttribute('_echarts_instance_', '')
+  bottomState.rightChart = echarts.init(el)
+  // bottomState.leftChart.showLoading()
+  // bottomState.leftChart.hideLoading()
+  const option = {
+    title: {
+      text: '每日登录人数图',
+      top: '10',
+      left: 'center',
+      textStyle: {
+        // fontSize: 16
+      }
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    xAxis: {
+      type: 'category',
+      data: [1, 2, 3, 4, 5]
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [
+      {
+        data: [5, 4, 3, 2, 1],
+        type: 'line'
+      }
+    ]
+  }
+  bottomState.rightChart.setOption(option)
 }
 </script>
 
