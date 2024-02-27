@@ -168,8 +168,8 @@ const initTopChart = async () => {
       trigger: 'item'
     },
     legend: {
-      orient: 'vertical',
-      left: 'left',
+      left: 'center',
+      bottom: 'bottom',
       padding: [20, 20, 20, 20]
     },
     series: [
@@ -283,8 +283,8 @@ const initBottomLeftChart = async () => {
       trigger: 'item'
     },
     legend: {
-      orient: 'vertical',
-      left: 'left',
+      left: 'center',
+      bottom: 'bottom',
       padding: [20, 20, 20, 20]
     },
     series: [
