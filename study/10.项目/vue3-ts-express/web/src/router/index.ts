@@ -26,7 +26,19 @@ const router = createRouter({
           component: () => import('@/views/home/index.vue'),
           meta: {
             title: '首页',
-            iconName: 'home'
+            iconName: 'home',
+            iconSize: 14
+          }
+        },
+        {
+          name: 'overview',
+          path: '/overview',
+          component: () => import('@/views/overview/index.vue'),
+          meta: {
+            title: '系统概览',
+            iconName: 'overview',
+            iconSize: 20,
+            iconColor: '#B75D7DA3'
           }
         },
         {
@@ -36,7 +48,7 @@ const router = createRouter({
           meta: {
             title: '系统设置',
             iconName: 'set',
-            iconSize: 14,
+            iconSize: 16,
             iconColor: '#B75D7DA3'
           }
         }
