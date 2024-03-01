@@ -1,52 +1,49 @@
 import avatar from './images/bozai.png'
 import './App.scss'
-import {useRef, useState} from "react";
+import {Dispatch, SetStateAction, useEffect, useRef, useState} from "react";
 import _ from 'lodash'
 import classNames from 'classnames'
 import {v4 as uuidV4} from 'uuid'
 import dayjs from 'dayjs'
+import axios from 'axios'
 
+interface User {
+    uid: string
+    avatar: string
+    uname: string
+}
 
-// 评论列表数据
-const list = [
-    {
-        // 评论id
-        id: '3',
-        // 用户信息
-        user: {
-            uid: '13258165',
-            avatar: '',
-            uname: '周杰伦',
-        },
-        // 评论内容
-        content: '哎哟，不错哦',
-        // 评论时间
-        ctime: '10-19 09:00',
-        like: 50,
-    },
-    {
-        id: '2',
-        user: {
-            uid: '36080105',
-            avatar: '',
-            uname: '许嵩',
-        },
-        content: '我寻你千百度 日出到迟暮',
-        ctime: '10-18 08:15',
-        like: 88,
-    },
-    {
-        id: '1',
-        user: {
-            uid: '30009257',
-            avatar,
-            uname: '黑马前端',
-        },
-        content: '学前端就来黑马',
-        ctime: '11-13 11:29',
-        like: 66,
-    },
-]
+interface Item {
+    id: string
+    user: User
+    content: string
+    ctime: string
+    like: number
+}
+
+type UseGetList = [Item[], Dispatch<SetStateAction<Item[]>>]
+
+// 封装请求数据的Hook
+const useGetList = (): UseGetList => {
+    // 获取接口数据渲染
+    const [commentList, setCommentList] = useState<Item[]>([])
+
+    // 请求数据
+    const getList = async () => {
+        // axios请求数据
+        const res = await axios.get(' http://localhost:3004/list')
+        setCommentList(res.data)
+    }
+
+    useEffect(() => {
+        getList()
+    }, []);
+
+    return [
+        commentList,
+        setCommentList
+    ]
+}
 
 // 当前登录用户信息
 const user = {
@@ -66,7 +63,10 @@ const tabs = [
 
 const App = () => {
     // 数据渲染
-    const [commentList, setCommentList] = useState(_.orderBy(list, 'like', 'desc'))
+    // const [commentList, setCommentList] = useState(_.orderBy(list, 'like', 'desc'))
+
+    // 获取接口数据渲染
+    const [commentList, setCommentList] = useGetList()
 
     // tab切换功能
     // 1. 点击谁就把谁的type记录下来
