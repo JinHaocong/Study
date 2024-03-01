@@ -3,7 +3,7 @@
 // 2. 子组件接收数据  props的参数
 
 // 子组件 Son
-import {type ReactNode} from "react";
+import React from "react";
 
 interface SonProps {
     name: string;
@@ -12,7 +12,7 @@ interface SonProps {
     list: string[];
     obj: { name: string };
     cb: () => void;
-    child: ReactNode;
+    child: React.ReactNode;
 }
 
 function Son(props: SonProps) {
