@@ -1,15 +1,17 @@
 import avatar from './images/bozai.png'
 import './App.scss'
-import {useState} from "react";
+import {useRef, useState} from "react";
 import _ from 'lodash'
 import classNames from 'classnames'
+import {v4 as uuidV4} from 'uuid'
+import dayjs from 'dayjs'
 
 
 // 评论列表数据
 const list = [
     {
         // 评论id
-        id: 3,
+        id: '3',
         // 用户信息
         user: {
             uid: '13258165',
@@ -23,7 +25,7 @@ const list = [
         like: 50,
     },
     {
-        id: 2,
+        id: '2',
         user: {
             uid: '36080105',
             avatar: '',
@@ -34,7 +36,7 @@ const list = [
         like: 88,
     },
     {
-        id: 1,
+        id: '1',
         user: {
             uid: '30009257',
             avatar,
@@ -84,11 +86,32 @@ const App = () => {
     }
 
     // 删除功能
-    const handleDel = (id: number) => {
-        console.log(id)
+    const handleDel = (id: string) => {
         // 对commentList做过滤处理
         setCommentList(commentList.filter(item => item.id !== id))
     }
+
+    // 发布评论功能
+    const [content, setContent] = useState('')
+    const inputRef = useRef<HTMLTextAreaElement>(null)
+
+    const handlePublish = () => {
+        setCommentList([
+            ...commentList,
+            {
+                id: uuidV4(),
+                user,
+                content,
+                ctime: dayjs(new Date()).format('MM-DD hh:mm'),
+                like: Math.floor(Math.random() * 101),
+            },
+        ])
+        setContent('')
+        inputRef.current?.focus()
+
+    }
+
+
     return (
         <div className="app">
             {/* 导航 Tab */}
@@ -124,11 +147,14 @@ const App = () => {
                     <div className="reply-box-wrap">
                         {/* 评论框 */}
                         <textarea
+                            ref={inputRef}
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
                             className="reply-box-textarea"
                             placeholder="发一条友善的评论"
                         />
                         {/* 发布按钮 */}
-                        <div className="reply-box-send">
+                        <div onClick={() => handlePublish()} className="reply-box-send">
                             <div className="send-text">发布</div>
                         </div>
                     </div>
