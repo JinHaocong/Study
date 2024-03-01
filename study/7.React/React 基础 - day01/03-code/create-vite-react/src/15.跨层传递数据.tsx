@@ -1,11 +1,16 @@
-// 1. 通过子传父 A -> App
-// 2. 通过父传子 App -> B
+// App -> A -> B
 
 import {createContext, useContext} from "react"
 
+// 1. createContext方法创建一个上下文对象
+
 const MsgContext = createContext('')
 
-const A = () => {
+// 2. 在顶层组件 通过Provider组件提供数据
+
+// 3. 在底层组件 通过useContext钩子函数使用数据
+
+function A() {
     return (
         <div>
             this is A component
@@ -14,8 +19,7 @@ const A = () => {
     )
 }
 
-
-const B = () => {
+function B() {
     const msg = useContext(MsgContext)
     return (
         <div>
@@ -24,17 +28,16 @@ const B = () => {
     )
 }
 
-const App = () => {
-    const msg = 'this is App component'
+function App() {
+    const msg = 'this is app msg'
     return (
-        <>
+        <div>
             <MsgContext.Provider value={msg}>
                 this is App
                 <A/>
             </MsgContext.Provider>
-        </>
+        </div>
     )
 }
 
 export default App
-
