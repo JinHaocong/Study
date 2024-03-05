@@ -25,7 +25,7 @@ const Month = () => {
         const formattedDate = dayjs(date).format('YYYY-MM')
         setDateVisible(false)
         setCurrentMonth(formattedDate)
-        setMonthList(monthGroup[formattedDate])
+        setMonthList(monthGroup[formattedDate] || [])
     }, [setDateVisible, setCurrentMonth, setMonthList, monthGroup]);
 
     // 计算统计
@@ -63,15 +63,15 @@ const Month = () => {
                     {/* 统计区域 */}
                     <div className='twoLineOverview'>
                         <div className="item">
-                            <span className="money">{overview.pay}</span>
+                            <span className="money">{overview.pay || '无'}</span>
                             <span className="type">支出</span>
                         </div>
                         <div className="item">
-                            <span className="money">{overview.income}</span>
+                            <span className="money">{overview.income || '无'}</span>
                             <span className="type">收入</span>
                         </div>
                         <div className="item">
-                            <span className="money">{overview.total}</span>
+                            <span className="money">{overview.total || '无'}</span>
                             <span className="type">结余</span>
                         </div>
                     </div>
