@@ -1,6 +1,6 @@
 import {TabBar} from "antd-mobile"
 import {useEffect} from "react"
-import {Outlet, useNavigate} from "react-router-dom"
+import {Outlet, useLocation, useNavigate} from "react-router-dom"
 import './index.scss'
 import {
     BillOutline,
@@ -31,6 +31,9 @@ const tabs = [
 const Layout = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
+    const location = useLocation()
+
+    
     useEffect(() => {
         dispatch(getBillList())
     }, [dispatch])
@@ -45,7 +48,7 @@ const Layout = () => {
                 <Outlet/>
             </div>
             <div className="footer">
-                <TabBar onChange={switchRoute}>
+                <TabBar activeKey={location.pathname} onChange={switchRoute}>
                     {tabs.map(item => (
                         <TabBar.Item key={item.key} icon={item.icon} title={item.title}/>
                     ))}
