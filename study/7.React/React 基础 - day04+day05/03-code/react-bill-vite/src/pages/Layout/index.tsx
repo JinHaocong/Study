@@ -1,28 +1,58 @@
-import {Outlet} from "react-router-dom";
-import {Button} from "antd-mobile";
-import {useEffect} from "react";
-import {useAppDispatch} from "@/hooks/storeHooks.ts";
+import {TabBar} from "antd-mobile"
+import {useEffect} from "react"
+import {Outlet, useNavigate} from "react-router-dom"
+import './index.scss'
+import {
+    BillOutline,
+    CalculatorOutline,
+    AddCircleOutline
+} from 'antd-mobile-icons'
 import {getBillList} from "@/store/module/bill/ billAsyncActions.ts";
+import {useAppDispatch} from "@/hooks/storeHooks.ts";
+
+const tabs = [
+    {
+        key: '/month',
+        title: '月度账单',
+        icon: <BillOutline/>,
+    },
+    {
+        key: '/new',
+        title: '记账',
+        icon: <AddCircleOutline/>,
+    },
+    {
+        key: '/year',
+        title: '年度账单',
+        icon: <CalculatorOutline/>,
+    },
+]
 
 const Layout = () => {
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
     useEffect(() => {
         dispatch(getBillList())
-    }, [dispatch]);
+    }, [dispatch])
 
+    // tabBar 路由跳转
+    const switchRoute = (path: string) => {
+        navigate(path)
+    }
     return (
-        <div style={{height: '100%', width: '100%'}}>
-            Layout
-            {/*全局样式测试*/}
-            <Button color={"primary"}>测试</Button>
-
-            {/*局部样式测试*/}
-            <div className={'purple'}>
-                <Button color={"primary"}>测试</Button>
+        <div className="layout">
+            <div className="container">
+                <Outlet/>
             </div>
-            <Outlet/>
+            <div className="footer">
+                <TabBar onChange={switchRoute}>
+                    {tabs.map(item => (
+                        <TabBar.Item key={item.key} icon={item.icon} title={item.title}/>
+                    ))}
+                </TabBar>
+            </div>
         </div>
-    );
-};
+    )
+}
 
 export default Layout

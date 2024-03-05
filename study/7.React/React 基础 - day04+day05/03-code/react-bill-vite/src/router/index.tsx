@@ -16,6 +16,10 @@ const router = createBrowserRouter([
             {
                 path: 'year',
                 element: lazyLoad(React.lazy(() => import("@/pages/Year"))),
+            },
+            {
+                path: 'month',
+                element: lazyLoad(React.lazy(() => import("@/pages/Month"))),
             }
         ]
     },
