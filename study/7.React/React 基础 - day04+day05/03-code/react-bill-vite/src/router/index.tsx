@@ -26,6 +26,10 @@ const router = createBrowserRouter([
     {
         path: '/new',
         element: lazyLoad(React.lazy(() => import("@/pages/New")))
+    },
+    {
+        path: '/test',
+        element: lazyLoad(React.lazy(() => import("@/pages/Test")))
     }
 ])
 
