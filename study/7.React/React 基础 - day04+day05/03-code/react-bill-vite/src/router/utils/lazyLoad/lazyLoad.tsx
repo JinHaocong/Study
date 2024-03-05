@@ -1,5 +1,5 @@
 import React, {ComponentType, Suspense} from "react";
-import {SpinLoading} from "antd-mobile";
+import './lazyLoad.scss'
 
 /**
  * @description 路由懒加载
@@ -8,17 +8,16 @@ import {SpinLoading} from "antd-mobile";
  */
 const LazyLoad = (Comp: ComponentType): React.ReactNode => {
     const LoadingIndicator = (
-        <SpinLoading
-            color='primary'
-            style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "100%",
-                margin: "0 auto",
-                '--size': '32px'
-            }}
-        />
+        <div className="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     );
 
     return (

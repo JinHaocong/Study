@@ -1,6 +1,6 @@
 import {createBrowserRouter} from "react-router-dom";
 
-import lazyLoad from "@/router/utils/lazyLoad.tsx";
+import lazyLoad from "@/router/utils/lazyLoad/lazyLoad.tsx";
 import React from "react";
 
 
