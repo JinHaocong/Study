@@ -1,19 +1,51 @@
 import {NavBar, DatePicker} from 'antd-mobile'
 import './index.scss'
-import {useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import classNames from "classnames";
 import dayjs from "dayjs"
+import {useAppSelector} from "@/hooks/storeHooks.ts";
+import _ from 'lodash'
+import {BillItem} from "@/store/interface";
 
 const Month = () => {
     const [dateVisible, setDateVisible] = useState(false)
     const [currentMonth, setCurrentMonth] = useState(() => {
         return dayjs().format('YYYY-MM')
     })
+    const [currentMonthList, setMonthList] = useState<BillItem[]>([])
+    const billList = useAppSelector(state => state.bill.billList)
+
+    const monthGroup = useMemo(() => {
+        return _.groupBy(billList, item => dayjs(item.date).format('YYYY-MM'))
+    }, [billList])
+
+
     // 时间选择框确实事件
-    const dateConfirm = (date: Date) => {
+    const dateConfirm = useCallback((date: Date) => {
+        const formattedDate = dayjs(date).format('YYYY-MM')
         setDateVisible(false)
-        setCurrentMonth(dayjs(date).format('YYYY-MM'))
-    }
+        setCurrentMonth(formattedDate)
+        setMonthList(monthGroup[formattedDate])
+    }, [setDateVisible, setCurrentMonth, setMonthList, monthGroup]);
+
+    // 计算统计
+    const overview = useMemo(() => {
+        const income = currentMonthList.filter(item => item.type === 'income')
+            .reduce((a, c) => a + c.money, 0)
+        const pay = currentMonthList.filter(item => item.type === 'pay')
+            .reduce((a, c) => a + c.money, 0)
+        return {
+            income,
+            pay,
+            total: income + pay
+        }
+    }, [currentMonthList])
+
+    // 首次加载
+    useEffect(() => {
+        dateConfirm(new Date())
+    }, [dateConfirm, monthGroup])
+
     return (
         <div className="monthlyBill">
             <NavBar className="nav" backArrow={false}>
@@ -31,15 +63,15 @@ const Month = () => {
                     {/* 统计区域 */}
                     <div className='twoLineOverview'>
                         <div className="item">
-                            <span className="money">{100}</span>
+                            <span className="money">{overview.pay}</span>
                             <span className="type">支出</span>
                         </div>
                         <div className="item">
-                            <span className="money">{200}</span>
+                            <span className="money">{overview.income}</span>
                             <span className="type">收入</span>
                         </div>
                         <div className="item">
-                            <span className="money">{200}</span>
+                            <span className="money">{overview.total}</span>
                             <span className="type">结余</span>
                         </div>
                     </div>
