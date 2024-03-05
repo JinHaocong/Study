@@ -1,41 +1,54 @@
-import React, {memo, useCallback, useState} from 'react';
+import React, {createContext, FC, ReactNode, useContext, useState} from 'react';
 
-const ChildComponent: React.FC<{ onClick: () => void }> = memo(({onClick}) => {
-    console.log('ChildComponent rendering');
-    return <button onClick={onClick}>Click me</button>;
-});
+// 定义上下文值的类型
+interface MyContextType {
+    globalState: string;
+    setGlobalState: React.Dispatch<React.SetStateAction<string>>;
+}
 
-const ChildComponent2: React.FC<{ onClick: () => void }> = ({onClick}) => {
-    console.log('ChildComponent2 rendering');
-    return <button onClick={onClick}>Click me2</button>;
+interface ParentComponent {
+    children: ReactNode
+}
+
+// 创建上下文对象并指定默认值
+const MyContext = createContext<MyContextType | undefined>(undefined);
+
+// 父组件，提供全局状态
+const ParentComponent: FC<ParentComponent> = ({children}) => {
+    const [globalState, setGlobalState] = useState<string>('Initial Value');
+
+    return (
+        <MyContext.Provider value={{globalState, setGlobalState}}>
+            {children}
+        </MyContext.Provider>
+    );
 };
 
-const ChildComponent3: React.FC<{ onClick: () => void }> = ({onClick}) => {
-    console.log('ChildComponent3 rendering');
-    return <button onClick={onClick}>Click me3</button>;
-};
+// 子组件，使用全局状态
+const ChildComponent: FC = () => {
+    // 使用useContext获取上下文值
+    const {globalState, setGlobalState} = useContext(MyContext)!; // 需要使用感叹号表示我们确定上下文值不为undefined
 
-const ParentComponent: React.FC = () => {
-    const [count, setCount] = useState(0);
+    const handleClick = () => {
+        setGlobalState('New Value');
+    };
 
-    // 使用 useCallback 缓存回调函数
-    const handleClick = useCallback(() => {
-        setCount((prevCount) => prevCount + 1);
-    }, []); // 空的依赖数组表示这个回调函数没有依赖，不会因为任何变量的变化而重新创建
-
-    const handleClick2 = () => {
-        setCount((prevCount) => prevCount + 1);
-    }
     return (
         <div>
-            <p>Clicked {count} times</p>
-            {/* 将缓存的回调函数传递给子组件 */}
-            <ChildComponent onClick={handleClick}/>
-            <ChildComponent2 onClick={handleClick}/>
-            <ChildComponent3 onClick={handleClick2}/>
+            <p>Global State: {globalState}</p>
+            <button onClick={handleClick}>Update Global State</button>
         </div>
     );
 };
 
+// 在父组件中使用子组件
+const App: React.FC = () => {
+    return (
+        <ParentComponent>
+            <ChildComponent/>
+        </ParentComponent>
+    );
+};
 
-export default ParentComponent
+
+export default App;
