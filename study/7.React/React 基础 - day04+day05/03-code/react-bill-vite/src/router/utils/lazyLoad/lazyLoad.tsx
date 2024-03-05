@@ -1,6 +1,7 @@
 import React, {ComponentType, Suspense} from "react";
 import './lazyLoad.scss'
 import Lottie from "@/components/Lottie.tsx";
+import animation from "@/json/loading1.json"
 
 /**
  * @description 路由懒加载
@@ -10,7 +11,7 @@ import Lottie from "@/components/Lottie.tsx";
 const LazyLoad = (Comp: ComponentType): React.ReactNode => {
     const LoadingIndicator = (
         <div className='lazy-load-container'>
-            <Lottie/>
+            <Lottie animation={animation}/>
         </div>
     );
 
