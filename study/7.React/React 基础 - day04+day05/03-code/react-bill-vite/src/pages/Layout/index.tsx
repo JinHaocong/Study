@@ -3,7 +3,7 @@ import {Button} from "antd-mobile";
 
 const Layout = () => {
     return (
-        <div>
+        <div style={{height: '100%', width: '100%'}}>
             Layout
             {/*全局样式测试*/}
             <Button color={"primary"}>测试</Button>
