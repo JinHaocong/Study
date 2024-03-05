@@ -1,9 +1,9 @@
-import React, {createContext, FC, ReactNode, useContext, useState} from 'react';
+import {createContext, Dispatch, FC, ReactNode, SetStateAction, useContext, useState} from 'react';
 
 // 定义上下文值的类型
 interface MyContextType {
     globalState: string;
-    setGlobalState: React.Dispatch<React.SetStateAction<string>>;
+    setGlobalState: Dispatch<SetStateAction<string>>;
 }
 
 interface ParentComponent {
@@ -42,7 +42,7 @@ const ChildComponent: FC = () => {
 };
 
 // 在父组件中使用子组件
-const App: React.FC = () => {
+const App: FC = () => {
     return (
         <ParentComponent>
             <ChildComponent/>
