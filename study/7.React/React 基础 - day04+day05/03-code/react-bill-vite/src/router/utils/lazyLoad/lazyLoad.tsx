@@ -1,5 +1,6 @@
 import React, {ComponentType, Suspense} from "react";
 import './lazyLoad.scss'
+import Lottie from "@/components/Lottie.tsx";
 
 /**
  * @description 路由懒加载
@@ -8,15 +9,8 @@ import './lazyLoad.scss'
  */
 const LazyLoad = (Comp: ComponentType): React.ReactNode => {
     const LoadingIndicator = (
-        <div className="lds-roller">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+        <div className='lazy-load-container'>
+            <Lottie/>
         </div>
     );
 
