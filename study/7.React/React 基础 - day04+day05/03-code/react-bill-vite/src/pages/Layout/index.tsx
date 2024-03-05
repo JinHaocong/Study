@@ -1,7 +1,15 @@
 import {Outlet} from "react-router-dom";
 import {Button} from "antd-mobile";
+import {useEffect} from "react";
+import {useAppDispatch} from "@/hooks/storeHooks.ts";
+import {getBillList} from "@/store/module/bill/ billAsyncActions.ts";
 
 const Layout = () => {
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+        dispatch(getBillList())
+    }, [dispatch]);
+
     return (
         <div style={{height: '100%', width: '100%'}}>
             Layout

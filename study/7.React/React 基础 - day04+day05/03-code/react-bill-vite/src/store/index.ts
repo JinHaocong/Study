@@ -1,7 +1,10 @@
 import {configureStore} from '@reduxjs/toolkit'
+import billSlice from '@/store/module/bill/billSlice'
 
 const store = configureStore({
-    reducer: {}
+    reducer: {
+        bill: billSlice
+    }
 })
 
 export type RootState = ReturnType<typeof store.getState>;
