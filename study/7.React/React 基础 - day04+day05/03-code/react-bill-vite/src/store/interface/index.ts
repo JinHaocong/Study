@@ -7,5 +7,5 @@ export interface BillItem {
     money: number
     date: string
     useFor: string
-    id: number
+    id?: number
 }
