@@ -6,16 +6,12 @@ import {useDate} from '@/hooks/useDate.ts'
 import TwoLineOverview from '@/components/TwoLineOverview'
 import {useMonthResult, useYearResult} from "@/hooks/useBillResult.ts";
 import OneLineOverview from "@/components/OneLineOverview";
-import {useMemo} from "react";
-import {useAppSelector} from "@/hooks/storeHooks.ts";
+import {useYearBillList} from "@/hooks/useBillList.ts";
 
 const Year = () => {
-    const billList = useAppSelector(state => state.bill.billList)
     const {visible, selectedDate, onDateChange, onShowDate, onHideDate} = useDate('YYYY')
 
-    const selectedYearBills = useMemo(() => {
-        return billList.filter(item => selectedDate === dayjs(item.date).get('year').toString())
-    }, [billList, selectedDate]);
+    const selectedYearBills = useYearBillList(selectedDate)
 
 
     const overview = useYearResult(selectedYearBills)

@@ -4,7 +4,8 @@ import dayjs from 'dayjs'
 import {getBillListAsync} from '@/store/module/bill/ billAsyncActions.ts'
 import {useAppDispatch, useAppSelector} from "@/hooks/storeHooks.ts";
 
-const useBillList = () => {
+//返回所有账单
+export const useBillList = () => {
     const dispatch = useAppDispatch();
     const billList = useAppSelector(state => state.bill.billList);
 
@@ -20,8 +21,9 @@ const useBillList = () => {
     return billList;
 };
 
+// 返回选择年账单
 export const useYearBillList = (selectedYear: string) => {
-    const billList = useBillList();
+    const billList = useAppSelector(state => state.bill.billList)
 
     return useMemo(() => {
         return billList.filter(item => selectedYear === dayjs(item.date).get('year').toString())
