@@ -1,19 +1,27 @@
 import './index.scss'
 import {Button, Card, Form, Input} from 'antd'
 import logo from '@/assets/logo.png'
+import {FC} from "react";
 
-const Login = () => {
+interface FieldType {
+    phone?: string;
+    code?: string;
+}
+
+const Login: FC = () => {
     return (
         <div className="login">
             <Card className="login-container">
                 <img className="login-logo" src={logo} alt=""/>
                 {/* 登录表单 */}
                 <Form>
-                    <Form.Item>
+                    <Form.Item<FieldType> name='phone'
+                                          rules={[{required: true, message: '请输入手机号'}]}>
                         <Input size="large" placeholder="请输入手机号"/>
                     </Form.Item>
-                    <Form.Item>
-                        <Input size="large" placeholder="请输入验证码"/>
+                    <Form.Item<FieldType> name='code'
+                                          rules={[{required: true, message: '请输入验证码'}]}>
+                        <Input.Password size="large" placeholder="请输入验证码"/>
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit" size="large" block>
