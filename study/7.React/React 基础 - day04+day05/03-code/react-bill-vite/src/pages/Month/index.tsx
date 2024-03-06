@@ -6,6 +6,8 @@ import dayjs from "dayjs"
 import {useAppSelector} from "@/hooks/storeHooks.ts";
 import _ from 'lodash'
 import {BillItem} from "@/store/interface";
+import DayBill from "@/pages/Month/components/DayBill";
+import useDayResult from "@/hooks/useDayResult.ts";
 
 const Month = () => {
     const [dateVisible, setDateVisible] = useState(false)
@@ -19,6 +21,10 @@ const Month = () => {
         return _.groupBy(billList, item => dayjs(item.date).format('YYYY-MM'))
     }, [billList])
 
+    const dayGroup = useMemo(() => {
+        return _.groupBy(currentMonthList, item => dayjs(item.date).format('YYYY-MM-DD'))
+    }, [currentMonthList])
+
 
     // 时间选择框确实事件 useCallback 防止冲渲染时更新引用
     const dateConfirm = useCallback((date: Date) => {
@@ -29,17 +35,7 @@ const Month = () => {
     }, [setDateVisible, setCurrentMonth, setMonthList, monthGroup]);
 
     // 计算统计
-    const overview = useMemo(() => {
-        const income = currentMonthList.filter(item => item.type === 'income')
-            .reduce((a, c) => a + c.money, 0)
-        const pay = currentMonthList.filter(item => item.type === 'pay')
-            .reduce((a, c) => a + c.money, 0)
-        return {
-            income,
-            pay,
-            total: income + pay
-        }
-    }, [currentMonthList])
+    const overview = useDayResult(currentMonthList)
 
     // 首次加载
     useEffect(() => {
@@ -63,15 +59,15 @@ const Month = () => {
                     {/* 统计区域 */}
                     <div className='twoLineOverview'>
                         <div className="item">
-                            <span className="money">{overview.pay || '无'}</span>
+                            <span className="money">{overview.pay.toFixed(2) || '无'}</span>
                             <span className="type">支出</span>
                         </div>
                         <div className="item">
-                            <span className="money">{overview.income || '无'}</span>
+                            <span className="money">{overview.income.toFixed(2) || '无'}</span>
                             <span className="type">收入</span>
                         </div>
                         <div className="item">
-                            <span className="money">{overview.total || '无'}</span>
+                            <span className="money">{overview.total.toFixed(2) || '无'}</span>
                             <span className="type">结余</span>
                         </div>
                     </div>
@@ -87,6 +83,14 @@ const Month = () => {
                         onCancel={() => setDateVisible(false)}
                     />
                 </div>
+                {/*单日列表统计*/}
+                {
+                    Object.keys(dayGroup).map(key => {
+                        return (
+                            <DayBill key={key} date={key} billList={dayGroup[key]}/>
+                        )
+                    })
+                }
             </div>
         </div>
     )
