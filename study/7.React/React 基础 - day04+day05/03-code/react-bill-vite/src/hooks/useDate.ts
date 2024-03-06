@@ -4,19 +4,19 @@ import isToday from 'dayjs/plugin/isToday'
 
 dayjs.extend(isToday)
 
-export const useDate = () => {
+export const useDate = (format: string) => {
     const [date, setDate] = useState(new Date())
     const [visible, setVisible] = useState(false)
     const dayjsDate = dayjs(date)
-    const dateText = dayjsDate.isToday() ? '今天' : dayjsDate.format('YYYY/MM/DD')
+    const selectedDate = Number(dayjsDate.format(format))
 
     const onShowDate = () => setVisible(true)
     const onHideDate = () => setVisible(false)
     const onDateChange = (val: Date) => setDate(val)
 
     return {
-        date: dayjsDate,
-        dateText,
+        dayjsDate,
+        selectedDate,
         visible,
         onShowDate,
         onHideDate,

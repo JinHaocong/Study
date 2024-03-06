@@ -10,15 +10,14 @@ import OneLineOverview from "@/components/OneLineOverview";
 
 const Year = () => {
 
-    const {date, visible, onDateChange, onShowDate, onHideDate} = useDate()
+    const {visible, selectedDate, onDateChange, onShowDate, onHideDate} = useDate('YYYY')
 
-    const selectedYear = date.get('year')
-    const selectedYearBills = useYearBillList(selectedYear)
+    const selectedYearBills = useYearBillList(selectedDate)
 
 
     const overview = useYearResult(selectedYearBills)
     const thisYear = dayjs().get('year')
-    const maxMonth = thisYear === selectedYear ? dayjs().get('month') + 1 : 12
+    const maxMonth = thisYear === selectedDate ? dayjs().get('month') + 1 : 12
 
     const monthBillList = useMonthResult(selectedYearBills, maxMonth)
 
@@ -27,7 +26,7 @@ const Year = () => {
         <div className="billDetail">
             <NavBar className="nav" backArrow={false}>
                 <div className="nav-title" onClick={onShowDate}>
-                    {selectedYear}年
+                    {selectedDate}年
                     <span className={classNames('arrow', visible && 'expand')}></span>
                 </div>
             </NavBar>
