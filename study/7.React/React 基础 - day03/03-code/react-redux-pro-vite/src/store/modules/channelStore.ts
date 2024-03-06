@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit"
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit"
 import axios from "axios"
 import {ChannelState} from "../interface";
 import {AppDispatch} from "../index.ts";
@@ -29,6 +29,20 @@ export const fetchChannelList = () => {
         dispatch(setChannels(res.data.data.channels))
     }
 }
+
+export const fetchChannelListAsync = createAsyncThunk('channel/fetchChannelList',
+    async (_, {dispatch}) => {
+        try {
+            const res = await axios.get('http://geek.itheima.net/v1_0/channels')
+            dispatch(setChannels(res.data.data.channels))
+
+        } catch (e) {
+            console.log(e, 'fetchChannelListAsync')
+            throw e
+        }
+
+    }
+)
 
 
 export default channelSlice.reducer

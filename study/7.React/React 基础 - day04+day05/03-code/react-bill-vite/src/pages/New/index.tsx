@@ -1,4 +1,4 @@
-import {Button, DatePicker, Input, NavBar} from 'antd-mobile'
+import {Button, DatePicker, Input, NavBar, Toast} from 'antd-mobile'
 import Icon from '@/components/Icon'
 import './index.scss'
 import classNames from 'classnames'
@@ -6,7 +6,7 @@ import {billListData} from '@/contants'
 import {useNavigate} from 'react-router-dom'
 import {useEffect, useState} from "react";
 import {useAppDispatch} from "@/hooks/storeHooks.ts";
-import {addBillList} from "@/store/module/bill/ billAsyncActions.ts";
+import {addBillListAsync} from "@/store/module/bill/ billAsyncActions.ts";
 import dayjs from "dayjs";
 
 const New = () => {
@@ -25,14 +25,30 @@ const New = () => {
     const moneyChange = (value: string) => {
         setMoney(Number(value))
     }
-    const saveBill = () => {
-        const data = {
-            type: billType,
-            money: billType === 'pay' ? -money : +money,
-            date: currentDate,
-            useFor: useFor
+    const saveBill = async () => {
+        try {
+            const data = {
+                type: billType,
+                money: billType === 'pay' ? -money : +money,
+                date: currentDate,
+                useFor: useFor
+            }
+            Toast.show({
+                icon: 'loading',
+            })
+            await dispatch(addBillListAsync(data))
+        } catch (e) {
+            Toast.show({
+                icon: 'error',
+                content: '保存失败',
+            })
+        } finally {
+            Toast.show({
+                icon: 'success',
+                content: '保存成功',
+            })
         }
-        dispatch(addBillList(data))
+
     }
 
     const dateConfirm = (date: Date) => {

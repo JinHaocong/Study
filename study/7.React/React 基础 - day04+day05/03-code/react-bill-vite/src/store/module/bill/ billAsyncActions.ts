@@ -3,6 +3,7 @@ import {addBill, setBillList} from './billSlice';
 import axios from 'axios';
 import {BillItem} from "@/store/interface";
 import {Toast} from "antd-mobile";
+import {createAsyncThunk} from "@reduxjs/toolkit";
 
 export const getBillList = () => {
     return async (dispatch: AppDispatch) => {
@@ -14,6 +15,21 @@ export const getBillList = () => {
         }
     }
 }
+
+export const getBillListAsync = createAsyncThunk(
+    'bill/getBillList',
+    async (_, {dispatch}) => {
+        try {
+            const res = await axios.get('http://localhost:8888/ka');
+            dispatch(setBillList(res.data));
+            return;
+        } catch (error) {
+            // 处理错误
+            console.error('Error getting billList:', error);
+            throw error;
+        }
+    }
+)
 
 export const addBillList = (data: BillItem) => {
     return async (dispatch: AppDispatch) => {
@@ -32,4 +48,22 @@ export const addBillList = (data: BillItem) => {
         }
     }
 }
+
+// 创建异步 thunk
+export const addBillListAsync = createAsyncThunk(
+    'bill/addBillList',
+    async (data: BillItem, {dispatch}) => {
+        try {
+            // 发送请求
+            const res = await axios.post('http://localhost:8888/ka', data);
+            // 返回数据
+            dispatch(addBill(res.data));
+            return;
+        } catch (error) {
+            // 处理错误
+            console.error('Error adding bill:', error);
+            throw error;
+        }
+    }
+);
 

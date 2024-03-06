@@ -1,14 +1,10 @@
 import {TabBar} from "antd-mobile"
-import {useEffect} from "react"
+import {useCallback, useEffect} from "react"
 import {Outlet, useLocation, useNavigate} from "react-router-dom"
 import './index.scss'
-import {
-    BillOutline,
-    CalculatorOutline,
-    AddCircleOutline
-} from 'antd-mobile-icons'
-import {getBillList} from "@/store/module/bill/ billAsyncActions.ts";
+import {AddCircleOutline, BillOutline, CalculatorOutline} from 'antd-mobile-icons'
 import {useAppDispatch} from "@/hooks/storeHooks.ts";
+import {getBillListAsync} from "@/store/module/bill/ billAsyncActions.ts";
 
 const tabs = [
     {
@@ -33,10 +29,21 @@ const Layout = () => {
     const navigate = useNavigate()
     const location = useLocation()
 
-    
-    useEffect(() => {
-        dispatch(getBillList())
+
+    const apiBillList = useCallback(async () => {
+        try {
+            await dispatch(getBillListAsync());
+            // 这里可以添加获取数据成功后的其他逻辑
+        } catch (error) {
+            // 处理错误，比如显示错误提示
+            console.error('Fetching bill list failed:', error);
+        }
     }, [dispatch])
+
+
+    useEffect(() => {
+        apiBillList()
+    }, [apiBillList])
 
     // tabBar 路由跳转
     const switchRoute = (path: string) => {
