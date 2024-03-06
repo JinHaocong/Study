@@ -1,25 +1,23 @@
-import {useState} from 'react'
-import dayjs from 'dayjs'
-import isToday from 'dayjs/plugin/isToday'
+import {useCallback, useState} from 'react';
+import dayjs from 'dayjs';
+import isToday from 'dayjs/plugin/isToday';
 
-dayjs.extend(isToday)
+dayjs.extend(isToday);
 
 export const useDate = (format: string) => {
-    const [date, setDate] = useState(new Date())
-    const [visible, setVisible] = useState(false)
-    const dayjsDate = dayjs(date)
-    const selectedDate = dayjsDate.format(format)
+    const [date, setDate] = useState(new Date());
+    const [visible, setVisible] = useState(false);
 
-    const onShowDate = () => setVisible(true)
-    const onHideDate = () => setVisible(false)
-    const onDateChange = (val: Date) => setDate(val)
+    const onShowDate = useCallback(() => setVisible(true), []);
+    const onHideDate = useCallback(() => setVisible(false), []);
+    const onDateChange = useCallback((val: Date) => setDate(val), []);
 
     return {
-        dayjsDate,
-        selectedDate,
+        dayjsDate: dayjs(date),
+        selectedDate: dayjs(date).format(format),
         visible,
         onShowDate,
         onHideDate,
         onDateChange,
-    }
-}
+    };
+};

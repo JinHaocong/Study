@@ -8,12 +8,16 @@ import _ from 'lodash'
 import {BillItem} from "@/store/interface";
 import DayBill from "@/pages/Month/components/DayBill";
 import {useYearResult} from "@/hooks/useBillResult.ts";
+import {useDate} from "@/hooks/useDate.ts";
 
 const Month = () => {
-    const [dateVisible, setDateVisible] = useState(false)
-    const [currentMonth, setCurrentMonth] = useState(() => {
-        return dayjs().format('YYYY-MM')
-    })
+    const {
+        selectedDate,
+        visible,
+        onShowDate,
+        onHideDate,
+        onDateChange,
+    } = useDate('YYYY-MM');
     const [currentMonthList, setMonthList] = useState<BillItem[]>([])
     const billList = useAppSelector(state => state.bill.billList)
 
@@ -28,11 +32,11 @@ const Month = () => {
 
     // 时间选择框确实事件 useCallback 防止冲渲染时更新引用
     const dateConfirm = useCallback((date: Date) => {
+        onHideDate()
         const formattedDate = dayjs(date).format('YYYY-MM')
-        setDateVisible(false)
-        setCurrentMonth(formattedDate)
+        onDateChange(date)
         setMonthList(monthGroup[formattedDate] || [])
-    }, [setDateVisible, setCurrentMonth, setMonthList, monthGroup]);
+    }, [onHideDate, onDateChange, setMonthList, monthGroup]);
 
     // 计算统计
     const yearResult = useYearResult(currentMonthList)
@@ -50,11 +54,11 @@ const Month = () => {
             <div className="content">
                 <div className="header">
                     {/* 时间切换区域 */}
-                    <div className="date" onClick={() => setDateVisible(true)}>
+                    <div className="date" onClick={() => onShowDate()}>
             <span className="text">
-              {currentMonth}月账单
+              {selectedDate}月账单
             </span>
-                        <span className={classNames('arrow', {expand: dateVisible})}></span>
+                        <span className={classNames('arrow', {expand: visible})}></span>
                     </div>
                     {/* 统计区域 */}
                     <div className='twoLineOverview'>
@@ -76,11 +80,11 @@ const Month = () => {
                         className="kaDate"
                         title="记账日期"
                         precision="month"
-                        visible={dateVisible}
+                        visible={visible}
                         max={new Date()}
                         onConfirm={dateConfirm}
-                        onClose={() => setDateVisible(false)}
-                        onCancel={() => setDateVisible(false)}
+                        onClose={() => onHideDate()}
+                        onCancel={() => onHideDate()}
                     />
                 </div>
                 {/*单日列表统计*/}
