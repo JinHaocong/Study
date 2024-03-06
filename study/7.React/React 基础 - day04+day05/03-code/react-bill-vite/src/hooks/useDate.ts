@@ -8,7 +8,7 @@ export const useDate = (format: string) => {
     const [date, setDate] = useState(new Date())
     const [visible, setVisible] = useState(false)
     const dayjsDate = dayjs(date)
-    const selectedDate = Number(dayjsDate.format(format))
+    const selectedDate = dayjsDate.format(format)
 
     const onShowDate = () => setVisible(true)
     const onHideDate = () => setVisible(false)

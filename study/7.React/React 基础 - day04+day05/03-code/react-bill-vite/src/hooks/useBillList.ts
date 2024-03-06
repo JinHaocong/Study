@@ -20,10 +20,10 @@ const useBillList = () => {
     return billList;
 };
 
-export const useYearBillList = (selectedYear: number) => {
+export const useYearBillList = (selectedYear: string) => {
     const billList = useBillList();
 
     return useMemo(() => {
-        return billList.filter(item => selectedYear === dayjs(item.date).get('year'))
+        return billList.filter(item => selectedYear === dayjs(item.date).get('year').toString())
     }, [billList, selectedYear]);
 }

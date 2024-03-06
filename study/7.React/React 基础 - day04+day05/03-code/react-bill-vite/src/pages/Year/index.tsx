@@ -16,7 +16,7 @@ const Year = () => {
 
 
     const overview = useYearResult(selectedYearBills)
-    const thisYear = dayjs().get('year')
+    const thisYear = dayjs().get('year').toString()
     const maxMonth = thisYear === selectedDate ? dayjs().get('month') + 1 : 12
 
     const monthBillList = useMonthResult(selectedYearBills, maxMonth)
