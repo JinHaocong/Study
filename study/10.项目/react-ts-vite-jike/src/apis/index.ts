@@ -1,12 +1,8 @@
 import {instance} from '@/util/index.ts'
 
 export interface ApiResult<T> {
-    status: number
-    success: boolean
     message: string
     data: T
-    error?: Error
-    token?: string
 }
 
 export async function get<T>(url: string, params?: any): Promise<ApiResult<T>> {
