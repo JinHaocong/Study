@@ -7,15 +7,14 @@ import {useNavigate} from 'react-router-dom'
 import {useEffect, useState} from "react";
 import {useAppDispatch} from "@/hooks/storeHooks.ts";
 import {addBillListAsync} from "@/store/module/bill/ billAsyncActions.ts";
-import dayjs from "dayjs";
+import {useDate} from "@/hooks/useDate.ts";
 
 const New = () => {
+    const {selectedDate, visible, onShowDate, onHideDate, onDateChange} = useDate('YYYY-MM-DD');
     const navigate = useNavigate()
     const [billType, setBillType] = useState('pay')
     const [money, setMoney] = useState(0)
     const [useFor, setUseFor] = useState('')
-    const [dateVisible, setDateVisible] = useState(false)
-    const [currentDate, setCurrentDate] = useState(dayjs(new Date()).format('YYYY-MM-DD'))
 
     useEffect(() => {
         setUseFor(billListData[billType][0].list[0].type)
@@ -30,7 +29,7 @@ const New = () => {
             const data = {
                 type: billType,
                 money: billType === 'pay' ? -money : +money,
-                date: currentDate,
+                date: selectedDate,
                 useFor: useFor
             }
             Toast.show({
@@ -52,7 +51,7 @@ const New = () => {
     }
 
     const dateConfirm = (date: Date) => {
-        setCurrentDate(dayjs(date).format('YYYY-MM-DD'))
+        onDateChange(date)
     }
 
     return (
@@ -81,18 +80,18 @@ const New = () => {
 
                 <div className="kaFormWrapper">
                     <div className="kaForm">
-                        <div onClick={() => setDateVisible(true)} className="date">
+                        <div onClick={() => onShowDate()} className="date">
                             <Icon type="calendar" className="icon"/>
-                            <span className="text">{currentDate}</span>
+                            <span className="text">{selectedDate}</span>
                             {/*时间选择器*/}
                             <DatePicker
                                 className="kaDate"
                                 title="记账日期"
                                 max={new Date()}
-                                visible={dateVisible}
+                                visible={visible}
                                 onConfirm={dateConfirm}
-                                onClose={() => setDateVisible(false)}
-                                onCancel={() => setDateVisible(false)}
+                                onClose={() => onHideDate()}
+                                onCancel={() => onHideDate()}
                             />
                         </div>
                         <div className="kaInput">

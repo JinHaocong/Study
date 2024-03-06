@@ -160,6 +160,13 @@
       "money": -20,
       "date": "2024-03-05",
       "useFor": "food"
+    },
+    {
+      "id": "4e96",
+      "type": "pay",
+      "money": -2000,
+      "date": "2024-02-29",
+      "useFor": "food"
     }
   ]
 }
