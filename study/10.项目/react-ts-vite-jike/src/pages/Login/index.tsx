@@ -9,12 +9,16 @@ interface FieldType {
 }
 
 const Login: FC = () => {
+    const formConfirm = (formData: Required<FieldType>) => {
+        console.log(formData)
+    }
+
     return (
         <div className="login">
             <Card className="login-container">
                 <img className="login-logo" src={logo} alt=""/>
                 {/* 登录表单 */}
-                <Form>
+                <Form onFinish={formConfirm}>
                     <Form.Item<FieldType> name='phone' validateTrigger="onBlur"
                                           rules={[
                                               {required: true, message: '请输入手机号'},
@@ -27,7 +31,7 @@ const Login: FC = () => {
                     </Form.Item>
                     <Form.Item<FieldType> name='code' validateTrigger="onBlur"
                                           rules={[{required: true, message: '请输入验证码'}]}>
-                        <Input.Password size="large" placeholder="请输入验证码"/>
+                        <Input size="large" placeholder="请输入验证码"/>
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit" size="large" block>
