@@ -1,6 +1,6 @@
 import React, {ComponentType, Suspense} from "react";
 import './lazyLoad.scss'
-import Lottie from "@/components/Lottie.tsx";
+import Lottie from "@/components/Lottie/Lottie.tsx";
 import animation from "@/json/loading1.json"
 
 /**
