@@ -7,7 +7,7 @@ import {useAppSelector} from "@/hooks/storeHooks.ts";
 import _ from 'lodash'
 import {BillItem} from "@/store/interface";
 import DayBill from "@/pages/Month/components/DayBill";
-import useDayResult from "@/hooks/useDayResult.ts";
+import {useYearResult} from "@/hooks/useBillResult.ts";
 
 const Month = () => {
     const [dateVisible, setDateVisible] = useState(false)
@@ -35,7 +35,7 @@ const Month = () => {
     }, [setDateVisible, setCurrentMonth, setMonthList, monthGroup]);
 
     // 计算统计
-    const overview = useDayResult(currentMonthList)
+    const yearResult = useYearResult(currentMonthList)
 
     // 首次加载
     useEffect(() => {
@@ -59,15 +59,15 @@ const Month = () => {
                     {/* 统计区域 */}
                     <div className='twoLineOverview'>
                         <div className="item">
-                            <span className="money">{overview.pay.toFixed(2) || '无'}</span>
+                            <span className="money">{yearResult.pay.toFixed(2) || '无'}</span>
                             <span className="type">支出</span>
                         </div>
                         <div className="item">
-                            <span className="money">{overview.income.toFixed(2) || '无'}</span>
+                            <span className="money">{yearResult.income.toFixed(2) || '无'}</span>
                             <span className="type">收入</span>
                         </div>
                         <div className="item">
-                            <span className="money">{overview.total.toFixed(2) || '无'}</span>
+                            <span className="money">{yearResult.total.toFixed(2) || '无'}</span>
                             <span className="type">结余</span>
                         </div>
                     </div>

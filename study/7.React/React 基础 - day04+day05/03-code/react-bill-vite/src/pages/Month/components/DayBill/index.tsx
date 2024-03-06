@@ -2,9 +2,9 @@ import classNames from 'classnames'
 import './index.scss'
 import {FC, useState} from "react";
 import {BillItem} from "@/store/interface";
-import useDayResult from "@/hooks/useDayResult.ts";
 import {billTypeToName} from "@/contants";
 import Icon from "@/components/Icon";
+import {useYearResult} from "@/hooks/useBillResult.ts";
 
 interface Props {
     date: string
@@ -13,7 +13,7 @@ interface Props {
 
 const DailyBill: FC<Props> = ({date, billList}) => {
 
-    const dayResult = useDayResult(billList)
+    const yearResult = useYearResult(billList)
     const [visible, setVisible] = useState(false)
 
     return (
@@ -27,14 +27,14 @@ const DailyBill: FC<Props> = ({date, billList}) => {
                 <div className="oneLineOverview">
                     <div className="pay">
                         <span className="type">支出</span>
-                        <span className="money">{dayResult.pay.toFixed(2) || '无'}</span>
+                        <span className="money">{yearResult.pay.toFixed(2) || '无'}</span>
                     </div>
                     <div className="income">
                         <span className="type">收入</span>
-                        <span className="money">{dayResult.income.toFixed(2) || '无'}</span>
+                        <span className="money">{yearResult.income.toFixed(2) || '无'}</span>
                     </div>
                     <div className="balance">
-                        <span className="money">{dayResult.total.toFixed(2) || '无'}</span>
+                        <span className="money">{yearResult.total.toFixed(2) || '无'}</span>
                         <span className="type">结余</span>
                     </div>
                 </div>
