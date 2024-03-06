@@ -167,6 +167,48 @@
       "money": -2000,
       "date": "2024-02-29",
       "useFor": "food"
+    },
+    {
+      "id": "6bc9",
+      "type": "pay",
+      "money": 0,
+      "date": "2024-03-06",
+      "useFor": "food"
+    },
+    {
+      "id": "d7a3",
+      "type": "pay",
+      "money": 0,
+      "date": "2024-03-06",
+      "useFor": "food"
+    },
+    {
+      "id": "83e9",
+      "type": "pay",
+      "money": 0,
+      "date": "2024-03-06",
+      "useFor": "food"
+    },
+    {
+      "id": "3e83",
+      "type": "pay",
+      "money": 0,
+      "date": "2024-03-06",
+      "useFor": "food"
+    },
+    {
+      "id": "5b00",
+      "type": "pay",
+      "money": 0,
+      "date": "2024-03-06",
+      "useFor": "food"
+    },
+    {
+      "id": "100d",
+      "type": "pay",
+      "money": -5000,
+      "date": "2024-03-03",
+      "useFor": "dessert"
     }
   ]
 }
