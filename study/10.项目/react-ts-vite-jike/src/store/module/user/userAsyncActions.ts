@@ -1,7 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {setUserToken} from "@/store/module/user/userSlice.ts";
 import {LoginForm} from "@/store/interface";
-import {login} from "@/apis/modules/login.ts";
+import {login} from "@/apis/modules/user.ts";
 
 
 export const loginThunk = createAsyncThunk('user/login',
