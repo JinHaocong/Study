@@ -9,7 +9,7 @@ const initialState: LoginInfo = {
 
 
 const userSlice = createSlice({
-    name: 'bill',
+    name: 'user',
     initialState,
     reducers: {
         setUserInfo(state, action) {

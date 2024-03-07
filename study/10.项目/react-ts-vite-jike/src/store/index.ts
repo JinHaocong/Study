@@ -1,12 +1,13 @@
 import {combineReducers, configureStore, Middleware} from '@reduxjs/toolkit'
-import userSlice from "@/store/module/user/userSlice.ts";
+import userSlice from "./module/user/userSlice.ts";
 import {FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE,} from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import logger from "redux-logger";
+import logger from "./utils/logger.ts";
 
 const rootReducer = combineReducers({
     user: userSlice
 })
+
 
 // 持久化配置
 const persistConfig = {
