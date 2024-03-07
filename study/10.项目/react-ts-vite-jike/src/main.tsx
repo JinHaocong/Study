@@ -4,6 +4,7 @@ import './main.scss'
 import {Provider} from "react-redux";
 import store, {persistor} from "@/store";
 import {PersistGate} from "redux-persist/integration/react";
+import 'normalize.css'
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
