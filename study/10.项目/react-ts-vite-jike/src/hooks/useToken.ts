@@ -13,6 +13,7 @@ const useToken = () => {
     const clearToken = useCallback(() => {
         setToken('')
     }, [setToken])
+
     return {
         token,
         setToken,
