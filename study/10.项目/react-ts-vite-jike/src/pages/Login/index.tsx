@@ -17,7 +17,7 @@ const Login: FC = () => {
         try {
             setLoading(true)
             await dispatch(loginThunk(formData))
-            showSuccess('登陆成功', 0)
+            showSuccess('登陆成功')
         } catch (e: any) {
             e.message && showError(e.message)
             console.dir(e, 'formConfirm')
