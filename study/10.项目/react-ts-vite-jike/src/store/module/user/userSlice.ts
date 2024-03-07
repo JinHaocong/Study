@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {LoginInfo} from "@/store/interface";
+import {loginThunk} from "@/store/module/user/userAsyncActions.ts";
 
 const initialState: LoginInfo = {
     token: '',
@@ -17,6 +18,11 @@ const userSlice = createSlice({
         setUserToken(state, action) {
             state.token = action.payload
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(loginThunk.rejected, (_, action) => {
+            throw new Error(action.error.message)
+        })
     }
 });
 

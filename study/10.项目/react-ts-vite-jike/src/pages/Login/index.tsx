@@ -1,5 +1,5 @@
 import './index.scss'
-import {Button, Card, Form, Input} from 'antd'
+import {Button, Card, Form, Input, message} from 'antd'
 import logo from '@/assets/logo.png'
 import {FC, useState} from "react";
 import {loginThunk} from "@/store/module/user/userAsyncActions.ts";
@@ -10,13 +10,16 @@ import {LoginForm} from "@/store/interface";
 const Login: FC = () => {
     const dispatch = useAppDispatch()
     const [loading, setLoading] = useState(false)
+    const [messageApi, contextHolder] = message.useMessage();
 
     const formConfirm = async (formData: Required<LoginForm>) => {
         try {
             setLoading(true)
             await dispatch(loginThunk(formData))
-        } catch (e) {
-            console.log(e, 'formConfirm')
+            messageApi.success('登陆成功')
+        } catch (e: any) {
+            e.message && messageApi.error(e.message)
+            console.dir(e, 'formConfirm')
         } finally {
             setLoading(false)
         }
@@ -25,6 +28,7 @@ const Login: FC = () => {
 
     return (
         <div className="login">
+            {contextHolder}
             <Card className="login-container">
                 <img className="login-logo" src={logo} alt=""/>
                 {/* 登录表单 */}
