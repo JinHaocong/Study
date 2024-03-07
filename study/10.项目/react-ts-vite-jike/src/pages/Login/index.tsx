@@ -22,7 +22,7 @@ const Login: FC = () => {
             await showSuccess('登陆成功', 0.5)
             navigate('/')
         } catch (e: any) {
-            e.message && await showError(e.message)
+            e.message && showError(e.message)
             console.dir(e, 'formConfirm')
         } finally {
             setLoading(false)
