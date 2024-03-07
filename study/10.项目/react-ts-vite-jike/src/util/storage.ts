@@ -91,6 +91,13 @@ export const clearSession = () => {
 }
 
 export const getToken = () => {
-    const {token} = JSON.parse(getItem('persist:root').user)
-    return token
-}
+    const persistedData = getItem('persist:root');
+
+    if (persistedData && persistedData.user) {
+        const {token} = JSON.parse(persistedData.user);
+        return token || '';
+    } else {
+        return '';
+    }
+};
+
