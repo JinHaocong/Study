@@ -1,7 +1,7 @@
 import './index.scss'
 import {Button, Card, Form, Input} from 'antd'
 import logo from '@/assets/logo.png'
-import {FC, useState} from "react";
+import {FC, useCallback, useState} from "react";
 import {loginThunk} from "@/store/module/user/userAsyncActions.ts";
 import {useAppDispatch} from "@/hooks/storeHooks.ts";
 import {LoginForm} from "@/store/interface";
@@ -15,7 +15,7 @@ const Login: FC = () => {
     const {showError, showSuccess, contextHolder} = useMessage();
     const navigate = useNavigate()
 
-    const formConfirm = async (formData: Required<LoginForm>) => {
+    const formConfirm = useCallback(async (formData: Required<LoginForm>) => {
         try {
             setLoading(true)
             await dispatch(loginThunk(formData))
@@ -28,7 +28,7 @@ const Login: FC = () => {
             setLoading(false)
         }
 
-    }
+    }, [dispatch, navigate, showError, showSuccess])
 
     return (
         <div className="login">
