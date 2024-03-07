@@ -1,12 +1,11 @@
 import {Navigate} from "react-router-dom";
 import React from "react";
-import {getToken} from "@/util";
+import useToken from "@/hooks/useToken.ts";
 
-const AuthRoute = (Comp: React.ReactNode): React.ReactNode => {
-    const token = getToken()
-    console.log(token, 'token')
+const AuthRoute = (props: { children: React.ReactNode }): React.ReactNode => {
+    const {token} = useToken()
     if (token) {
-        return Comp
+        return props.children
     } else {
         return <Navigate to="/login" replace/>
     }
