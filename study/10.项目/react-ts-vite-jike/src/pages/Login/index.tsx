@@ -4,14 +4,14 @@ import logo from '@/assets/logo.png'
 import {FC, useState} from "react";
 import {loginThunk} from "@/store/module/user/userAsyncActions.ts";
 import {useAppDispatch} from "@/hooks/storeHooks.ts";
-import {User} from "@/store/interface";
+import {LoginForm} from "@/store/interface";
 
 
 const Login: FC = () => {
     const dispatch = useAppDispatch()
     const [loading, setLoading] = useState(false)
 
-    const formConfirm = async (formData: Required<User.LoginForm>) => {
+    const formConfirm = async (formData: Required<LoginForm>) => {
         try {
             setLoading(true)
             await dispatch(loginThunk(formData))
@@ -29,18 +29,18 @@ const Login: FC = () => {
                 <img className="login-logo" src={logo} alt=""/>
                 {/* 登录表单 */}
                 <Form onFinish={formConfirm}>
-                    <Form.Item<Partial<User.LoginForm>> name='mobile' validateTrigger="onBlur"
-                                                        rules={[
-                                                            {required: true, message: '请输入手机号'},
-                                                            {
-                                                                pattern: /^1[3-9]\d{9}$/,
-                                                                message: '请输入正确的手机号'
-                                                            }
-                                                        ]}>
+                    <Form.Item<Partial<LoginForm>> name='mobile' validateTrigger="onBlur"
+                                                   rules={[
+                                                       {required: true, message: '请输入手机号'},
+                                                       {
+                                                           pattern: /^1[3-9]\d{9}$/,
+                                                           message: '请输入正确的手机号'
+                                                       }
+                                                   ]}>
                         <Input size="large" placeholder="请输入手机号"/>
                     </Form.Item>
-                    <Form.Item<Partial<User.LoginForm>> name='code' validateTrigger="onBlur"
-                                                        rules={[{required: true, message: '请输入验证码'}]}>
+                    <Form.Item<Partial<LoginForm>> name='code' validateTrigger="onBlur"
+                                                   rules={[{required: true, message: '请输入验证码'}]}>
                         <Input size="large" placeholder="请输入验证码"/>
                     </Form.Item>
                     <Form.Item>

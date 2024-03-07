@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {User} from "@/store/interface";
+import {LoginInfo} from "@/store/interface";
 
-const initialState: User.LoginInfo = {
+const initialState: LoginInfo = {
     token: '',
     userInfo: {}
 }
