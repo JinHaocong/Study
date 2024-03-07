@@ -1,4 +1,4 @@
-import {get, post} from '@/apis'
+import {post} from '@/apis'
 import {Login, LoginResponse, ProfileResponse} from "@/apis/interface";
 
 export const login = (data: Login) => {
@@ -6,5 +6,5 @@ export const login = (data: Login) => {
 }
 
 export const getProfile = () => {
-    return get<ProfileResponse>('/user/profile')
+    return post<ProfileResponse>('/user/profile')
 }

@@ -2,6 +2,9 @@ import {Layout, Menu, MenuProps, Popconfirm} from 'antd'
 import {DiffOutlined, EditOutlined, HomeOutlined, LogoutOutlined,} from '@ant-design/icons'
 import './index.scss'
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
+import {useCallback, useEffect} from "react";
+import {useAppDispatch, useAppSelector} from "@/hooks/storeHooks.ts";
+import {userInfoThunk} from "@/store/module/user/userAsyncActions.ts";
 
 const {Header, Sider} = Layout
 
@@ -26,9 +29,23 @@ const items = [
 const GeekLayout = () => {
     const navigate = useNavigate()
     const location = useLocation()
+    const userInfo = useAppSelector(state => state.user.userInfo)
+    const dispatch = useAppDispatch()
     const menuClick: MenuProps['onClick'] = (route) => {
         navigate(route.key)
     }
+
+    const getUserInfo = useCallback(async () => {
+        try {
+            await dispatch(userInfoThunk())
+        } catch (e) {
+            console.log(e)
+        }
+    }, [dispatch])
+
+    useEffect(() => {
+        getUserInfo()
+    }, [getUserInfo]);
 
 
     return (
@@ -36,7 +53,7 @@ const GeekLayout = () => {
             <Header className="header">
                 <div className="logo"/>
                 <div className="user-info">
-                    <span className="user-name">柴柴老师</span>
+                    <span className="user-name">{userInfo.name}</span>
                     <span className="user-logout">
             <Popconfirm title="是否确认退出？" okText="退出" cancelText="取消">
               <LogoutOutlined/> 退出

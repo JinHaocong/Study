@@ -9,5 +9,10 @@ export interface LoginInfo {
 }
 
 export interface UserInfo {
-    // id: string
+    birthday: string
+    gender: number
+    id: string
+    mobile: string
+    name: string
+    photo: string
 }

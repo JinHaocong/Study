@@ -1,10 +1,17 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {LoginInfo} from "@/store/interface";
-import {loginThunk} from "@/store/module/user/userAsyncActions.ts";
+import {loginThunk, userInfoThunk} from "@/store/module/user/userAsyncActions.ts";
 
 const initialState: LoginInfo = {
     token: '',
-    userInfo: {}
+    userInfo: {
+        birthday: '',
+        gender: 1,
+        id: '',
+        mobile: '',
+        name: '',
+        photo: ''
+    }
 }
 
 
@@ -20,9 +27,13 @@ const userSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(loginThunk.rejected, (_, action) => {
-            throw new Error(action.error.message)
-        })
+        builder
+            .addCase(loginThunk.rejected, (_, action) => {
+                throw new Error(action.error.message)
+            })
+            .addCase(userInfoThunk.rejected, (_, action) => {
+                throw new Error(action.error.message)
+            })
     }
 });
 
