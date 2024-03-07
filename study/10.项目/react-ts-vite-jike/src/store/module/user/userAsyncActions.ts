@@ -1,5 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {setUserInfo} from "@/store/module/user/userSlice.ts";
+import {setUserToken} from "@/store/module/user/userSlice.ts";
 import {User} from "@/store/interface";
 import {login} from "@/apis/modules/login.ts";
 
@@ -8,8 +8,8 @@ export const loginThunk = createAsyncThunk('user/login',
     async (loginForm: Required<User.LoginForm>, {dispatch}) => {
         try {
             const res = await login(loginForm)
-            console.log(res.data);
-            dispatch(setUserInfo(loginForm))
+            dispatch(setUserToken(res.data.token))
+            return
         } catch (err) {
             console.log('apiLogin:', err)
             throw err

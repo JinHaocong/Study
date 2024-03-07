@@ -1,7 +1,7 @@
 import './index.scss'
 import {Button, Card, Form, Input} from 'antd'
 import logo from '@/assets/logo.png'
-import {FC} from "react";
+import {FC, useState} from "react";
 import {loginThunk} from "@/store/module/user/userAsyncActions.ts";
 import {useAppDispatch} from "@/hooks/storeHooks.ts";
 import {User} from "@/store/interface";
@@ -9,9 +9,18 @@ import {User} from "@/store/interface";
 
 const Login: FC = () => {
     const dispatch = useAppDispatch()
+    const [loading, setLoading] = useState(false)
 
     const formConfirm = async (formData: Required<User.LoginForm>) => {
-        await dispatch(loginThunk(formData))
+        try {
+            setLoading(true)
+            await dispatch(loginThunk(formData))
+        } catch (e) {
+            console.log(e, 'formConfirm')
+        } finally {
+            setLoading(false)
+        }
+
     }
 
     return (
@@ -35,7 +44,7 @@ const Login: FC = () => {
                         <Input size="large" placeholder="请输入验证码"/>
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" size="large" block>
+                        <Button loading={loading} type="primary" htmlType="submit" size="large" block>
                             登录
                         </Button>
                     </Form.Item>
