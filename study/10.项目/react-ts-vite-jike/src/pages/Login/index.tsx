@@ -6,20 +6,23 @@ import {loginThunk} from "@/store/module/user/userAsyncActions.ts";
 import {useAppDispatch} from "@/hooks/storeHooks.ts";
 import {LoginForm} from "@/store/interface";
 import useMessage from "@/hooks/useMessage.tsx";
+import {useNavigate} from "react-router-dom";
 
 
 const Login: FC = () => {
     const dispatch = useAppDispatch()
     const [loading, setLoading] = useState(false)
     const {showError, showSuccess, contextHolder} = useMessage();
+    const navigate = useNavigate()
 
     const formConfirm = async (formData: Required<LoginForm>) => {
         try {
             setLoading(true)
             await dispatch(loginThunk(formData))
-            showSuccess('登陆成功')
+            await showSuccess('登陆成功', 0.5)
+            navigate('/')
         } catch (e: any) {
-            e.message && showError(e.message)
+            e.message && await showError(e.message)
             console.dir(e, 'formConfirm')
         } finally {
             setLoading(false)

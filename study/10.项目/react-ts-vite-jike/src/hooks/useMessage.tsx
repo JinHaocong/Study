@@ -7,8 +7,8 @@ const useMessage = () => {
     const [messageApi, contextHolder] = message.useMessage();
 
     const showMessage = useCallback(
-        (type: 'success' | 'error' | 'info' | 'warning' | 'loading', content: ReactNode, duration: number = 3, onClose?: () => void) => {
-            messageApi[type]({
+        async (type: 'success' | 'error' | 'info' | 'warning' | 'loading', content: ReactNode, duration: number = 3, onClose?: () => void) => {
+            await messageApi[type]({
                 content: <span>
                     <span style={{marginRight: '10px'}}>{content}</span>
                     <CloseOutlined className={'CloseOutlined'} style={{cursor: "pointer"}}
