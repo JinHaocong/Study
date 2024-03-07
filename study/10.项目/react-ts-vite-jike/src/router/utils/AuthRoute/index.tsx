@@ -4,6 +4,7 @@ import {getToken} from "@/util";
 
 const AuthRoute = (Comp: React.ReactNode): React.ReactNode => {
     const token = getToken()
+    console.log(token, 'token')
     if (token) {
         return Comp
     } else {
