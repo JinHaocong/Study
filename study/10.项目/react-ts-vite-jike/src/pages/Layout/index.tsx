@@ -1,29 +1,35 @@
-import {Layout, Menu, Popconfirm} from 'antd'
+import {Layout, Menu, MenuProps, Popconfirm} from 'antd'
 import {DiffOutlined, EditOutlined, HomeOutlined, LogoutOutlined,} from '@ant-design/icons'
 import './index.scss'
-import {Outlet} from "react-router-dom";
+import {Outlet, useNavigate} from "react-router-dom";
 
 const {Header, Sider} = Layout
 
 const items = [
     {
         label: '首页',
-        key: '1',
+        key: '/',
         icon: <HomeOutlined/>,
     },
     {
         label: '文章管理',
-        key: '2',
+        key: 'article',
         icon: <DiffOutlined/>,
     },
     {
         label: '创建文章',
-        key: '3',
+        key: 'publish',
         icon: <EditOutlined/>,
     },
 ]
 
 const GeekLayout = () => {
+    const navigate = useNavigate()
+    const menuClick: MenuProps['onClick'] = (route) => {
+        navigate(route.key)
+    }
+
+
     return (
         <Layout>
             <Header className="header">
@@ -44,7 +50,9 @@ const GeekLayout = () => {
                         theme="dark"
                         defaultSelectedKeys={['1']}
                         items={items}
-                        style={{height: '100%', borderRight: 0}}></Menu>
+                        style={{height: '100%', borderRight: 0}}
+                        onClick={menuClick}
+                    ></Menu>
                 </Sider>
                 <Layout className="layout-content" style={{padding: 20}}>
                     <Outlet/>
