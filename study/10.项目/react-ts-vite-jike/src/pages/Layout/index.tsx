@@ -5,6 +5,7 @@ import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useCallback, useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "@/hooks/storeHooks.ts";
 import {userInfoThunk} from "@/store/module/user/userAsyncActions.ts";
+import {resetUserState} from "@/store/module/user/userSlice.ts";
 
 const {Header, Sider} = Layout
 
@@ -43,9 +44,14 @@ const GeekLayout = () => {
         }
     }, [dispatch])
 
+
     useEffect(() => {
         getUserInfo()
     }, [getUserInfo]);
+
+    const onConfirm = () => {
+        dispatch(resetUserState())
+    }
 
 
     return (
@@ -55,7 +61,7 @@ const GeekLayout = () => {
                 <div className="user-info">
                     <span className="user-name">{userInfo.name}</span>
                     <span className="user-logout">
-            <Popconfirm title="是否确认退出？" okText="退出" cancelText="取消">
+            <Popconfirm title="是否确认退出？" okText="退出" cancelText="取消" onConfirm={onConfirm}>
               <LogoutOutlined/> 退出
             </Popconfirm>
           </span>
