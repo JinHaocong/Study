@@ -7,6 +7,7 @@ import {
     getItems,
     getSessionItem,
     getSessionItems,
+    getToken,
     removeItem,
     removeItems,
     removeSessionItem,
@@ -32,5 +33,6 @@ export {
     removeSessionItem,
     removeSessionItems,
     clearLocal,
-    clearSession
+    clearSession,
+    getToken
 }

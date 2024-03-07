@@ -1,5 +1,5 @@
 import axios from 'axios'
-import store from '@/store';
+import {getToken} from "@/util/storage.ts";
 
 const http = axios.create({
     baseURL: import.meta.env.VITE_APP_BASE_URL,
@@ -8,7 +8,7 @@ const http = axios.create({
 
 // 添加请求拦截器
 http.interceptors.request.use((config) => {
-    const {user: {token}} = store.getState()
+    const token = getToken()
     if (token) config.headers.Authorization = `Bearer ${token}`
     return config
 }, (error) => {

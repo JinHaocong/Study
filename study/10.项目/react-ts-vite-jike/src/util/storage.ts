@@ -89,3 +89,8 @@ export const clearLocal = () => {
 export const clearSession = () => {
     sessionStorage.clear()
 }
+
+export const getToken = () => {
+    const {token} = JSON.parse(getItem('persist:root').user)
+    return token
+}

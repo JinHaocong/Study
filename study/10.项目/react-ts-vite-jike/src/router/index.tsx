@@ -3,12 +3,13 @@ import {createBrowserRouter} from "react-router-dom";
 
 import {lazy} from "react";
 import lazyLoad from "./utils/lazyLoad/lazyLoad.tsx";
+import AuthRoute from "@/router/utils/AuthRoute";
 
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: lazyLoad(lazy(() => import("@/pages/Layout/index.tsx")))
+        element: AuthRoute(lazyLoad(lazy(() => import("@/pages/Layout/index.tsx"))))
     },
     {
         path: '/login',
