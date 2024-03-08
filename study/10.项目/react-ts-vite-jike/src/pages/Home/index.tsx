@@ -4,6 +4,9 @@ import {ECOption} from "@/util/echarts.ts";
 const Home = () => {
 
     const options: ECOption = {
+        title: {
+            text: '三大框架满意度',
+        },
         xAxis: {
             type: 'category',
             data: ['Vue', 'React', 'Angular']
@@ -20,7 +23,10 @@ const Home = () => {
     }
 
     return (
-        <Chart option={options} style={{width: '100%', height: '100%'}}/>
+        <div style={{width: '40%', height: '30%'}}>
+            <Chart option={options} style={{width: '100%', height: '100%'}}/>
+        </div>
+
     )
 }
 
