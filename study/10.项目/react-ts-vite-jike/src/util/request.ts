@@ -1,5 +1,7 @@
 import axios from 'axios'
-import {getToken} from "@/util/storage.ts";
+import {getToken, removeItem} from "@/util/storage.ts";
+import router from "@/router";
+import {message} from "antd"
 
 const http = axios.create({
     baseURL: import.meta.env.VITE_APP_BASE_URL,
@@ -23,6 +25,13 @@ http.interceptors.response.use((response) => {
 }, (error) => {
     // 超出 2xx 范围的状态码都会触发该函数。
     // 对响应错误做点什么
+
+    if (error.response.status === 401) {
+        message.error('身份校验失败')
+        removeItem('persist:root')
+        router.navigate('/login', {replace: true})
+    }
+
     return Promise.reject(error.response.data)
 })
 
