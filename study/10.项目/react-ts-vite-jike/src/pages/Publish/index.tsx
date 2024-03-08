@@ -1,11 +1,28 @@
 import {Breadcrumb, Button, Card, Form, Input, Select, Space} from 'antd'
 import {Link} from 'react-router-dom'
 import './index.scss'
-import {FC} from "react";
+import {FC, useRef} from "react";
+import {Editor} from '@tinymce/tinymce-react';
+import {Editor as TinyMCEEditor, Events} from 'tinymce';
+import {EventHandler} from "@tinymce/tinymce-react/lib/es2015/main/ts/Events";
 
 const {Option} = Select
 
+type EEventHandler<K extends keyof Events.EditorEventMap> = EventHandler<Events.EditorEventMap[K]>;
+
 const Publish: FC = () => {
+    const editorRef = useRef<TinyMCEEditor>();
+    const log = () => {
+        if (editorRef.current) {
+            console.log(editorRef.current.getContent());
+        }
+    };
+
+    const onInit: EEventHandler<'init'> = (_, editor) => {
+        editorRef.current = editor
+    }
+
+
     return (
         <div className="publish">
             <Card
@@ -42,11 +59,18 @@ const Publish: FC = () => {
                         label="内容"
                         name="content"
                         rules={[{required: true, message: '请输入文章内容'}]}
-                    ></Form.Item>
+                    >
+                        <Editor
+                            onInit={onInit}
+                            scriptLoading={{async: true}}
+                            apiKey='1nrkfrqvghmtvxgwld1a6kmjaym696j13ysvba9tkn9btcv9'
+                            initialValue="Welcome to TinyMCE!"
+                        />
+                    </Form.Item>
 
                     <Form.Item wrapperCol={{offset: 4}}>
                         <Space>
-                            <Button size="large" type="primary" htmlType="submit">
+                            <Button onClick={log} size="large" type="primary" htmlType="submit">
                                 发布文章
                             </Button>
                         </Space>
