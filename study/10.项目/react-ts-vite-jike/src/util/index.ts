@@ -18,6 +18,8 @@ import {
     setSessionItems
 } from './storage.ts'
 
+import echarts from './echarts'
+
 export {
     instance,
     setItem,
@@ -34,5 +36,6 @@ export {
     removeSessionItems,
     clearLocal,
     clearSession,
-    getToken
+    getToken,
+    echarts
 }
