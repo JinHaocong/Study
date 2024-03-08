@@ -1,0 +1,18 @@
+.publish {
+  position: relative;
+  height: 100%;
+  width: 100%;
+
+  .ant-card {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.ant-upload-list {
+  .ant-upload-list-picture-card-container,
+  .ant-upload-select {
+    width: 146px;
+    height: 146px;
+  }
+}
