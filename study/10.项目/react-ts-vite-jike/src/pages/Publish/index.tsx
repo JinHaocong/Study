@@ -5,10 +5,11 @@ import {FC, useCallback, useEffect, useRef, useState} from "react";
 import {Editor} from '@tinymce/tinymce-react';
 import {Editor as TinyMCEEditor, Events} from 'tinymce';
 import {EventHandler} from "@tinymce/tinymce-react/lib/es2015/main/ts/Events";
-import {Channel} from "@/apis/interface";
-import {getChannels} from "@/apis/modules/articles.ts";
+import {Channel, Publish} from "@/apis/interface";
+import {getChannels, publish} from "@/apis/modules/articles.ts";
 import animation from "@/json/loading1.json";
 import Lottie from "@/components/Lottie";
+import useMessage from "@/hooks/useMessage.tsx";
 
 const {Option} = Select
 
@@ -18,11 +19,8 @@ const Publish: FC = () => {
     const editorRef = useRef<TinyMCEEditor>();
     const [channels, setChannels] = useState<Channel[]>([])
     const [loading, setLoading] = useState<boolean>(false)
-    const log = () => {
-        if (editorRef.current) {
-            console.log(editorRef.current.getContent());
-        }
-    };
+    const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
+    const {showError, showSuccess, contextHolder} = useMessage();
 
     const onInit: EEventHandler<'init'> = (_, editor) => {
         editorRef.current = editor
@@ -40,6 +38,31 @@ const Publish: FC = () => {
         }
     }, [])
 
+    // 发布文章
+    const formConfirm = async (formValue: Publish) => {
+        try {
+            const {channel_id, title} = formValue
+            const params = {
+                channel_id,
+                content: editorRef?.current?.getContent() || '',
+                title,
+                type: 1,
+                cover: {
+                    type: 1,
+                    images: []
+                }
+            }
+            setConfirmLoading(true)
+            await publish(params)
+            showSuccess('发布成功')
+        } catch (e: any) {
+            e.message && showError(e.message)
+            console.dir(e, 'formConfirm')
+        } finally {
+            setConfirmLoading(false)
+        }
+    }
+
     useEffect(() => {
         apiChannels()
     }, [apiChannels])
@@ -47,6 +70,7 @@ const Publish: FC = () => {
 
     return (
         <div className="publish">
+            {contextHolder}
             {
                 (loading) ?
                     <div className='lazy-load-container'>
@@ -62,18 +86,19 @@ const Publish: FC = () => {
                         }
                     >
                         <Form
+                            onFinish={formConfirm}
                             labelCol={{span: 4}}
                             wrapperCol={{span: 16}}
                             initialValues={{type: 1}}
                         >
-                            <Form.Item
+                            <Form.Item<Partial<Publish>>
                                 label="标题"
                                 name="title"
                                 rules={[{required: true, message: '请输入文章标题'}]}
                             >
                                 <Input placeholder="请输入文章标题" style={{width: 400}}/>
                             </Form.Item>
-                            <Form.Item
+                            <Form.Item<Partial<Publish>>
                                 label="频道"
                                 name="channel_id"
                                 rules={[{required: true, message: '请选择文章频道'}]}
@@ -86,7 +111,7 @@ const Publish: FC = () => {
                                     ))}
                                 </Select>
                             </Form.Item>
-                            <Form.Item
+                            <Form.Item<Partial<Publish>>
                                 label="内容"
                                 name="content"
                                 rules={[{required: true, message: '请输入文章内容'}]}
@@ -101,7 +126,7 @@ const Publish: FC = () => {
 
                             <Form.Item wrapperCol={{offset: 4}}>
                                 <Space>
-                                    <Button onClick={log} size="large" type="primary" htmlType="submit">
+                                    <Button loading={confirmLoading} size="large" type="primary" htmlType="submit">
                                         发布文章
                                     </Button>
                                 </Space>
