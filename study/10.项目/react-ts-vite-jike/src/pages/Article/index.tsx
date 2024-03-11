@@ -145,7 +145,7 @@ const Article = () => {
                     <Form.Item label="状态" name="status">
                         <Radio.Group>
                             <Radio value={''}>全部</Radio>
-                            <Radio value={0}>草稿</Radio>
+                            <Radio value={1}>待审核</Radio>
                             <Radio value={2}>审核通过</Radio>
                         </Radio.Group>
                     </Form.Item>
