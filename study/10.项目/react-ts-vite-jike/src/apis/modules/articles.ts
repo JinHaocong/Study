@@ -1,5 +1,5 @@
 import {get, post} from "@/apis";
-import {GetChannels, Publish} from "@/apis/interface";
+import {ArticlesParams, GetArticles, GetChannels, Publish} from "@/apis/interface";
 
 
 export const getChannels = () => {
@@ -8,4 +8,8 @@ export const getChannels = () => {
 
 export const publish = (data: Publish) => {
     return post<GetChannels>('/mp/articles?draft=false', data)
+}
+
+export const getArticles = (params: ArticlesParams) => {
+    return get<GetArticles>('/mp/articles', params)
 }

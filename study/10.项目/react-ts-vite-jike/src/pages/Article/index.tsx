@@ -1,24 +1,59 @@
 import {Link} from 'react-router-dom'
-import {Breadcrumb, Button, Card, DatePicker, Form, Radio, Select, Space, Table, Tag} from 'antd'
+import {Breadcrumb, Button, Card, DatePicker, Form, Radio, Select, Space, Table, TableProps, Tag} from 'antd'
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import 'dayjs/locale/zh-cn';
 import {DeleteOutlined, EditOutlined} from '@ant-design/icons'
 import img404 from '@/assets/error.png'
+import useChannels from "@/hooks/useChannels.ts";
+import {useCallback, useEffect, useState} from "react";
+import {getArticles} from "@/apis/modules/articles.ts";
+import {Article, ArticlesParams} from "@/apis/interface";
 
 
 const {Option} = Select
 const {RangePicker} = DatePicker
 
+interface ArticleState {
+    list: Article[],
+    count: number
+}
 
 const Article = () => {
+    const [channels] = useChannels()
+    const [article, setArticleList] = useState<ArticleState>({
+        list: [],
+        count: 0
+    })
+    const [params, setParams] = useState<ArticlesParams>({
+        page: 1,
+        per_page: 4,
+        begin_pubdate: null,
+        end_pubdate: null,
+        status: null,
+        channel_id: null
+    })
+
+    const apiArticles = useCallback(async () => {
+        try {
+            const res = await getArticles(params)
+            const {results, total_count} = res.data
+            setArticleList({list: results, count: total_count})
+        } catch (e) {
+            console.log(e)
+        }
+    }, [params])
+
+    useEffect(() => {
+        apiArticles()
+    }, [apiArticles, params])
+
     // 准备列数据
-    const columns = [
+    const columns: TableProps<Article>['columns'] = [
         {
             title: '封面',
             dataIndex: 'cover',
             width: 120,
             render: cover => {
-                console.log(cover)
                 return <img src={cover.images[0] || img404} width={80} height={60} alt=""/>
             }
         },
@@ -30,7 +65,7 @@ const Article = () => {
         {
             title: '状态',
             dataIndex: 'status',
-            render: data => <Tag color="green">审核通过</Tag>
+            render: () => <Tag color="green">审核通过</Tag>
         },
         {
             title: '发布时间',
@@ -50,7 +85,7 @@ const Article = () => {
         },
         {
             title: '操作',
-            render: data => {
+            render: () => {
                 return (
                     <Space size="middle">
                         <Button type="primary" shape="circle" icon={<EditOutlined/>}/>
@@ -65,21 +100,6 @@ const Article = () => {
             }
         }
     ]
-    // 准备表格body数据
-    const data = [
-        {
-            id: '8218',
-            comment_count: 0,
-            cover: {
-                images: [],
-            },
-            like_count: 0,
-            pubdate: '2019-03-11 09:00:00',
-            read_count: 2,
-            status: 2,
-            title: 'wkwebview离线化加载h5资源解决方案'
-        }
-    ]
     return (
         <div>
             <Card
@@ -91,7 +111,7 @@ const Article = () => {
                 }
                 style={{marginBottom: 20}}
             >
-                <Form initialValues={{status: ''}}>
+                <Form initialValues={{status: '', channel_id: '推荐'}}>
                     <Form.Item label="状态" name="status">
                         <Radio.Group>
                             <Radio value={''}>全部</Radio>
@@ -103,11 +123,13 @@ const Article = () => {
                     <Form.Item label="频道" name="channel_id">
                         <Select
                             placeholder="请选择文章频道"
-                            defaultValue="lucy"
                             style={{width: 120}}
                         >
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
+                            {channels.map(item => (
+                                <Option key={item.id} value={item.id}>
+                                    {item.name}
+                                </Option>
+                            ))}
                         </Select>
                     </Form.Item>
 
@@ -124,8 +146,8 @@ const Article = () => {
                 </Form>
             </Card>
 
-            <Card title={`根据筛选条件共查询到 count 条结果：`}>
-                <Table rowKey="id" columns={columns} dataSource={data}/>
+            <Card title={`根据筛选条件共查询到 ${article.count} 条结果：`}>
+                <Table rowKey="id" columns={columns} dataSource={article.list}/>
             </Card>
         </div>
     )
