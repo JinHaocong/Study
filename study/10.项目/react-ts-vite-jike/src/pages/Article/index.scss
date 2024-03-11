@@ -1,0 +1,34 @@
+.lazy-load-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ant-card {
+  .ant-card-head {
+    height: 50px;
+  }
+
+  .ant-card-body {
+    height: calc(100% - 56px);
+  }
+
+  .ant-table-wrapper {
+    height: 100%;
+  }
+
+  .ant-spin-nested-loading {
+    height: 100%;
+  }
+
+  .ant-spin-container {
+    height: 100%;
+  }
+
+  .ant-table {
+    height: calc(100% - 64px);
+  }
+}
+

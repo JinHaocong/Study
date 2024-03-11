@@ -8,6 +8,9 @@ import useChannels from "@/hooks/useChannels.ts";
 import {useCallback, useEffect, useState} from "react";
 import {getArticles} from "@/apis/modules/articles.ts";
 import {Article, ArticlesParams} from "@/apis/interface";
+import Lottie from "@/components/Lottie";
+import animation from "@/json/loading1.json";
+import './index.scss'
 
 
 const {Option} = Select
@@ -21,6 +24,7 @@ interface ArticleState {
 const Article = () => {
     const [channels] = useChannels()
     const [searchLoading, setSearchLoading] = useState(false)
+    const [tableLoading, setTableLoading] = useState(false)
     const [article, setArticleList] = useState<ArticleState>({
         list: [],
         count: 0
@@ -41,6 +45,7 @@ const Article = () => {
     const apiArticles = useCallback(async () => {
         try {
             setSearchLoading(true)
+            setTableLoading(true)
             const res = await getArticles(params)
             const {results, total_count} = res.data
             setArticleList({list: results, count: total_count})
@@ -48,6 +53,7 @@ const Article = () => {
             console.log(e)
         } finally {
             setSearchLoading(false)
+            setTableLoading(false)
         }
     }, [params])
 
@@ -125,7 +131,7 @@ const Article = () => {
         }
     ]
     return (
-        <div>
+        <div style={{height: '100%'}}>
             <Card
                 title={
                     <Breadcrumb items={[
@@ -133,7 +139,7 @@ const Article = () => {
                         {title: '文章列表'},
                     ]}/>
                 }
-                style={{marginBottom: 20}}
+                style={{marginBottom: 20, height: '30%'}}
             >
                 <Form onFinish={onFinish} initialValues={{status: ''}}>
                     <Form.Item label="状态" name="status">
@@ -170,10 +176,18 @@ const Article = () => {
                     </Form.Item>
                 </Form>
             </Card>
+            {
 
-            <Card title={`根据筛选条件共查询到 ${article.count} 条结果：`}>
-                <Table rowKey="id" columns={columns} dataSource={article.list}/>
-            </Card>
+                <Card style={{height: "calc(70% - 20px)"}} title={`根据筛选条件共查询到 ${article.count} 条结果：`}>
+                    {
+                        tableLoading ?
+                            <div className='lazy-load-container'>
+                                <Lottie animation={animation}/>
+                            </div> :
+                            <Table rowKey="id" columns={columns} dataSource={article.list}/>
+                    }
+                </Card>
+            }
         </div>
     )
 }
