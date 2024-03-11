@@ -16,3 +16,12 @@ export interface ProfileResponse {
     name: string
     photo: string
 }
+
+export interface GetChannels {
+    channels: Channel[]
+}
+
+export interface Channel {
+    id: number
+    name: string
+}
