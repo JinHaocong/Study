@@ -10,12 +10,14 @@ import {getChannels, publish} from "@/apis/modules/articles.ts";
 import animation from "@/json/loading1.json";
 import Lottie from "@/components/Lottie";
 import useMessage from "@/hooks/useMessage.tsx";
+import {useForm} from "antd/es/form/Form";
 
 const {Option} = Select
 
 type EEventHandler<K extends keyof Events.EditorEventMap> = EventHandler<Events.EditorEventMap[K]>;
 
 const Publish: FC = () => {
+    const [form] = useForm()
     const editorRef = useRef<TinyMCEEditor>();
     const [channels, setChannels] = useState<Channel[]>([])
     const [loading, setLoading] = useState<boolean>(false)
@@ -55,6 +57,7 @@ const Publish: FC = () => {
             setConfirmLoading(true)
             await publish(params)
             showSuccess('发布成功')
+            form.resetFields()
         } catch (e: any) {
             e.message && showError(e.message)
             console.dir(e, 'formConfirm')
@@ -86,6 +89,7 @@ const Publish: FC = () => {
                         }
                     >
                         <Form
+                            form={form}
                             onFinish={formConfirm}
                             labelCol={{span: 4}}
                             wrapperCol={{span: 16}}
