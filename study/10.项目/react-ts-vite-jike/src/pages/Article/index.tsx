@@ -20,6 +20,7 @@ interface ArticleState {
 
 const Article = () => {
     const [channels] = useChannels()
+    const [searchLoading, setSearchLoading] = useState(false)
     const [article, setArticleList] = useState<ArticleState>({
         list: [],
         count: 0
@@ -39,17 +40,36 @@ const Article = () => {
 
     const apiArticles = useCallback(async () => {
         try {
+            setSearchLoading(true)
             const res = await getArticles(params)
             const {results, total_count} = res.data
             setArticleList({list: results, count: total_count})
         } catch (e) {
             console.log(e)
+        } finally {
+            setSearchLoading(false)
         }
     }, [params])
 
+    const onFinish = (formValue: any) => {
+        const {channel_id, date, status} = formValue
+        const reqData = {
+            status,
+            channel_id,
+            begin_pubdate: date ? date[0].format('YYYY-MM-DD') : '',
+            end_pubdate: date ? date[1].format('YYYY-MM-DD') : '',
+        }
+
+        setParams({
+            ...reqData,
+            page: 1,
+            per_page: 4
+        })
+    }
+
     useEffect(() => {
         apiArticles()
-    }, [apiArticles, params])
+    }, [apiArticles])
 
     // 准备列数据
     const columns: TableProps<Article>['columns'] = [
@@ -115,7 +135,7 @@ const Article = () => {
                 }
                 style={{marginBottom: 20}}
             >
-                <Form initialValues={{status: '', channel_id: '推荐'}}>
+                <Form onFinish={onFinish} initialValues={{status: ''}}>
                     <Form.Item label="状态" name="status">
                         <Radio.Group>
                             <Radio value={''}>全部</Radio>
@@ -126,6 +146,7 @@ const Article = () => {
 
                     <Form.Item label="频道" name="channel_id">
                         <Select
+                            allowClear
                             placeholder="请选择文章频道"
                             style={{width: 120}}
                         >
@@ -139,11 +160,11 @@ const Article = () => {
 
                     <Form.Item label="日期" name="date">
                         {/* 传入locale属性 控制中文显示*/}
-                        <RangePicker locale={locale}></RangePicker>
+                        <RangePicker allowClear format='YYYY-MM-DD' locale={locale}></RangePicker>
                     </Form.Item>
 
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" style={{marginLeft: 40}}>
+                        <Button loading={searchLoading} type="primary" htmlType="submit" style={{marginLeft: 40}}>
                             筛选
                         </Button>
                     </Form.Item>
