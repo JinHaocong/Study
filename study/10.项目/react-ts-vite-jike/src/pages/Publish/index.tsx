@@ -45,6 +45,7 @@ const Publish: FC = () => {
         if (info.file.status === 'error') showError(info.file.response.message)
         setImageList(info.fileList)
         cacheImageList.current = info.fileList
+        form.validateFields(['cover'])
     }
 
     const beforeUpload: UploadProps['beforeUpload'] = (file) => {
@@ -163,6 +164,7 @@ const Publish: FC = () => {
                                 {
                                     validator: async () => {
                                         if (imageType !== imageList.length) return Promise.reject(new Error('请上传图片'));
+                                        if (imageList.find(item => item.status === 'error')) return Promise.reject(new Error('图片不符合要求'));
                                     }
                                 }
                             ]}>
