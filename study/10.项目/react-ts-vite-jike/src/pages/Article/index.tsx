@@ -32,6 +32,10 @@ const Article = () => {
         status: null,
         channel_id: null
     })
+    const statusMap = {
+        1: <Tag color="warning">待审核</Tag>,
+        2: <Tag color="green">审核通过</Tag>
+    }
 
     const apiArticles = useCallback(async () => {
         try {
@@ -65,7 +69,7 @@ const Article = () => {
         {
             title: '状态',
             dataIndex: 'status',
-            render: () => <Tag color="green">审核通过</Tag>
+            render: (status: 1 | 2) => statusMap[status]
         },
         {
             title: '发布时间',
