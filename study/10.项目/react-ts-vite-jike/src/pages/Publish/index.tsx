@@ -87,7 +87,6 @@ const Publish: FC = () => {
     // 发布文章
     const formConfirm = async (formValue: Publish) => {
         try {
-            if (imageType !== imageList.length) return showError('图片类型和数量不一致')
             const {channel_id, title} = formValue
             const params = {
                 channel_id,
