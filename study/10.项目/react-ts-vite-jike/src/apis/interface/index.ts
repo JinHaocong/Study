@@ -30,7 +30,6 @@ export interface Publish {
     channel_id: string
     content: string
     title: string
-    type: number
     cover: Cover
 }
 

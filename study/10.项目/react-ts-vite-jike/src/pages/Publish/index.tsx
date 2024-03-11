@@ -92,7 +92,6 @@ const Publish: FC = () => {
                 channel_id,
                 content: editorRef?.current?.getContent() || '',
                 title,
-                type: imageType,
                 cover: {
                     type: imageType,
                     images: imageList.map(item => item.response.data.url)
@@ -102,6 +101,7 @@ const Publish: FC = () => {
             await publish(params)
             showSuccess('发布成功')
             form.resetFields()
+            setImageList([])
         } catch (e: any) {
             e.message && showError(e.message)
             console.dir(e, 'formConfirm')
