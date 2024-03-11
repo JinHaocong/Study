@@ -1,4 +1,17 @@
-import {Breadcrumb, Button, Card, Form, Input, Select, Space} from 'antd'
+import {
+    Breadcrumb,
+    Button,
+    Card,
+    Form,
+    Input,
+    Radio,
+    RadioChangeEvent,
+    Select,
+    Space,
+    Upload,
+    UploadFile,
+    UploadProps
+} from 'antd'
 import {Link} from 'react-router-dom'
 import './index.scss'
 import {FC, useCallback, useEffect, useRef, useState} from "react";
@@ -11,6 +24,7 @@ import animation from "@/json/loading1.json";
 import Lottie from "@/components/Lottie";
 import useMessage from "@/hooks/useMessage.tsx";
 import {useForm} from "antd/es/form/Form";
+import {PlusOutlined} from '@ant-design/icons'
 
 const {Option} = Select
 
@@ -23,6 +37,21 @@ const Publish: FC = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const [confirmLoading, setConfirmLoading] = useState<boolean>(false)
     const {showError, showSuccess, contextHolder} = useMessage();
+    const [imageList, setImageList] = useState<UploadFile[]>([])
+    const [imageType, setImageType] = useState(1)
+    const cacheImageList = useRef<UploadFile[]>([])
+
+    const onUploadChange: UploadProps['onChange'] = (info) => {
+        if (info.file.status === 'error') showError(info.file.response.message)
+        setImageList(info.fileList)
+        cacheImageList.current = info.fileList
+    }
+
+    const beforeUpload: UploadProps['beforeUpload'] = (file) => {
+        const isPNG = file.type === 'image/png' || file.type === 'image/jpeg';
+        if (!isPNG) showError(`${file.name} 不是png或jpeg格式的文件`)
+        return isPNG || Upload.LIST_IGNORE;
+    }
 
     const onInit: EEventHandler<'init'> = (_, editor) => {
         editorRef.current = editor
@@ -40,18 +69,33 @@ const Publish: FC = () => {
         }
     }, [])
 
+    const onTypeChange = (e: RadioChangeEvent) => {
+
+        const type = e.target.value
+        setImageType(type)
+        if (type === 1) {
+            // 单图，截取第一张展示
+            const imgList = cacheImageList.current[0] ? [cacheImageList.current[0]] : []
+            setImageList(imgList)
+        } else if (type === 3) {
+            // 三图，取所有图片展示
+            setImageList(cacheImageList.current)
+        }
+    }
+
     // 发布文章
     const formConfirm = async (formValue: Publish) => {
         try {
+            if (imageType !== imageList.length) return showError('图片类型和数量不一致')
             const {channel_id, title} = formValue
             const params = {
                 channel_id,
                 content: editorRef?.current?.getContent() || '',
                 title,
-                type: 1,
+                type: imageType,
                 cover: {
-                    type: 1,
-                    images: []
+                    type: imageType,
+                    images: imageList.map(item => item.response.data.url)
                 }
             }
             setConfirmLoading(true)
@@ -93,7 +137,7 @@ const Publish: FC = () => {
                             onFinish={formConfirm}
                             labelCol={{span: 4}}
                             wrapperCol={{span: 16}}
-                            initialValues={{type: 1}}
+                            initialValues={{type: imageType}}
                         >
                             <Form.Item<Partial<Publish>>
                                 label="标题"
@@ -115,6 +159,39 @@ const Publish: FC = () => {
                                     ))}
                                 </Select>
                             </Form.Item>
+                            <Form.Item<Partial<Publish>> name="cover" label="封面" rules={[
+                                {
+                                    validator: async () => {
+                                        if (imageType !== imageList.length) return Promise.reject(new Error('请上传图片'));
+                                    }
+                                }
+                            ]}>
+                                <div>
+                                    <Form.Item name="type">
+                                        <Radio.Group onChange={onTypeChange}>
+                                            <Radio value={0}>无图</Radio>
+                                            <Radio value={1}>单图</Radio>
+                                            <Radio value={3}>三图</Radio>
+                                        </Radio.Group>
+                                    </Form.Item>
+                                    {imageType > 0 &&
+                                        <Upload
+                                            fileList={imageList}
+                                            beforeUpload={beforeUpload}
+                                            name="image"
+                                            listType="picture-card"
+                                            showUploadList
+                                            action={'http://geek.itheima.net/v1_0/upload'}
+                                            onChange={onUploadChange}
+                                            maxCount={imageType}
+                                            multiple={imageType > 1}
+                                        >
+                                            <div style={{marginTop: 8}}>
+                                                <PlusOutlined/>
+                                            </div>
+                                        </Upload>}
+                                </div>
+                            </Form.Item>
                             <Form.Item<Partial<Publish>>
                                 label="内容"
                                 name="content"
@@ -127,6 +204,7 @@ const Publish: FC = () => {
                                     initialValue="Welcome to TinyMCE!"
                                 />
                             </Form.Item>
+
 
                             <Form.Item wrapperCol={{offset: 4}}>
                                 <Space>
