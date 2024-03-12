@@ -7,6 +7,7 @@
     "start": "tsc && vite",
     "dev": "vite",
     "build": "tsc && vite build",
+    "production": "serve -s ./dist",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -23,7 +24,8 @@
     "react-router-dom": "^6.22.2",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
-    "sass": "^1.71.1"
+    "sass": "^1.71.1",
+    "serve": "^14.2.1"
   },
   "devDependencies": {
     "@reduxjs/toolkit": "^2.2.1",
