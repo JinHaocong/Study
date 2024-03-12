@@ -2,6 +2,7 @@ import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import path from "path";
 import viteCompression from 'vite-plugin-compression';
+import {visualizer} from 'rollup-plugin-visualizer'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,6 +12,7 @@ export default defineConfig({
             // 压缩后删除源文件
             deleteOriginFile: true
         }),
+        visualizer({open: true})
     ],
     resolve: {
         alias: {
