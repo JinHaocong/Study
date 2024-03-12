@@ -1,6 +1,27 @@
 import {CSSProperties, FC, useCallback, useEffect, useRef, useState} from 'react'
-import {echarts} from "@/util";
-import {ECOption} from "@/util/echarts.ts";
+import type {
+    BarSeriesOption,
+    ComposeOption,
+    DatasetComponentOption,
+    GridComponentOption,
+    LineSeriesOption,
+    PieSeriesOption,
+    TitleComponentOption,
+    TooltipComponentOption
+} from "echarts";
+import * as echarts from 'echarts'
+// import {echarts} from "@/util";
+// import {ECOption} from "@/util/echarts.ts";
+
+type ECOption = ComposeOption<
+    | BarSeriesOption
+    | LineSeriesOption
+    | TitleComponentOption
+    | TooltipComponentOption
+    | GridComponentOption
+    | DatasetComponentOption
+    | PieSeriesOption
+>
 
 interface Props {
     loading?: boolean

@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react-swc'
 import path from "path";
 import viteCompression from 'vite-plugin-compression';
 import {visualizer} from 'rollup-plugin-visualizer'
+import {autoComplete, Plugin as importToCDN} from "vite-plugin-cdn-import";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,7 +13,17 @@ export default defineConfig({
             // 压缩后删除源文件
             deleteOriginFile: true
         }),
-        visualizer({open: true})
+        visualizer({open: true}),
+        importToCDN({
+            modules: [
+                autoComplete('axios'),
+                {
+                    name: 'echarts',
+                    var: 'echarts',
+                    path: 'https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js'
+                }
+            ],
+        }),
     ],
     resolve: {
         alias: {
