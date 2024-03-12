@@ -100,7 +100,7 @@ const Publish: FC = () => {
             }
             setConfirmLoading(true)
             articleId ? await updateArticle(params, articleId) : await publish(params)
-            showSuccess('发布成功')
+            showSuccess(`${articleId ? '编辑' : '发布'}文章成功`)
             form.resetFields()
             setImageList([])
         } catch (e: any) {
