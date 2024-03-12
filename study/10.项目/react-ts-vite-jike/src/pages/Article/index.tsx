@@ -40,7 +40,7 @@ const Article = () => {
     const [searchLoading, setSearchLoading] = useState(false)
     const [tableLoading, setTableLoading] = useState(false)
     const {showError, showSuccess, contextHolder} = useMessage();
-    const navigite = useNavigate()
+    const navigate = useNavigate()
     const [article, setArticleList] = useState<ArticleState>({
         list: [],
         count: 0
@@ -159,7 +159,7 @@ const Article = () => {
                                 type="primary"
                                 shape="circle"
                                 icon={<EditOutlined/>}
-                                onClick={() => navigite(`/publish?id=${data.id}`)}/>
+                                onClick={() => navigate(`/publish?id=${data.id}`)}/>
                         </Space>
                         <Popconfirm
                             title="确认删除该条文章吗?"
