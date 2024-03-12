@@ -1,4 +1,4 @@
-import {get, post} from "@/apis";
+import {del, get, post} from "@/apis";
 import {ArticlesParams, GetArticles, GetChannels, Publish} from "@/apis/interface";
 
 
@@ -12,4 +12,8 @@ export const publish = (data: Publish) => {
 
 export const getArticles = (params: ArticlesParams) => {
     return get<GetArticles>('/mp/articles', params)
+}
+
+export const deleteArticles = (id: string) => {
+    return del<null>(`/mp/articles/${id}`)
 }

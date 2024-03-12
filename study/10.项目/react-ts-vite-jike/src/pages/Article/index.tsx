@@ -1,16 +1,30 @@
 import {Link} from 'react-router-dom'
-import {Breadcrumb, Button, Card, DatePicker, Form, Radio, Select, Space, Table, TableProps, Tag} from 'antd'
+import {
+    Breadcrumb,
+    Button,
+    Card,
+    DatePicker,
+    Form,
+    Popconfirm,
+    Radio,
+    Select,
+    Space,
+    Table,
+    TableProps,
+    Tag
+} from 'antd'
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import 'dayjs/locale/zh-cn';
 import {DeleteOutlined, EditOutlined} from '@ant-design/icons'
 import img404 from '@/assets/error.png'
 import useChannels from "@/hooks/useChannels.ts";
 import {useCallback, useEffect, useState} from "react";
-import {getArticles} from "@/apis/modules/articles.ts";
+import {deleteArticles, getArticles} from "@/apis/modules/articles.ts";
 import {Article, ArticlesParams} from "@/apis/interface";
 import Lottie from "@/components/Lottie";
 import animation from "@/json/loading1.json";
 import './index.scss'
+import useMessage from "@/hooks/useMessage.tsx";
 
 
 const {Option} = Select
@@ -25,6 +39,7 @@ const Article = () => {
     const [channels] = useChannels()
     const [searchLoading, setSearchLoading] = useState(false)
     const [tableLoading, setTableLoading] = useState(false)
+    const {showError, showSuccess, contextHolder} = useMessage();
     const [article, setArticleList] = useState<ArticleState>({
         list: [],
         count: 0
@@ -81,6 +96,18 @@ const Article = () => {
         })
     }
 
+    const delArticle = async (data: Article) => {
+        try {
+            await deleteArticles(data.id)
+            showSuccess('删除成功')
+            await apiArticles()
+        } catch (e: any) {
+            e.message && showError(e.message)
+            console.dir(e, 'formConfirm')
+        }
+
+    }
+
     useEffect(() => {
         apiArticles()
     }, [apiArticles])
@@ -123,16 +150,23 @@ const Article = () => {
         },
         {
             title: '操作',
-            render: () => {
+            render: (data) => {
                 return (
                     <Space size="middle">
                         <Button type="primary" shape="circle" icon={<EditOutlined/>}/>
-                        <Button
-                            type="primary"
-                            danger
-                            shape="circle"
-                            icon={<DeleteOutlined/>}
-                        />
+                        <Popconfirm
+                            title="确认删除该条文章吗?"
+                            onConfirm={() => delArticle(data)}
+                            okText="确认"
+                            cancelText="取消"
+                        >
+                            <Button
+                                type="primary"
+                                danger
+                                shape="circle"
+                                icon={<DeleteOutlined/>}
+                            />
+                        </Popconfirm>
                     </Space>
                 )
             }
@@ -140,6 +174,7 @@ const Article = () => {
     ]
     return (
         <div style={{height: '100%'}}>
+            {contextHolder}
             <Card
                 title={
                     <Breadcrumb items={[
