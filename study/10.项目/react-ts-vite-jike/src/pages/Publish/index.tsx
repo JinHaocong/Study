@@ -88,7 +88,6 @@ const Publish: FC = () => {
     const formConfirm = async (formValue: Publish) => {
         try {
             const {channel_id, title} = formValue
-            console.log(imageList)
             const params = {
                 channel_id,
                 content: editorRef?.current?.getContent() || '',
