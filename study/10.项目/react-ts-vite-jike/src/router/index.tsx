@@ -1,9 +1,10 @@
-import {createBrowserRouter} from "react-router-dom";
+import {createBrowserRouter, createHashRouter} from "react-router-dom";
 import AuthRoute from "@/router/utils/AuthRoute";
 import {Article, Home, Layout, Login, Publish} from "@/router/LazyLoadWrapper.tsx";
 
+const routerMethod = import.meta.env.VITE_MODE === 'production' ? createHashRouter : createBrowserRouter;
 
-const router = createBrowserRouter([
+const router = routerMethod([
     {
         path: '/',
         element: <AuthRoute>{Layout}</AuthRoute>,
