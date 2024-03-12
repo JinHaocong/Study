@@ -8,6 +8,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "production": "serve -s ./dist",
+    "http-server": "http-server ./dist -g",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -16,6 +17,7 @@
     "antd": "^5.15.0",
     "axios": "^1.6.7",
     "echarts": "^5.5.0",
+    "http-server": "^14.1.1",
     "lottie-react": "^2.4.0",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
