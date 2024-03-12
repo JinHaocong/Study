@@ -73,6 +73,14 @@ const Article = () => {
         })
     }
 
+    const pageChange = (page: number) => {
+        // 拿到当前页参数 修改params 引起接口更新
+        setParams({
+            ...params,
+            page
+        })
+    }
+
     useEffect(() => {
         apiArticles()
     }, [apiArticles])
@@ -184,7 +192,12 @@ const Article = () => {
                             <div className='lazy-load-container'>
                                 <Lottie animation={animation}/>
                             </div> :
-                            <Table rowKey="id" columns={columns} dataSource={article.list}/>
+                            <Table pagination={{
+                                current: params.page,
+                                pageSize: params.per_page,
+                                onChange: pageChange,
+                                total: article.count
+                            }} rowKey="id" columns={columns} dataSource={article.list}/>
                     }
                 </Card>
             }
