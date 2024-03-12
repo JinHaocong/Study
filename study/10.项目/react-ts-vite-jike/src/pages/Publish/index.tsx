@@ -12,14 +12,14 @@ import {
     UploadFile,
     UploadProps
 } from 'antd'
-import {Link} from 'react-router-dom'
+import {Link, useSearchParams} from 'react-router-dom'
 import './index.scss'
 import {FC, useCallback, useEffect, useRef, useState} from "react";
 import {Editor} from '@tinymce/tinymce-react';
 import {Editor as TinyMCEEditor, Events} from 'tinymce';
 import {EventHandler} from "@tinymce/tinymce-react/lib/es2015/main/ts/Events";
 import {Channel, Publish} from "@/apis/interface";
-import {getChannels, publish} from "@/apis/modules/articles.ts";
+import {getArticlesById, getChannels, publish, updateArticle} from "@/apis/modules/articles.ts";
 import animation from "@/json/loading1.json";
 import Lottie from "@/components/Lottie";
 import useMessage from "@/hooks/useMessage.tsx";
@@ -40,6 +40,9 @@ const Publish: FC = () => {
     const [imageList, setImageList] = useState<UploadFile[]>([])
     const [imageType, setImageType] = useState(1)
     const cacheImageList = useRef<UploadFile[]>([])
+    const [searchParams] = useSearchParams()
+    const articleId = searchParams.get('id') || ''
+
 
     const onUploadChange: UploadProps['onChange'] = (info) => {
         if (info.file.status === 'error') showError(info.file.response.message)
@@ -58,18 +61,6 @@ const Publish: FC = () => {
         editorRef.current = editor
     }
 
-    const apiChannels = useCallback(async () => {
-        try {
-            setLoading(true)
-            const {data: {channels}} = await getChannels()
-            setChannels(channels)
-        } catch (e) {
-            console.log(e, 'apiChannels')
-        } finally {
-            setLoading(false)
-        }
-    }, [])
-
     const onTypeChange = (e: RadioChangeEvent) => {
 
         const type = e.target.value
@@ -84,21 +75,31 @@ const Publish: FC = () => {
         }
     }
 
-    // 发布文章
+    const formatUrl = (list: UploadFile[]) => {
+        return list.map(item => {
+            if (item.response) {
+                return item.response.data.url
+            } else {
+                return item.url
+            }
+        })
+    }
+
     const formConfirm = async (formValue: Publish) => {
         try {
             const {channel_id, title} = formValue
+            console.log(imageList)
             const params = {
                 channel_id,
                 content: editorRef?.current?.getContent() || '',
                 title,
                 cover: {
                     type: imageType,
-                    images: imageList.map(item => item.response.data.url)
+                    images: formatUrl(imageList)
                 }
             }
             setConfirmLoading(true)
-            await publish(params)
+            articleId ? await updateArticle(params, articleId) : await publish(params)
             showSuccess('发布成功')
             form.resetFields()
             setImageList([])
@@ -110,9 +111,35 @@ const Publish: FC = () => {
         }
     }
 
+    const apiChannels = useCallback(async () => {
+        const {data: {channels}} = await getChannels()
+        setChannels(channels)
+    }, [])
+
+    const getArticle = useCallback(async () => {
+        const res = await getArticlesById(articleId)
+        const {cover, ...formValue} = res.data
+        form.setFieldsValue({...formValue, type: cover.type})
+        setImageType(cover.type)
+        setImageList(cover.images.map((url, index) => ({url, name: formValue.title + index, uid: articleId + index})))
+    }, [articleId, form])
+
+
+    const init = useCallback(async () => {
+        try {
+            setLoading(true)
+            await apiChannels()
+            if (articleId) await getArticle()
+        } catch (e) {
+            console.log(e, 'e')
+        } finally {
+            setLoading(false)
+        }
+    }, [apiChannels, articleId, getArticle])
+
     useEffect(() => {
-        apiChannels()
-    }, [apiChannels])
+        init()
+    }, [init])
 
 
     return (
@@ -127,7 +154,7 @@ const Publish: FC = () => {
                         title={
                             <Breadcrumb items={[
                                 {title: <Link to={'/'}>首页</Link>},
-                                {title: '发布文章'},
+                                {title: `${articleId ? '编辑文章' : '发布文章'}`},
                             ]}
                             />
                         }
