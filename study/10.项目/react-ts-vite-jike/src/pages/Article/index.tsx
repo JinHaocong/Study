@@ -20,7 +20,7 @@ import img404 from '@/assets/error.png'
 import useChannels from "@/hooks/useChannels.ts";
 import {useCallback, useEffect, useState} from "react";
 import {deleteArticles, getArticles} from "@/apis/modules/articles.ts";
-import {Article, ArticlesParams} from "@/apis/interface";
+import {type Article, ArticlesParams} from "@/apis/interface";
 import Lottie from "@/components/Lottie";
 import animation from "@/json/loading1.json";
 import './index.scss'

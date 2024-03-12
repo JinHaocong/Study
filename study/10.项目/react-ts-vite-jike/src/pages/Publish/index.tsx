@@ -18,7 +18,7 @@ import {FC, useCallback, useEffect, useRef, useState} from "react";
 import {Editor} from '@tinymce/tinymce-react';
 import {Editor as TinyMCEEditor, Events} from 'tinymce';
 import {EventHandler} from "@tinymce/tinymce-react/lib/es2015/main/ts/Events";
-import {Channel, Publish} from "@/apis/interface";
+import {Channel, type Publish} from "@/apis/interface";
 import {getArticlesById, getChannels, publish, updateArticle} from "@/apis/modules/articles.ts";
 import animation from "@/json/loading1.json";
 import Lottie from "@/components/Lottie";
