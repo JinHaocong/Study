@@ -117,6 +117,79 @@ export default App
 
 使用 `forwardRef` 的好处是可以方便地在函数组件中访问子组件的 DOM 节点，从而实现更灵活的逻辑。
 
+# useImperativeHandle
+
+`useImperativeHandle` 是 React Hooks 中的一个函数，用于自定义 React 组件的实例值（instance value），并将其暴露给父组件。它的作用是允许你在函数组件内部定义一些外部可以调用的实例方法或属性，并且可以通过 `ref` 从父组件访问到这些方法或属性。
+
+具体来说，`useImperativeHandle` 通过第二个参数返回一个对象，这个对象中包含了你想要暴露给父组件的实例方法或属性。通过 `useImperativeHandle` 暴露的实例方法或属性，可以在父组件中通过访问 ref 来调用。
+
+`useImperativeHandle` 的语法如下：
+
+```tsx
+useImperativeHandle(ref, createHandle, [deps]);
+```
+
+- `ref` 是从父组件传递进来的 ref 对象。
+- `createHandle` 是一个回调函数，它返回一个对象，包含了要暴露给父组件的实例方法或属性。
+- `deps` 是一个可选的数组，表示依赖项。当依赖项发生变化时，`createHandle` 将会重新执行。
+
+以下是一个示例，演示了如何在子组件中使用 `useImperativeHandle`：
+
+```tsx
+import {forwardRef, useImperativeHandle, useRef} from "react"
+
+interface Props {
+    name: string
+}
+
+export interface IRef {
+    focusHandler: () => void;
+    name: string;
+}
+
+const Son = forwardRef<IRef, Props>(({name}, ref) => {
+    const inputRef = useRef<HTMLInputElement>(null)
+    const focusHandler = () => {
+        inputRef.current?.focus()
+    }
+
+    // 把聚焦方法暴露出去
+    useImperativeHandle(ref, () => {
+
+        return {
+            // 暴露的方法
+            focusHandler,
+            name
+        }
+    }, [name])
+
+    return <input type="text" ref={inputRef}/>
+})
+
+
+// 父组件
+function App() {
+    const sonRef = useRef<IRef>(null)
+    const focus = () => {
+        if (!sonRef.current) return
+        console.log(sonRef, 'sonRef')
+        sonRef.current.focusHandler()
+        console.log(sonRef.current.name)
+    }
+    return (
+        <>
+            <Son name={'jhc'} ref={sonRef}/>
+            <button onClick={focus}>focus</button>
+        </>
+    )
+}
+
+export default App
+
+```
+
+在这个例子中，`ChildComponent` 通过 `useImperativeHandle` 暴露了一个 `focusHandler` 方法和一个 `fuck` 属性，可以在父组件中通过 ref 来调用。
+
 # useMemo
 
 `useMemo` 是 React 中的一个 Hook，用于对计算昂贵的值进行缓存，以避免在每次渲染时重新计算。它的主要目的是优化性能，特别是在处理大型数据集或执行复杂的计算时。

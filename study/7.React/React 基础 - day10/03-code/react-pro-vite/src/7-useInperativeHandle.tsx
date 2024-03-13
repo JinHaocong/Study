@@ -1,15 +1,15 @@
 import {forwardRef, useImperativeHandle, useRef} from "react"
 
 interface Props {
-
+    name: string
 }
 
 export interface IRef {
     focusHandler: () => void;
-    fuck: string;
+    name: string;
 }
 
-const Son = forwardRef<IRef, Props>((_, ref) => {
+const Son = forwardRef<IRef, Props>(({name}, ref) => {
     const inputRef = useRef<HTMLInputElement>(null)
     const focusHandler = () => {
         inputRef.current?.focus()
@@ -21,9 +21,9 @@ const Son = forwardRef<IRef, Props>((_, ref) => {
         return {
             // 暴露的方法
             focusHandler,
-            fuck: 'jhc'
+            name
         }
-    }, [])
+    }, [name])
 
     return <input type="text" ref={inputRef}/>
 })
@@ -36,11 +36,11 @@ function App() {
         if (!sonRef.current) return
         console.log(sonRef, 'sonRef')
         sonRef.current.focusHandler()
-        console.log(sonRef.current.fuck)
+        console.log(sonRef.current.name)
     }
     return (
         <>
-            <Son ref={sonRef}/>
+            <Son name={'jhc'} ref={sonRef}/>
             <button onClick={focus}>focus</button>
         </>
     )
