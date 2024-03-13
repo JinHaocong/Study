@@ -12,8 +12,8 @@ const MemoSon = memo(function Son() {
 })
 
 function Son() {
-    console.log('我是子组件2，我渲染了')
-    return <div>this is son2</div>
+    console.log('我是子组件，我渲染了')
+    return <div>this is son</div>
 }
 
 function App() {
