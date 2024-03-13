@@ -77,6 +77,46 @@ export default ExampleComponent;
 
 总的来说，`useRef` 提供了一种在函数组件中存储和访问持久化数据的方式，而不需要触发组件的重新渲染。
 
+# forwardRef
+
+`forwardRef` 是 React 提供的一个高阶函数组件（Higher Order Component），用于转发 ref。它的作用是允许在函数组件内部直接访问子组件的 DOM 节点或组件实例，并且可以将外部传递给父组件的 ref 传递给子组件。
+
+在函数式组件中，如果想要获取子组件的 ref，通常情况下无法直接通过 `ref` 属性获取，而是需要使用 `forwardRef` 来包装子组件，从而允许父组件传递 `ref` 给子组件。
+
+使用 `forwardRef` 的语法如下：
+
+```tsx
+import {forwardRef, useRef} from "react"
+
+
+const Son = forwardRef<HTMLInputElement>((_, ref) => {
+    return <input type="text" ref={ref}/>
+})
+
+
+// 父组件
+function App() {
+    const sonRef = useRef<HTMLInputElement>(null)
+    const focus = () => {
+        console.log(sonRef, 'sonRef')
+        sonRef.current?.focus()
+    }
+    return (
+        <>
+            <Son ref={sonRef}/>
+            <button onClick={focus}>focus</button>
+        </>
+    )
+}
+
+export default App
+
+```
+
+在上面的代码中，`forwardRef` 接受一个函数作为参数，该函数接受两个参数：`props` 和 `ref`，并返回一个 React 元素。通过在返回的 JSX 中传递 `ref`，可以将外部传递给子组件的 `ref` 赋值给子组件内部的 DOM 元素。
+
+使用 `forwardRef` 的好处是可以方便地在函数组件中访问子组件的 DOM 节点，从而实现更灵活的逻辑。
+
 # useMemo
 
 `useMemo` 是 React 中的一个 Hook，用于对计算昂贵的值进行缓存，以避免在每次渲染时重新计算。它的主要目的是优化性能，特别是在处理大型数据集或执行复杂的计算时。
