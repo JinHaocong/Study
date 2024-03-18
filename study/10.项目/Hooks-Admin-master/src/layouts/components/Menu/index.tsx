@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import type { MenuProps } from "antd";
 import { Menu, Spin } from "antd";
 import { findAllBreadcrumb, getOpenKeys, handleRouter, searchRoute } from "@/utils/util";
 import { setMenuList } from "@/redux/modules/menu/action";
@@ -7,7 +8,6 @@ import { setBreadcrumbList } from "@/redux/modules/breadcrumb/action";
 import { setAuthRouter } from "@/redux/modules/auth/action";
 import { getMenuList } from "@/api/modules/login";
 import { connect } from "react-redux";
-import type { MenuProps } from "antd";
 import * as Icons from "@ant-design/icons";
 import Logo from "./components/Logo";
 import "./index.less";
@@ -81,6 +81,8 @@ const LayoutMenu = (props: any) => {
 			const dynamicRouter = handleRouter(data);
 			setAuthRouter(dynamicRouter);
 			setMenuListAction(data);
+		} catch (e) {
+			console.log(e, "getMenuData");
 		} finally {
 			setLoading(false);
 		}

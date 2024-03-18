@@ -1,4 +1,4 @@
-import { Drawer, Divider, Switch } from "antd";
+import { Divider, Drawer, Switch } from "antd";
 import { useState } from "react";
 import { connect } from "react-redux";
 import { FireOutlined, SettingOutlined } from "@ant-design/icons";
@@ -36,7 +36,7 @@ const Theme = (props: any) => {
 				onClose={() => {
 					setVisible(false);
 				}}
-				visible={visible}
+				open={visible}
 				width={320}
 			>
 				{/* 全局主题 */}

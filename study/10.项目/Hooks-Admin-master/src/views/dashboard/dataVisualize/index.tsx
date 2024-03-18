@@ -1,4 +1,4 @@
-import { Tabs } from "antd";
+import { Tabs, TabsProps } from "antd";
 import Pie from "./components/pie";
 import Curve from "./components/curve";
 import "./index.less";
@@ -7,8 +7,6 @@ import AddPerson from "./images/add_person.png";
 import AddTeam from "./images/add_team.png";
 import Today from "./images/today.png";
 import BookSum1 from "./images/book_sum.png";
-
-const { TabPane } = Tabs;
 
 const DataVisualize = () => {
 	const onChange = (key: string) => {
@@ -24,15 +22,18 @@ const DataVisualize = () => {
 		{ label: "近一年", name: 6 }
 	];
 
+	const items: TabsProps["items"] = tabsList.map(item => {
+		return {
+			label: item.label,
+			key: item.name.toString()
+		};
+	});
+
 	return (
 		<div className="dataVisualize-box">
 			<div className=" card top-box">
 				<div className="top-title">数据可视化</div>
-				<Tabs defaultActiveKey="1" onChange={onChange}>
-					{tabsList.map(item => {
-						return <TabPane tab={item.label} key={item.name}></TabPane>;
-					})}
-				</Tabs>
+				<Tabs items={items} defaultActiveKey="1" onChange={onChange}></Tabs>
 				<div className="top-content">
 					<div className="item-left sle">
 						<span className="left-title">访问总数</span>
@@ -82,11 +83,7 @@ const DataVisualize = () => {
 			<div className="card bottom-box">
 				<div className="bottom-title">数据来源</div>
 				<div className="bottom-tabs">
-					<Tabs defaultActiveKey="1" onChange={onChange}>
-						{tabsList.map(item => {
-							return <TabPane tab={item.label} key={item.name}></TabPane>;
-						})}
-					</Tabs>
+					<Tabs items={items} defaultActiveKey="1" onChange={onChange}></Tabs>
 				</div>
 				<div className="curve-echarts">
 					<Curve />

@@ -1,4 +1,4 @@
-import { Tabs, message } from "antd";
+import { message, Tabs, TabsProps } from "antd";
 import { HomeFilled } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -10,11 +10,17 @@ import { searchRoute } from "@/utils/util";
 import MoreButton from "./components/MoreButton";
 import "./index.less";
 
+interface Tabs {
+	tabsList: {
+		path: string;
+		title: string;
+	}[];
+}
+
 const LayoutTabs = (props: any) => {
-	const { tabsList } = props.tabs;
+	const { tabsList } = props.tabs as Tabs;
 	const { themeConfig } = props.global;
 	const { setTabsList } = props;
-	const { TabPane } = Tabs;
 	const { pathname } = useLocation();
 	const navigate = useNavigate();
 	const [activeValue, setActiveValue] = useState<string>(pathname);
@@ -54,11 +60,25 @@ const LayoutTabs = (props: any) => {
 		setTabsList(tabsList.filter((item: Menu.MenuOptions) => item.path !== tabPath));
 	};
 
+	const items: TabsProps["items"] = tabsList.map(item => {
+		return {
+			closable: item.path !== HOME_URL,
+			label: (
+				<span>
+					{item.path === HOME_URL ? <HomeFilled /> : null}
+					{item.title}
+				</span>
+			),
+			key: item.path
+		};
+	});
+
 	return (
 		<>
 			{!themeConfig.tabs && (
 				<div className="tabs">
 					<Tabs
+						items={items}
 						animated
 						activeKey={activeValue}
 						onChange={clickTabs}
@@ -67,22 +87,7 @@ const LayoutTabs = (props: any) => {
 						onEdit={path => {
 							delTabs(path as string);
 						}}
-					>
-						{tabsList.map((item: Menu.MenuOptions) => {
-							return (
-								<TabPane
-									key={item.path}
-									tab={
-										<span>
-											{item.path == HOME_URL ? <HomeFilled /> : ""}
-											{item.title}
-										</span>
-									}
-									closable={item.path !== HOME_URL}
-								></TabPane>
-							);
-						})}
-					</Tabs>
+					></Tabs>
 					<MoreButton tabsList={tabsList} delTabs={delTabs} setTabsList={setTabsList}></MoreButton>
 				</div>
 			)}
