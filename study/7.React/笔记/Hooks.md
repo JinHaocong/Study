@@ -399,6 +399,14 @@ useEffect(() => {
 
 总之，`useEffect` 提供了一种在函数组件中处理副作用的机制，有助于确保这些副作用不会影响到 React 的渲染流程，并且可以在合适的时机执行和清理。
 
+# useLayoutEffect
+
+在React中，`useLayoutEffect`是一个React Hook，它类似于`useEffect`，但它会在所有的 DOM 变更之后同步触发，而不是在浏览器绘制之后。这意味着它会在 DOM 更新之前同步执行，可以用来执行需要在浏览器布局完成后立即执行的操作，例如测量 DOM 元素的尺寸或位置。
+
+通常情况下，你应该首选使用`useEffect`，因为它不会阻塞浏览器渲染，并且在大多数情况下足够。但是，如果你的效果依赖于 DOM 布局，或者需要在浏览器绘制之前立即执行，那么`useLayoutEffect`可能更适合你的需求。
+
+需要注意的是，由于`useLayoutEffect`会在浏览器布局阶段同步触发，因此在处理大量数据或执行复杂计算时，可能会导致性能问题，应该谨慎使用。
+
 # createContext和useContext
 
 `createContext` 和 `useContext` 是 React 中用于处理全局状态（或者说在组件树中跨多个组件传递数据）的 API。它们通常结合使用，但有不同的作用。
